@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+}
+
+aside {
+  flex: 0.1;
+}
+
+main {
+  flex: 0.9;
+}

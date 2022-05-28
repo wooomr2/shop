@@ -4,7 +4,7 @@ const ErrorResponse = require("../utils/ErrorResponse");
 exports.addBrand = async (req, res, next) => {
   const { name, description } = req.body;
   let { banners, cards } = req.files;
-  console.log({ banners, cards });
+  
   try {
     if (typeof banners !== "undefined") {
       banners = banners.map((banner) => ({

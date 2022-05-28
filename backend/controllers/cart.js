@@ -3,7 +3,7 @@ const Cart = require("../models/Cart");
 
 function updatePromise(condition, update) {
   return new Promise((resolve, reject) => {
-    Cart.findOneAndUpdate(condition, update, { new:true, upsert: true })
+    Cart.findOneAndUpdate(condition, update, { new: true, upsert: true })
       .catch((err) => reject(err))
       .then((result) => resolve(result));
   });
@@ -108,7 +108,7 @@ exports.addCartItems = (req, res, next) => {
 
         promiseArray.push(updatePromise(condition, update));
       });
-      
+
       Promise.all(promiseArray)
         .catch((err) => next(new ErrorResponse(err, 400)))
         .then((response) => res.status(201).json({ response }));
@@ -140,7 +140,6 @@ exports.getCartItems = (req, res, next) => {
           price: item.product.price,
           qty: item.quantity,
         }));
-        // console.log(cartItems);
         res.status(200).json({ cartItems });
       }
     });

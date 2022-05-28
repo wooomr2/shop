@@ -64,7 +64,7 @@ const productSlice = createSlice({
     },
     clearFeatures: (state, action)=> {
       state._currentPage= 1;
-      state._sort= "timestamps";
+      state._sort= "latest";
       state._brands= [];
       state._brand= "";
     }

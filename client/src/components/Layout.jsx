@@ -29,16 +29,8 @@ function Layout() {
 
   return (
     <div className="layout">
-      <header>
-        <Header />
-      </header>
-      {/* <nav>
-        <Navbar />
-      </nav> */}
-      <aside></aside>
-      <main>
-        <Outlet />
-      </main>
+      <Header />
+      <Outlet />
     </div>
   );
 }

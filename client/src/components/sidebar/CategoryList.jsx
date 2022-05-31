@@ -17,10 +17,10 @@ function CategoryList({ categoryToggleHandler, setBrands, setCurrentPage }) {
     setOpenDropdown(cid);
   }
 
-  const onSelectCallback = () => { // 이동시 카테고리 열었던 것 닫기
-    if (categoryToggleHandler) categoryToggleHandler();
-    setOpenDropdown(null);
-  }
+  // const onSelectCallback = () => { // 이동시 카테고리 열었던 것 닫기
+  //   if (categoryToggleHandler) categoryToggleHandler();
+  //   setOpenDropdown(null);
+  // }
 
   return (
     <div className="categorylist-main">

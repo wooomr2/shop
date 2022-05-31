@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sansita:wght@400;700&display=swap');
-@import '../../../variable.scss';
-
-$logo-font: 'Sansita', sans-serif;
+@import "../../index.scss";
 
 .header-container {
   height: $headerHeight;

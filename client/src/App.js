@@ -17,6 +17,7 @@ import Brands from "./pages/brands/Brands";
 import Lookbooks from "./pages/lookbooks/Lookbooks";
 import Lookbook from "./pages/lookbooks/Lookbook";
 import ScrollToTop from "./components/ScrollToTop";
+import Contact from "./pages/contact/Contact";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path=":slug/:cid" element={<Category />} />
           <Route path="brands" element={<Brands />} />
-          <Route path="/brands/:name" element={<Brand />} />
+          <Route path="brands/:name" element={<Brand />} />
           <Route path="lookbooks" element={<Lookbooks />} />
           <Route path="/lookbooks/:id" element={<Lookbook />} />
           <Route path="products/:id" element={<Product />} />
@@ -36,6 +37,7 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="orders/:id" element={<Order />} />
           <Route path="success" element={<Success />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />

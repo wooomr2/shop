@@ -5,8 +5,8 @@ const initialState = {
   categories: [],
   linearCategories: [],
   isLoading: false,
-  currentCategory: [],
-  currentPath: "",
+  // currentCategory: [],
+  // currentPath: "",
   categoryOpen: false,
 };
 
@@ -35,9 +35,12 @@ const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    setCurrentStatus: (state, action) => {
-      state.currentPath = action.payload.key;
-      state.currentCategory = action.payload.category;
+    // setCurrentStatus: (state, action) => {
+    //   state.currentPath = action.payload.key;
+    //   state.currentCategory = action.payload.category;
+    // },
+    clearToggle: (state) => {
+      state.categoryOpen = false;
     },
     categoryToggle: (state) => {
       state.categoryOpen = !state.categoryOpen;
@@ -58,6 +61,6 @@ const categorySlice = createSlice({
   },
 });
 
-export const { setCurrentStatus, categoryToggle } = categorySlice.actions;
+export const { setCurrentStatus, categoryToggle, clearToggle } = categorySlice.actions;
 
 export default categorySlice.reducer;

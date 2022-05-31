@@ -87,7 +87,7 @@ function Category() {
               <option defaultValue hidden>
                 SORT
               </option>
-              <option value={"timestamps"}>신상품</option>
+              <option value={"latest"}>신상품</option>
               <option value={"ascending"}>낮은가격</option>
               <option value={"descending"}>높은가격</option>
             </select>

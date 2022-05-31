@@ -43,6 +43,7 @@ export const getProductsByBrand = createAsyncThunk(
 export const getProduct = createAsyncThunk(
   "product/getProduct",
   async (id, thunkAPI) => {
+    console.log("갑니다")
     try {
       const res = await axios.get(`/products/${id}`);
       return res.data;

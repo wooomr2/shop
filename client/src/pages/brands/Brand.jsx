@@ -32,19 +32,28 @@ function Brand() {
     dispatch(getProductsByBrand(payload));
   }, [params, perPage, currentPage, sort]);
 
+  console.log({ brand, products });
+
   return (
     <div>
       <BrandSidebar />
 
       <div>
-        <div>
-          <img
-            src={publicURL(brand?.banners[0].img)}
-            alt=""
-            width="800"
-            height="400"
-          />
-        </div>
+        {brand.banners && (
+          <div>
+            <img
+              src={publicURL(brand?.banners[0].img)}
+              alt=""
+              width="800"
+              height="400"
+            />
+          </div>
+        )}
+        {brand.cards.map((card) => (
+          <div>
+            <img src={publicURL(card.img)} alt="" width="300" height="300" />
+          </div>
+        ))}
         <div>
           <h1>{brand?.name}</h1>
           <span>{brand?.description}</span>

@@ -1,0 +1,137 @@
+@import '../../../variable.scss';
+
+.sidebar-container {
+  font-size: 1.5rem;
+  min-width: 22rem;
+  display: flex;
+  background-color: #fff;
+  flex-direction: column;
+
+  .categorylist-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    z-index: 3000;
+
+    .categoryToggleBtn-wrapper {
+      display: none;
+    }
+
+    .categorylist-items {
+      padding: 0.5rem 0;
+
+      .categorylist-head {
+        display: flex;
+        .dropdown-button {
+          cursor: pointer;
+          padding: 0 1rem 0 0.5rem;
+        }
+
+        &-item {
+          cursor: pointer;
+
+          &.category-focus {
+            font-weight: bold;
+          }
+        }
+      }
+
+      .categorylist-sub {
+        cursor: pointer;
+
+        &:last-child {
+          padding-bottom: 0;
+        }
+
+        .categorylist-sub-items {
+          margin-left: 2.5rem;
+          padding-top: 1rem;
+          .categorylist-sub-icon-wrapper {
+            display: inline-block;
+            margin-right: 1rem;
+            
+            .categorylist-sub-icon {
+              transform: translateY(0.3rem);
+            }
+
+            &-un {
+              padding: 0.3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .brands-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 0.5rem;
+    .brands-item {
+      accent-color: #333;
+      margin: 0.5rem 0;
+      > input {
+        transform: translateY(0.1rem);
+        margin-left: 0.5rem;
+        margin-right: 1.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .sidebar-container {
+    display: none;
+
+    .categorylist-wrapper {
+      .categoryToggleBtn-wrapper {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 9999;
+        width: max-content;
+        height: max-content;
+        cursor: pointer;
+      }
+    }
+
+    &.filterOpen {
+      display: block;
+      position: fixed;
+      width: 35rem;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 2rem;
+
+      .black {
+        position: fixed;
+        width: calc(100vw - 35rem);
+        height: 100vh;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .sidebar-container {
+    &.filterOpen {
+      min-width: 100vw;
+      padding: 5rem;
+    }
+
+    .black {
+      display: none;
+    }
+  }
+}

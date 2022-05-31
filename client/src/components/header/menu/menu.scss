@@ -1,0 +1,11 @@
+@import '../../../../variable.scss';
+
+.menu-container {
+  width: 100vw;
+  height: calc(100vh - $headerHeight);
+  background-color: aqua;
+
+  &.menuOpen {
+    
+  }
+}

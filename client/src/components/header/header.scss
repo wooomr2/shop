@@ -1,70 +1,155 @@
-.header {
-  height: 50px;
-  border-bottom: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #555;
+@import url('https://fonts.googleapis.com/css2?family=Sansita:wght@400;700&display=swap');
+@import '../../../variable.scss';
 
-  .wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+$logo-font: 'Sansita', sans-serif;
 
-    .search {
+.header-container {
+  height: $headerHeight;
+  width: 100vw;
+  position: relative;
+
+  .logo-wrapper {
+    font-size: calc(0.8rem + 0.5vw);
+    position: absolute;
+    z-index: 20;
+    height: max-content;
+    width: max-content;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    h1 {
+      cursor: pointer;
+      font-family: $logo-font;
+    }
+  }
+
+  .navbar-container {
+    font-size: 1.6rem;
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    margin: 0 2rem;
+  
+    .navbar-wrapper {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      border: 0.5px solid lightgray;
-      padding: 3px;
-      margin-left: 10px;
-      margin-right: 10px;
-
-      input {
-        border: none;
-        outline: none;
-        background-color: transparent;
-
-        &::placeholder {
-          font-size: 12px;
+      height: 100%;
+  
+      .navbar-items {
+        display: flex;
+        align-items: center;
+        height: inherit;
+        column-gap: 15px;
+  
+        &-lg {
+          display: none;
+        }
+  
+        .navbar-item {
+          width: 100%;
+          height: max-content;
+          position: relative;
+          cursor: pointer;
+          
+          &-cart-counter {
+            background-color: #eee;
+            position: absolute;
+            border-radius: 50%;
+            height: 14px;
+            width: 14px;
+            font-size: 0.9em;
+            right: -8px;
+            top: -10px;
+          }
         }
       }
     }
+  }
+}
 
-    .items {
-      display: flex;
-      align-items: center;
+@media screen and (max-width: $lg) {
+  .header-container {
+    .navbar-container {
+      .navbar-wrapper {
+        .navbar-items {
+          display: none;
 
-      .item {
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-        position: relative;
+          &-lg {
+            display: block;
 
-        .icon {
-          font-size: 20px;
-        }
+            .menuOpen-btn {
+              width: 2rem;
+              height: 1.5rem;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: center;
+              cursor: pointer;
+              .menuLine {
+                width: inherit;
+                border: 0.5px solid #000;
+                opacity: 1;
+                position: relative;
+                transition: all 0.2s linear;
+                &:nth-child(2)::before {
+                  content: '';
+                  width: 100%;
+                  height: inherit;
+                  border: 0;
+                  position: absolute;
+                  transition: all 0.2s linear;
+                }
+                &:nth-child(2)::after {
+                  content: '';
+                  width: 100%;
+                  height: inherit;
+                  border: 0;
+                  position: absolute;
+                  transition: all 0.2s linear;
+                }
+              }
+            }
 
-        .avatar {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-        }
+            &.opened {
+              .menuOpen-btn {
+                .menuLine {
+                  &:first-child,
+                  &:last-child {
+                    opacity: 0;
+                  }
+                  &:nth-child(2) {
+                    border: 0;
+                    transition: all 3s;
+                  }
+                  &:nth-child(2)::before {
+                    content: '';
+                    width: 100%;
+                    height: inherit;
+                    border: 0.5px solid #000;
+                    position: absolute;
+                    transform: rotate(45deg);
+                  }
+                  &:nth-child(2)::after {
+                    content: '';
+                    width: 100%;
+                    height: inherit;
+                    border: 0.5px solid #000;
+                    position: absolute;
+                    transform: rotate(-45deg);
+                  }
+                }
+              }
+            }
+            .search-icon-wrapper {
+              display: flex;
+              cursor: pointer;
 
-        .counter {
-          width: 15px;
-          height: 15px;
-          background-color: red;
-          border-radius: 50%;
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 11px;
-          font-weight: bold;
-          position: absolute;
-          top: -5px;
-          right: -5px;
+              .search-icon {
+                font-size: 2.3rem;
+              }
+            }
+          }
         }
       }
     }

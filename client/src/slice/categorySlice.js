@@ -6,7 +6,8 @@ const initialState = {
   linearCategories: [],
   isLoading: false,
   currentCategory: [],
-  currentPath : "",
+  currentPath: "",
+  categoryOpen: false,
 };
 
 export const createLinearCategory = (categories, linearCategories = []) => {
@@ -17,7 +18,6 @@ export const createLinearCategory = (categories, linearCategories = []) => {
   }
   return linearCategories;
 };
-
 
 export const getCategories = createAsyncThunk(
   "category/getCategories",
@@ -31,15 +31,17 @@ export const getCategories = createAsyncThunk(
   }
 );
 
-
 const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    setCurrentStatus: (state, action) =>{
+    setCurrentStatus: (state, action) => {
       state.currentPath = action.payload.key;
       state.currentCategory = action.payload.category;
-    }
+    },
+    categoryToggle: (state) => {
+      state.categoryOpen = !state.categoryOpen;
+    },
   },
   extraReducers: {
     [getCategories.pending]: (state) => {
@@ -53,10 +55,9 @@ const categorySlice = createSlice({
     [getCategories.rejected]: (state, action) => {
       state.isLoading = false;
     },
-
   },
 });
 
-export const {setCurrentStatus} = categorySlice.actions;
+export const { setCurrentStatus, categoryToggle } = categorySlice.actions;
 
 export default categorySlice.reducer;

@@ -20,14 +20,16 @@ function Lookbook() {
 
   return (
     <div>
-      <div>
-        <img
-          src={publicURL(lookbook?.banners[0].img)}
-          alt=""
-          width="300"
-          height="300"
-        />
-      </div>
+      {lookbook.banners && (
+        <div>
+          <img
+            src={publicURL(lookbook?.banners[0].img)}
+            alt=""
+            width="300"
+            height="300"
+          />
+        </div>
+      )}
       <div>
         <h1>{lookbook?.name}</h1>
         <span>{lookbook?.description}</span>

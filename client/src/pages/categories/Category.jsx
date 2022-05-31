@@ -1,23 +1,27 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductsByCategories } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
-import { createLinearCategory } from "../../slice/categorySlice";
+import { categoryToggle, createLinearCategory } from "../../slice/categorySlice";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Paging from "../../components/paging/Paging";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import useInput from "../../utils/useInput";
+import "./category.scss";
 
 function Category() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const { products, total, perPage, _currentPage, _sort, _brands } =
+  const { products, total, perPage, _currentPage, _sort, _brands, brandData } =
     useSelector((store) => store.product);
-  const { categories } = useSelector((store) => store.category);
+  const { categories, categoryOpen } = useSelector((store) => store.category);
   const [currentPage, setCurrentPage] = useState(_currentPage);
-  const [sort, setSort] = useState(_sort);
+  // const [sort, setSort] = useState(_sort);
   const [brands, setBrands] = useState(_brands);
   const currentCategory = [];
+  const [sort, onChangeSort] = useInput(_sort);
   let cids = [];
   
   if (params.cid === "all") {
@@ -48,48 +52,61 @@ function Category() {
     dispatch(getProductsByCategories(payload));
   }, [params, brands, perPage, currentPage, sort]);
 
-  return (
-    <div>
-      <Sidebar
-        brands={brands}
-        setBrands={setBrands}
-        setCurrentPage={setCurrentPage}
-      />
-      <div>
-        <select onChange={(e) => setSort(e.target.value)}>
-          <option defaultValue hidden>
-            Sort
-          </option>
-          <option value={"latest"}>신상품</option>
-          <option value={"ascending"}>낮은가격</option>
-          <option value={"descending"}>높은가격</option>
-        </select>
+  const categoryToggleHandler = () => {
+    dispatch(categoryToggle()); // 카테고리 토글
+  };
 
-        <p>상품</p>
-        <div style={{ display: "flex" }}>
-          {products?.map((product) => (
-            <div
-              key={product._id}
-              onClick={() => navigate(`/products/${product._id}`)}
-            >
-              <img
-                src={publicURL(product.productImgs[0].fileName)}
-                alt=""
-                width="30"
-                height="30"
-              />
-              <p>{product.name}</p>
-            </div>
-          ))}
+
+  const onClickNavigate = useCallback(
+    (page) => () => {
+      navigate(page);
+    },
+    []
+  );
+
+
+  return (
+    <main className="categories-container">
+    <Sidebar
+      brandData={brandData}
+      brands={brands}
+      setBrands={setBrands}
+      setCurrentPage={setCurrentPage}
+      categoryOpen={categoryOpen}
+      categoryToggleHandler={categoryToggleHandler}
+    />
+    <section className="products-container">
+      <div className="filter-wrapper">
+        <div className="filter-item" onClick={categoryToggleHandler}>
+          <FilterListIcon className="filter-icon" />
+          <span>FILTER</span>
         </div>
-        <Paging
-          total={total}
-          perPage={perPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <div className="sort-item">
+          <select onChange={onChangeSort}>
+            <option defaultValue hidden>
+              SORT
+            </option>
+            <option value={"timestamps"}>신상품</option>
+            <option value={"ascending"}>낮은가격</option>
+            <option value={"descending"}>높은가격</option>
+          </select>
+        </div>
       </div>
-    </div>
+      <div className="products-wrapper">
+        {/* {products?.map((product) => (
+          <div
+            className="products-items"
+            key={product._id}
+            onClick={onClickNavigate(`/products/${product._id}`)}
+          >
+            <img src={publicURL(product.productImgs[0].fileName)} alt="" />
+            <p>{product.name}</p>
+          </div>
+        ))} */}
+        products.map(product=> (<ProductItem product={product}/>))
+      </div>
+    </section>
+  </main>
   );
 }
 

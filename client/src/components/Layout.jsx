@@ -32,9 +32,9 @@ function Layout() {
       <header>
         <Header />
       </header>
-      <nav>
+      {/* <nav>
         <Navbar />
-      </nav>
+      </nav> */}
       <aside></aside>
       <main>
         <Outlet />

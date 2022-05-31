@@ -1,73 +1,59 @@
+import CloseIcon from '@mui/icons-material/Close';
+
 import "./sidebar.scss";
-import "react-simple-tree-menu/dist/main.css";
-import TreeMenu, { ItemComponent } from "react-simple-tree-menu";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setCurrentStatus } from "../../slice/categorySlice";
+import CategoryList from "./CategoryList";
 
-function Sidebar({ brands, setBrands, setCurrentPage }) {
-  const { categories } = useSelector((store) => store.category);
-  const { brandData } = useSelector((store) => store.product);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+function Sidebar({
+  brands,
+  setBrands,
+  setCurrentPage,
+  brandData,
+  categoryOpen,
+  categoryToggleHandler, 
+}) {
   const handleCheck = (e) => {
-    setCurrentPage(1);
+    setCurrentPage(1); // 1페이지로 설정
     e.target.checked
-      ? setBrands((prev) => [...prev, e.target.value])
+      ? setBrands((prev) => [...prev, e.target.value]) // 브랜드 보기 추가
       : setBrands((prev) => prev?.filter((brand) => brand !== e.target.value));
-  };
-  
-  const renderCategories = (categories) => {
-    let myCategories = [];
-    for (let category of categories) {
-      myCategories.push({
-        label: category.name,
-        key: category._id,
-        navigateTo: `/${category.slug}/${category._id}`,
-        category,
-        nodes:
-          category.children.length > 0 && renderCategories(category.children),
-      });
-    }
-    return myCategories;
   };
 
   return (
-    <div className="sidebar">
-      <TreeMenu
-        data={renderCategories(categories)}
-        resetOpenNodesOnDataUpdate
-        onClickItem={({ key, label, navigateTo, category, ...props }) => {
-          navigate(navigateTo);
-          setBrands([]);
-          setCurrentPage(1);
-          dispatch(setCurrentStatus({ key, category }));
-        }}
-      >
-        {({ items }) => (
-          <ul className="tree-item-group">
-            {items.map(({ key, onClickItem, ...props }) => (
-              <ItemComponent key={key} {...props} />
-            ))}
-          </ul>
-        )}
-      </TreeMenu>
-
-      <span>----브랜드----</span>
-      {brandData.map((brand) => (
-        <label key={brand._id}>
-          <input
-            type="checkbox"
-            name="brand"
-            checked={brands?.find((b) => b === brand._id) ? true : false}
-            value={brand._id}
-            onChange={(e) => handleCheck(e)}
+    <aside className={`sidebar-container ${categoryOpen ? "filterOpen" : ""}`}>
+      <div className="black" onClick={categoryToggleHandler}></div>
+      <div className="categorylist-wrapper">
+        <div className="categoryToggleBtn-wrapper" onClick={categoryToggleHandler}>
+          <CloseIcon className="categoryToggleBtn"/>
+        </div>
+        <div className="categorylist-name">
+          <h4>CATEGORY</h4>
+        </div>
+        <CategoryList
+          setBrands={setBrands}
+          setCurrentPage={setCurrentPage}
+          categoryToggleHandler={categoryToggleHandler}
           />
-          {brand._id}
-        </label>
-      ))}
-    </div>
+      </div>
+      <div className="brands-wrapper">
+        <div className="brands-name">
+          <h4>BRANDS</h4>
+        </div>
+        <div className="brands-items">
+          {brandData?.map((brand) => (
+            <div className="brands-item" key={brand._id}>
+              <input
+                type="checkbox"
+                name="brand"
+                checked={brands?.find((b) => b === brand._id) ? true : false}
+                value={brand._id}
+                onChange={(e) => handleCheck(e)}
+              />
+              <span>{brand._id}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </aside>
   );
 }
 

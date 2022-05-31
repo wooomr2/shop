@@ -14,13 +14,14 @@ function Product() {
     dispatch(getProduct(params.id));
   }, []);
 
+
   return (
     <div>
       <p>{product?.name}</p>
       <p>{product?.description}</p>
       <p>{product?.price}</p>
       <div>
-        {product?.productImgs.map((productImg, i) => (
+        {product.productImgs && product?.productImgs.map((productImg, i) => (
           <div key={i}>
             <img
               src={publicURL(productImg.fileName)}

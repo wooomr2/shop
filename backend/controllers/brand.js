@@ -42,6 +42,7 @@ exports.getBrands = (req, res, next) => {
 };
 
 exports.getBrand = (req, res, next) => {
+  console.log(req.params);
   Brand.findOne({ name: req.params.name })
     .exec()
     .catch((err) => next(new ErrorResponse(err, 400)))

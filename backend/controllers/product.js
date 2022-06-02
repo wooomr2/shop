@@ -50,7 +50,7 @@ exports.getProductsByCategories = async (req, res, next) => {
   let findQuery;
   let matchQuery;
 
-  if (cids.length > 0) {
+  if (cids?.length > 0) {
     cids = cids.map((cid) => new ObjectId(cid));
 
     brands && brands.length > 0
@@ -122,6 +122,7 @@ exports.getProductsByBrand = async (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
+  console.log(req.params);
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 

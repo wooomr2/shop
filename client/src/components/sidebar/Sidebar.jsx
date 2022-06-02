@@ -1,7 +1,7 @@
-import CloseIcon from '@mui/icons-material/Close';
-
 import "./sidebar.scss";
 import CategoryList from "./CategoryList";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 function Sidebar({
   brands,

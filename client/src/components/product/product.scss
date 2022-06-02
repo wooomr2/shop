@@ -1,0 +1,16 @@
+.products-items {
+  width: 100%;
+  height: inherit;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  p > b:first-child {
+    font-size: 1.4rem;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

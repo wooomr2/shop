@@ -1,11 +1,9 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
-import "./layout.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCategories } from "../slice/categorySlice";
 import { batch } from "react-redux";
-import Navbar from "./navbar/Navbar";
 import { addCartItems } from "../slice/cartSlice";
 
 function Layout() {
@@ -28,10 +26,10 @@ function Layout() {
   }, []);
 
   return (
-    <div className="layout">
+    <>
       <Header />
       <Outlet />
-    </div>
+    </>
   );
 }
 

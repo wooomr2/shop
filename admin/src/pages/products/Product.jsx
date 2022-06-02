@@ -21,6 +21,19 @@ function Product() {
   const [category, setCategory] = useState(defaultProduct.category._id);
   const [productImgs, setProductImgs] = useState(defaultProduct.productImgs);
 
+  const [discountPrice, setDiscountPrice] = useState(
+    defaultProduct.discountPrice
+  );
+  const [code, setCode] = useState(defaultProduct.code);
+  const [color, setColor] = useState(defaultProduct.color);
+  let str = "";
+  for (let i = 0; i < defaultProduct.stock.length; i++) {
+    str += defaultProduct.stock[i].size + ":" + defaultProduct.stock[i].qty;
+    if (i === defaultProduct.stock.length - 1) break;
+    str += ",";
+  }
+  const [stock, setStock] = useState(str);
+
   const resetState = () => {
     setName(defaultProduct.name);
     setQuantity(defaultProduct.quantity);
@@ -29,6 +42,11 @@ function Product() {
     setBrand(defaultProduct.brand);
     setCategory(defaultProduct.category._id);
     setProductImgs(defaultProduct.productImgs);
+
+    setDiscountPrice(defaultProduct.discountPrice);
+    setCode(defaultProduct.code);
+    setColor(defaultProduct.color);
+    setStock(str);
   };
 
   const handleSubmit = (e) => {
@@ -43,6 +61,11 @@ function Product() {
     form.append("description", description);
     form.append("brand", brand);
     form.append("category", category);
+
+    form.append("discountPrice", discountPrice);
+    form.append("code", code);
+    form.append("color", color);
+    form.append("stock", stock);
 
     for (let img of productImgs) {
       form.append("productImg", img);
@@ -71,34 +94,59 @@ function Product() {
         <p>Add New product</p>
         <p>productId : {_id}</p>
         <input
-          placeholder="product Name"
+          placeholder="Name"
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
-          placeholder="product Quantity"
+          placeholder="Quantity"
           required
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
         <input
-          placeholder="product Price"
+          placeholder="Price"
           required
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
         <input
-          placeholder="product Description"
+          placeholder="Description"
           required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
-          placeholder="product Brand"
+          placeholder="Brand"
           required
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
+        />
+
+        <input
+          placeholder="DiscountPrice"
+          required
+          value={discountPrice}
+          onChange={(e) => setDiscountPrice(e.target.value)}
+        />
+        <input
+          placeholder="Code"
+          required
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <input
+          placeholder="Color"
+          required
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+        />
+        <input
+          placeholder="Stock"
+          required
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
         />
 
         <select value={category} onChange={(e) => setCategory(e.target.value)}>

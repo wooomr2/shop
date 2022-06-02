@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
+  relatedProducts:[],
   product: {},
   products: [],
   brandData: [],
@@ -43,7 +44,6 @@ export const getProductsByBrand = createAsyncThunk(
 export const getProduct = createAsyncThunk(
   "product/getProduct",
   async (id, thunkAPI) => {
-    console.log("갑니다")
     try {
       const res = await axios.get(`/products/${id}`);
       return res.data;
@@ -102,6 +102,7 @@ const productSlice = createSlice({
     },
     [getProduct.fulfilled]: (state, action) => {
       state.product = action.payload.product;
+      state.relatedProducts = action.payload.relatedProducts;
       state.isLoading = false;
     },
     [getProduct.rejected]: (state, action) => {

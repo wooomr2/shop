@@ -1,9 +1,8 @@
 import "./category.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductsByCategories } from "../../slice/productSlice";
-import publicURL from "../../utils/publicURL";
 import {
   categoryToggle,
   createLinearCategory,

@@ -6,13 +6,14 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 function CartItem({ cartItem, onlyInfo = false }) {
   const dispatch = useDispatch();
-  const { _id, name, img, price, qty } = cartItem;
+  const { _id, name, img, price, qty, size } = cartItem;
 
   return (
     <div style={{ display: "flex" }}>
       <div>
         <p>name: {name}</p>
         <p>price: {price}</p>
+        <p>사이즈: {size}</p>
       </div>
       <div>
         <img src={publicURL(img)} alt="" width="50" height="50" />

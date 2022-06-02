@@ -15,24 +15,23 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    quantity: {
+    quantity: { 
+      //grossSales
       type: Number,
       required: true,
     },
-    // discount: {
-    //   type:Number,
-    // },
-    //code:{
-    //   type:String,
-    // },
+    discountPrice: {
+      type:Number,
+    },
+    code:{
+      type:String,
+    },
 
-    //fit: {
-      // type:String,
-    // },
-    //color: {
-    //   type:String,
-    // },
-    // stock: [{ size: { type: String }, quantity: { type: Number } }],
+    color: {
+      type:String,
+    },
+
+    stock: [{ size: { type: String }, qty: { type: Number } }],
     description: {
       type: String,
       trim: true,

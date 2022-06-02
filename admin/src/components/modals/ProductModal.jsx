@@ -18,6 +18,11 @@ function ProductModal() {
   const [category, setCategory] = useState("");
   const [productImgs, setProductImgs] = useState([]);
 
+  const [discountPrice, setDiscountPrice] = useState("");
+  const [code, setCode] = useState("");
+  const [color, setColor] = useState("");
+  const [stock, setStock] = useState([]);
+
   const resetState = () => {
     setName("");
     setQuantity("");
@@ -26,6 +31,11 @@ function ProductModal() {
     setBrand("");
     setCategory("");
     setProductImgs([]);
+
+    setDiscountPrice("");
+    setCode("");
+    setColor("");
+    setStock([]);
   };
 
   const handleSubmit = (e) => {
@@ -40,6 +50,11 @@ function ProductModal() {
     form.append("description", description);
     form.append("brand", brand);
     form.append("category", category);
+
+    form.append("discountPrice", discountPrice);
+    form.append("code", code);
+    form.append("color", color);
+    form.append("stock", stock);
     for (let img of productImgs) {
       form.append("productImg", img);
     }
@@ -73,29 +88,49 @@ function ProductModal() {
             <form onSubmit={handleSubmit}>
               <p>Add New product</p>
               <input
-                placeholder="product Name"
+                placeholder="Name"
                 required
                 onChange={(e) => setName(e.target.value)}
               />
               <input
-                placeholder="product Quantity"
+                placeholder="Quantity"
                 required
                 onChange={(e) => setQuantity(e.target.value)}
               />
               <input
-                placeholder="product Price"
+                placeholder="Price"
                 required
                 onChange={(e) => setPrice(e.target.value)}
               />
               <input
-                placeholder="product Description"
+                placeholder="Description"
                 required
                 onChange={(e) => setDescription(e.target.value)}
               />
               <input
-                placeholder="product Brand"
+                placeholder="Brand"
                 required
                 onChange={(e) => setBrand(e.target.value)}
+              />
+              <input
+                placeholder="DiscountPrice"
+                required
+                onChange={(e) => setDiscountPrice(e.target.value)}
+              />
+              <input
+                placeholder="Code"
+                required
+                onChange={(e) => setCode(e.target.value)}
+              />
+              <input
+                placeholder="Color"
+                required
+                onChange={(e) => setColor(e.target.value)}
+              />
+              <input
+                placeholder="Stock"
+                required
+                onChange={(e) => setStock(e.target.value)}
               />
 
               <select onChange={(e) => setCategory(e.target.value)}>

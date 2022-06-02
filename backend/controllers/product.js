@@ -6,7 +6,22 @@ const Features = require("../utils/Features");
 const ObjectId = mongoose.Types.ObjectId;
 
 exports.addProduct = async (req, res, next) => {
-  const { name, price, quantity, description, brand, category } = req.body;
+  const {
+    name,
+    price,
+    quantity,
+    description,
+    brand,
+    category,
+    discountPrice,
+    code,
+    color,
+    stock,
+  } = req.body;
+  const stockArray = stock.split(",").map((stock) => ({
+    size: stock.split(":")[0],
+    qty: stock.split(":")[1],
+  }));
   let productImgs = [];
 
   try {
@@ -24,6 +39,10 @@ exports.addProduct = async (req, res, next) => {
       brand,
       productImgs,
       category,
+      discountPrice,
+      code,
+      color,
+      stock: stockArray,
       createdBy: req.user._id,
     });
 
@@ -121,20 +140,38 @@ exports.getProductsByBrand = async (req, res, next) => {
   }
 };
 
-exports.getProduct = (req, res, next) => {
-  console.log(req.params);
+exports.getProduct = async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
+  try {
+    const product = await Product.findOne({ _id: id });
+    const relatedProducts = await Product.find({ code: product.code });
 
-  Product.findOne({ _id: id })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((product) => res.status(200).json({ product }));
-  //product.find({code: product.code}) 해서 관련 프로덕트 정보도 보내
+    res.status(200).json({ product, relatedProducts });
+  } catch (err) {
+    return next(new ErrorResponse(err, 400));
+  }
 };
 
 exports.updateProduct = async (req, res, next) => {
-  const { _id, name, quantity, price, description, brand, category } = req.body;
+  const {
+    _id,
+    name,
+    price,
+    quantity,
+    description,
+    brand,
+    category,
+    discountPrice,
+    code,
+    color,
+    stock,
+  } = req.body;
+
+  const stockArray = stock.split(",").map((stock) => ({
+    size: stock.split(":")[0],
+    qty: stock.split(":")[1],
+  }));
 
   let productImgs = [];
 
@@ -153,6 +190,10 @@ exports.updateProduct = async (req, res, next) => {
       description,
       brand,
       category,
+      discountPrice,
+      code,
+      color,
+      stock: stockArray,
       createdBy: req.user._id,
     };
     if (productImgs.length > 0) product.productImgs = productImgs;

@@ -143,9 +143,13 @@ exports.getProductsByBrand = async (req, res, next) => {
 exports.getProduct = async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
+
   try {
     const product = await Product.findOne({ _id: id });
-    const relatedProducts = await Product.find({ code: product.code });
+    let relatedProducts;
+    
+    if (typeof product.code === "undefined") relatedProducts = [];
+    else relatedProducts = await Product.find({ code: product.code });
 
     res.status(200).json({ product, relatedProducts });
   } catch (err) {

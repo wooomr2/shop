@@ -29,7 +29,7 @@ function Product() {
           <option defaultValue hidden>
             Size option
           </option>
-          {product?.stock.map((s) => (
+          {product?.stock?.map((s) => (
             <option value={s.size} disabled={s.qty === 0} key={s._id}>
               {s.size} {s.qty === 0 && "품절"}
             </option>
@@ -38,22 +38,21 @@ function Product() {
       </div>
 
       <div>
-        {product.productImgs &&
-          product?.productImgs.map((productImg, i) => (
-            <div key={i}>
-              <img
-                src={publicURL(productImg.fileName)}
-                alt=""
-                width="50"
-                height="50"
-              />
-            </div>
-          ))}
+        {product?.productImgs?.map((productImg, i) => (
+          <div key={i}>
+            <img
+              src={publicURL(productImg.fileName)}
+              alt=""
+              width="50"
+              height="50"
+            />
+          </div>
+        ))}
       </div>
 
       <div>
         색상
-        {relatedProducts.map((relatedProduct, i) => (
+        {relatedProducts?.map((relatedProduct, i) => (
           <Link to={`/products/${relatedProduct._id}`} key={i}>
             <img
               src={publicURL(relatedProduct.productImgs[0].fileName)}

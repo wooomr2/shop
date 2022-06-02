@@ -35,7 +35,7 @@ function Lookbook() {
         <span>{lookbook?.description}</span>
         <div>
           <span>착용상품</span>
-          {relatedProducts.map((product) => (
+          {relatedProducts?.map((product) => (
             <div
               key={product._id}
               onClick={() => navigate(`/products/${product._id}`)}

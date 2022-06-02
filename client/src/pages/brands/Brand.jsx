@@ -49,7 +49,7 @@ function Brand() {
             />
           </div>
         )}
-        {brand.cards && brand?.cards.map((card) => (
+        {brand.cards && brand?.cards?.map((card) => (
           <div>
             <img src={publicURL(card.img)} alt="" width="300" height="300" />
           </div>

@@ -33,6 +33,9 @@
         .grid-icon {
           cursor: pointer;
           font-size: 1.7rem;
+          &.selected {
+            color: #4267B2
+          }
         }
 
         .sort {

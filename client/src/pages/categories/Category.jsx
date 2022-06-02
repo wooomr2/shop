@@ -102,17 +102,17 @@ function Category() {
 
             <div className="top-right">
               <GridViewRoundedIcon
-                className="grid-icon"
+                className={`grid-icon ${selectedGrid && "selected"}`}
                 onClick={handleGridColums(true)}
               />
               <AppsOutlinedIcon
-                className="grid-icon"
+                className={`grid-icon ${!selectedGrid && "selected"}`}
                 onClick={handleGridColums(false)}
               />
             </div>
           </div>
 
-          <div className={`products-wrapper ${selectedGrid ? "selected" : ""}`}>
+          <div className={`products-wrapper ${selectedGrid && "selected"}`}>
             {products?.map((product) => (
               <Product key={product._id} product={product} />
             ))}

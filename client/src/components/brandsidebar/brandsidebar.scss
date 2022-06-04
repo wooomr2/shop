@@ -3,7 +3,7 @@
 .brandsidebar-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  
+  text-transform: uppercase;
   row-gap: 3rem;
   font-size: 1.5rem;
   justify-items: center;

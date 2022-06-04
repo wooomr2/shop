@@ -50,7 +50,7 @@ function Brand() {
       <BrandSidebar />
 
       <div className="brands-wrapper">
-        {brand.banners && (
+        {brand?.banners && (
           <div className="brands-img">
             <img
               src={publicURL(brand?.banners[0].img)}

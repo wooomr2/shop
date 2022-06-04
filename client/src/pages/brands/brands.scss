@@ -51,19 +51,21 @@
             height: 100%;
             width: 8rem;
             font-size: 1.4rem;
+            background: transparent;
           }
         }
 
         .grid-icon {
           cursor: pointer;
           font-size: 1.7rem;
+          color: darkgray;
 
           &:last-child {
             transform: scale(1.1);
           }
 
           &.selected {
-            color: darkgray;
+            color: #000;
           }
         }
       }

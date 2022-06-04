@@ -16,7 +16,6 @@ import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 
 function Category() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const { products, total, perPage, _currentPage, _sort, _brands, brandData } =
@@ -26,7 +25,6 @@ function Category() {
   const [sort, setSort] = useState(_sort);
   const [brands, setBrands] = useState(_brands);
   const currentCategory = [];
-  // const [sort, onChangeSort] = useInput(_sort);
   let cids = [];
 
   const [selectedGrid, setSelectedGrid] = useState(false);

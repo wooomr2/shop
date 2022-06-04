@@ -94,7 +94,7 @@ function Header() {
         </div>
       </div>
       {searchOpen && <Search />}
-      {menuOpen && <Menu menuOpen={menuOpen} />}
+      {menuOpen && <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>}
     </div>
   );
 }

@@ -1,11 +1,11 @@
-@import "../../variable";
+@import "../../variable.scss";
 
-.container {
-  display: flex;
-  position: relative;
+.category-container {
   margin-top: 2rem;
   padding: 2rem 6rem;
+  display: flex;
   width: 100vw;
+  position: relative;
   text-transform: uppercase;
 
   section {
@@ -17,14 +17,14 @@
       justify-content: space-between;
       align-items: center;
       margin: 0 2rem;
-      padding: 1rem 0;
-      border-bottom: 0.5px solid #333;
+      padding: 1rem;
+      border-bottom: 1px solid $gray-light;
 
-      .top-left,
-      .top-right {
+      &-left,
+      &-right {
         display: flex;
         column-gap: 1rem;
-
+        
         .filter {
           display: none;
           align-items: center;
@@ -32,33 +32,41 @@
 
         .sort {
           height: 100%;
-
+          
           > select {
             border: none;
             height: 100%;
             width: 8rem;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            background: transparent;
           }
         }
-        
+
         .grid-icon {
           cursor: pointer;
           font-size: 1.7rem;
+          color: darkgray;
+
+          &:last-child {
+            transform: scale(1.1);
+          }
+
           &.selected {
-            color: #4267b2;
+            color: #000;
           }
         }
       }
     }
-
+  
     .products-wrapper {
-      position: relative;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       row-gap: 2rem;
       column-gap: 5rem;
+      position: relative;
+      z-index: 100;
       padding: 2rem;
-
+      
       &.selected {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -67,19 +75,28 @@
 }
 
 @media screen and (max-width: $lg) {
-  .container {
+  .category-container {
     margin-top: 4rem;
     padding: 0 2rem;
 
     section {
       .top {
         display: flex;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
 
-        .top-left {
+        &-left {
+        
           .filter {
             display: flex;
+            height: inherit;
+            align-items: center;
+            column-gap: 0.5rem;
             cursor: pointer;
+
+            .filter-icon {
+             font-size: 1.5rem;
+             transform: translateY(-0.1rem);
+            }
           }
         }
       }
@@ -96,10 +113,11 @@
 }
 
 @media screen and (max-width: $sm) {
-  .container {
+  .category-container {
     padding: 0 0.1rem;
 
     section {
+
       .products-wrapper {
         grid-template-columns: repeat(2, 1fr);
 

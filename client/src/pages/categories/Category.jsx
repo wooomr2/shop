@@ -69,7 +69,7 @@ function Category() {
 
   return (
     <main>
-      <div className="container">
+      <div className="category-container">
         <Sidebar
           brandData={brandData}
           brands={brands}

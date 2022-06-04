@@ -1,7 +1,7 @@
-@import "../../variable";
+@import "../../variable.scss";
 
 .sidebar-container {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   min-width: 22rem;
   display: flex;
   background-color: #fff;
@@ -18,6 +18,11 @@
 
     .categoryToggleBtn-wrapper {
       display: none;
+    }
+
+    .categorylist-name {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid $gray-light;
     }
 
     .categorylist-items {
@@ -49,6 +54,7 @@
         .categorylist-sub-items {
           margin-left: 2.5rem;
           padding-top: 1rem;
+          
           .categorylist-sub-icon-wrapper {
             display: inline-block;
             margin-right: 1rem;
@@ -71,9 +77,16 @@
     flex-direction: column;
     row-gap: 1rem;
     padding: 0.5rem;
+
+    .brands-name {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid $gray-light;
+    }
+
     .brands-item {
+      cursor: pointer;
       accent-color: #333;
-      margin: 0.5rem 0;
+      margin: 1rem 0;
       > input {
         transform: translateY(0.1rem);
         margin-left: 0.5rem;
@@ -86,13 +99,14 @@
 @media screen and (max-width: $lg) {
   .sidebar-container {
     display: none;
+    font-size: 1.5rem;
 
     .categorylist-wrapper {
       .categoryToggleBtn-wrapper {
         display: block;
         position: absolute;
-        top: 1rem;
-        right: 1rem;
+        top: 1.4rem;
+        right: 1.4rem;
         z-index: 9999;
         width: max-content;
         height: max-content;

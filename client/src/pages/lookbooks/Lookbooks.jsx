@@ -1,3 +1,4 @@
+import "./lookbooks.scss";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,19 +15,18 @@ function Lookbooks() {
   }, []);
 
   return (
-    <div>
+    <div className="lookbooks-container">
       {lookbooks?.map((lookbook) => (
         <div
+          className="lookbooks-items"
           key={lookbook._id}
           onClick={() => navigate(`/lookbooks/${lookbook._id}`)}
         >
           <img
             src={publicURL(lookbook.banners[0].img)}
             alt=""
-            width="200"
-            height="200"
           />
-          {lookbook.name}
+          <b>{lookbook.name}</b>
         </div>
       ))}
     </div>

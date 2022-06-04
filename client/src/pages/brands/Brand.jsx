@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
+import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+
+import "./brands.scss";
 import Paging from "../../components/paging/Paging";
-import BrandSidebar from "../../components/sidebar/BrandSidebar";
+import Product from "../../components/product/Product";
+import BrandSidebar from "../../components/brandsidebar/BrandSidebar";
 import { getBrand } from "../../slice/brandSlice";
 import { getProductsByBrand } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
+import Pagination from "../../components/pagination/Pagination";
 
 function Brand() {
   const navigate = useNavigate();
@@ -17,6 +23,7 @@ function Brand() {
   );
   const [sort, setSort] = useState(_sort);
   const [currentPage, setCurrentPage] = useState(_currentPage);
+  const [selectedGrid, setSelectedGrid] = useState(false);
 
   useEffect(() => {
     dispatch(getBrand(params.name));
@@ -34,57 +41,66 @@ function Brand() {
 
   console.log({ brand, products });
 
+  const handleGridColums = (boolean) => () => {
+    setSelectedGrid(boolean);
+  };
+
   return (
-    <div>
+    <div className="brands-container">
       <BrandSidebar />
 
-      <div>
+      <div className="brands-wrapper">
         {brand.banners && (
-          <div>
+          <div className="brands-img">
             <img
               src={publicURL(brand?.banners[0].img)}
               alt=""
-              width="800"
-              height="400"
             />
           </div>
         )}
-        {brand.cards && brand?.cards?.map((card) => (
+        {/* {brand.cards && brand?.cards.map((card) => (
           <div>
             <img src={publicURL(card.img)} alt="" width="300" height="300" />
           </div>
-        ))}
-        <div>
-          <h1>{brand?.name}</h1>
+        ))} */}
+        <div className="brands-info">
+          <h3>{brand?.name}</h3>
           <span>{brand?.description}</span>
         </div>
+
+        <div className="top">
+            <div className="top-left">
+              <div className="sort">
+                <select onChange={(e) => setSort(e.target.value)}>
+                  <option defaultValue hidden>
+                    SORT
+                  </option>
+                  <option value={"latest"}>신상품</option>
+                  <option value={"ascending"}>낮은가격</option>
+                  <option value={"descending"}>높은가격</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="top-right">
+              <GridViewRoundedIcon
+                className={`grid-icon ${selectedGrid && "selected"}`}
+                onClick={handleGridColums(true)}
+              />
+              <AppsOutlinedIcon
+                className={`grid-icon ${!selectedGrid && "selected"}`}
+                onClick={handleGridColums(false)}
+              />
+            </div>
+          </div>
+
+          <div className={`products-wrapper ${selectedGrid && "selected"}`}>
+            {products?.map((product) => (
+              <Product key={product._id} product={product} />
+            ))}
+          </div>
       </div>
 
-      <select onChange={(e) => setSort(e.target.value)}>
-        <option defaultValue hidden>
-          Sort
-        </option>
-        <option value={"latest"}>신상품</option>
-        <option value={"ascending"}>낮은가격</option>
-        <option value={"descending"}>높은가격</option>
-      </select>
-      <p>상품</p>
-      <div style={{ display: "flex" }}>
-        {products?.map((product) => (
-          <div
-            key={product._id}
-            onClick={() => navigate(`/products/${product._id}`)}
-          >
-            <img
-              src={publicURL(product.productImgs[0].fileName)}
-              alt=""
-              width="30"
-              height="30"
-            />
-            <p>{product.name}</p>
-          </div>
-        ))}
-      </div>
       <Paging
         total={total}
         perPage={perPage}

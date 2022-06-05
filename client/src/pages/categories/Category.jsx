@@ -1,7 +1,7 @@
 import "./category.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getProductsByCategories } from "../../slice/productSlice";
 import {
   categoryToggle,
@@ -18,8 +18,9 @@ import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 function Category() {
   const dispatch = useDispatch();
   const params = useParams();
-  const { products, total, perPage, _currentPage, _sort, _brands, brandData } =
+  const { products, total, _currentPage, _sort, _brands, brandData } =
     useSelector((store) => store.product);
+  const perPage = 20;
   const { categories, categoryOpen } = useSelector((store) => store.category);
   const [currentPage, setCurrentPage] = useState(_currentPage);
   const [sort, setSort] = useState(_sort);
@@ -117,12 +118,12 @@ function Category() {
         </section>
       </div>
 
-      <Paging
+      {/* <Paging
         total={total}
         perPage={perPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-      />
+      /> */}
       <Pagination
         total={total}
         perPage={perPage}

@@ -1,29 +1,34 @@
 import { Box, Modal } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addLookbook } from "../../slice/lookbookSlice";
+import { addCollection } from "../../slice/collectionSlice";
 import { closeModal } from "../../slice/modalSlice";
 
-function LookbookModal() {
+function CollectionModal() {
   const dispatch = useDispatch();
   const { isOpen, modalType } = useSelector((store) => store.modal);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [brand, setBrand] = useState("");
+  const [launched, setLaunched] = useState("");
+  const [director, setDirector] = useState("");
+  const [country, setCountry] = useState("");
+  const [shop, setShop] = useState("");
   const [banners, setBanners] = useState([]);
   const [cards, setCards] = useState([]);
-  const [products, setProducts] = useState("");
-  const [modelInfo, setModelInfo] = useState("");
-  const [wearingSize, setWearingSize] = useState("");
 
   const resetState = () => {
     setName("");
     setDescription("");
+    setBrand("");
+    setLaunched("");
+    setDirector("");
+    setCountry("");
+    setShop("");
+    setDescription("");
     setBanners([]);
     setCards([]);
-    setProducts([]);
-    setModelInfo("");
-    setWearingSize("");
   };
 
   const handleSubmit = (e) => {
@@ -32,9 +37,11 @@ function LookbookModal() {
     const form = new FormData();
     form.append("name", name);
     form.append("description", description);
-    form.append("products", products);
-    form.append("modelInfo", modelInfo);
-    form.append("wearingSize", wearingSize);
+    form.append("brand", brand);
+    form.append("launched", launched);
+    form.append("director", director);
+    form.append("country", country);
+    form.append("shop", shop);
     banners.forEach((banner) => {
       form.append("banners", banner);
     });
@@ -42,7 +49,7 @@ function LookbookModal() {
       form.append("cards", card);
     });
 
-    dispatch(addLookbook(form));
+    dispatch(addCollection(form));
     dispatch(closeModal());
     resetState();
   };
@@ -70,7 +77,7 @@ function LookbookModal() {
   };
 
   switch (modalType) {
-    case "addLookbook":
+    case "addCollection":
       return (
         <Modal
           open={isOpen}
@@ -80,7 +87,7 @@ function LookbookModal() {
         >
           <Box sx={style}>
             <form onSubmit={handleSubmit}>
-              <p>Add New Lookbook</p>
+              <p>Add New Collection</p>
               <input
                 placeholder="Title"
                 required
@@ -92,20 +99,29 @@ function LookbookModal() {
                 onChange={(e) => setDescription(e.target.value)}
               />
               <input
-                placeholder="Products"
+                placeholder="Brand"
                 required
-                onChange={(e) => setProducts(e.target.value)}
+                onChange={(e) => setBrand(e.target.value)}
               />
-
               <input
-                placeholder="Model Info"
+                placeholder="Lanched"
                 required
-                onChange={(e) => setModelInfo(e.target.value)}
+                onChange={(e) => setLaunched(e.target.value)}
               />
-              <textarea
-                placeholder="Wearing Size"
+              <input
+                placeholder="Director"
                 required
-                onChange={(e) => setWearingSize(e.target.value)}
+                onChange={(e) => setDirector(e.target.value)}
+              />
+              <input
+                placeholder="Country"
+                required
+                onChange={(e) => setCountry(e.target.value)}
+              />
+              <input
+                placeholder="Shop"
+                required
+                onChange={(e) => setShop(e.target.value)}
               />
 
               <span>Banner images</span>
@@ -115,7 +131,6 @@ function LookbookModal() {
                     <img src={URL.createObjectURL(img)} alt="" height="50" />
                   </div>
                 ))}
-
               <input
                 type="file"
                 id="file"
@@ -123,7 +138,6 @@ function LookbookModal() {
                 accept=".png, .jpeg, .jpg"
                 onChange={(e) => handleBannerImgs(e.target.files)}
               />
-
               <span>Card images</span>
               {cards &&
                 cards.map((img, i) => (
@@ -131,7 +145,6 @@ function LookbookModal() {
                     <img src={URL.createObjectURL(img)} alt="" height="50" />
                   </div>
                 ))}
-
               <input
                 type="file"
                 id="file"
@@ -139,7 +152,6 @@ function LookbookModal() {
                 accept=".png, .jpeg, .jpg"
                 onChange={(e) => handleCardImgs(e.target.files)}
               />
-
               <button type="submit">submit</button>
               <button type="reset" onClick={resetState}>
                 reset
@@ -152,7 +164,7 @@ function LookbookModal() {
   }
 }
 
-export default LookbookModal;
+export default CollectionModal;
 
 const style = {
   position: "absolute",

@@ -12,9 +12,6 @@ function BrandSidebar() {
   const initial = brands.map((v) => v.name.slice(0, 1));
   const brandList = initial.filter((v, i) => initial.indexOf(v) === i);
 
-  console.log("initial", initial);
-  console.log("brandList", brandList);
-
   useEffect(() => {
     dispatch(getBrands());
   }, []);

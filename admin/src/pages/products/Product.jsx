@@ -6,46 +6,46 @@ import publicURL from "../../utils/publicURL";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 
 function Product() {
-  const dispatch = useDispatch();
-  const { linearCategories } = useSelector((store) => store.category);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
-  const defaultProduct = location.state;
-  const { _id } = defaultProduct;
+  const { linearCategories } = useSelector((store) => store.category);
+  const product = location.state;
+  const { _id } = product;
 
-  const [name, setName] = useState(defaultProduct.name);
-  const [quantity, setQuantity] = useState(defaultProduct.quantity);
-  const [price, setPrice] = useState(defaultProduct.price);
-  const [description, setDescription] = useState(defaultProduct.description);
-  const [brand, setBrand] = useState(defaultProduct.brand);
-  const [category, setCategory] = useState(defaultProduct.category._id);
-  const [productImgs, setProductImgs] = useState(defaultProduct.productImgs);
+  const [name, setName] = useState(product.name);
+  const [quantity, setQuantity] = useState(product.quantity);
+  const [price, setPrice] = useState(product.price);
+  const [description, setDescription] = useState(product.description);
+  const [brand, setBrand] = useState(product.brand);
+  const [category, setCategory] = useState(product.category._id);
+  const [productImgs, setProductImgs] = useState(product.productImgs);
 
   const [discountPrice, setDiscountPrice] = useState(
-    defaultProduct.discountPrice
+    product.discountPrice
   );
-  const [code, setCode] = useState(defaultProduct.code);
-  const [color, setColor] = useState(defaultProduct.color);
+  const [code, setCode] = useState(product.code);
+  const [color, setColor] = useState(product.color);
   let str = "";
-  for (let i = 0; i < defaultProduct.stock.length; i++) {
-    str += defaultProduct.stock[i].size + ":" + defaultProduct.stock[i].qty;
-    if (i === defaultProduct.stock.length - 1) break;
+  for (let i = 0; i < product.stock.length; i++) {
+    str += product.stock[i].size + ":" + product.stock[i].qty;
+    if (i === product.stock.length - 1) break;
     str += ",";
   }
   const [stock, setStock] = useState(str);
 
   const resetState = () => {
-    setName(defaultProduct.name);
-    setQuantity(defaultProduct.quantity);
-    setPrice(defaultProduct.price);
-    setDescription(defaultProduct.description);
-    setBrand(defaultProduct.brand);
-    setCategory(defaultProduct.category._id);
-    setProductImgs(defaultProduct.productImgs);
+    setName(product.name);
+    setQuantity(product.quantity);
+    setPrice(product.price);
+    setDescription(product.description);
+    setBrand(product.brand);
+    setCategory(product.category._id);
+    setProductImgs(product.productImgs);
 
-    setDiscountPrice(defaultProduct.discountPrice);
-    setCode(defaultProduct.code);
-    setColor(defaultProduct.color);
+    setDiscountPrice(product.discountPrice);
+    setCode(product.code);
+    setColor(product.color);
     setStock(str);
   };
 
@@ -91,7 +91,6 @@ function Product() {
       <button onClick={() => navigate(-1)}>목록으로</button>
 
       <form onSubmit={handleSubmit}>
-        <p>Add New product</p>
         <p>productId : {_id}</p>
         <input
           placeholder="Name"

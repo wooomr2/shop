@@ -15,6 +15,7 @@ import authReducer from "./slice/authSlice";
 import brandReducer from "./slice/brandSlice";
 import cartReducer from "./slice/cartSlice";
 import categoryReducer from "./slice/categorySlice";
+import collectionReducer from "./slice/collectionSlice";
 import lookbookReducer from "./slice/lookbookSlice";
 import modalReducer from "./slice/modalSlice";
 import productReducer from "./slice/productSlice";
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   brand: brandReducer,
   cart: cartReducer,
   category: categoryReducer,
+  collection: collectionReducer,
   lookbook: lookbookReducer,
   modal: modalReducer,
   product: productReducer,

@@ -47,6 +47,12 @@ function Sidebar() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/products" style={{ textDecoration: "none" }}>
+              <InventoryIcon className="icon" />
+              <span>Products</span>
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/brands" style={{ textDecoration: "none" }}>
               <InventoryIcon className="icon" />
               <span>Brands</span>
@@ -59,9 +65,9 @@ function Sidebar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/products" style={{ textDecoration: "none" }}>
+            <NavLink to="/collections" style={{ textDecoration: "none" }}>
               <InventoryIcon className="icon" />
-              <span>Products</span>
+              <span>Collections</span>
             </NavLink>
           </li>
           <li>

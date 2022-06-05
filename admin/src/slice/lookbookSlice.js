@@ -45,6 +45,19 @@ export const addLookbook = createAsyncThunk(
   }
 );
 
+export const updateLookbook = createAsyncThunk(
+  "lookbook/updateLookbook",
+  async (form, thunkAPI) => {
+    try {
+      const res = await axios.patch("/lookbooks", form);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+
 export const deleteLookbook = createAsyncThunk(
   "lookbook/deleteLookbook",
   async (id, thunkAPI) => {
@@ -94,6 +107,21 @@ const lookbookSlice = createSlice({
       state.isLoading = false;
     },
     [addLookbook.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
+
+    [updateLookbook.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateLookbook.fulfilled]: (state, action) => {
+      const { updatedLookbook } = action.payload;
+      state.lookbooks = state.lookbooks.map((p) =>
+        p._id === updatedLookbook._id ? updatedLookbook : p
+      );
+      state.isLoading = false;
+    },
+    [updateLookbook.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.error;
     },

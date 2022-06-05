@@ -7,10 +7,10 @@ import { useEffect } from "react";
 import { getCategories } from "../slice/categorySlice";
 import { getProducts } from "../slice/productSlice";
 import { batch } from "react-redux";
-import { isUserLoggedIn } from "../slice/authSlice";
 import { getScreens } from "../slice/screenSlice";
 import { getBrands } from "../slice/brandSlice";
 import { getLookbooks } from "../slice/lookbookSlice";
+import { getCollections } from "../slice/collectionSlice";
 
 
 function Layout() {
@@ -29,6 +29,7 @@ function Layout() {
         dispatch(getScreens());
         dispatch(getBrands());
         dispatch(getLookbooks());
+        dispatch(getCollections());
       });
     }
   }, [token, dispatch]);

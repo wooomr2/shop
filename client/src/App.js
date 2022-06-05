@@ -18,6 +18,8 @@ import Lookbooks from "./pages/lookbooks/Lookbooks";
 import Lookbook from "./pages/lookbooks/Lookbook";
 import ScrollToTop from "./components/ScrollToTop";
 import Contact from "./pages/contact/Contact";
+import Collections from "./pages/collections/Collections";
+import Collection from "./pages/collections/Collection";
 
 function App() {
   return (
@@ -30,7 +32,9 @@ function App() {
           <Route path="brands" element={<Brands />} />
           <Route path="brands/:name" element={<Brand />} />
           <Route path="lookbooks" element={<Lookbooks />} />
-          <Route path="/lookbooks/:id" element={<Lookbook />} />
+          <Route path="lookbooks/:id" element={<Lookbook />} />
+          <Route path="collections" element={<Collections />} />    
+          <Route path="collections/:id" element={<Collection />} />
           <Route path="products/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />

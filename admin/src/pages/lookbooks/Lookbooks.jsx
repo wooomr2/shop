@@ -4,7 +4,7 @@ import LookbookModal from "../../components/modals/LookbookModal";
 import { deleteLookbook } from "../../slice/lookbookSlice";
 import { openModal } from "../../slice/modalSlice";
 
-function Screens() {
+function Lookbooks() {
   const dispatch = useDispatch();
   const { lookbooks } = useSelector((store) => store.lookbook);
 
@@ -42,4 +42,4 @@ function Screens() {
   );
 }
 
-export default Screens;
+export default Lookbooks;

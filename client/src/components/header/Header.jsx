@@ -52,6 +52,9 @@ function Header() {
             <div className="navbar-item" onClick={onClickNavigate("/lookbooks")}>
               LOOKBOOK
             </div>
+            <div className="navbar-item" onClick={onClickNavigate("/collections")}>
+              COLLECTION
+            </div>
           </div>
           <div className={`navbar-items-lg ${menuOpen ? "opened" : ""}`}>
             <div onClick={onClickMenuOpen} className="menuOpen-btn">

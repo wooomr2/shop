@@ -4,15 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getLookbook } from "../../slice/lookbookSlice";
 import publicURL from "../../utils/publicURL";
 import Lookbooks from "./Lookbooks";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function Lookbook() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const { lookbook, relatedProducts } = useSelector((store) => store.lookbook);
-  console.log(relatedProducts);
 
   useEffect(() => {
     dispatch(getLookbook(params.id));
@@ -20,19 +17,22 @@ function Lookbook() {
 
   return (
     <div>
-      {lookbook.banners && (
-        <div>
-          <img
-            src={publicURL(lookbook?.banners[0].img)}
-            alt=""
-            width="300"
-            height="300"
-          />
-        </div>
-      )}
       <div>
         <h1>{lookbook?.name}</h1>
         <span>{lookbook?.description}</span>
+        {lookbook?.banners.map((banner,i) => (
+          <div key={i}>
+            <img src={publicURL(banner.img)} alt="" width="300" height="300" />
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <div>
+          <span>모델 사이즈: {lookbook?.modelInfo}</span>
+          <span>착용 사이즈 : {lookbook?.wearingSize}</span>
+        </div>
+
         <div>
           <span>착용상품</span>
           {relatedProducts?.map((product) => (
@@ -53,6 +53,7 @@ function Lookbook() {
           ))}
         </div>
       </div>
+
       <Lookbooks />
     </div>
   );

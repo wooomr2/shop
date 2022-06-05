@@ -44,6 +44,18 @@ export const addBrand = createAsyncThunk(
   }
 );
 
+export const updateBrand = createAsyncThunk(
+  "brand/updateBrand",
+  async (form, thunkAPI) => {
+    try {
+      const res = await axios.patch("/brands", form);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const deleteBrand = createAsyncThunk(
   "brand/deleteBrand",
   async (id, thunkAPI) => {
@@ -92,6 +104,21 @@ const brandSlice = createSlice({
       state.isLoading = false;
     },
     [addBrand.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
+
+    [updateBrand.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateBrand.fulfilled]: (state, action) => {
+      const { updatedBrand } = action.payload;
+      state.brands = state.brands.map((p) =>
+        p._id === updatedBrand._id ? updatedBrand : p
+      );
+      state.isLoading = false;
+    },
+    [updateBrand.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.error;
     },

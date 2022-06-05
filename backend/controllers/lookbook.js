@@ -3,9 +3,8 @@ const Product = require("../models/Product");
 const ErrorResponse = require("../utils/ErrorResponse");
 
 exports.addLookbook = async (req, res, next) => {
-  const { name, description, products } = req.body;
+  const { name, description, products, modelInfo, wearingSize } = req.body;
   let { banners, cards } = req.files;
-  const productArray = products.split("#");
   
   try {
     if (typeof banners !== "undefined") {
@@ -22,7 +21,9 @@ exports.addLookbook = async (req, res, next) => {
     let lookbookObj = {
       name,
       description,
-      products: productArray,
+      modelInfo,
+      wearingSize,
+      products,
       createdBy: req.user._id,
     };
     if (typeof banners !== "undefined") lookbookObj.banners = banners;
@@ -58,7 +59,43 @@ exports.getLookbook = async (req, res, next) => {
   }
 };
 
-exports.updateLookbook = (req, res, next) => {};
+exports.updateLookbook = async (req, res, next) => {
+  const { _id, name, description, products, modelInfo, wearingSize } = req.body;
+  let { banners, cards } = req.files;
+  console.log(req.body, req.files);
+
+  try {
+    if (typeof banners !== "undefined") {
+      banners = banners.map((banner) => ({
+        img: banner.filename,
+      }));
+    }
+    if (typeof cards !== "undefined") {
+      cards = cards.map((card) => ({
+        img: card.filename,
+      }));
+    }
+
+    let lookbook = {
+      name,
+      description,
+      modelInfo,
+      wearingSize,
+      products,
+      createdBy: req.user._id,
+    };
+    if (typeof banners !== "undefined") lookbook.banners = banners;
+    if (typeof cards !== "undefined") lookbook.cards = cards;
+
+    let updatedLookbook = await Lookbook.findOneAndUpdate({ _id }, lookbook, {
+      new: true,
+    });
+
+    res.status(201).json({ updatedLookbook });
+  } catch (err) {
+    return next(new ErrorResponse(err, 400));
+  }
+}
 
 exports.deleteLookbook = (req, res, next) => {
   const { id } = req.params;

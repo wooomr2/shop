@@ -19,6 +19,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/brands", require("./routes/brands"));
 app.use("/api/carts", require("./routes/carts"));
 app.use("/api/categories", require("./routes/categories"));
+app.use("/api/collections", require("./routes/collections"));
 app.use("/api/lookbooks", require("./routes/lookbooks"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/api/products", require("./routes/products"));

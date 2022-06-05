@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const lookbookSchema = new mongoose.Schema(
+const collectionSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -12,11 +12,24 @@ const lookbookSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    modelInfo: {
+    brand: {
       type: String,
     },
-    wearingSize: {
+    launched: {
       type: String,
+    },
+    director: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    shop: {
+      type: String,
+    },
+    priority: {
+      type: Boolean,
+      default:false,
     },
     banners: [
       {
@@ -28,7 +41,6 @@ const lookbookSchema = new mongoose.Schema(
         img: { type: String },
       },
     ],
-    products: [],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -38,4 +50,4 @@ const lookbookSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Lookbook", lookbookSchema);
+module.exports = mongoose.model("Collection", collectionSchema);

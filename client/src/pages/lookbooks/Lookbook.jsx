@@ -20,7 +20,7 @@ function Lookbook() {
       <div>
         <h1>{lookbook?.name}</h1>
         <span>{lookbook?.description}</span>
-        {lookbook?.banners.map((banner,i) => (
+        {lookbook?.banners?.map((banner,i) => (
           <div key={i}>
             <img src={publicURL(banner.img)} alt="" width="300" height="300" />
           </div>

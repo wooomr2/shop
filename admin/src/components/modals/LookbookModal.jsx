@@ -91,7 +91,7 @@ function LookbookModal() {
                 required
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <input
+              <textarea
                 placeholder="Products"
                 required
                 onChange={(e) => setProducts(e.target.value)}

@@ -31,6 +31,8 @@ const UserSchema = new mongoose.Schema(
     },
     mobile: { type: String },
     profileImg: { type: String },
+
+    refreshToken: [String],
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
@@ -75,30 +77,4 @@ UserSchema.methods = {
   },
 };
 
-
-// UserSchema.methods.matchPassword = async function (password) {
-//   return await bcrypt.compare(password, this.password);
-// };
-
-// UserSchema.methods.generateSignedToken = function () {
-//   return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
-//     expiresIn: process.env.JWT_EXPIRE,
-//   });
-// };
-
-// UserSchema.methods.generateResetPasswordToken = function () {
-//   const resetPasswordToken = crypto.randomBytes(20).toString("hex");
-
-//   this.resetPasswordToken = crypto
-//     .createHash("sha256")
-//     .update(resetPasswordToken)
-//     .digest("hex");
-
-//   this.resetPasswordExpire = Date.now() + 10 * (60 * 1000); //10min
-
-//   return resetPasswordToken;
-// };
-
-const User = mongoose.model("User", UserSchema);
-
-module.exports = User;
+module.exports  = mongoose.model("User", UserSchema);

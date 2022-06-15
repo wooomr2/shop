@@ -19,7 +19,7 @@ function Sidebar({
   };
 
   return (
-    <aside className={`sidebar-container ${categoryOpen ? "filterOpen" : ""}`}>
+    <aside className={`sidebar-container ${categoryOpen ? "" : "filterOpen"}`}>
       <div className="black" onClick={categoryToggleHandler}></div>
       <div className="categorylist-wrapper">
         <div className="categoryToggleBtn-wrapper" onClick={categoryToggleHandler}>

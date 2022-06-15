@@ -1,8 +1,9 @@
 const express = require("express");
 const { createCheckoutSession } = require("../controllers/stripe");
-const { verifyToken, userAuth } = require("../middlewares/auth");
+const { verifyToken } = require("../middlewares/verifyToken")
+const { userRole } = require("../middlewares/verifyRoles")
 const router = express.Router();
 
-router.post("/checkout_session", verifyToken, userAuth, createCheckoutSession)
+router.post("/checkout_session", verifyToken, userRole, createCheckoutSession)
 
 module.exports = router;

@@ -14,7 +14,7 @@ export const signin = createAsyncThunk(
   "auth/signin",
   async (_user, thunkAPI) => {
     try {
-      const res = await axios.post("/admin/auth/signin", _user);
+      const res = await axios.post("/auth/admin/signin", _user);
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
@@ -42,7 +42,7 @@ export const signin = createAsyncThunk(
 //   }
 // );
 
-export const signout = createAsyncThunk("auth/signout", async (thunkAPI) => {
+export const signout = createAsyncThunk("/auth/signout", async (thunkAPI) => {
   try {
     localStorage.clear();
   } catch (err) {

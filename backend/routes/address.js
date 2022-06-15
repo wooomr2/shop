@@ -1,9 +1,10 @@
 const express = require("express");
-const { getAddress, addAddress, upsertAddress} = require("../controllers/address");
-const { verifyToken, userAuth } = require("../middlewares/auth");
+const { getAddress, upsertAddress } = require("../controllers/address");
+const { verifyToken } = require("../middlewares/verifyToken")
+const { userRole } = require("../middlewares/verifyRoles")
 const router = express.Router();
 
-router.patch('/', verifyToken, userAuth, upsertAddress);
-router.get('/:uid', verifyToken, userAuth, getAddress);
+router.patch('/', verifyToken, userRole, upsertAddress);
+router.get('/:uid', verifyToken, userRole, getAddress);
 
 module.exports = router;

@@ -1,10 +1,12 @@
 const ErrorResponse = require("../utils/ErrorResponse");
+const { logEvents } = require('./logHandler');
+
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
-
   error.message = err.message;
 
+  logEvents(`${err.name}: ${err.message}`, "errLog.txt");
   console.log(err);
 
   // 몽고DB id Error
@@ -25,7 +27,6 @@ const errorHandler = (err, req, res, next) => {
   }
 
   res.status(error.statusCode || 500).json({
-    success: false,
     error: error.message || "Server Error",
   });
 };

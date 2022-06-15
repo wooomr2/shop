@@ -1,0 +1,6 @@
+20220615	23:21:40	d4196124-99fc-4a31-9ddc-2208ec60a285	GET	undefined	/api/categories
+20220615	23:21:40	4096969c-65ea-4635-80cf-2a39053caa92	GET	undefined	/api/products
+20220615	23:21:40	96e78339-0e54-4320-a21f-0bf0866763da	GET	undefined	/api/screens
+20220615	23:21:40	00da947d-2fff-4b35-9fc5-997b2980f514	GET	undefined	/api/brands
+20220615	23:21:40	760e942f-1b47-4c4c-ad79-ea75ff440787	GET	undefined	/api/lookbooks
+20220615	23:21:40	791eb942-7433-434e-ba0d-3f0d88a34ecb	GET	undefined	/api/collections

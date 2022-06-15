@@ -1,19 +1,24 @@
 require("dotenv").config();
-const errorHandler = require("./middlewares/errorHandler");
-const connectDB = require("./config/db");
-const path = require("path");
-const cors = require("cors");
 const express = require("express");
 const app = express();
-// const morgan = require("morgan");
+const path = require("path");
+const cors = require("cors");
+const connectDB = require("./config/db");
+const cookieParser = require("cookie-parser");
+const errorHandler = require("./middlewares/errorHandler");
+const { logHandler } = require("./middlewares/logHandler");
+// const credentials = require('./middlewares/credentials');
 
 connectDB();
-// app.use(morgan("dev"));
+app.use(logHandler);
+// app.use(credentials);
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
-app.use("/api/admin/auth", require("./routes/admin/auth"));
+// app.use("/api/admin/auth", require("./routes/admin/auth"));
 app.use("/api/address", require("./routes/address"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/brands", require("./routes/brands"));

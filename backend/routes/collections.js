@@ -1,13 +1,14 @@
 const express = require("express");
 const { addCollection, getCollections, getCollection, deleteCollection, updateCollection } = require("../controllers/collection");
-const { verifyToken, adminAuth } = require("../middlewares/auth");
+const { verifyToken} = require("../middlewares/verifyToken")
+const { adminRole } = require("../middlewares/verifyRoles")
 const { upload } = require("../middlewares/multer");
 const router = express.Router();
 
-router.post("/", verifyToken, adminAuth, upload.fields([{name: 'banners'},{name:'cards'}]), addCollection);
+router.post("/", verifyToken, adminRole, upload.fields([{name: 'banners'},{name:'cards'}]), addCollection);
+router.patch("/", verifyToken, adminRole, upload.fields([{name: 'banners'},{name:'cards'}]), updateCollection);
 router.get("/", getCollections);
 router.get("/:id", getCollection);
-router.patch("/", verifyToken, adminAuth, upload.fields([{name: 'banners'},{name:'cards'}]), updateCollection);
-router.delete("/:id", verifyToken, adminAuth, deleteCollection);
+router.delete("/:id", verifyToken, adminRole, deleteCollection);
 
 module.exports = router;

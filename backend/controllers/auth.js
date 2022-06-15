@@ -2,6 +2,7 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const crypto = require("crypto");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
+const asyncHandler = require("../middlewares/asyncHandler")
 
 function sendToken(res, statusCode, user) {
   const token = user.generateSignedToken();
@@ -13,39 +14,29 @@ function sendToken(res, statusCode, user) {
   });
 }
 
-exports.matchEmail = (req, res, next) => {
-  const { email } = req.params;
-  
-  User.findOne({ email }).exec((err, user) => {
-    if (err) next(err);
-    if (!user)
-      return res
-        .status(200)
-        .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
-    else
-      return res
-        .status(200)
-        .json({ msg: `${email} 은 사용중인 이메일입니다.` });
-  });
+exports.adminSignin = (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password)
+    return next(new ErrorResponse("Email & Password 입력하세요", 400));
+
+  User.findOne({ email })
+    .select("+password +role")
+    .exec(async (err, user) => {
+      if (err) next(err);
+      if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
+
+      const isMatch = await user.matchPassword(password);
+      if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 401));
+      if (user.role === "admin" || user.role === "root") {
+        sendToken(res, 200, user);
+      } else {
+        return next(new ErrorResponse("관리자가 아닙니다", 401));
+      }
+    });
 };
 
-exports.signup = (req, res, next) => {
-  const { username, email, password } = req.body;
-
-  User.findOne({ email }).exec((err, user) => {
-    if (err) next(err);
-    if (user) return next(new ErrorResponse("이미 가입한 유저", 400));
-
-    User.create({
-      username,
-      email,
-      password,
-    })
-      .catch((err) => next(new ErrorResponse(err, 400)))
-      .then((user) => sendToken(res, 201, user));
-  });
-};
-
+/////////////////////////////////////////////////////////////////////////////////
 exports.signin = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -65,9 +56,42 @@ exports.signin = (req, res, next) => {
     });
 };
 
+exports.signup = (req, res, next) => {
+  const { username, email, password } = req.body;
+
+  User.findOne({ email }).exec((err, user) => {
+    if (err) next(err);
+    if (user) return next(new ErrorResponse("이미 가입한 유저", 400));
+
+    User.create({
+      username,
+      email,
+      password,
+    })
+      .catch((err) => next(new ErrorResponse(err, 400)))
+      .then((user) => sendToken(res, 201, user));
+  });
+};
+
 exports.signout = (req, res) => {
   res.status(200).json({
     message: "Signout successfully...!",
+  });
+};
+
+exports.matchEmail = (req, res, next) => {
+  const { email } = req.params;
+  
+  User.findOne({ email }).exec((err, user) => {
+    if (err) next(err);
+    if (!user)
+      return res
+        .status(200)
+        .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
+    else
+      return res
+        .status(200)
+        .json({ msg: `${email} 은 사용중인 이메일입니다.` });
   });
 };
 

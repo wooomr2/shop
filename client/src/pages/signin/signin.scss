@@ -1,0 +1,108 @@
+@import "../../variable.scss";
+
+.signinForm-container {
+  width: 100vw;
+  height: calc(80vh - $headerHeight);
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+
+  .signinForm-title {
+    > h3 {
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+  }
+
+  .signinForm-wrapper {
+    width: 30rem;
+    
+    .signinForm {
+      display: flex;
+      flex-direction: column;
+      row-gap: 1rem;
+
+      .form-box {
+        position: relative;
+        > input {
+          background-color: transparent;
+          border: none;
+          border-bottom: solid 1px #ccc;
+          padding: 25px 0 5px 0;
+          font-size: 1.4rem;
+          width: 100%;
+          outline: none;
+          
+          &::placeholder {
+            color: transparent;
+          }
+
+          // placeholder가 있는 상태
+          & + label {
+            position: absolute;
+            color: #aaa;
+            font-size: 1.4rem;
+            top: 2.4rem;
+            left: 0;
+            transition: top 0.2s ease;
+          }
+
+          // input에 text가 있거나 focus 상태인 경우
+          &:not(:placeholder-shown) + label,
+          &:focus + label {
+            color: $main-color;
+            font-size: 1.3rem;
+            pointer-events: none;
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+          }
+        }
+      }
+      > button {    
+        margin-top: 1rem;    
+        padding: 1rem 0;
+        border: none;
+        background-color: #ccc;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: $main-color;
+        }
+      }
+    }
+  }
+
+  .navigate-wrapper {
+    display: flex;
+    width: 30rem;
+    justify-content: flex-end;
+    font-size: 1.3rem;
+    
+    .navigate-item {
+      padding: 0 0.5rem;
+      color: #000;
+      transition: color 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        color: $main-color;
+      }
+
+      &:last-child {
+        border-left: 1px solid #aaa;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .signinForm-container {
+    height: calc(50vh - $headerHeight);
+  }
+}

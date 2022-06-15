@@ -13,6 +13,22 @@ function sendToken(res, statusCode, user) {
   });
 }
 
+exports.matchEmail = (req, res, next) => {
+  const { email } = req.params;
+  
+  User.findOne({ email }).exec((err, user) => {
+    if (err) next(err);
+    if (!user)
+      return res
+        .status(200)
+        .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
+    else
+      return res
+        .status(200)
+        .json({ msg: `${email} 은 사용중인 이메일입니다.` });
+  });
+};
+
 exports.signup = (req, res, next) => {
   const { username, email, password } = req.body;
 

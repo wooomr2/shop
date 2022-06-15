@@ -1,9 +1,13 @@
-@import "../../index.scss";
+@import "../../variable.scss";
 
 .brandsidebar-container {
+  position: relative;
+  padding: 4rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  text-transform: uppercase;
+  background-color: #fff;
+  z-index: 1050;
+  border-bottom: 1px solid $line-color;
   row-gap: 3rem;
   font-size: 1.5rem;
   justify-items: center;
@@ -17,6 +21,9 @@
       display: flex;
       font-size: 1.7rem;
     }
-    
+
+    .brand-item {
+      cursor: pointer;
+    }
   }
 }

@@ -52,7 +52,7 @@ export const updateCartItems = createAsyncThunk(
       });
 
       const res = await axios.put("/carts", { user, cartItems });
-      // if (res.status === 201) thunkAPI.dispatch(getCartItems());
+      if (res.status === 201) thunkAPI.dispatch(getCartItems());
 
       return res.data;
     } catch (err) {

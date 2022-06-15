@@ -23,10 +23,10 @@ app.use("/api/collections", require("./routes/collections"));
 app.use("/api/lookbooks", require("./routes/lookbooks"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/api/products", require("./routes/products"));
+app.use("/api/reviews", require("./routes/reviews"));
 app.use("/api/screens", require("./routes/sceeens"));
 app.use("/api/stripe", require("./routes/stripe"));
 
-//Error Handler(Should be last piece of middleware)
 app.use(errorHandler);
 
 const PORT = process.env.PORT;

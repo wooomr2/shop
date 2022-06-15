@@ -3,41 +3,53 @@ import { decreaseQty, increaseQty, removeItem } from "../../slice/cartSlice";
 import publicURL from "../../utils/publicURL";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import "./cartItem.scss";
 
 function CartItem({ cartItem, onlyInfo = false }) {
   const dispatch = useDispatch();
   const { _id, name, img, price, qty, size } = cartItem;
 
   return (
-    <div style={{ display: "flex" }}>
-      <div>
-        <p>name: {name}</p>
-        <p>price: {price}</p>
-        <p>사이즈: {size}</p>
+    <div className="cartItem-wrapper">
+      <div className="cartItem-name">
+        <h3>{name}</h3>
       </div>
-      <div>
-        <img src={publicURL(img)} alt="" width="50" height="50" />
-      </div>
-      {onlyInfo ? (
-        <p>{qty}</p>
-      ) : (
-        <>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <KeyboardArrowUpIcon onClick={() => dispatch(increaseQty(_id))} />
-            <p>{qty}</p>
-            <KeyboardArrowDownIcon
-              onClick={() => {
-                if (qty === 1) {
-                  dispatch(removeItem(_id));
-                } else {
-                  dispatch(decreaseQty(_id));
-                }
-              }}
-            />
+      <div className="cartItem-info">
+        <div className="cartItem-img">
+          <img src={publicURL(img)} alt="" />
+        </div>
+        <div className="cartItem-detail">
+          <div className="cartItem-detail-left">
+            <p>SIZE: {size}</p>
+            <p>COLOR: {name}</p>
+            <p>PRICE: ₩ {price}</p>
           </div>
-          <button onClick={() => dispatch(removeItem(_id))}>삭제</button>
-        </>
-      )}
+          {onlyInfo ? (
+            <div className="cartItem-detail-right-qty">
+              <p>수량: {qty}</p>
+              <p>합계: ₩ {qty * price}</p>
+            </div>
+          ) : (
+            <div className="cartItem-detail-right">
+              <div className="cartItem-detail-right-qty">
+                <KeyboardArrowUpIcon className="click-btn" onClick={() => dispatch(increaseQty(_id))} />
+                <p>{qty}&nbsp;</p>
+                <KeyboardArrowDownIcon
+                  className="click-btn"
+                  onClick={() => {
+                    if (qty === 1) {
+                      dispatch(removeItem(_id));
+                    } else {
+                      dispatch(decreaseQty(_id));
+                    }
+                  }}
+                />
+              </div>
+              <button onClick={() => dispatch(removeItem(_id))}>삭제</button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

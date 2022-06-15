@@ -1,3 +1,4 @@
+import "./search.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +14,6 @@ function Search() {
   //     navigate("/products");
   //   }
   // };
-
   return (
     <div>
       {/* <form className="searchBox" onSubmit={searchSubmitHandler}>
@@ -23,6 +23,7 @@ function Search() {
           onChange={(e) => setKeyword(e.target.value)}
         />
       </form> */}
+         <div className="search-container">Search</div>
     </div>
   );
 }

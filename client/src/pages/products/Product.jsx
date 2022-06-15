@@ -5,6 +5,7 @@ import { addItem } from "../../slice/cartSlice";
 import { getProduct } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
 import { Link } from "react-router-dom";
+import Reviews from "../../components/reviews/Reviews";
 
 function Product() {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ function Product() {
       <p>가격 {product?.price}</p>
       <p>할인가 {product?.discountPrice}</p>
       <p>색상 {product?.color}</p>
+
+      <span>총 리뷰 : {product?.ratings?.total}</span>
+      <span>총 별점 : {product?.ratings?.sum}</span>
+      <span>평균 별점 : {product?.ratings?.avg}</span>
 
       <div>
         <select onChange={(e) => setSize(e.target.value)}>
@@ -81,6 +86,8 @@ function Product() {
       >
         카트담기
       </button>
+
+      <Reviews />
     </div>
   );
 }

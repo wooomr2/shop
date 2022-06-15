@@ -1,6 +1,5 @@
 const UserAddress = require("../models/Address");
 
-
 exports.upsertAddress = (req, res, next) => {
   const { user, address } = req.body;
   console.log({ user, address });
@@ -36,7 +35,7 @@ exports.upsertAddress = (req, res, next) => {
   }
 };
 
-exports.getAddress = (req, res) => {
+exports.getAddress = (req, res, next) => {
   const { uid } = req.params;
   UserAddress.findOne({ user: uid }).exec((err, userAddress) => {
     if (err) return next(new ErrorResponse(err, 400));

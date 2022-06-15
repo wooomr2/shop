@@ -15,20 +15,20 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    quantity: { 
+    quantity: {
       //grossSales
       type: Number,
       required: true,
     },
     discountPrice: {
-      type:Number,
+      type: Number,
     },
-    code:{
-      type:String,
+    code: {
+      type: String,
     },
 
     color: {
-      type:String,
+      type: String,
     },
 
     stock: [{ size: { type: String }, qty: { type: Number } }],
@@ -37,13 +37,12 @@ const productSchema = new mongoose.Schema(
       trim: true,
     },
     productImgs: [{ fileName: { type: String } }],
-    reviews: [
-      {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        rating: Number,
-        review: String,
-      }, //review 따로 분리해야하나
-    ],
+    ratings: {
+      total: { type: Number },
+      sum: { type: Number },
+      avg: { type: Number },
+    },
+
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",

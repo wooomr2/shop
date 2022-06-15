@@ -1,0 +1,108 @@
+@import "../../variable.scss";
+
+.cart-container {
+  width: 100vw;
+  padding: 15rem 0;
+  font-size: 1.4rem;
+
+  .cart-wrapper {
+    height: 100%;
+    width: 48%;
+    margin: auto;
+
+    .cart-title {
+      padding: 1rem 0;
+      border-bottom: 1px solid $line-color;
+      
+      > h2 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        transform: translateX(0.5rem);
+      }
+    }
+
+    .cart-total {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid $line-color;
+      &-item {
+        padding: 0.7rem;
+        display: flex;
+        justify-content: space-between;
+        > h4 {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .cart-button {
+      display: flex;
+      justify-content: flex-end;
+
+      > button {
+        border: 1.5px solid $main-color;
+        color: $main-color;
+        background: #fff;
+        padding: 0.7rem;
+        margin-right: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          color: $sub-color;
+          border-color: $sub-color;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .checkout-button {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      
+      &-general {
+        width: 65%;
+        padding: 1.5rem;
+        border:none;
+        background-color: $sub-color;
+        color: #fff;
+        transition: background-color 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $main-color;
+        }
+      }
+      
+      &-back {
+        @extend .checkout-button-general;
+        width: 34%;
+        color: #fff;
+        background-color: $main-color;
+
+        &:hover {
+          background-color: $sub-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .cart-container {
+    .cart-wrapper {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .cart-container {
+    padding: 5rem 0;
+    .cart-wrapper {
+      width: 90%;
+    }
+  }
+}

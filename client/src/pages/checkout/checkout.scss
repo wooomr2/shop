@@ -1,0 +1,207 @@
+@import "../../variable.scss";
+
+.checkout-container {
+  width: 100vw;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+  color: $black-light;
+
+  .checkout-title {
+    width: 48%;
+    margin: 0 auto;
+    padding: 1rem 0;
+
+    > h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
+  }
+
+  .checkout-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+    height: 100%;
+    width: 48%;
+    margin: auto;
+
+    &-product {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid $line-color;
+
+      .product-title {
+        padding: 1rem 0.5rem;
+        border-top: 1px solid $black-light;
+        border-bottom: 1px solid $black-light;
+        > h3 {
+          font-weight: 600;
+        }
+      }
+
+      .product-total {
+        &-item {
+          padding: 0.7rem 1.5rem;
+          display: flex;
+          justify-content: space-between;
+          > h4 {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    &-buyer {
+      @extend .checkout-wrapper-product;
+
+      .buyer-title {
+        @extend .product-title;
+      }
+
+      .buyer-info {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        padding: 2rem 1rem;
+        row-gap: 2.5rem;
+        align-items: center;
+
+        &-left {
+          font-size: 1.4rem;
+          font-weight: 600;
+        }
+      }
+    }
+
+    &-shipping {
+      @extend .checkout-wrapper-product;
+
+      .shipping-title {
+        @extend .product-title;
+      }
+
+      .shipping-content {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+        row-gap: 2rem;
+
+        .shipping-item {
+          display: flex;
+          align-items: center;
+
+          &-left {
+            padding: 0.7rem 0;
+            width: 20%;
+            font-size: 1.4rem;
+            font-weight: 600;
+          }
+
+          &-right {
+            width: 75%;
+            > input {
+              padding: 0.7rem;
+              background-color: #fff;
+              border: 1px solid $line-color;
+              outline: none;
+  
+              &.pincode {
+                width: 25%;
+              }
+  
+              &.explain {
+                width: 90%;
+              }
+            }
+            > button {
+              margin-left: 0.5rem;
+              padding: 0.8rem 1.5rem;
+              background-color: $sub-color;
+              border: none;
+              color: #fff;
+              border-radius: 2rem;
+              cursor: pointer;
+              transition: background 0.2s ease;
+  
+              > span {
+                font-size: 1.2rem;
+              }
+  
+              &:hover {
+                background-color: $main-color;
+              }
+            }
+          }
+
+          .shipping-selection {
+            display: flex;
+            column-gap: 2rem;
+            flex-flow: row wrap;
+            font-size: 1.3rem;
+            row-gap: 1rem;
+            width: 75%;
+  
+            input[type="radio"] {
+              margin-right: 0.3rem;
+              transform: scale(1.2) translateY(0.2rem);
+              accent-color: #898989;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .checkout-container {
+    .checkout-title {
+      width: 70%;
+    }
+
+    .checkout-wrapper {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .checkout-container {
+    padding: 5rem 0;
+
+    .checkout-title {
+      width: 90%;
+    }
+
+    .checkout-wrapper {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .checkout-container {
+    .checkout-wrapper {
+      &-shipping {
+        .shipping-content {
+          .shipping-item {
+            &-left {
+              width: 25%;
+            }
+
+            &-right {
+              > input {
+                &.pincode {
+                  width: 30%;
+                }
+
+                &.explain {
+                  width: 90%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

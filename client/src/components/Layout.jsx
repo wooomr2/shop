@@ -23,7 +23,7 @@ function Layout() {
       dispatch(addCartItems(cartItems));
       // dispatch(getCartItems(user._id));
     }
-  }, [user]);
+  }, []);
 
   return (
     <>

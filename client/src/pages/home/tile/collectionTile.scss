@@ -1,0 +1,54 @@
+@import "../../../variable.scss";
+
+.tile-container {
+  position: relative;
+  font-size: 1.5rem;
+  background-color: #fafafa;
+  color: #000;
+
+  .tile-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .work-background-wrapper {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      top: 0;
+
+      .work-background:first-child {
+        height: auto;
+      }
+
+      .work-background:nth-child(2) {
+        min-height: 100vh;
+      }
+    }
+  }
+
+  .tile-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .tile-container {
+    .tile-background {
+      .work-background-wrapper {
+        grid-template-columns: 1fr;
+
+        .work-background:first-child {
+          min-height: 30vh;
+        }
+        .work-background:nth-child(2) {
+          min-height: 70vh;
+        }
+      }
+    }
+  }
+}

@@ -5,8 +5,15 @@ const errorHandler = (err, req, res, next) => {
 
   error.message = err.message;
 
-  console.log(err)
+  console.log(err);
 
+  // 몽고DB id Error
+  if (err.name === "CastError") {
+    const message = `Resources not found with this id..Invalid ${err.path}`;
+    err = new ErrorResponse(message, 400);
+  }
+
+  //11000 - duplicate error key
   if (err.code === 11000) {
     const message = `Duplicate Field Value Enter`;
     error = new ErrorResponse(message, 400);
@@ -24,6 +31,3 @@ const errorHandler = (err, req, res, next) => {
 };
 
 module.exports = errorHandler;
-
-//mongoose error key
-//11000 - duplicate error key

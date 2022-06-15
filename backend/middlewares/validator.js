@@ -2,7 +2,6 @@ const { check, validationResult } = require("express-validator");
 
 exports.validateSignup = [
   check("username").notEmpty().withMessage("username을 입력하세요"),
-  check("lastName"),
   check("email").isEmail().withMessage("유효하지 않은 이메일 입니다"),
   check("password")
     .isLength({ min: 6 })

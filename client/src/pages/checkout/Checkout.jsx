@@ -1,47 +1,42 @@
-import "./checkout.css";
+import "./checkout.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { addOrder, getAddress } from "../../slice/userSlice";
 import { selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
 import CartItem from "../../components/cartItem/CartItem";
-import AddressList from "../../components/address/AddressList";
-import { useNavigate } from "react-router-dom";
-
-const CheckoutStep = (props) => {
-  return (
-    <div className="checkoutStep">
-      <div
-        onClick={props.onClick}
-        className={`checkoutHeader ${props.active && "active"}`}
-      >
-        <div>
-          <span className="stepNumber">{props.stepNumber}</span>
-          <span className="stepTitle">{props.title}</span>
-        </div>
-      </div>
-      {props.body && props.body}
-    </div>
-  );
-};
+import { Navigate, useNavigate } from "react-router-dom";
+import AddressForm from "../../components/address/AddressForm";
 
 function Checkout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((store) => store.cart);
+  const { addresses } = useSelector((store) => store.user);
+  const addressName = addresses.map((v) => v.name);
   const totalPrice = useSelector(selectTotalPrice);
   const totalQty = useSelector(selectTotalQty);
   const { latestOrder, clearLatestOrder } = useSelector((store) => store.user);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const [confirmedAddress, setConfirmedAddress] = useState("");
+  const [confirmedAddress, setConfirmAddress] = useState("");
+  const [formType, setFormType] = useState("add");
   const [isItemConfirmed, setIsItemConfirmed] = useState(false);
   const [paymentType, setPaymentType] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState("");
+  const [enableInput, setEnableInput] = useState(false);
   const [ready, setReady] = useState(false);
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
 
+  const [name, setName] = useState(selectedAddress?.name || "");
+
+  if (!user) {
+    navigate("/");
+  }
+
   useEffect(() => {
     user && dispatch(getAddress(user._id));
-    // dispatch(clearLatestOrder());
+    // dispatch(clearLastestOrder());
   }, []);
 
   useEffect(() => {
@@ -71,137 +66,107 @@ function Checkout() {
     setIsOrderConfirmed(true);
   };
 
-  // useEffect(() => {
-  //   if (isOrderConfirmed && latestOrder) {
-  //     navigate(`/success`);
-  //   } else {
-  //     navigate("/failure");
-  //   }
-  // }, [latestOrder]);
-
   return (
-    <div className="checkout">
-      <CheckoutStep
-        stepNumber={"1"}
-        title={"구매자 정보"}
-        active={!user}
-        body={
-          user ? (
-            <div className="loggedIn">
-              <span>이름 : {user.username}</span>
-              <span>이메일 : {user.email}</span>
+    <div className="checkout-container">
+      <div className="checkout-title">
+        <h2>CHECK OUT</h2>
+      </div>
+      <div className="checkout-wrapper">
+        <div className="checkout-wrapper-product">
+          <div className="product-title">
+            <h3>상품 정보</h3>
+          </div>
+          {cartItems.map((cartItem) => (
+            <CartItem key={cartItem._id} cartItem={cartItem} onlyInfo={true} />
+          ))}
+          <div className="product-total">
+            <div className="product-total-item">
+              <h4>총계</h4>
+              <h4>{totalQty}</h4>
             </div>
-          ) : (
-            <div></div>
-          )
-        }
-      />
-      <CheckoutStep
-        stepNumber={"2"}
-        title={"배송 정보"}
-        active={!confirmedAddress}
-        body={
-          confirmedAddress ? (
-            <div>
-              <span>{confirmedAddress.name}</span>
-              <span>{confirmedAddress.contactNumber}</span>
-              <span>{confirmedAddress.pinCode}</span>
-              <span>
-                {confirmedAddress.address1}-{confirmedAddress.address2}
-              </span>
-              <span>{confirmedAddress.claim}</span>
-              <button onClick={() => setConfirmedAddress("")}>
-                배송지변경
-              </button>
+            <div className="product-total-item">
+              <h4>총금액</h4>
+              <h4>₩ {totalPrice}</h4>
             </div>
-          ) : (
-            <AddressList setConfirmedAddress={setConfirmedAddress} />
-          )
-        }
-      />
+          </div>
+        </div>
 
-      <CheckoutStep
-        stepNumber={"3"}
-        title={"상품 정보"}
-        active={!isItemConfirmed}
-        body={
-          <div>
-            {isItemConfirmed ? (
-              <>
-                <span>총 {totalQty}개 상품</span>
-                {cartItems?.map((cartItem, idx) => (
-                  <CartItem key={idx} cartItem={cartItem} onlyInfo={true} />
+        <div className="checkout-wrapper-buyer">
+          <div className="buyer-title">
+            <h3>주문자 정보</h3>
+          </div>
+          {user && (
+            <div className="buyer-info">
+              <div className="buyer-info-left">이름</div>{" "}
+              <div>{user.username}</div>
+              <div className="buyer-info-left">이메일</div>{" "}
+              <div>{user.email}</div>
+              <div className="buyer-info-left">연락처</div>{" "}
+              <div>{user.phoneNumber}</div>
+            </div>
+          )}
+        </div>
+
+        <div className="checkout-wrapper-shipping">
+          <div className="shipping-title">
+            <h3>배송 정보</h3>
+          </div>
+          <div className="shipping-content">
+            <div className="shipping-item">
+              <div className="shipping-item-left">배송지 선택</div>
+              <div className="shipping-selection">
+                <div>
+                  <input
+                    type="radio"
+                    id="new"
+                    name="destination"
+                    value="new"
+                    onClick={() => {
+                      setFormType("add");
+                      setEnableInput(false);
+                    }}
+                    defaultChecked={formType === "add" ? true : false}
+                  />{" "}
+                  <label htmlFor="new">신규 배송지</label>
+                </div>
+                {addresses?.map((address) => (
+                  <div key={address._id}>
+                    <input
+                      type="radio"
+                      id={address.name}
+                      name="destination"
+                      value={address.name}
+                      onClick={() => {
+                        setSelectedAddress(address);
+                        setFormType("update");
+                        setName(address.name);
+                      }}
+                    />{" "}
+                    <label htmlFor={address.name}>{address.name}</label>
+                  </div>
                 ))}
-              </>
+              </div>
+            </div>
+            {formType === "add" ? (
+              <AddressForm
+                enableInput={enableInput}
+                setEnableInput={setEnableInput}
+              />
             ) : (
-              <>
-                {cartItems?.map((cartItem, idx) => (
-                  <CartItem key={idx} cartItem={cartItem} onlyInfo={false} />
-                ))}
-              </>
+              <AddressForm
+                enableInput={enableInput}
+                setEnableInput={setEnableInput}
+                selectedAddress={selectedAddress}
+              />
             )}
-
-            <button
-              onClick={() => setIsItemConfirmed(isItemConfirmed ? false : true)}
-            >
-              {isItemConfirmed ? "상품수정" : "상품확정"}
-            </button>
           </div>
-        }
-      />
-
-      <CheckoutStep
-        stepNumber={"4"}
-        title={"결제 정보"}
-        active={!paymentType}
-        body={
-          <div>
-            <span>총 상품가격 : {totalPrice}</span>
-            <span>총 결제금액 : {totalPrice}</span>
-            <span>-------결제방법---------</span>
-            <label>
-              <input
-                name="paymentType"
-                type="radio"
-                value="card"
-                onClick={(e) => setPaymentType(e.target.value)}
-              />
-              신용카드
-            </label>
-            <label>
-              <input
-                name="paymentType"
-                type="radio"
-                value="mobile"
-                onClick={(e) => setPaymentType(e.target.value)}
-              />
-              휴대폰
-            </label>
-            <label>
-              <input
-                name="paymentType"
-                type="radio"
-                value="bank"
-                onClick={(e) => setPaymentType(e.target.value)}
-              />
-              계좌이체
-            </label>
-            <label>
-              <input
-                name="paymentType"
-                type="radio"
-                value="noBank"
-                onClick={(e) => setPaymentType(e.target.value)}
-              />
-              무통장입금
-            </label>
+        </div>
+        <div className="checkout-wrapper-payment">
+          <div className="shipping-title">
+            <h3>결제 정보</h3>
           </div>
-        }
-      />
-
-      <button disabled={!ready} onClick={handleOrderSubmit}>
-        결제하기
-      </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ function App() {
           <Route path="brands/:name" element={<Brand />} />
           <Route path="lookbooks" element={<Lookbooks />} />
           <Route path="lookbooks/:id" element={<Lookbook />} />
-          <Route path="collections" element={<Collections />} />    
+          <Route path="collections" element={<Collections />} />
           <Route path="collections/:id" element={<Collection />} />
           <Route path="products/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
@@ -42,9 +42,9 @@ function App() {
           <Route path="orders/:id" element={<Order />} />
           <Route path="success" element={<Success />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
         </Route>
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password/:resetToken" element={<ResetPassword />} />
       </Routes>

@@ -1,6 +1,5 @@
 const ErrorResponse = require("../utils/ErrorResponse");
-const { logEvents } = require('./logHandler');
-
+const { logEvents } = require("./logHandler");
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
@@ -23,6 +22,16 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === "ValidationError") {
     const message = Object.values(err.errors).map((val) => val.message);
+    error = new ErrorResponse(message, 400);
+  }
+
+  if (err.name === "JsonWebTokenError") {
+    const message = `Your url is invalid please try again`;
+    error = new ErrorResponse(message, 400);
+  }
+
+  if (err.name === "TokenExpiredError") {
+    const message = `Your url is expired please try again`;
     error = new ErrorResponse(message, 400);
   }
 

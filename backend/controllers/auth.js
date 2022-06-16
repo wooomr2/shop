@@ -2,11 +2,13 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const crypto = require("crypto");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
-const asyncHandler = require("../middlewares/asyncHandler")
+const asyncHandler = require("../middlewares/asyncHandler");
+
 
 function sendToken(res, statusCode, user) {
   const token = user.generateSignedToken();
   const { password, ...others } = user._doc;
+
   res.status(statusCode).json({
     success: true,
     token,
@@ -36,7 +38,7 @@ exports.adminSignin = (req, res, next) => {
     });
 };
 
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 exports.signin = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -81,7 +83,7 @@ exports.signout = (req, res) => {
 
 exports.matchEmail = (req, res, next) => {
   const { email } = req.params;
-  
+
   User.findOne({ email }).exec((err, user) => {
     if (err) next(err);
     if (!user)

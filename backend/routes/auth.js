@@ -5,6 +5,7 @@ const { validateSignup, isValidated, validateSignin } = require("../middlewares/
 
 //admin
 router.post("/admin/signin", validateSignin, isValidated, adminSignin)
+
 // user
 router.post("/signin", validateSignin, isValidated, signin);
 router.post("/signup", validateSignup, isValidated, signup);

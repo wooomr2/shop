@@ -27,7 +27,7 @@ exports.addCollection = async (req, res, next) => {
       country,
       shop,
       priority,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (typeof banners !== "undefined") collectionObj.banners = banners;
     if (typeof cards !== "undefined") collectionObj.cards = cards;
@@ -85,7 +85,7 @@ exports.updateCollection = async (req, res, next) => {
       country,
       shop,
       priority,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (typeof banners !== "undefined") collection.banners = banners;
     if (typeof cards !== "undefined") collection.cards = cards;

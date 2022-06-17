@@ -5,24 +5,16 @@ import { useEffect } from "react";
 import { getCategories } from "../slice/categorySlice";
 import { batch } from "react-redux";
 import { addCartItems } from "../slice/cartSlice";
+import { getBrands } from "../slice/brandSlice";
 
 function Layout() {
   const dispatch = useDispatch();
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  const { cartItems } = useSelector((store) => store.cart);
 
   useEffect(() => {
     batch(() => {
       dispatch(getCategories());
-      // dispatch(getProducts());
+      dispatch(getBrands());
     });
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(addCartItems(cartItems));
-      // dispatch(getCartItems(user._id));
-    }
   }, []);
 
   return (

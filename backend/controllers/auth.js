@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
 const asyncHandler = require("../middlewares/asyncHandler");
+const ROLES = require("../config/roleList");
 
 const sendToken = asyncHandler(async (req, res, user) => {
   const accessToken = user.generateAccessToken();
@@ -37,14 +38,15 @@ const sendToken = asyncHandler(async (req, res, user) => {
   });
 
   // Send token to user
-  const { _id, email, username, role } = user._doc;
+  const { _id, email, username } = user._doc;
+  const roles = Object.values(user._doc.roles).filter(Boolean);
   res.status(200).json({
     accessToken,
     user: {
       _id,
       email,
       username,
-      role,
+      roles,
     },
   });
 });
@@ -61,7 +63,11 @@ exports.adminSignin = asyncHandler(async (req, res, next) => {
   const isMatch = await user.matchPassword(password);
   if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 401));
 
-  if (user.role === "admin" || user.role === "root") {
+  const isAdmin = Object.values(user.roles)
+    .filter(Boolean)
+    .find((role) => role === ROLES.ADMIN);
+
+  if (isAdmin) {
     sendToken(req, res, user);
   } else {
     return next(new ErrorResponse("관리자가 아닙니다", 401));
@@ -130,7 +136,9 @@ exports.matchEmail = asyncHandler(async (req, res, next) => {
 
   const user = await User.findOne({ email }).exec();
   if (!user) {
-    return res.status(200).json({ msg: `${email} 은 사용가능한 이메일입니다.` });
+    return res
+      .status(200)
+      .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
   }
 
   return res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });

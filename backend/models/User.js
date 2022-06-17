@@ -24,11 +24,11 @@ const UserSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
-    role: {
-      type: String,
-      enum: ["user", "admin", "root"],
-      default: "user",
-    },
+    // role: {
+    //   type: String,
+    //   enum: ["user", "admin", "root"],
+    //   default: "user",
+    // },
     roles: {
       USER: {
         type: Number,
@@ -66,8 +66,11 @@ UserSchema.methods = {
   },
 
   generateAccessToken: function () {
+    // { USER: 2001 } -> [ 2001, undefined, undefined ] -> [ 2001 ]
+    const roles = Object.values(this.roles).filter(Boolean);
+
     return jwt.sign(
-      { id: this._id, role: this.role },
+      { id: this._id, roles },
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: process.env.ACCESS_TOKEN_EXPIRE,

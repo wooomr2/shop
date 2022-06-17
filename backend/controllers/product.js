@@ -43,7 +43,7 @@ exports.addProduct = async (req, res, next) => {
       code,
       color,
       stock: stockArray,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     });
 
     product = await product.populate({
@@ -198,7 +198,7 @@ exports.updateProduct = async (req, res, next) => {
       code,
       color,
       stock: stockArray,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (productImgs.length > 0) product.productImgs = productImgs;
 

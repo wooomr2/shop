@@ -31,7 +31,7 @@ exports.addCategory = async (req, res, next) => {
     const categoryObj = {
       name,
       slug: slugify(name),
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (parentId) categoryObj.parentId = parentId;
     if (viewType) categoryObj.viewType = viewType;
@@ -123,7 +123,7 @@ exports.deleteCategories = async (req, res, next) => {
     for (let i = 0; i < ids.length; i++) {
       const deleteCategory = await Category.findOneAndDelete({
         _id: ids[i]._id,
-        createdBy: req.user._id,
+        createdBy: req.userId,
       });
       deletedCategories.push(deleteCategory);
 

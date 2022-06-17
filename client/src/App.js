@@ -23,6 +23,7 @@ import Collection from "./pages/collections/Collection";
 import UnAuthorized from "./pages/unauthorized/Unauthorized";
 import Missing from "./pages/missing/Missing";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ROLES } from "./utils/roleList";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
             <Route path="checkout" element={<Checkout />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:id" element={<Order />} />

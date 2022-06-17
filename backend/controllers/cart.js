@@ -75,6 +75,9 @@ exports.updateCartItems = (req, res, next) => {
 
 exports.addCartItems = (req, res, next) => {
   const { user, cartItems } = req.body;
+  console.log(cartItems);
+//  { product: '628e16f79b73b25cc7da6674', size: 's', quantity: 1 },
+
 
   Cart.findOne({ user }).exec((err, cart) => {
     if (err) return next(new ErrorResponse(err, 400));
@@ -127,6 +130,7 @@ exports.addCartItems = (req, res, next) => {
 
 exports.getCartItems = (req, res, next) => {
   const { userId } = req.params;
+  
   Cart.findOne({ user: userId })
     .populate("cartItems.product", "_id name price productImgs")
     .exec((err, cart) => {
@@ -139,6 +143,7 @@ exports.getCartItems = (req, res, next) => {
           img: item.product.productImgs[0].fileName,
           price: item.product.price,
           qty: item.quantity,
+          size: item.size
         }));
         res.status(200).json({ cartItems });
       }

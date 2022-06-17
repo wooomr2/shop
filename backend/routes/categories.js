@@ -1,13 +1,14 @@
 const express = require("express");
 const { addCategory, getCategories, updateCategories, deleteCategories } = require("../controllers/category");
-const { verifyToken } = require("../middlewares/verifyToken")
-const { adminRole } = require("../middlewares/verifyRoles")
 const { upload } = require("../middlewares/multer");
+const { verifyToken } = require("../middlewares/verifyToken")
+const { verifyRoles } = require("../middlewares/verifyRoles");
+const ROLES = require("../config/roleList");
 const router = express.Router();
 
-router.post("/", verifyToken, adminRole, upload.single("categoryImg"), addCategory);
-router.patch("/", verifyToken, adminRole, upload.array("categoryImg"), updateCategories);
+router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.single("categoryImg"), addCategory);
+router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.array("categoryImg"), updateCategories);
 router.get("/", getCategories);
-router.put("/", verifyToken, adminRole, deleteCategories);
+router.put("/", verifyToken, verifyRoles(ROLES.ADMIN), deleteCategories);
 
 module.exports = router;

@@ -28,14 +28,17 @@ export const signin = createAsyncThunk(
   }
 );
 
-export const signout = createAsyncThunk("/auth/signout", async (thunkAPI) => {
-  try {
-    await axios.get("/auth/signout");
-    sessionStorage.clear();
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.response.data);
+export const signout = createAsyncThunk(
+  "/auth/signout",
+  async (dummy, thunkAPI) => {
+    try {
+      await axios.get("/auth/signout");
+      sessionStorage.clear();
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
   }
-});
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -61,9 +64,9 @@ const authSlice = createSlice({
 
     [signout.pending]: (state) => {
       state.isLoading = true;
+      state.isAuthenticated = false;
     },
     [signout.fulfilled]: (state) => {
-      state.isAuthenticated = false;
       state.isLoading = false;
       state.errorr = null;
     },

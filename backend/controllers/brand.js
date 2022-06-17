@@ -20,7 +20,7 @@ exports.addBrand = async (req, res, next) => {
     let brandObj = {
       name,
       description,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (typeof banners !== "undefined") brandObj.banners = banners;
     if (typeof cards !== "undefined") brandObj.cards = cards;
@@ -67,7 +67,7 @@ exports.updateBrand = async (req, res, next) => {
     let brand = {
       name,
       description,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (typeof banners !== "undefined") brand.banners = banners;
     if (typeof cards !== "undefined") brand.cards = cards;

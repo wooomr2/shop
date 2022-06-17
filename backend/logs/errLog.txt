@@ -1,195 +1,32 @@
-20220617	12:46:08	d5b57b61-fb23-412e-b5d4-af27ee13c41f	Error: 관리자가 아닙니다
-20220617	13:33:58	2d8dbd08-bb58-42e2-9bdd-865bcde3f0eb	Error: 존재하지 않는 유저
-20220617	13:33:59	377213a2-ac50-4a4f-8fee-bf76d9777f61	Error: 존재하지 않는 유저
-20220617	13:33:59	35053eff-e5e9-4f98-ad0a-525315e3c51b	Error: 존재하지 않는 유저
-20220617	13:33:59	a8323813-5188-43fc-a25e-1ab64157af8d	Error: 존재하지 않는 유저
-20220617	14:27:31	fd0005ae-93f2-4f02-823f-307582c35c5a	Error: ValidationError: user: Path `user` is required.
-20220617	14:36:26	1cec0dc6-8266-44af-9201-c880a8c6958e	Error: ValidationError: user: Path `user` is required.
-20220617	14:37:41	29937a59-a9e4-4180-a32a-74cb9d81e993	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:38:24	3bdca14f-f641-49e8-8386-d8431b8c95cd	TokenExpiredError: jwt expired
-20220617	14:38:24	08e9257e-b78c-4a92-9ef5-141463780721	Error: 본인 refreshToken 아님
-20220617	14:39:03	ea6e2c76-3f6a-4156-b7f8-d7b8776be0aa	TokenExpiredError: jwt expired
-20220617	14:39:03	41fedf9f-d6d3-49a2-96b3-df2c5db26403	Error: refreshToken 없음
-20220617	14:41:40	feffca13-db25-4354-ad98-e87e62ed0d01	TokenExpiredError: jwt expired
-20220617	14:41:40	ce4cd7f5-cf48-48ee-aee5-b812a4b1560a	Error: refreshToken 없음
-20220617	14:42:52	f8988aa3-51b3-44f2-a3f4-2b97ea98c7f8	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:44:39	811d7386-5587-494a-ae57-02bf5ac28632	TokenExpiredError: jwt expired
-20220617	14:44:39	b6f67f04-5897-4343-9460-59da8e104526	Error: 본인 refreshToken 아님
-20220617	14:46:18	719ac8d9-8fc5-4e58-88e8-e2136c47aeb8	TokenExpiredError: jwt expired
-20220617	14:46:18	aab32f62-7dbc-4d97-8d1d-e9e396e6c657	Error: refreshToken 없음
-20220617	14:46:42	c6b8a3a2-dd10-497d-9c8d-2db96fc5df97	TokenExpiredError: jwt expired
-20220617	14:46:42	d809a08b-9449-46ac-a49a-e68ae79d453f	TokenExpiredError: jwt expired
-20220617	14:46:42	15ae6851-ff92-43ad-a12e-292d48bf181d	Error: refreshToken 없음
-20220617	14:46:42	2dea8347-2461-44ac-84fa-4157f6ac0dca	Error: refreshToken 없음
-20220617	14:46:52	6e76c4b5-f346-4228-89fa-fede00e91897	TokenExpiredError: jwt expired
-20220617	14:46:52	ca60309e-6c07-4a1f-ab9a-59ec2c4f7749	TokenExpiredError: jwt expired
-20220617	14:46:52	8ed814b6-dcfe-405b-b43b-f45a59b797bf	Error: refreshToken 없음
-20220617	14:46:52	4f49cb6f-0eac-4041-9fa0-f3378c33a8fd	Error: refreshToken 없음
-20220617	14:51:42	c9a8b009-06ca-4a92-a53a-d9f6a7b87757	TokenExpiredError: jwt expired
-20220617	14:54:55	b4fd6940-cc40-4930-a3e9-9a9a1ff15b72	TokenExpiredError: jwt expired
-20220617	14:54:55	f8a8d13d-ead0-482b-8069-50d452afa8c1	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:55:44	570b5622-25bd-4abb-b4d6-6d87afa3a974	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:55:55	19fe7076-0d6c-4c8a-8d21-b5e700d83a0f	TokenExpiredError: jwt expired
-20220617	14:55:55	22fb607d-74f9-4f5d-9e6f-cd857c3328bb	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:56:04	524ea76d-27e2-4838-aa4c-223e1a5413d4	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:56:08	7426a69a-8431-4eec-bf74-160b25f6fb46	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:56:13	c8ec0703-85ac-45b9-8309-401ef4e04bbb	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	14:56:25	f38bd4bf-1fc8-4c31-b9f7-e4d64af03ad0	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "UserAddress"
-20220617	15:03:14	703248f8-b6a7-4eba-9c08-0470529b3ee4	TokenExpiredError: jwt expired
-20220617	15:04:18	4dbfea44-6950-4cee-85a6-4a201be2bcd2	TokenExpiredError: jwt expired
-20220617	15:09:08	e8075a6b-ea65-4eaf-803b-04a98ff5bb6f	TokenExpiredError: jwt expired
-20220617	15:18:35	94f245a9-ca7b-40fc-96f3-df1b608f3782	TokenExpiredError: jwt expired
-20220617	15:18:35	91f87636-b301-4ff4-b119-b802ad678a34	Error: 만료된 refreshToken
-20220617	15:19:35	a7b0ddf5-03d0-4be0-8712-2acd8b3eb6b0	TokenExpiredError: jwt expired
-20220617	15:19:35	0c973bd9-ee3e-4cd9-9874-c7cc22ebc34c	Error: refreshToken 없음
-20220617	15:21:55	2f53f361-9cf3-4a16-a934-555885209739	TokenExpiredError: jwt expired
-20220617	15:21:55	aba5683a-9a0e-4822-a4f5-111c13840c6c	Error: refreshToken 없음
-20220617	15:23:07	5d67614d-7721-4294-922f-370590987367	TokenExpiredError: jwt expired
-20220617	15:23:07	9afe39fa-44a2-4055-9f34-0747725ba10e	TokenExpiredError: jwt expired
-20220617	15:23:07	d261a552-1c7e-45c7-9882-802594d75df5	Error: refreshToken 없음
-20220617	15:23:07	510eb6a6-b416-4ba4-8ab8-2533bd72dc7c	Error: refreshToken 없음
-20220617	15:23:38	a2a2bd51-6bc1-4c9c-b40f-e1277314703a	TokenExpiredError: jwt expired
-20220617	15:23:38	f0c79c90-4b4b-4df8-9e58-e23350b23702	TokenExpiredError: jwt expired
-20220617	15:23:38	4e1374ee-2207-4a1d-b08a-a684eff030a9	Error: refreshToken 없음
-20220617	15:23:38	33fc5cfc-40e6-47c7-8aa2-d0fa9d9a1b9a	Error: refreshToken 없음
-20220617	15:28:02	f5e72393-3e1c-42cc-9d38-6925011b9a94	TokenExpiredError: jwt expired
-20220617	15:28:02	2d1e8c0e-0172-4593-89fb-f5bbec45eaf7	Error: refreshToken 없음
-20220617	15:28:19	0dec4947-6ba4-4f2e-8a4a-22d72a7143e1	TokenExpiredError: jwt expired
-20220617	15:28:19	f24c4472-6bb7-4e91-b131-aaae8d7f0c91	Error: 만료된 refreshToken
-20220617	15:30:35	ad6dab8e-f7b1-4e1a-8690-4cd79b090cf9	TokenExpiredError: jwt expired
-20220617	15:30:35	66e08a45-3090-4dde-ae7c-6f8a92f8b380	Error: 만료된 refreshToken
-20220617	15:30:37	7c074171-6a7d-4228-98e2-c8c4b492061a	TokenExpiredError: jwt expired
-20220617	15:30:37	1368cfd5-e1f9-4dc3-a997-58d8253f8842	Error: refreshToken 없음
-20220617	15:30:43	bd435450-bd55-4069-a4be-7b2fe8107e75	TokenExpiredError: jwt expired
-20220617	15:30:43	51d1a5b0-6344-45bc-be17-4d026588c88d	Error: refreshToken 없음
-20220617	15:30:51	7102ed2d-d485-42e4-b2d6-f5b755a81806	TokenExpiredError: jwt expired
-20220617	15:30:51	f24c3b50-44d1-4c50-95ab-8963817db696	Error: refreshToken 없음
-20220617	15:30:53	e9a4e173-6a23-4ded-9148-851b165d8c42	TokenExpiredError: jwt expired
-20220617	15:30:53	99291a45-19d8-4826-89f5-0c927a87a212	Error: refreshToken 없음
-20220617	15:30:54	8cf52248-2e6d-407c-b5ad-673d23e102d2	TokenExpiredError: jwt expired
-20220617	15:30:54	bffdc0b1-4a59-40ae-95aa-995046d5ebb8	Error: refreshToken 없음
-20220617	15:30:55	19628609-27af-4ac7-896e-132a11b36f1c	TokenExpiredError: jwt expired
-20220617	15:30:55	138bf9ab-dc83-40f7-8ae7-0f15ffee4a99	Error: refreshToken 없음
-20220617	15:30:57	fe83157a-4faf-41df-8661-5090715ef1ff	TokenExpiredError: jwt expired
-20220617	15:30:57	ff6683d2-b55a-4526-a6a1-e6943f601b28	Error: refreshToken 없음
-20220617	15:31:05	48854128-0c48-4eb7-85a7-86a345b41cb8	TokenExpiredError: jwt expired
-20220617	15:31:05	66a4319d-1bc4-4f33-837b-4e59ac405973	Error: refreshToken 없음
-20220617	15:42:40	f1b00cd3-0d27-4788-b5ba-118c81371611	TokenExpiredError: jwt expired
-20220617	15:42:40	dce4ffdb-20ea-460a-a079-979ad9ccd391	Error: 만료된 refreshToken
-20220617	15:43:06	d392af99-b35b-4e7b-8f6d-57e9fb5e0c4a	TokenExpiredError: jwt expired
-20220617	15:43:06	ffa61006-e6f0-48e6-a702-b8fb0c1e2032	Error: refreshToken 없음
-20220617	15:43:26	51d3fe01-a4d9-4129-8f76-a216d829f381	TokenExpiredError: jwt expired
-20220617	15:43:26	9b26ad86-8c4a-46d6-b175-1bedf66c5c58	Error: refreshToken 없음
-20220617	15:43:33	b73bd384-bfe7-4944-a7dc-252ce61f0365	TokenExpiredError: jwt expired
-20220617	15:43:33	70c9abb2-77dd-4748-ab8b-b8abb107389c	Error: refreshToken 없음
-20220617	15:43:58	fd9e6c3d-3a41-4aed-bd92-307cfd86a4e5	TokenExpiredError: jwt expired
-20220617	15:43:58	daac54e3-8271-4539-ac76-b3953fd47849	Error: refreshToken 없음
-20220617	15:48:18	4748c904-041f-4731-add6-f897e73221cc	TokenExpiredError: jwt expired
-20220617	15:48:18	3e593c91-d443-4a92-993f-2f12e978fea5	TokenExpiredError: jwt expired
-20220617	15:48:18	74ca4741-4f04-4424-82b5-1f2f54942eb4	Error: refreshToken 없음
-20220617	15:48:18	4c24b559-3803-4c5a-8feb-36236f2262b0	Error: refreshToken 없음
-20220617	15:48:30	eeb4f94e-c0b6-4bb7-b004-94a7b4b97e7d	TokenExpiredError: jwt expired
-20220617	15:48:30	57d642e0-05b6-4fb1-ae4f-25a917fe17f9	TokenExpiredError: jwt expired
-20220617	15:48:30	585a7a07-84b3-4953-994b-fa793e4f0019	Error: refreshToken 없음
-20220617	15:48:30	910238cd-6351-44f0-a959-16b2c19cdb9a	Error: refreshToken 없음
-20220617	15:49:17	9cb80d94-32b8-4fd2-93cd-e66b6e0fe405	TokenExpiredError: jwt expired
-20220617	15:49:17	312c01a0-5a36-4f9c-8d6c-f447085256f1	Error: refreshToken 없음
-20220617	15:49:23	605f00d3-d933-497c-8a1d-7b2e8c656e26	TokenExpiredError: jwt expired
-20220617	15:49:23	6fd9f5ae-594e-41b1-b932-da9b5701eef0	TokenExpiredError: jwt expired
-20220617	15:49:23	b58b200a-446e-4cba-951c-cb7d32a42712	Error: refreshToken 없음
-20220617	15:49:23	07a953f9-b7d0-4ed2-8b58-534bdeeee29c	Error: refreshToken 없음
-20220617	15:49:40	050e68a5-d3d3-4027-a92d-1c8cd6c32f5f	TokenExpiredError: jwt expired
-20220617	15:49:40	8c4e4b28-a65c-43e6-af16-204331ab1369	Error: refreshToken 없음
-20220617	15:49:43	9158c216-ffc7-4a30-bf81-994aef96685a	TokenExpiredError: jwt expired
-20220617	15:49:43	d93b4013-1c09-4142-b5fe-3c73faf8a1d8	Error: refreshToken 없음
-20220617	15:49:43	be819dda-90f7-48ef-a19b-68518b893e56	TokenExpiredError: jwt expired
-20220617	15:49:43	19da7ba8-1622-4dcb-ac88-d94473cc55f0	Error: refreshToken 없음
-20220617	15:49:44	4b724b7b-505f-45bb-afcc-aede66f9a84f	TokenExpiredError: jwt expired
-20220617	15:49:44	b5687f7e-5c87-47bb-9cf0-c597662de00f	Error: refreshToken 없음
-20220617	15:49:44	83062147-9786-49dc-9c1e-81b09e42f690	TokenExpiredError: jwt expired
-20220617	15:49:44	61fb7b71-ab78-42fa-95f5-9be5354d9c24	Error: refreshToken 없음
-20220617	15:49:56	9381ee7c-d0cb-4d69-8fd7-f8e661809da7	TokenExpiredError: jwt expired
-20220617	15:49:56	4b221c03-ac7a-426f-bcbf-a0781ec04c63	Error: refreshToken 없음
-20220617	15:50:05	6764e336-2c48-45ab-812e-433c839c7f5d	TokenExpiredError: jwt expired
-20220617	15:50:05	b7b5e551-6843-4695-a1d4-60bf4142e854	Error: refreshToken 없음
-20220617	15:50:33	fbbeee06-c80d-4375-b87e-43d996657e64	TokenExpiredError: jwt expired
-20220617	15:50:33	227a7eff-baf1-4648-93fd-6f6566f5acd0	Error: 만료된 refreshToken
-20220617	15:51:03	3843ce96-0ed8-4544-8b72-8173686a8b0f	TokenExpiredError: jwt expired
-20220617	15:51:03	17f2c2ee-9e48-4517-9245-c43fb15cfbab	TokenExpiredError: jwt expired
-20220617	15:51:03	5b5cbad0-c89b-4435-bb55-0b5c17f71e72	Error: refreshToken 없음
-20220617	15:51:03	a8ca636e-490e-4051-8f23-5db491b1ccc1	Error: refreshToken 없음
-20220617	15:51:06	927ad3e3-069e-467a-a3a8-b4231c4ff218	TokenExpiredError: jwt expired
-20220617	15:51:06	083d5040-758d-4b5c-b210-884a62020d7f	Error: refreshToken 없음
-20220617	15:51:34	da56a7cb-fa52-465d-8183-19e56142fdbb	TokenExpiredError: jwt expired
-20220617	15:51:34	c7aeb767-c861-43e7-a7f6-67495dc415f2	Error: 만료된 refreshToken
-20220617	15:52:04	8ebefc87-914d-4e8e-bd83-c56404a6f636	TokenExpiredError: jwt expired
-20220617	15:52:04	3060d405-4953-4beb-9c1d-c2eddfa604d0	Error: refreshToken 없음
-20220617	15:53:11	d5744a29-8d12-47b3-8711-4890bf5137eb	TokenExpiredError: jwt expired
-20220617	15:53:11	24a7dd87-0fb0-4298-809a-a96f8ea744df	Error: 만료된 refreshToken
-20220617	15:53:42	ed66f31c-a9ff-43de-a13a-e5b8eca05628	TokenExpiredError: jwt expired
-20220617	15:53:42	61cea25e-20a6-4ff3-9687-7ddb2dc1a081	Error: 만료된 refreshToken
-20220617	15:53:59	fa208e6f-d377-4c45-92ab-26369620b099	TokenExpiredError: jwt expired
-20220617	15:53:59	62643fa0-9392-4ddb-847f-8be0d02a2c7d	TokenExpiredError: jwt expired
-20220617	15:53:59	7406afbd-4ccb-4f08-b1f7-2c7e75da200b	Error: refreshToken 없음
-20220617	15:53:59	eb4d417a-6437-4f6d-911e-ad3559bffbca	Error: refreshToken 없음
-20220617	15:54:23	05ea3ee5-20cb-4ccb-a14f-a731adddd1a0	TokenExpiredError: jwt expired
-20220617	15:54:23	4c9c69ad-acca-42dc-92c6-424dc6bedc6a	TokenExpiredError: jwt expired
-20220617	15:54:23	96ba7e2a-44ea-44ce-b5ee-73b16d5d759b	Error: refreshToken 없음
-20220617	15:54:23	2838e86a-458d-4b15-8b48-7cf8f20d9415	Error: refreshToken 없음
-20220617	15:54:43	8f259998-033a-481e-894f-6f5cf11ab259	TokenExpiredError: jwt expired
-20220617	15:54:43	1c7701f6-fa65-4581-8451-9977394cb13b	Error: refreshToken 없음
-20220617	15:55:35	404f6973-14cf-4602-ae0a-779264b33dc2	TokenExpiredError: jwt expired
-20220617	15:55:35	bc89e59d-6e7b-4db1-a9b2-6d5e4bf46209	Error: 만료된 refreshToken
-20220617	15:55:54	eb130e40-9023-458c-8bac-de6d91a551bf	TokenExpiredError: jwt expired
-20220617	15:55:54	e4b3e918-fd4a-4d04-b3a3-6edddb6fd4fb	Error: refreshToken 없음
-20220617	15:56:00	1b570b5c-1b44-437b-8ea1-3436ab5a5102	TokenExpiredError: jwt expired
-20220617	15:56:00	b732106a-2a61-4a94-8ffc-e5c3f25156a8	Error: refreshToken 없음
-20220617	15:56:54	16ba08d1-f64d-4e70-aafb-abbffd153295	TokenExpiredError: jwt expired
-20220617	15:56:54	ca02df71-1a94-4cf9-8f4d-97f928509cdd	Error: refreshToken 없음
-20220617	15:56:58	ee8fbb26-f2b5-491a-8104-d51fddcc3045	TokenExpiredError: jwt expired
-20220617	15:56:58	272e6f6c-808f-407d-8460-41fe9e2d3c6f	Error: refreshToken 없음
-20220617	15:57:14	2df83b8b-08ba-4d98-bc39-8f2f29d50460	TokenExpiredError: jwt expired
-20220617	15:57:14	d09530be-bf6d-4d52-b8cc-04db25204deb	Error: refreshToken 없음
-20220617	15:57:15	a4328bf8-c48f-4606-837b-f812bdfe9fe7	TokenExpiredError: jwt expired
-20220617	15:57:15	8d79b705-1d09-40c4-b952-024d45f1caf8	Error: refreshToken 없음
-20220617	15:57:25	4e930836-ae8a-47b5-a16d-8926b7f3a543	TokenExpiredError: jwt expired
-20220617	15:57:25	b914a240-2c3f-4327-8544-ab8cbdff175f	Error: refreshToken 없음
-20220617	15:57:26	1a12e2ec-5037-414a-8104-3985b0071602	TokenExpiredError: jwt expired
-20220617	15:57:26	c251f8d4-9fbd-421d-98ed-d55afdda2a44	Error: refreshToken 없음
-20220617	15:57:33	b9a65ca8-516e-4bc8-bf11-23f683f3009b	TokenExpiredError: jwt expired
-20220617	15:57:33	6a8defaa-98cd-4f56-bb91-38f8fb27260f	Error: refreshToken 없음
-20220617	15:57:34	5e29c7db-a9e8-4d9d-8e4f-6ce7e256acd4	TokenExpiredError: jwt expired
-20220617	15:57:34	9f747c71-02ff-4847-a2c6-abbc83fd2b86	Error: refreshToken 없음
-20220617	15:58:29	ce191ce2-b21e-4635-932c-187b7cd87b9b	TokenExpiredError: jwt expired
-20220617	15:58:29	d1c8b753-6f1d-4b6a-915d-56c1d9110749	Error: refreshToken 없음
-20220617	15:59:14	0da5ba0b-e96a-4fda-8ee5-729649091cb6	TokenExpiredError: jwt expired
-20220617	15:59:14	9f69dc42-48cc-4b2b-b218-820b8a25d2b2	Error: 만료된 refreshToken
-20220617	15:59:14	e71619a6-56d7-4a1e-9285-361cdb17d3e4	Error: refreshToken 없음
-20220617	15:59:59	ae89f7a5-9bb6-4fea-8d6f-e0123db4bff4	TokenExpiredError: jwt expired
-20220617	15:59:59	ce2b89d4-bd06-4067-8eeb-8d6f4d793fec	Error: 만료된 refreshToken
-20220617	15:59:59	75cb986e-a2b9-42e5-967f-c1b92fe3992b	Error: refreshToken 없음
-20220617	16:01:01	43c678dc-1e01-4dd0-acca-281e59ca152a	TokenExpiredError: jwt expired
-20220617	16:01:01	685e8970-fa32-4897-bd03-a3b4838a80cb	Error: 만료된 refreshToken
-20220617	16:01:01	60c39668-3888-41e9-a566-1f26ad64d0c8	Error: refreshToken 없음
-20220617	16:02:29	3f065a68-69a3-4496-8727-f68d7d7b8d10	TokenExpiredError: jwt expired
-20220617	16:02:38	6b1e463e-3527-43d6-a417-b4f31feccdd2	TokenExpiredError: jwt expired
-20220617	16:02:44	f6fff459-5687-4ce9-a49a-8bc7066e7481	TokenExpiredError: jwt expired
-20220617	16:02:49	f765787d-957c-49b6-a2e6-b4676be3d25c	TokenExpiredError: jwt expired
-20220617	16:05:37	9b4047fb-c25a-4a2f-8675-b3e93b7d573f	TokenExpiredError: jwt expired
-20220617	16:05:37	75378049-8b77-4e11-ac93-e51cef65969d	TokenExpiredError: jwt expired
-20220617	16:05:37	20392e76-5cda-4f30-8866-7029444ce4c2	Error: refreshToken 재사용됨
-20220617	16:05:38	8ea6c7d1-e335-4787-a05f-cbe8b1bf5f9a	Error: refreshToken 없음
-20220617	16:08:38	d1cee234-cdac-4b13-baea-6afa7ebd570c	TokenExpiredError: jwt expired
-20220617	16:09:13	89b8829e-f697-4505-a49a-5be1385cae8c	TokenExpiredError: jwt expired
-20220617	16:11:50	083d7bea-8b29-4233-8cd5-4d49806f1e1e	TokenExpiredError: jwt expired
-20220617	16:12:09	84958e65-0e90-4548-964f-62ea3928dd69	TokenExpiredError: jwt expired
-20220617	16:12:34	171f2f5b-8f1b-451e-a6c9-9a38a729b780	TokenExpiredError: jwt expired
-20220617	16:12:43	e0940ab3-546f-479b-84f5-27095974e3ad	TokenExpiredError: jwt expired
-20220617	16:15:05	be038d8b-471b-41c4-a05e-9576eca0a575	TokenExpiredError: jwt expired
-20220617	16:15:40	608db209-a190-4578-b1a1-3680db22233d	TokenExpiredError: jwt expired
-20220617	16:16:44	42124379-5622-4050-96c4-6dce00058564	TokenExpiredError: jwt expired
-20220617	16:17:58	9ed6228e-af19-4047-95e0-bb2a1de71455	TokenExpiredError: jwt expired
-20220617	16:17:58	4fba1f56-3edc-41ce-94b1-0dbba1a727b1	TokenExpiredError: jwt expired
-20220617	16:17:58	7ad8307a-15c7-4339-8104-bfbe44130741	Error: refreshToken 재사용됨
-20220617	16:17:58	b270bc38-f371-4ea5-adcd-cd550df5997e	Error: refreshToken 없음
-20220617	16:18:55	a3c8479f-d7a9-4f5f-b6ae-4f60831eb9df	Error: 존재하지 않는 유저
+20220617	19:42:49	65e6e8e0-b586-4f20-92be-468bc5cef202	Error: 유효하지 않은 토큰
+20220617	19:44:54	efe0942d-7beb-4721-b006-f030d1171d4b	Error: 유효하지 않은 토큰
+20220617	19:44:54	c6eb559a-8451-4cd2-ac91-0dfaf4318f18	Error: 만료된 refreshToken
+20220617	19:44:54	c6c79cf2-ee65-4b78-8dc6-2a1fec8af478	Error: refreshToken 없음
+20220617	19:45:58	2c09f0a9-8769-4dae-9ef4-c70ab5554cbc	Error: 유효하지 않은 토큰
+20220617	19:45:58	5743c79c-752a-4cf1-8094-215dfdcc0abd	Error: MongoServerError: Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: shop.products index: slug_1 dup key: { slug: "stocktest" }
+20220617	19:46:18	2c97dee9-da65-41d3-a2bf-1e4355905c17	Error: 유효하지 않은 토큰
+20220617	19:46:24	bb6456c6-3c48-4a34-ab74-3eede63fd9b1	Error: 유효하지 않은 토큰
+20220617	19:46:31	250746d1-88e4-4a2b-8262-2bfdaa3f2f21	Error: 유효하지 않은 토큰
+20220617	19:46:36	ea70ecf4-d74f-4041-8cd5-f8efe0895766	Error: 유효하지 않은 토큰
+20220617	19:46:41	1ec28fd6-4dc7-4c5f-9c4d-7e124c4401d6	Error: 유효하지 않은 토큰
+20220617	19:46:50	16bf7f09-d0cb-430f-bc07-ed08d9fdb1de	Error: 유효하지 않은 토큰
+20220617	19:47:10	63182ee3-3e1f-4009-9f0f-c244aeea5283	Error: 유효하지 않은 토큰
+20220617	19:48:37	04fce3b8-1d66-409f-8bb6-70bf90ebf4b7	Error: 유효하지 않은 토큰
+20220617	19:48:37	2aa1da9f-28db-482d-ac14-a51985de86a9	Error: 만료된 refreshToken
+20220617	19:48:37	62c43dc6-cc01-4bcd-8c5e-63e9e6feb713	Error: refreshToken 없음
+20220617	19:54:40	5de610a8-7058-45df-a73f-ff5506bd4652	Error: 유효하지 않은 토큰
+20220617	19:54:40	a2761230-b33a-40fd-84dd-f86dc99ae5d5	Error: refreshToken 없음
+20220617	21:26:02	1d425428-c727-4e42-8f8d-4569f4250d3a	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:34:48	2de50876-7804-4477-8d7f-dfe6edf11e2a	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:34:50	f3862f81-4500-49b2-ad1f-f7e8332df1e6	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:35:11	69cfd739-7ba5-4cbf-bc70-393286a39346	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:35:54	62bf0a01-a7ea-4433-8aa8-43ac6cc39f86	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:37:19	deac0840-2a3d-4914-b26c-81d7760eb73b	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:37:27	f3ea4269-71bb-43c1-ad0a-df45c611d549	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:38:48	049d4388-d11e-40c1-bfd6-9ab8ffa299c6	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	21:38:59	bb5cc238-8358-48d9-9b19-219d114132ca	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
+20220617	22:14:47	0c34a8b2-87f0-40c2-9972-2c7f050a7513	Error: 토큰 없음
+20220617	22:21:07	4e3e902e-13f0-4f71-9659-b65fc4706cb0	Error: 토큰 없음
+20220617	22:27:07	0db01f07-c4ed-4053-a7d8-68f7eae8bfd8	Error: 토큰 없음
+20220617	22:40:57	00a8f410-fc65-404f-855e-0cb95aeaabc6	Error: 토큰 없음
+20220617	22:52:28	250ef887-fa83-40f6-96f9-27a504c868d4	Error: 토큰 없음

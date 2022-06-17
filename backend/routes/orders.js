@@ -1,15 +1,16 @@
 const express = require("express");
 const { addOrder, getOrder, getOrdersByUserId } = require("../controllers/order");
 const { verifyToken } = require("../middlewares/verifyToken")
-const { userRole } = require("../middlewares/verifyRoles")
+const { verifyRoles } = require("../middlewares/verifyRoles");
+const ROLES = require("../config/roleList");
 const router = express.Router();
 
 //ADMIN
 // router.patch("/", veryfyToken, adminAuth, updateOrders);
 // router.get("/", verifyToken, adminAuth, getOrders);
 //COMMON
-router.post("/", verifyToken, userRole, addOrder);
-router.get("/user/:uid", verifyToken, userRole, getOrdersByUserId);
-router.get("/:id", verifyToken, userRole, getOrder);
+router.post("/", verifyToken, verifyRoles(ROLES.USER), addOrder);
+router.get("/user/:uid", verifyToken, verifyRoles(ROLES.USER), getOrdersByUserId);
+router.get("/:id", verifyToken, verifyRoles(ROLES.USER), getOrder);
 
 module.exports = router;

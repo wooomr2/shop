@@ -1,9 +1,10 @@
 import "./signin.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { clearError, signin } from "../../slice/authSlice";
+import useInput from "../../hooks/useInput";
 
 function Signin() {
   const navigate = useNavigate();
@@ -12,32 +13,22 @@ function Signin() {
     (store) => store.auth
   );
   const user = sessionStorage.getItem("user");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useInput("");
+  const [password, setPassword] = useInput("");
+  const emailRef = useRef();
 
-  const login = useCallback(
-    (e) => {
-      e.preventDefault();
-      const user = {
-        email,
-        password,
-      };
-      dispatch(signin(user));
-    },
-    [email, password]
-  );
-
-  const onClickNavigate = (page) => () => {
-    navigate(page);
+  const login = (e) => {
+    e.preventDefault();
+    const user = {
+      email,
+      password,
+    };
+    dispatch(signin(user));
   };
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  useEffect(() => {
+    emailRef?.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -54,7 +45,7 @@ function Signin() {
   }, [error]);
 
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -65,14 +56,19 @@ function Signin() {
       <div className="signinForm-wrapper">
         <form onSubmit={login} className="signinForm">
           <div className="form-box">
-            <input type="email" placeholder="Email" onChange={onChangeEmail} />
+            <input
+              ref={emailRef}
+              type="email"
+              placeholder="Email"
+              onChange={setEmail}
+            />
             <label htmlFor="email">Email</label>
           </div>
           <div className="form-box">
             <input
               type="password"
               placeholder="Password"
-              onChange={onChangePassword}
+              onChange={setPassword}
             />
             <label htmlFor="email">Password</label>
           </div>
@@ -80,10 +76,10 @@ function Signin() {
         </form>
       </div>
       <div className="navigate-wrapper">
-        <div className="navigate-item" onClick={onClickNavigate("/signup")}>
+        <div className="navigate-item" onClick={() => navigate("/signup")}>
           회원가입
         </div>
-        <div className="navigate-item" onClick={onClickNavigate("/signup")}>
+        <div className="navigate-item" onClick={() => navigate("/signup")}>
           비밀번호 찾기
         </div>
       </div>

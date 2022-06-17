@@ -1,4 +1,6 @@
+import "./cart.scss"
 import CartItem from "../../components/cartItem/CartItem";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearCart,
@@ -6,9 +8,6 @@ import {
   selectTotalQty,
   updateCartItems,
 } from "../../slice/cartSlice";
-import { useNavigate } from "react-router-dom";
-import axios from "../../utils/axiosInstance";
-import "./cart.scss"
 
 function Cart() {
   const navigate = useNavigate();
@@ -17,20 +16,6 @@ function Cart() {
   const totalQty = useSelector(selectTotalQty);
   const totalPrice = useSelector(selectTotalPrice);
   const user = JSON.parse(sessionStorage.getItem("user"));
-
-  // const createCheckoutSession = async () => {
-  //   try {
-  //     const res = await axios.post("/stripe/checkout_session", {
-  //       cartItems,
-  //       email: user.email,
-  //     });
-
-  //     console.log(res.data);
-  //     window.location.href = res.data.url;
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   return (
     <div className="cart-container">

@@ -18,13 +18,14 @@ import Collection from "./pages/collections/Collection";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Unauthorized from "./pages/unauthorized/Unauthorized";
 import Missing from "./pages/missing/Missing";
+import { ROLES } from "./utils/roleList";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
+          <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="users" element={<Users />} />
             <Route path="brands" element={<Brands />} />

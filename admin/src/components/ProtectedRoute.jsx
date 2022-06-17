@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute() {
+function ProtectedRoute({ allowedRoles }) {
   const accessToken = sessionStorage.getItem("accessToken");
   const user = JSON.parse(sessionStorage.getItem("user"));
 
-  const isAdmin = user?.role === "admin" || user?.role === "root";
+  const haveRoles = user?.roles?.find((role) => allowedRoles?.includes(role));
 
-  return isAdmin ? (
+  return haveRoles ? (
     <Outlet />
   ) : accessToken ? (
     <Navigate to="/unauthorized" replace />

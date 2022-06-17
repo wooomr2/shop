@@ -23,7 +23,7 @@ exports.addScreen = async (req, res, next) => {
     let screenObj = {
       title,
       description,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (category !== "") screenObj.category = category;
     if (typeof banners !== "undefined") screenObj.banners = banners;

@@ -12,11 +12,15 @@ exports.verifyToken = asyncHandler(async (req, res, next) => {
 
   if (!token) return next(new ErrorResponse("토큰 없음", 401));
 
-  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  const user = await User.findById(decoded.id).exec();
+  jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRET,
+    (err, decoded) => {
+        if (err) return next(new ErrorResponse("유효하지 않은 토큰", 403));
+        req.userId = decoded.id;
+        req.roles = decoded.roles;
+        next();
+    }
+);
 
-  if (!user) return next(new ErrorResponse("유효하지 않은 토큰", 403));
-
-  req.user = user;
-  next();
 });

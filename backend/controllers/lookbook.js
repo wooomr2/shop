@@ -24,7 +24,7 @@ exports.addLookbook = async (req, res, next) => {
       modelInfo,
       wearingSize,
       products,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (typeof banners !== "undefined") lookbookObj.banners = banners;
     if (typeof cards !== "undefined") lookbookObj.cards = cards;
@@ -82,7 +82,7 @@ exports.updateLookbook = async (req, res, next) => {
       modelInfo,
       wearingSize,
       products,
-      createdBy: req.user._id,
+      createdBy: req.userId,
     };
     if (typeof banners !== "undefined") lookbook.banners = banners;
     if (typeof cards !== "undefined") lookbook.cards = cards;

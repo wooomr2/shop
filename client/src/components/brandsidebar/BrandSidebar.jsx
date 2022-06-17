@@ -1,24 +1,14 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import "./brandsidebar.scss";
-import { getBrands } from "../../slice/brandSlice";
 
 function BrandSidebar({onMouseOver, onMouseOut, setIsHovering}) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { brands } = useSelector((store) => store.brand);
 
   const initial = brands.map((v) => v.name.slice(0, 1));
   const brandList = initial.filter((v, i) => initial.indexOf(v) === i);
-
-  console.log("initial", initial);
-  console.log("brandList", brandList);
-
-  useEffect(() => {
-    dispatch(getBrands());
-  }, []);
 
   return (
     <div

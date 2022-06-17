@@ -43,3 +43,19 @@ exports.createCheckoutSession = async (req, res, next) => {
     return next(new ErrorResponse(err, 500));
   }
 };
+
+// client단
+
+// const createCheckoutSession = async () => {
+//   try {
+//     const res = await axios.post("/stripe/checkout_session", {
+//       cartItems,
+//       email: user.email,
+//     });
+
+//     console.log(res.data);
+//     window.location.href = res.data.url;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

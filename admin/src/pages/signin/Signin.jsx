@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { clearError, signin } from "../../slice/authSlice";
 
 function Signin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = localStorage.getItem("user");
   const { isLoading, isAuthenticated, error } = useSelector(
     (store) => store.auth
   );

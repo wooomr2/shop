@@ -26,10 +26,12 @@ export const addCartItems = createAsyncThunk(
       user = user._id;
 
       cartItems = cartItems.map((cartItem) => {
-        return { product: cartItem._id, quantity: cartItem.qty };
+        return {
+          product: cartItem._id,
+          size: cartItem.size,
+          quantity: cartItem.qty,
+        };
       });
-
-      console.log({ user, cartItems });
       const res = await axios.post("/carts", { user, cartItems });
       if (res.status === 201) thunkAPI.dispatch(getCartItems(user));
 
@@ -48,11 +50,15 @@ export const updateCartItems = createAsyncThunk(
       user = user._id;
 
       cartItems = cartItems.map((cartItem) => {
-        return { product: cartItem._id, quantity: cartItem.qty };
+        return {
+          product: cartItem._id,
+          size: cartItem.size,
+          quantity: cartItem.qty,
+        };
       });
 
       const res = await axios.put("/carts", { user, cartItems });
-      if (res.status === 201) thunkAPI.dispatch(getCartItems());
+      // if (res.status === 201) thunkAPI.dispatch(getCartItems(user));
 
       return res.data;
     } catch (err) {

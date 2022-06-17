@@ -8,7 +8,7 @@ import { addCartItems } from "../slice/cartSlice";
 
 function Layout() {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const { cartItems } = useSelector((store) => store.cart);
 
   useEffect(() => {
@@ -34,7 +34,3 @@ function Layout() {
 }
 
 export default Layout;
-
-// function PrivateOutlet() {
-//   return localStorage.getItem("token") ? <Outlet /> : <Navigate to="/signin" />;
-// }

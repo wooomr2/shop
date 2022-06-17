@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
-  // isAuthenticated: false,
+  isAuthenticated: false,
   isLoading: false,
   error: null,
 };
@@ -15,36 +15,23 @@ export const signin = createAsyncThunk(
   async (_user, thunkAPI) => {
     try {
       const res = await axios.post("/auth/admin/signin", _user);
-      const { token, user } = res.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+
+      const { accessToken, user } = res.data;
+
+      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem("user", JSON.stringify(user));
+
       return res.data;
     } catch (err) {
-      thunkAPI.dispatch(signout());
       return thunkAPI.rejectWithValue(err.response.data);
     }
   }
 );
 
-// export const isUserLoggedIn = createAsyncThunk(
-//   "auth/isUserLoggedIn",
-//   async (thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       if (token) {
-//         const user = JSON.parse(localStorage.getItem("user"));
-
-//         thunkAPI.dispatch(signin(user));
-//       }
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response.data);
-//     }
-//   }
-// );
-
 export const signout = createAsyncThunk("/auth/signout", async (thunkAPI) => {
   try {
-    localStorage.clear();
+    await axios.get("/auth/signout");
+    sessionStorage.clear();
   } catch (err) {
     return thunkAPI.rejectWithValue(err.response.data);
   }
@@ -53,13 +40,17 @@ export const signout = createAsyncThunk("/auth/signout", async (thunkAPI) => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: {
     [signin.pending]: (state) => {
       state.isLoading = true;
     },
     [signin.fulfilled]: (state, action) => {
-      // state.isAuthenticated = true;
+      state.isAuthenticated = true;
       state.isLoading = false;
       state.errorr = null;
     },
@@ -72,7 +63,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [signout.fulfilled]: (state) => {
-      // state.isAuthenticated = false;
+      state.isAuthenticated = false;
       state.isLoading = false;
       state.errorr = null;
     },
@@ -83,6 +74,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const { clearError } = authSlice.actions;
 
 export default authSlice.reducer;

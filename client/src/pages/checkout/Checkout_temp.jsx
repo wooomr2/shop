@@ -31,7 +31,7 @@ function Checkout() {
   const totalPrice = useSelector(selectTotalPrice);
   const totalQty = useSelector(selectTotalQty);
   const { latestOrder, clearLatestOrder } = useSelector((store) => store.user);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const [confirmedAddress, setConfirmedAddress] = useState("");
   const [isItemConfirmed, setIsItemConfirmed] = useState(false);

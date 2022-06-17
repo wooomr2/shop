@@ -18,6 +18,8 @@ app.use(cookieParser());
 
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
+app.use("/api/refresh", require("./routes/refresh"));
+
 app.use("/api/address", require("./routes/address"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/brands", require("./routes/brands"));
@@ -37,19 +39,21 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 process.on("unhandledRejection", (err, promise) => {
-  console.log(`Logged Error: ${err.message}`);
+  console.log(`비정상적 에러로 서버 종료 ${err.message}`);
   server.close(() => process.exit(1));
 });
 
 //200 OK
 //201 CREATED (as a result of POST)
 //202 Accepted
+//204 no Cotents
 
 //400: bad request
 //401: Unauthorized
 //402: Payment Required
 //403: Forbidden
 //404: not found (URL...)
+//409: Conflict
 
 //500: internal server error
 

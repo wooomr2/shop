@@ -1,26 +1,19 @@
 import "./signin.scss";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { signin } from "../../slice/authSlice";
+import { clearError, signin } from "../../slice/authSlice";
 
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, isAuthenticated } = useSelector((store) => store.auth);
+  const { isLoading, isAuthenticated, error } = useSelector(
+    (store) => store.auth
+  );
+  const user = sessionStorage.getItem("user");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const token = localStorage.getItem("token");
-
-  // const login = (e) => {
-  //   e.preventDefault();
-  //   const user = {
-  //     email,
-  //     password,
-  //   };
-  //   dispatch(signin(user));
-  // };
 
   const login = useCallback(
     (e) => {
@@ -46,8 +39,21 @@ function Signin() {
     setPassword(e.target.value);
   };
 
-  if (token) {
-    // navigate(-1);
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(clearError());
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      dispatch(clearError());
+    }
+  }, [error]);
+
+  if (user) {
     return <Navigate to="/" />;
   }
 

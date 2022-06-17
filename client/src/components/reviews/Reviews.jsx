@@ -7,7 +7,7 @@ function Reviews() {
   const dispatch = useDispatch();
   const params = useParams();
   const { reviews } = useSelector((store) => store.review);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   useEffect(() => {
     dispatch(getReviews(params.id));

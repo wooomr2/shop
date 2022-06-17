@@ -22,7 +22,7 @@ export const addCartItems = createAsyncThunk(
   "cart/addCartItems",
   async (cartItems, thunkAPI) => {
     try {
-      let user = JSON.parse(localStorage.getItem("user"));
+      let user = JSON.parse(sessionStorage.getItem("user"));
       user = user._id;
 
       cartItems = cartItems.map((cartItem) => {
@@ -44,7 +44,7 @@ export const updateCartItems = createAsyncThunk(
   "cart/updateCartItems",
   async (cartItems, thunkAPI) => {
     try {
-      let user = JSON.parse(localStorage.getItem("user"));
+      let user = JSON.parse(sessionStorage.getItem("user"));
       user = user._id;
 
       cartItems = cartItems.map((cartItem) => {

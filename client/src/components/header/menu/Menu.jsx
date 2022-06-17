@@ -8,7 +8,7 @@ import "./menu.scss";
 function Menu({ menuOpen, setMenuOpen }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = localStorage.getItem("user");
+  const user = sessionStorage.getItem("user");
 
   const onClickNavigate = (cate) => () => {
     if (cate === "/categories/all" || "/brands") dispatch(clearFeatures());

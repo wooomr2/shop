@@ -13,7 +13,7 @@ import { Avatar } from "@mui/material";
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = localStorage.getItem("user");
+  const user = sessionStorage.getItem("user");
 
   const logout = () => {
     dispatch(signout());

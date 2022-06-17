@@ -22,7 +22,7 @@ export const upsertReview = createAsyncThunk(
   "product/upsertReview",
   async (review, thunkAPI) => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(sessionStorage.getItem("user"));
       const res = await axios.patch(`/reviews`, { user, review });
       return res.data;
     } catch (err) {

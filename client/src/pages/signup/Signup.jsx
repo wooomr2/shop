@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import PostCodeModal from "../../components/postCodeModal/PostCodeModal";
 import Term from "../../components/term/Term";
 import { matchEmail, signup, clearMatchResult } from "../../slice/authSlice";
@@ -9,6 +9,7 @@ import "./signup.scss"
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = sessionStorage.getItem("user");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false); // 비밀번호 일치 검사
@@ -111,6 +112,10 @@ function Signup() {
   useEffect(() => {
     if (!email.length) dispatch(clearMatchResult());
   }, [email]);
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="signup">

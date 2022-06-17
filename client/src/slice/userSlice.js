@@ -26,7 +26,7 @@ export const upsertAddress = createAsyncThunk(
   "user/upsertAddress",
   async (address, thunkAPI) => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(sessionStorage.getItem("user"));
       const res = await axios.patch(`/address`, { user, address });
       // console.log(res.data);
       return res.data;

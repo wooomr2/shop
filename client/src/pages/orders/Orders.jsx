@@ -6,7 +6,7 @@ import publicURL from "../../utils/publicURL";
 
 function Orders() {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const { orders } = useSelector((store) => store.user);
   
   useEffect(() => {

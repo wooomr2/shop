@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Signin from "./pages/signin/Signin";
 import Layout from "./components/Layout";
@@ -15,30 +15,38 @@ import Lookbooks from "./pages/lookbooks/Lookbooks";
 import Lookbook from "./pages/lookbooks/Lookbook";
 import Collections from "./pages/collections/Collections";
 import Collection from "./pages/collections/Collection";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Unauthorized from "./pages/unauthorized/Unauthorized";
+import Missing from "./pages/missing/Missing";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="users" element={<Users />} />
-          <Route path="brands" element={<Brands />} />
-          <Route path="brands/:name" element={<Brand />} />
-          <Route path="lookbooks" element={<Lookbooks />} />
-          <Route path="lookbooks/:id" element={<Lookbook />} />
-          <Route path="collections" element={<Collections />} />
-          <Route path="collections/:id" element={<Collection />} />
-          <Route path="screens" element={<Screens />} />
-          <Route path="screens/:id" element={<Screen />} />
-          <Route path="categories" element={<Categories />} />
-          <Route path="products" element={<Products/>} />
-          <Route path="products/:slug" element={<Product/>} />
-          <Route path="orders" element={<Orders />} />
+          <Route element={<ProtectedRoute />}>
+            <Route index element={<Home />} />
+            <Route path="users" element={<Users />} />
+            <Route path="brands" element={<Brands />} />
+            <Route path="brands/:name" element={<Brand />} />
+            <Route path="lookbooks" element={<Lookbooks />} />
+            <Route path="lookbooks/:id" element={<Lookbook />} />
+            <Route path="collections" element={<Collections />} />
+            <Route path="collections/:id" element={<Collection />} />
+            <Route path="screens" element={<Screens />} />
+            <Route path="screens/:id" element={<Screen />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="products" element={<Products />} />
+            <Route path="products/:slug" element={<Product />} />
+            <Route path="orders" element={<Orders />} />
+          </Route>
         </Route>
+
         <Route path="/signin" element={<Signin />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<Missing />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

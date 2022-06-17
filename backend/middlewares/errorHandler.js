@@ -27,12 +27,12 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === "JsonWebTokenError") {
     const message = `Your url is invalid please try again`;
-    error = new ErrorResponse(message, 400);
+    error = new ErrorResponse(message, 403);
   }
 
   if (err.name === "TokenExpiredError") {
     const message = `Your url is expired please try again`;
-    error = new ErrorResponse(message, 400);
+    error = new ErrorResponse(message, 403);
   }
 
   res.status(error.statusCode || 500).json({

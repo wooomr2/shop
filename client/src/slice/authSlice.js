@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
-import { addCartItems, clearCart } from "./cartSlice";
+import { clearCart } from "./cartSlice";
 
 const initialState = {
-  // isAuthenticated:false,
+  isAuthenticated: false,
   matchResult: "",
   isLoading: false,
   error: null,
@@ -14,23 +14,6 @@ export const matchEmail = createAsyncThunk(
   async (email, thunkAPI) => {
     try {
       const res = await axios.get(`/auth/${email}`);
-      return res.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
-  }
-);
-
-// thunkAPI.dispatch(openModal());
-//  thunkAPI.rejectWithValue('something went wrong');
-export const signin = createAsyncThunk(
-  "auth/signin",
-  async (_user, thunkAPI) => {
-    try {
-      const res = await axios.post("/auth/signin", _user);
-      const { token, user } = res.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -50,16 +33,36 @@ export const signup = createAsyncThunk(
   }
 );
 
-export const signout = createAsyncThunk("auth/signout", (thunk, thunkAPI) => {
-  try {
-    localStorage.clear();
-    // const res = await axios.get("/auth/signout");
-    thunkAPI.dispatch(clearCart());
-    // return res.data;
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.response.data);
+export const signin = createAsyncThunk(
+  "auth/signin",
+  async (_user, thunkAPI) => {
+    try {
+      const res = await axios.post("/auth/signin", _user);
+
+      const { accessToken, user } = res.data;
+
+      sessionStorage.setItem("accessToken", accessToken);
+      sessionStorage.setItem("user", JSON.stringify(user));
+
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
   }
-});
+);
+
+export const signout = createAsyncThunk(
+  "/auth/signout",
+  async (dummy, thunkAPI) => {
+    try {
+      await axios.get("/auth/signout");
+      sessionStorage.clear();
+      thunkAPI.dispatch(clearCart());
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -68,9 +71,11 @@ const authSlice = createSlice({
     clearMatchResult: (state) => {
       state.matchResult = "";
     },
+    clearError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: {
-    // auth/matchEmail
     [matchEmail.pending]: (state) => {
       state.isLoading = true;
     },
@@ -81,7 +86,7 @@ const authSlice = createSlice({
     [matchEmail.rejected]: (state) => {
       state.isLoading = false;
     },
-    // auth/signup
+
     [signup.pending]: (state) => {
       state.isLoading = true;
     },
@@ -97,7 +102,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [signin.fulfilled]: (state, action) => {
-      // state.isAuthenticated = true;
+      state.isAuthenticated = true;
       state.isLoading = false;
       state.error = null;
     },
@@ -110,7 +115,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [signout.fulfilled]: (state) => {
-      // state.isAuthenticated = false;
+      state.isAuthenticated = false;
       state.isLoading = false;
       state.error = null;
     },
@@ -121,6 +126,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearMatchResult } = authSlice.actions;
+export const { clearMatchResult, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

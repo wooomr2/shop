@@ -10,12 +10,12 @@ exports.verifyToken = asyncHandler(async (req, res, next) => {
   if (headerAuth && headerAuth.startsWith("Bearer"))
     token = headerAuth.split(" ")[1];
 
-  if (!token) return next(new ErrorResponse("유효하지 않은 토큰", 401));
+  if (!token) return next(new ErrorResponse("토큰 없음", 401));
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const user = await User.findById(decoded.id);
+  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  const user = await User.findById(decoded.id).exec();
 
-  if (!user) return next(new ErrorResponse("id와 일치하는 user 없음", 401));
+  if (!user) return next(new ErrorResponse("유효하지 않은 토큰", 403));
 
   req.user = user;
   next();

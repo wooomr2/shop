@@ -1,5 +1,5 @@
 import './header.scss';
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,7 +12,7 @@ import Menu from "./menu/Menu";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = localStorage.getItem("user");
+  const user = sessionStorage.getItem("user");
   const { cartItems } = useSelector((store) => store.cart);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -26,6 +26,7 @@ function Header() {
 
   const onClickLogout = useCallback(() => {
     dispatch(signout());
+    navigate("/")
   }, []);
 
   const onClickMenuOpen = useCallback(() => {

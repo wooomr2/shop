@@ -26,3 +26,21 @@ exports.rootRole = (req, res, next) => {
   }
   next();
 };
+
+// const verifyRoles = (...allowedRoles) => {
+//   return (req, res, next) => {
+//     if (!req?.roles) return next(new ErrorResponse("권한없음", 401));
+
+//     const rolesArray = [...allowedRoles];
+
+//     const verified = req.roles
+//       .map((role) => rolesArray.includes(role))
+//       .find((val) => val === true);
+
+//     if (!verified) return next(new ErrorResponse("유효한 권한 아님", 401));
+
+//     next();
+//   };
+// };
+
+// module.exports = verifyRoles;

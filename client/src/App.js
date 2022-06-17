@@ -20,6 +20,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import Contact from "./pages/contact/Contact";
 import Collections from "./pages/collections/Collections";
 import Collection from "./pages/collections/Collection";
+import UnAuthorized from "./pages/unauthorized/Unauthorized";
+import Missing from "./pages/missing/Missing";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -37,16 +40,20 @@ function App() {
           <Route path="collections/:id" element={<Collection />} />
           <Route path="products/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="orders/:id" element={<Order />} />
           <Route path="success" element={<Success />} />
           <Route path="contact" element={<Contact />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="orders/:id" element={<Order />} />
+          </Route>
         </Route>
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password/:resetToken" element={<ResetPassword />} />
+        <Route path="/unauthorized" element={<UnAuthorized />} />
+        <Route path="*" element={<Missing />} />
       </Routes>
     </Router>
   );

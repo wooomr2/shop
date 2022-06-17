@@ -29,6 +29,15 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin", "root"],
       default: "user",
     },
+    roles: {
+      USER: {
+        type: Number,
+        default: 2001,
+      },
+      ADMIN: Number,
+      ROOT: Number,
+    },
+
     mobile: { type: String },
     profileImg: { type: String },
 
@@ -56,9 +65,19 @@ UserSchema.methods = {
     return await bcrypt.compare(password, this.password);
   },
 
-  generateSignedToken: function () {
-    return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
+  generateAccessToken: function () {
+    return jwt.sign(
+      { id: this._id, role: this.role },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRE,
+      }
+    );
+  },
+
+  generateRefreshToken: function () {
+    return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRE,
     });
   },
 
@@ -77,4 +96,4 @@ UserSchema.methods = {
   },
 };
 
-module.exports  = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);

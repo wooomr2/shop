@@ -5,14 +5,16 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { clearError, signin } from "../../slice/authSlice";
 import useInput from "../../hooks/useInput";
+import { addCartItems } from "../../slice/cartSlice";
 
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { cartItems } = useSelector((store) => store.cart);
   const { isLoading, isAuthenticated, error } = useSelector(
     (store) => store.auth
   );
-  const user = sessionStorage.getItem("user");
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const [email, setEmail] = useInput("");
   const [password, setPassword] = useInput("");
   const emailRef = useRef();
@@ -33,6 +35,7 @@ function Signin() {
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(clearError());
+      dispatch(addCartItems({ user: user._id, cartItems }));
       navigate("/", { replace: true });
     }
   }, [isAuthenticated]);

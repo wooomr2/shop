@@ -11,6 +11,7 @@ function updatePromise(condition, update) {
 
 exports.updateCartItems = (req, res, next) => {
   const { user, cartItems } = req.body;
+
   const products = cartItems.map((cartItem) => cartItem.product);
 
   Cart.findOneAndUpdate(
@@ -31,14 +32,18 @@ exports.updateCartItems = (req, res, next) => {
       let promiseArray = [];
 
       cartItems.forEach((cartItem) => {
-        const product = cartItem.product;
-        const item = cart.cartItems.find((c) => c.product == product);
+        const { product, size } = cartItem;
+        const item = cart.cartItems.find(
+          (c) => c.product == product && c.size === size
+        );
+        console.log(item);
 
         let condition, update;
         if (item) {
           condition = {
             user,
             "cartItems.product": product,
+            "cartItems.size": size,
           };
           update = {
             $set: {
@@ -75,9 +80,6 @@ exports.updateCartItems = (req, res, next) => {
 
 exports.addCartItems = (req, res, next) => {
   const { user, cartItems } = req.body;
-  console.log(cartItems);
-//  { product: '628e16f79b73b25cc7da6674', size: 's', quantity: 1 },
-
 
   Cart.findOne({ user }).exec((err, cart) => {
     if (err) return next(new ErrorResponse(err, 400));
@@ -85,8 +87,10 @@ exports.addCartItems = (req, res, next) => {
       let promiseArray = [];
 
       cartItems.forEach((cartItem) => {
-        const product = cartItem.product;
-        const item = cart.cartItems.find((c) => c.product == product);
+        const { product, size } = cartItem;
+        const item = cart.cartItems.find(
+          (c) => c.product == product && c.size === size
+        );
 
         let condition, update;
 
@@ -94,6 +98,7 @@ exports.addCartItems = (req, res, next) => {
           condition = {
             user,
             "cartItems.product": product,
+            "cartItems.size": size,
           };
           update = {
             $set: {
@@ -130,12 +135,13 @@ exports.addCartItems = (req, res, next) => {
 
 exports.getCartItems = (req, res, next) => {
   const { userId } = req.params;
-  
+
   Cart.findOne({ user: userId })
     .populate("cartItems.product", "_id name price productImgs")
     .exec((err, cart) => {
       if (err) return next(new ErrorResponse(err, 400));
       if (cart) {
+        console.log(cart);
         let cartItems = [];
         cartItems = cart.cartItems.map((item) => ({
           _id: item.product._id,
@@ -143,7 +149,7 @@ exports.getCartItems = (req, res, next) => {
           img: item.product.productImgs[0].fileName,
           price: item.product.price,
           qty: item.quantity,
-          size: item.size
+          size: item.size,
         }));
         res.status(200).json({ cartItems });
       }

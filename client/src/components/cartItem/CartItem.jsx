@@ -32,20 +32,25 @@ function CartItem({ cartItem, onlyInfo = false }) {
           ) : (
             <div className="cartItem-detail-right">
               <div className="cartItem-detail-right-qty">
-                <KeyboardArrowUpIcon className="click-btn" onClick={() => dispatch(increaseQty(_id))} />
+                <KeyboardArrowUpIcon
+                  className="click-btn"
+                  onClick={() => dispatch(increaseQty({ _id, size }))}
+                />
                 <p>{qty}&nbsp;</p>
                 <KeyboardArrowDownIcon
                   className="click-btn"
                   onClick={() => {
                     if (qty === 1) {
-                      dispatch(removeItem(_id));
+                      dispatch(removeItem({ _id, size }));
                     } else {
-                      dispatch(decreaseQty(_id));
+                      dispatch(decreaseQty({ _id, size }));
                     }
                   }}
                 />
               </div>
-              <button onClick={() => dispatch(removeItem(_id))}>삭제</button>
+              <button onClick={() => dispatch(removeItem({ _id, size }))}>
+                삭제
+              </button>
             </div>
           )}
         </div>

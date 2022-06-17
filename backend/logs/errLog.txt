@@ -30,3 +30,35 @@
 20220617	22:27:07	0db01f07-c4ed-4053-a7d8-68f7eae8bfd8	Error: 토큰 없음
 20220617	22:40:57	00a8f410-fc65-404f-855e-0cb95aeaabc6	Error: 토큰 없음
 20220617	22:52:28	250ef887-fa83-40f6-96f9-27a504c868d4	Error: 토큰 없음
+20220617	23:35:13	4eaafe1d-8a47-4dde-8841-9bdc068c5bf1	Error: 유효하지 않은 토큰
+20220617	23:35:13	92c00102-5377-433e-8449-9001d83f3fec	Error: refreshToken 재사용됨
+20220617	23:35:13	ab3b238d-9f00-43d5-a3ce-ba1cf8f39332	Error: refreshToken 없음
+20220617	23:47:33	084ea3e5-2262-4caa-b1e9-ef5163e7be3e	Error: 토큰 없음
+20220617	23:51:07	3378e783-e620-4e60-8634-e925f2539db9	Error: 토큰 없음
+20220618	00:00:42	54252dcb-154e-4d66-910b-953828f2028a	Error: 토큰 없음
+20220618	00:02:31	a7de313d-4a26-4344-942b-1208b202b59f	Error: 토큰 없음
+20220618	00:03:26	73205a93-57b8-4711-9b5b-47038eebdb49	Error: 토큰 없음
+20220618	00:28:41	4d394ee3-fd1e-4ac6-9458-5cbc78334f5b	Error: 토큰 없음
+20220618	00:32:47	a85eb1c0-93e3-430f-bdf2-ab0537c404fc	Error: 토큰 없음
+20220618	00:33:25	c58209b6-532e-4229-8c31-84dff928b4a9	Error: 토큰 없음
+20220618	00:34:29	6decde0a-2cfc-477d-bab6-309e491a2fe2	Error: 토큰 없음
+20220618	00:55:17	75977c58-694a-4690-b0e5-60f56cf2d799	Error: ValidationError: user: Path `user` is required.
+20220618	00:55:23	d38e3f99-1d55-4778-b09c-2b563caf5cf6	Error: ValidationError: user: Path `user` is required.
+20220618	00:55:32	7c26576b-db95-4734-ac63-df2c825fd8e5	Error: ValidationError: user: Path `user` is required.
+20220618	00:55:35	ca2f4df0-29d7-4a1a-ac16-67c6805275ed	Error: ValidationError: user: Path `user` is required.
+20220618	00:55:52	d9a2e176-e747-4185-9e63-ad7bd11bd16a	Error: ValidationError: user: Path `user` is required.
+20220618	00:57:11	72bfb2fe-caf5-4b3b-a41c-5acf52e5224d	Error: ValidationError: user: Path `user` is required.
+20220618	00:58:10	af534cd0-a655-4504-ac8e-9cbd7755ef21	Error: ValidationError: user: Path `user` is required.
+20220618	00:58:28	4026111f-2c12-4862-b4fc-48e7296b0f4e	Error: ValidationError: user: Path `user` is required.
+20220618	00:58:41	eb33543c-b753-4ea1-851b-650a28c6180a	Error: ValidationError: user: Path `user` is required.
+20220618	00:58:43	689e0313-1051-4a6a-a2d0-b27db837e23a	Error: ValidationError: user: Path `user` is required.
+20220618	00:59:00	348a2590-85de-4c46-b203-888e365603e6	Error: ValidationError: user: Path `user` is required.
+20220618	01:00:08	523361f9-0ff7-42d1-858e-09278d5bf306	Error: 토큰 없음
+20220618	01:02:27	50c0e5e1-cb5b-47d3-b7fe-ad13a36bdcae	Error: 토큰 없음
+20220618	01:04:22	839267ea-64bf-42ad-833f-a4e073476c43	Error: 토큰 없음
+20220618	01:04:39	d8ee3378-fc91-4cad-8441-d9ef8fea1e42	Error: 토큰 없음
+20220618	01:06:22	601e7e00-1ba8-45c5-8825-61bd89ade593	Error: 토큰 없음
+20220618	01:12:30	c9cf1530-9259-4c21-b2e9-50e0f547e1ce	Error: 존재하지 않는 유저
+20220618	01:12:33	1418b796-e39b-440a-8693-d9a96c1ad448	Error: 존재하지 않는 유저
+20220618	01:12:40	b2e2f16c-fa81-4d7e-b2b6-26b4fd30f621	Error: 잘못된 비밀번호
+20220618	01:12:47	864db97e-55dd-47d5-b367-3673f0cfc63a	Error: 잘못된 비밀번호

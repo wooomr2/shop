@@ -20,11 +20,8 @@ export const getCartItems = createAsyncThunk(
 
 export const addCartItems = createAsyncThunk(
   "cart/addCartItems",
-  async (cartItems, thunkAPI) => {
+  async ({ user, cartItems }, thunkAPI) => {
     try {
-      let user = JSON.parse(sessionStorage.getItem("user"));
-      user = user._id;
-
       cartItems = cartItems.map((cartItem) => {
         return {
           product: cartItem._id,
@@ -44,11 +41,8 @@ export const addCartItems = createAsyncThunk(
 
 export const updateCartItems = createAsyncThunk(
   "cart/updateCartItems",
-  async (cartItems, thunkAPI) => {
+  async ({ user, cartItems }, thunkAPI) => {
     try {
-      let user = JSON.parse(sessionStorage.getItem("user"));
-      user = user._id;
-
       cartItems = cartItems.map((cartItem) => {
         return {
           product: cartItem._id,
@@ -58,7 +52,6 @@ export const updateCartItems = createAsyncThunk(
       });
 
       const res = await axios.put("/carts", { user, cartItems });
-      // if (res.status === 201) thunkAPI.dispatch(getCartItems(user));
 
       return res.data;
     } catch (err) {
@@ -72,28 +65,40 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
+      const { _id, size, qty } = action.payload;
+
       const cartItem = state.cartItems.find(
-        (item) => item._id === action.payload._id
+        (item) => item._id === _id && item.size === size
       );
       cartItem
-        ? (cartItem.qty += 1)
+        ? (cartItem.qty += qty)
         : (state.cartItems = [...state.cartItems, action.payload]);
     },
     clearCart: (state, action) => {
       state.cartItems = [];
     },
     removeItem: (state, action) => {
-      const _id = action.payload;
-      state.cartItems = state.cartItems.filter((item) => item._id !== _id);
+      const { _id, size } = action.payload;
+
+      state.cartItems = state.cartItems.filter((item) => {
+        if (item._id === _id) return item.size !== size;
+        else return item._id !== _id;
+      });
     },
     increaseQty: (state, action) => {
-      const _id = action.payload;
-      const cartItem = state.cartItems.find((item) => item._id === _id);
+      const { _id, size } = action.payload;
+
+      const cartItem = state.cartItems.find(
+        (item) => item._id === _id && item.size === size
+      );
       cartItem.qty += 1;
     },
     decreaseQty: (state, action) => {
-      const _id = action.payload;
-      const cartItem = state.cartItems.find((item) => item._id === _id);
+      const { _id, size } = action.payload;
+
+      const cartItem = state.cartItems.find(
+        (item) => item._id === _id && item.size === size
+      );
       cartItem.qty -= 1;
     },
   },

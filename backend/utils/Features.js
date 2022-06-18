@@ -4,8 +4,8 @@ class Features {
     this.queryStr = queryStr;
   }
 
-  search() {
-    const keyword = this.queryStr.keyword
+  search(keyword) {
+    keyword
       ? {
           name: {
             //regax:정규표현식
@@ -32,7 +32,7 @@ class Features {
 
   pagination(perPage, currentPage) {
     const skip = perPage * (currentPage - 1);
-    
+
     this.query = this.query.limit(perPage).skip(skip);
     return this;
   }

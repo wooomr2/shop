@@ -94,3 +94,33 @@
 20220618	12:29:02	f7b9915a-ec87-4572-82d6-3cfb5c0a7530	Error: CastError: Cast to ObjectId failed for value "ajsdp" (type string) at path "_id" for model "Product"
 20220618	12:29:06	0392c649-abf0-48cc-8631-7ab55069c310	Error: CastError: Cast to ObjectId failed for value "ajsdpashdio" (type string) at path "_id" for model "Product"
 20220618	12:29:08	d5db0e15-d082-4136-a6f4-adb3b97d1460	Error: CastError: Cast to ObjectId failed for value "ajsdp" (type string) at path "_id" for model "Product"
+20220618	14:45:38	d5ceadf8-ea34-48fe-ab00-4ac908af6220	Error: ReferenceError: keyword is not defined
+20220618	14:45:48	44e13ebe-c399-4ef3-b13d-f550f5b9f7a6	Error: ReferenceError: keyword is not defined
+20220618	14:45:50	fd0ba0f2-a780-4e33-8ad8-71a5355f0853	Error: ReferenceError: keyword is not defined
+20220618	14:46:00	987e734c-ba98-4500-bd46-90a088a685c5	Error: ReferenceError: keyword is not defined
+20220618	14:46:01	7b6090ab-0d10-4bcd-a38e-68b85c6dcd7c	Error: ReferenceError: keyword is not defined
+20220618	14:46:02	d4b75a69-1b0a-4fd9-a74e-7d76624743eb	Error: ReferenceError: keyword is not defined
+20220618	21:33:50	0bec62bc-f246-4bf2-90b1-10690a5c170a	Error: CastError: Cast to string failed for value "{ '$in': [ '/MFPEN/i', '/s/i' ] }" (type Object) at path "name" for model "Product"
+20220618	21:34:56	56368678-868a-4a9a-adeb-7fa051778518	Error: CastError: Cast to string failed for value "{ '$in': [ 'MFPEN', 's' ] }" (type Object) at path "name" for model "Product"
+20220618	21:37:41	23833426-1ffb-4a6b-862c-8dbe810de684	Error: CastError: Cast to string failed for value "{ '$in': [ /MFPEN/i, /s/i ] }" (type Object) at path "name" for model "Product"
+20220618	23:20:46	8410ce1b-61f6-4f38-8fe7-62ebef66d6ab	ReferenceError: keyword is not defined
+20220618	23:21:16	eee1cd6e-b89c-406b-ba7d-d22f26bdff63	MongooseError: Query was already executed: Product.countDocuments({ '$or': [ { name: [Object] }, { bran...
+20220618	23:21:55	ea0e16d7-2e96-4fc8-a7aa-9dbab8921d67	MongooseError: Query was already executed: Product.countDocuments({ '$or': [ { name: [Object] }, { bran...
+20220618	23:23:52	bee3c3ea-62ce-4fe6-ba9e-50dcfcaabde4	ReferenceError: total is not defined
+20220618	23:24:09	c8259b7d-b8e7-465a-98d9-192b62d5678e	ReferenceError: total is not defined
+20220618	23:28:56	0ad40537-6bb7-4b43-867b-6654c06fe509	TypeError: abc.countDocuments is not a function
+20220618	23:29:10	8138a1b1-2fa0-4a11-b1de-c69fb60f04a2	ReferenceError: products is not defined
+20220618	23:59:39	45e99dd8-f9b4-42fa-af5b-5929beaf940c	TypeError: Cannot read properties of undefined (reading 'split')
+20220618	23:59:47	cf6b356c-b9aa-42ff-8e78-a4224dc49240	TypeError: Cannot read properties of undefined (reading 'split')
+20220619	00:06:52	55c5f322-8444-42e2-b58e-ae91d0388d56	ObjectParameterError: Parameter "filter" to find() must be an object, got DIGAWEL
+20220619	00:06:55	cdf0beb3-ea17-4e43-b56b-009448bb396b	ObjectParameterError: Parameter "filter" to find() must be an object, got DIGAWEL
+20220619	01:14:48	a187b8b0-6d30-41a2-8a98-57eab7e37034	MongooseError: Query was already executed: Product.countDocuments({ brand: 'DIGAWEL' })
+20220619	01:15:44	b5850f5e-8349-4d58-9660-f2cef0dfad31	MongooseError: Query was already executed: Product.countDocuments({ brand: 'DIGAWEL' })
+20220619	01:16:25	98ff56b7-133b-44bf-bc5d-685c16007802	MongooseError: Query was already executed: Product.countDocuments({ brand: 'MFPEN' })
+20220619	01:16:27	54350b5d-c7db-4777-9ce1-0cd9daf58860	MongooseError: Query was already executed: Product.countDocuments({ brand: 'RUS' })
+20220619	01:16:37	f4b7a92e-d641-40ad-9d10-15b1594a26f4	MongooseError: Query was already executed: Product.countDocuments({ brand: 'RUS' })
+20220619	01:16:37	ca699773-0771-47eb-8ee3-3fb00c0a91c7	MongooseError: Query was already executed: Product.countDocuments({ brand: 'MFPEN' })
+20220619	01:16:37	d61d236f-27e0-4ca4-8054-7c05fce860c6	MongooseError: Query was already executed: Product.countDocuments({ brand: 'DIGAWEL' })
+20220619	01:17:23	5453dc3b-acd6-4995-ba44-d70dc72690bd	Error: ReferenceError: queryStr is not defined
+20220619	01:17:25	50c9839a-5e85-4a39-8fdf-4e0e469a1ec4	Error: ReferenceError: queryStr is not defined
+20220619	01:17:29	f12bd9d0-c742-49a7-8709-754a53f24c67	Error: ReferenceError: queryStr is not defined

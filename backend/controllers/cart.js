@@ -36,7 +36,6 @@ exports.updateCartItems = (req, res, next) => {
         const item = cart.cartItems.find(
           (c) => c.product == product && c.size === size
         );
-        console.log(item);
 
         let condition, update;
         if (item) {

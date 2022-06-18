@@ -3,62 +3,51 @@ const asyncHandler = require("../middlewares/asyncHandler");
 const slugify = require("slugify");
 const Product = require("../models/Product");
 const mongoose = require("mongoose");
-const Features = require("../utils/Features");
+const Feature = require("../utils/Feature");
 const ObjectId = mongoose.Types.ObjectId;
 
-exports.addProduct = async (req, res, next) => {
-  const {
-    name,
-    price,
-    quantity,
-    description,
-    brand,
-    category,
-    discountPrice,
-    code,
-    color,
-    stock,
-  } = req.body;
+exports.addProduct = asyncHandler(async (req, res, next) => {
+  const { name, price, quantity, description, brand, category,
+    discountPrice, code, color, stock } = req.body;
+
   const stockArray = stock.split(",").map((stock) => ({
     size: stock.split(":")[0],
     qty: stock.split(":")[1],
   }));
+
   let productImgs = [];
 
-  try {
-    if (req.files.length > 0) {
-      productImgs = req.files.map((file) => {
-        return { fileName: file.filename };
-      });
-    }
-    let product = await Product.create({
-      name: name,
-      slug: slugify(name),
-      price,
-      quantity,
-      description,
-      brand,
-      productImgs,
-      category,
-      discountPrice,
-      code,
-      color,
-      stock: stockArray,
-      createdBy: req.userId,
+  if (req.files.length > 0) {
+    productImgs = req.files.map((file) => {
+      return { fileName: file.filename };
     });
-
-    product = await product.populate({
-      path: "category",
-      select: "_id name",
-    });
-    res.status(201).json({ product });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
   }
-};
 
-//ADMIN
-exports.getProducts = (req, res, next) => {
+  let product = await Product.create({
+    name: name,
+    slug: slugify(name),
+    price,
+    quantity,
+    description,
+    brand,
+    productImgs,
+    category,
+    discountPrice,
+    code,
+    color,
+    stock: stockArray,
+    createdBy: req.userId,
+  });
+
+  product = await product.populate({
+    path: "category",
+    select: "_id name",
+  });
+
+  res.status(201).json({ product });
+});
+
+exports.getAllProducts = (req, res, next) => {
   Product.find({})
     .populate({ path: "category", select: "_id name" })
     .exec()
@@ -66,132 +55,202 @@ exports.getProducts = (req, res, next) => {
     .then((products) => res.status(200).json({ products }));
 };
 
-exports.getProductsByCategories = async (req, res, next) => {
-  let { cids, brands, perPage, currentPage, sort, ...queryStr } = req.body;
-  let findQuery;
-  let matchQuery;
+exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
+  let { cids, brands, ...queryOptions } = req.body;
+  let findQuery = {};
+  let matchQuery = {};
 
-  if (cids?.length > 0) {
+  if (!cids?.length) {
+    brands?.length > 0 && (findQuery = { brand: { $in: brands } });
+  } else {
     cids = cids.map((cid) => new ObjectId(cid));
 
-    brands && brands.length > 0
-      ? (findQuery = {
+    !brands?.length
+      ? (findQuery = { category: { $in: cids } })
+      : (findQuery = {
           $and: [{ category: { $in: cids } }, { brand: { $in: brands } }],
-        })
-      : (findQuery = { category: { $in: cids } });
+        });
 
     matchQuery = { category: { $in: cids } };
-  } else {
-    brands && brands.length > 0
-      ? (findQuery = { brand: { $in: brands } })
-      : (findQuery = {});
-
-    matchQuery = {};
   }
 
-  try {
-    const total = await Product.countDocuments(findQuery);
+  const total = await Product.countDocuments(findQuery);
 
-    const feature = new Features(Product.find(findQuery), queryStr)
-      .search()
-      .filter()
-      .pagination(perPage, currentPage)
-      .sort(sort);
+  const products = await new Feature(Product.find(findQuery), queryOptions)
+    .pagination()
+    .sort().query;
 
-    const products = await feature.query;
-
-    const brandData = await Product.aggregate([
-      { $match: matchQuery },
-      {
-        //select
-        $project: {
-          brand: 1,
-        },
+  const brandData = await Product.aggregate([
+    { $match: matchQuery },
+    {
+      //select
+      $project: {
+        brand: 1,
       },
-      {
-        $group: {
-          _id: "$brand",
-          total: { $sum: 1 },
-        },
+    },
+    {
+      $group: {
+        _id: "$brand",
+        total: { $sum: 1 },
       },
-      { $sort: { _id: 1 } },
-    ]);
+    },
+    { $sort: { _id: 1 } },
+  ]);
 
-    res.status(200).json({ products, brandData, total });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
-  }
-};
+  res.status(200).json({ products, brandData, total });
+});
 
-exports.getProductsByBrand = async (req, res, next) => {
-  let { brand, perPage, currentPage, sort, ...queryStr } = req.body;
+// exports.getProductsByCategories = async (req, res, next) => {
+//   let { cids, brands, perPage, currentPage, sort } = req.body;
+//   let findQuery;
+//   let matchQuery;
 
-  try {
-    const total = await Product.countDocuments({ brand });
+//   if (cids?.length > 0) {
+//     cids = cids.map((cid) => new ObjectId(cid));
 
-    const feature = new Features(Product.find({ brand }), queryStr)
-      .search()
-      .filter()
-      .pagination(perPage, currentPage)
-      .sort(sort);
+//     brands && brands.length > 0
+//       ? (findQuery = {
+//           $and: [{ category: { $in: cids } }, { brand: { $in: brands } }],
+//         })
+//       : (findQuery = { category: { $in: cids } });
 
-    const products = await feature.query;
-    res.status(200).json({ products, total });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
-  }
-};
+//     matchQuery = { category: { $in: cids } };
+//   } else {
+//     brands && brands.length > 0
+//       ? (findQuery = { brand: { $in: brands } })
+//       : (findQuery = {});
 
-exports.getProductsBySearch = async (req, res, next) => {
-  let { keyword, perPage, currentPage, sort, ...queryStr } = req.body;
+//     matchQuery = {};
+//   }
 
-  try {
-    const total = await Product.countDocuments({});
+//   try {
+//     const total = await Product.countDocuments(findQuery);
 
-    const feature = new Features(Product.find({}), queryStr)
-      .search(keyword)
-      .filter()
-      .pagination(perPage, currentPage)
-      .sort(sort);
+//     const feature = new Features(Product.find(findQuery), queryStr)
+//       .search()
+//       .filter()
+//       .pagination(perPage, currentPage)
+//       .sort(sort);
 
-    const products = await feature.query;
-    res.status(200).json({ products, total });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
-  }
-};
+//     const products = await feature.query;
 
-exports.getProduct = async (req, res, next) => {
+//     const brandData = await Product.aggregate([
+//       { $match: matchQuery },
+//       {
+//         //select
+//         $project: {
+//           brand: 1,
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$brand",
+//           total: { $sum: 1 },
+//         },
+//       },
+//       { $sort: { _id: 1 } },
+//     ]);
+
+//     res.status(200).json({ products, brandData, total });
+//   } catch (err) {
+//     return next(new ErrorResponse(err, 400));
+//   }
+// };
+
+// exports.getProductsByBrand = async (req, res, next) => {
+//   let { brand, perPage, currentPage, sort, ...queryStr } = req.body;
+
+//   try {
+//     const total = await Product.countDocuments({ brand });
+
+//     const feature = new Features(Product.find({ brand }), queryStr)
+//       .pagination(perPage, currentPage)
+//       .sort(sort);
+
+//     const products = await feature.query;
+//     res.status(200).json({ products, total });
+//   } catch (err) {
+//     return next(new ErrorResponse(err, 400));
+//   }
+// };
+
+// exports.getProductsByKeyword = async (req, res, next) => {
+//   let { keyword, perPage, currentPage, sort, ...queryStr } = req.body;
+
+//   const keywordArray = keyword.split(" ").map((item) => new RegExp(item, "i"));
+
+//   console.log(keyword, keywordArray);
+
+//   let findQuery = {
+//     $or: [{ name: { $in: keywordArray } }, { brand: { $in: keywordArray } }],
+//   };
+
+//   try {
+//     const total = await Product.countDocuments(findQuery);
+
+//     const feature = new Features(Product.find(findQuery), queryStr)
+//       .pagination(perPage, currentPage)
+//       .sort(sort);
+
+//     const products = await feature.query;
+//     console.log(total);
+//     res.status(200).json({ products, total });
+//   } catch (err) {
+//     return next(new ErrorResponse(err, 400));
+//   }
+// };
+
+// exports.getProductsByKeyword = asyncHandler(async (req, res, next) => {
+//   const { brand, keyword, perPage, currentPage, sort } = req.body;
+
+//   const total = await new Feature(Product)
+//     .filter(brand)
+//     .search(keyword, "product")
+//     .query.countDocuments();
+
+//   const products = await new Feature(Product)
+//     .filter(brand)
+//     .search(keyword, "product")
+//     .pagination(perPage, currentPage)
+//     .sort(sort).query;
+
+//   console.log(total);
+
+//   res.status(200).json({ products, total });
+// });
+
+exports.getProducts = asyncHandler(async (req, res, next) => {
+  const total = await new Feature(Product, req.body)
+    .filter()
+    .search("product")
+    .query.countDocuments();
+
+  const products = await new Feature(Product, req.body)
+    .filter()
+    .search("product")
+    .pagination()
+    .sort().query;
+
+  res.status(200).json({ products, total });
+});
+
+exports.getProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  try {
-    const product = await Product.findOne({ _id: id });
-    let relatedProducts;
-    
-    if (typeof product.code === "undefined") relatedProducts = [];
-    else relatedProducts = await Product.find({ code: product.code });
+  const product = await Product.findOne({ _id: id });
 
-    res.status(200).json({ product, relatedProducts });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
-  }
-};
+  let relatedProducts;
 
-exports.updateProduct = async (req, res, next) => {
-  const {
-    _id,
-    name,
-    price,
-    quantity,
-    description,
-    brand,
-    category,
-    discountPrice,
-    code,
-    color,
-    stock,
-  } = req.body;
+  if (!product?.code) relatedProducts = [];
+  else relatedProducts = await Product.find({ code: product.code });
+
+  res.status(200).json({ product, relatedProducts });
+});
+
+exports.updateProduct = asyncHandler(async (req, res, next) => {
+  const { _id, name, price, quantity, description, brand, category,
+    discountPrice, code, color, stock } = req.body;
 
   const stockArray = stock.split(",").map((stock) => ({
     size: stock.split(":")[0],
@@ -200,44 +259,41 @@ exports.updateProduct = async (req, res, next) => {
 
   let productImgs = [];
 
-  try {
-    if (req.files.length > 0) {
-      productImgs = req.files.map((file) => {
-        return { fileName: file.filename };
-      });
-    }
-
-    const product = {
-      name: name,
-      slug: slugify(name),
-      price,
-      quantity,
-      description,
-      brand,
-      category,
-      discountPrice,
-      code,
-      color,
-      stock: stockArray,
-      createdBy: req.userId,
-    };
-    if (productImgs.length > 0) product.productImgs = productImgs;
-
-    //new:true => update된 객체 return 받음
-    let updatedProduct = await Product.findOneAndUpdate({ _id }, product, {
-      new: true,
+  if (req.files.length > 0) {
+    productImgs = req.files.map((file) => {
+      return { fileName: file.filename };
     });
-
-    updatedProduct = await updatedProduct.populate({
-      path: "category",
-      select: "_id name",
-    });
-
-    res.status(201).json({ updatedProduct });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
   }
-};
+
+  const product = {
+    name: name,
+    slug: slugify(name),
+    price,
+    quantity,
+    description,
+    brand,
+    category,
+    discountPrice,
+    code,
+    color,
+    stock: stockArray,
+    createdBy: req.userId,
+  };
+  if (productImgs?.length > 0) product.productImgs = productImgs;
+
+  //new:true => update된 객체 return 받음
+  let updatedProduct = await Product.findOneAndUpdate({ _id }, product, {
+    new: true,
+  });
+
+  updatedProduct = await updatedProduct.populate({
+    path: "category",
+    select: "_id name",
+  });
+
+  res.status(201).json({ updatedProduct });
+
+});
 
 exports.deleteProduct = (req, res, next) => {
   const { id } = req.params;

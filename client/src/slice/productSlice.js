@@ -41,6 +41,19 @@ export const getProductsByBrand = createAsyncThunk(
   }
 );
 
+export const getProductsByKeyword = createAsyncThunk(
+  "product/getProductsByKeyword",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await axios.post(`/products/keyword`, payload);
+      thunkAPI.dispatch(saveFeatures(payload));
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const getProduct = createAsyncThunk(
   "product/getProduct",
   async (id, thunkAPI) => {
@@ -94,6 +107,19 @@ const productSlice = createSlice({
       state.isLoading = false;
     },
     [getProductsByBrand.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
+    [getProductsByKeyword.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getProductsByKeyword.fulfilled]: (state, action) => {
+      state.products = action.payload.products;
+      state.brandData = [];
+      state.total = action.payload.total;
+      state.isLoading = false;
+    },
+    [getProductsByKeyword.rejected]: (state, action) => {
       state.isLoading = false;
     },
 

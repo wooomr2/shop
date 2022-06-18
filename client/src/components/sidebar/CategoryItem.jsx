@@ -37,7 +37,6 @@ function TreeItem({ category, children, categoryToggleHandler, setBrands, setCur
 }
 
 function CategoryItem({ categories, categoryToggleHandler, setBrands, setCurrentPage }) {
-  console.log(categories);
 
   const createTree = (category) => (
     <TreeItem

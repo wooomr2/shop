@@ -8,7 +8,7 @@ import Brand from "../brands/Brand";
 function Collection() {
   const dispatch = useDispatch();
   const params = useParams();
-  const { collection } = useSelector((store) => store.collection);
+  const collection = useSelector((store) => store.collection.collection);
 
   useEffect(() => {
     dispatch(getCollection(params.id));
@@ -37,7 +37,7 @@ function Collection() {
         ))}
       </div>
 
-      {collection?.brand && <Brand brandName={collection.brand} />}
+      {/* {collection?.brand && <Brand brandName={collection.brand} />} */}
     </div>
   );
 }

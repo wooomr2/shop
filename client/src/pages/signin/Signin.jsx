@@ -47,9 +47,7 @@ function Signin() {
     }
   }, [error]);
 
-  if (user) {
-    return <Navigate to="/" replace />;
-  }
+  if (user) return <Navigate to="/" replace />;
 
   return (
     <div className="signinForm-container">

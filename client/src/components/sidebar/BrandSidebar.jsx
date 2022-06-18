@@ -8,9 +8,9 @@ function BrandSidebar() {
   const dispatch = useDispatch();
   const { brands } = useSelector((store) => store.brand);
 
-  useEffect(() => {
-    dispatch(getBrands());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getBrands());
+  // }, []);
 
   return (
     <div>

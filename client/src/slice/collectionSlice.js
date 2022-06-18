@@ -4,8 +4,8 @@ import axios from "../utils/axiosInstance";
 const initialState = {
   collection: {},
   collections: [],
-  mainCollections:[],
-  subCollections:[],
+  mainCollections: [],
+  subCollections: [],
   isLoading: false,
   error: null,
 };
@@ -44,8 +44,12 @@ const collectionSlice = createSlice({
     },
     [getCollections.fulfilled]: (state, action) => {
       state.collections = action.payload.collections;
-      state.mainCollections = action.payload.collections.filter(coll=>coll.priority===true);
-      state.subCollections = action.payload.collections.filter(coll=>coll.priority===false);
+      state.mainCollections = action.payload.collections.filter(
+        (c) => c.priority === true
+      );
+      state.subCollections = action.payload.collections.filter(
+        (c) => c.priority === false
+      );
       state.isLoading = false;
     },
     [getCollections.rejected]: (state, action) => {

@@ -1,12 +1,12 @@
-import './header.scss';
-import React, { useCallback, useEffect, useState } from "react"
+import "./header.scss";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import BrandSidebar from "../brandsidebar/BrandSidebar";
 import { clearFeatures } from "../../slice/productSlice";
 import { signout } from "../../slice/authSlice";
-import Search from "./search/Search";
+import SearchInput from "./searchInput/SearchInput";
 import Menu from "./menu/Menu";
 
 function Header() {
@@ -18,20 +18,22 @@ function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(0);
 
-  const onClickNavigate = useCallback((cate) => () => {
-    if (cate === "/categories/all" || "/brands")
-      dispatch(clearFeatures());
-    navigate(cate);
-  }, []);
+  const onClickNavigate = useCallback(
+    (cate) => () => {
+      if (cate === "/categories/all" || "/brands") dispatch(clearFeatures());
+      navigate(cate);
+    },
+    []
+  );
 
   const onClickLogout = useCallback(() => {
     dispatch(signout());
-    navigate("/")
+    navigate("/");
   }, []);
 
   const onClickMenuOpen = useCallback(() => {
     setMenuOpen(!menuOpen);
-  }, [menuOpen])
+  }, [menuOpen]);
 
   const onClickSearchOpen = useCallback(() => {
     setSearchOpen(!searchOpen);
@@ -87,10 +89,16 @@ function Header() {
               </div>
             ) : (
               <>
-                <div className="navbar-item" onClick={onClickNavigate("/signin")}>
+                <div
+                  className="navbar-item"
+                  onClick={onClickNavigate("/signin")}
+                >
                   SIGNIN
                 </div>
-                <div className="navbar-item" onClick={onClickNavigate("/signup")}>
+                <div
+                  className="navbar-item"
+                  onClick={onClickNavigate("/signup")}
+                >
                   SIGNUP
                 </div>
               </>
@@ -122,7 +130,7 @@ function Header() {
           setIsHovering={setIsHovering}
         />
       ) : null}
-      {searchOpen && <Search />}
+      {searchOpen && <SearchInput />}
       <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </div>
   );

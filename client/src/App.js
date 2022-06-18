@@ -24,6 +24,7 @@ import UnAuthorized from "./pages/unauthorized/Unauthorized";
 import Missing from "./pages/missing/Missing";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ROLES } from "./utils/roleList";
+import Search from "./pages/search/Search";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="search/:keyword" element={<Search />} />
           <Route path=":slug/:cid" element={<Category />} />
           <Route path="brands" element={<Brands />} />
           <Route path="brands/:name" element={<Brand />} />

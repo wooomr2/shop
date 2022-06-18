@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/ErrorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
 const slugify = require("slugify");
 const Product = require("../models/Product");
 const mongoose = require("mongoose");
@@ -56,6 +57,7 @@ exports.addProduct = async (req, res, next) => {
   }
 };
 
+//ADMIN
 exports.getProducts = (req, res, next) => {
   Product.find({})
     .populate({ path: "category", select: "_id name" })
@@ -129,6 +131,25 @@ exports.getProductsByBrand = async (req, res, next) => {
 
     const feature = new Features(Product.find({ brand }), queryStr)
       .search()
+      .filter()
+      .pagination(perPage, currentPage)
+      .sort(sort);
+
+    const products = await feature.query;
+    res.status(200).json({ products, total });
+  } catch (err) {
+    return next(new ErrorResponse(err, 400));
+  }
+};
+
+exports.getProductsBySearch = async (req, res, next) => {
+  let { keyword, perPage, currentPage, sort, ...queryStr } = req.body;
+
+  try {
+    const total = await Product.countDocuments({});
+
+    const feature = new Features(Product.find({}), queryStr)
+      .search(keyword)
       .filter()
       .pagination(perPage, currentPage)
       .sort(sort);

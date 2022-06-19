@@ -1,11 +1,9 @@
-import { Outlet } from "react-router-dom";
-import Header from "./header/Header";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getCategories } from "../slice/categorySlice";
-import { batch } from "react-redux";
-import { addCartItems } from "../slice/cartSlice";
+import { batch, useDispatch } from "react-redux";
+import { Outlet } from "react-router-dom";
 import { getBrands } from "../slice/brandSlice";
+import { getCategories } from "../slice/categorySlice";
+import Header from "./header/Header";
 
 function Layout() {
   const dispatch = useDispatch();

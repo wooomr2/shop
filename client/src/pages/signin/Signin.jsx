@@ -34,9 +34,7 @@ function Signin() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      if (cartItems.length) {
-        dispatch(addCartItems({ user: user._id, cartItems }));
-      }
+      dispatch(addCartItems(cartItems));
       navigate("/", { replace: true });
     }
   }, [isAuthenticated]);

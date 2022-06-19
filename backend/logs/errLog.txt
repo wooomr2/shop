@@ -141,3 +141,5 @@ Use mongoose.model(name, schema)
 20220619	22:45:51	f72571df-8d90-4127-b029-78d0a6555653	TypeError: userAddress.filter is not a function
 20220619	22:46:05	235b28f6-7340-44cd-a0ac-a9df38c781d2	ReferenceError: orderedAddress is not defined
 20220619	23:03:18	f5737c1c-e63c-4d1a-abc8-8a7bfa3bc3f8	Error: 유효하지 않은 토큰
+20220620	00:01:29	fb92c65f-b694-42e8-9710-43ab8ad08107	Error: 잘못된 비밀번호
+20220620	00:50:02	0036bd69-a436-45c7-813d-9632929ce858	Error: 잘못된 비밀번호

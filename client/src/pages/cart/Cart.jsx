@@ -43,11 +43,7 @@ function Cart() {
         <div className="cart-button">
           <button onClick={() => dispatch(clearCart())}>카트 초기화</button>
           {user && (
-            <button
-              onClick={() =>
-                dispatch(updateCartItems({ user: user._id, cartItems }))
-              }
-            >
+            <button onClick={() => dispatch(updateCartItems(cartItems))}>
               카트 저장
             </button>
           )}

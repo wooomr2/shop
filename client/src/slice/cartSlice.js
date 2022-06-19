@@ -8,9 +8,9 @@ const initialState = {
 
 export const getCartItems = createAsyncThunk(
   "cart/getCartItems",
-  async (userId, thunkAPI) => {
+  async (dummy, thunkAPI) => {
     try {
-      const res = await axios.get(`/carts/${userId}`);
+      const res = await axios.get(`/carts`);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -20,7 +20,7 @@ export const getCartItems = createAsyncThunk(
 
 export const addCartItems = createAsyncThunk(
   "cart/addCartItems",
-  async ({ user, cartItems }, thunkAPI) => {
+  async (cartItems, thunkAPI) => {
     try {
       cartItems = cartItems.map((cartItem) => {
         return {
@@ -29,8 +29,8 @@ export const addCartItems = createAsyncThunk(
           quantity: cartItem.qty,
         };
       });
-      const res = await axios.post("/carts", { user, cartItems });
-      if (res.status === 201) thunkAPI.dispatch(getCartItems(user));
+      const res = await axios.post("/carts", cartItems);
+      if (res.status === 201) thunkAPI.dispatch(getCartItems());
 
       return res.data;
     } catch (err) {
@@ -41,7 +41,7 @@ export const addCartItems = createAsyncThunk(
 
 export const updateCartItems = createAsyncThunk(
   "cart/updateCartItems",
-  async ({ user, cartItems }, thunkAPI) => {
+  async (cartItems, thunkAPI) => {
     try {
       cartItems = cartItems.map((cartItem) => {
         return {
@@ -51,7 +51,7 @@ export const updateCartItems = createAsyncThunk(
         };
       });
 
-      const res = await axios.put("/carts", { user, cartItems });
+      const res = await axios.put("/carts", cartItems);
 
       return res.data;
     } catch (err) {

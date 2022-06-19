@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", verifyToken, verifyRoles(ROLES.USER), addCartItems);
 router.put("/", verifyToken, verifyRoles(ROLES.USER), updateCartItems)
-router.delete("/", verifyToken, verifyRoles(ROLES.USER), removeCartItems);
-router.get("/:userId", verifyToken, verifyRoles(ROLES.USER), getCartItems);
+// router.delete("/", verifyToken, verifyRoles(ROLES.USER), removeCartItems);
+router.get("/", verifyToken, verifyRoles(ROLES.USER), getCartItems);
 
 module.exports = router;

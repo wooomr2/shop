@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/ErrorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
 const Cart = require("../models/Cart");
 
 function updatePromise(condition, update) {
@@ -9,170 +10,225 @@ function updatePromise(condition, update) {
   });
 }
 
-exports.updateCartItems = (req, res, next) => {
-  const { user, cartItems } = req.body;
+exports.addCartItems = asyncHandler(async (req, res, next) => {
+  const user = req.userId;
+  const cartItems = req.body;
 
-  const products = cartItems.map((cartItem) => cartItem.product);
+  const foundCart = await Cart.findOne({ user }).exec();
 
-  Cart.findOneAndUpdate(
-    { user },
-    {
-      $pull: {
-        cartItems: {
-          product: { $nin: products },
+  if (!foundCart) {
+    const cart = await Cart.create({ user, cartItems });
+    return res.status(201).json({ cart });
+  }
+
+  let promiseArray = [];
+
+  cartItems.forEach((cartItem) => {
+    const { product, size } = cartItem;
+
+    const item = foundCart.cartItems.find(
+      (c) => c.product == product && c.size === size
+    );
+
+    let condition, update;
+
+    if (item) {
+      condition = {
+        user,
+        "cartItems.product": product,
+        "cartItems.size": size,
+      };
+      update = {
+        $set: {
+          "cartItems.$": cartItem,
         },
-      },
-    },
-    {
-      new: true,
-    }
-  ).exec((err, cart) => {
-    if (err) return next(new ErrorResponse(err, 400));
-    if (cart) {
-      let promiseArray = [];
-
-      cartItems.forEach((cartItem) => {
-        const { product, size } = cartItem;
-        const item = cart.cartItems.find(
-          (c) => c.product == product && c.size === size
-        );
-
-        let condition, update;
-        if (item) {
-          condition = {
-            user,
-            "cartItems.product": product,
-            "cartItems.size": size,
-          };
-          update = {
-            $set: {
-              "cartItems.$": cartItem,
-            },
-          };
-        } else {
-          condition = { user };
-          update = {
-            $push: {
-              cartItems: cartItem,
-            },
-          };
-        }
-
-        promiseArray.push(updatePromise(condition, update));
-      });
-
-      Promise.all(promiseArray)
-        .catch((err) => next(new ErrorResponse(err, 400)))
-        .then((response) => res.status(201).json({ response }));
+      };
     } else {
-      const cart = new Cart({
-        user,
-        cartItems,
-      });
-      cart.save((err, cart) => {
-        if (err) return next(new ErrorResponse(err, 400));
-        if (cart) return res.status(201).json({ cart });
-      });
+      condition = { user };
+      update = {
+        $push: {
+          cartItems: cartItem,
+        },
+      };
     }
+
+    promiseArray.push(updatePromise(condition, update));
   });
-};
 
-exports.addCartItems = (req, res, next) => {
-  const { user, cartItems } = req.body;
+  Promise.all(promiseArray)
+    .catch((err) => next(new ErrorResponse(err, 400)))
+    .then((response) => res.status(201).json({ response }));
+});
 
-  Cart.findOne({ user }).exec((err, cart) => {
-    if (err) return next(new ErrorResponse(err, 400));
-    if (cart) {
-      let promiseArray = [];
+// exports.addCartItems = (req, res, next) => {
+//   const user = req.userId;
+//   const cartItems = req.body;
 
-      cartItems.forEach((cartItem) => {
-        const { product, size } = cartItem;
-        const item = cart.cartItems.find(
-          (c) => c.product == product && c.size === size
-        );
+//   Cart.findOne({ user }).exec((err, cart) => {
+//     if (err) return next(new ErrorResponse(err, 400));
+//     if (cart) {
+//       let promiseArray = [];
 
-        let condition, update;
+//       cartItems.forEach((cartItem) => {
+//         const { product, size } = cartItem;
+//         const item = cart.cartItems.find(
+//           (c) => c.product == product && c.size === size
+//         );
 
-        if (item) {
-          condition = {
-            user,
-            "cartItems.product": product,
-            "cartItems.size": size,
-          };
-          update = {
-            $set: {
-              "cartItems.$": cartItem,
-            },
-          };
-        } else {
-          condition = { user };
-          update = {
-            $push: {
-              cartItems: cartItem,
-            },
-          };
-        }
+//         let condition, update;
 
-        promiseArray.push(updatePromise(condition, update));
-      });
+//         if (item) {
+//           condition = {
+//             user,
+//             "cartItems.product": product,
+//             "cartItems.size": size,
+//           };
+//           update = {
+//             $set: {
+//               "cartItems.$": cartItem,
+//             },
+//           };
+//         } else {
+//           condition = { user };
+//           update = {
+//             $push: {
+//               cartItems: cartItem,
+//             },
+//           };
+//         }
 
-      Promise.all(promiseArray)
-        .catch((err) => next(new ErrorResponse(err, 400)))
-        .then((response) => res.status(201).json({ response }));
-    } else {
-      const cart = new Cart({
-        user,
-        cartItems,
-      });
-      cart.save((err, cart) => {
-        if (err) return next(new ErrorResponse(err, 400));
-        if (cart) return res.status(201).json({ cart });
-      });
-    }
-  });
-};
+//         promiseArray.push(updatePromise(condition, update));
+//       });
 
-exports.getCartItems = (req, res, next) => {
-  const { userId } = req.params;
+//       Promise.all(promiseArray)
+//         .catch((err) => next(new ErrorResponse(err, 400)))
+//         .then((response) => res.status(201).json({ response }));
+//     } else {
+//       const cart = new Cart({
+//         user,
+//         cartItems,
+//       });
+//       cart.save((err, cart) => {
+//         if (err) return next(new ErrorResponse(err, 400));
+//         if (cart) return res.status(201).json({ cart });
+//       });
+//     }
+//   });
+// };
 
-  Cart.findOne({ user: userId })
+exports.updateCartItems = asyncHandler(async (req, res, next) => {
+  const user = req.userId;
+  const cartItems = req.body;
+
+  const cart = await Cart.findOneAndReplace({ user }, { user, cartItems });
+
+  res.status(201).json({ cart });
+});
+
+// exports.updateCartItems = (req, res, next) => {
+//   const user = req.userId
+//   const cartItems = req.body;
+
+//   const products = cartItems.map((cartItem) => cartItem.product);
+
+//   Cart.findOneAndUpdate(
+//     { user },
+//     {
+//       $pull: {
+//         cartItems: {
+//           product: { $nin: products },
+//         },
+//       },
+//     },
+//     {
+//       new: true,
+//     }
+//   ).exec((err, cart) => {
+//     if (err) return next(new ErrorResponse(err, 400));
+//     if (cart) {
+//       let promiseArray = [];
+
+//       cartItems.forEach((cartItem) => {
+//         const { product, size } = cartItem;
+//         const item = cart.cartItems.find(
+//           (c) => c.product == product && c.size === size
+//         );
+
+//         let condition, update;
+//         if (item) {
+//           condition = {
+//             user,
+//             "cartItems.product": product,
+//             "cartItems.size": size,
+//           };
+//           update = {
+//             $set: {
+//               "cartItems.$": cartItem,
+//             },
+//           };
+//         } else {
+//           condition = { user };
+//           update = {
+//             $push: {
+//               cartItems: cartItem,
+//             },
+//           };
+//         }
+
+//         promiseArray.push(updatePromise(condition, update));
+//       });
+
+//       Promise.all(promiseArray)
+//         .catch((err) => next(new ErrorResponse(err, 400)))
+//         .then((response) => res.status(201).json({ response }));
+//     } else {
+//       const cart = new Cart({
+//         user,
+//         cartItems,
+//       });
+//       cart.save((err, cart) => {
+//         if (err) return next(new ErrorResponse(err, 400));
+//         if (cart) return res.status(201).json({ cart });
+//       });
+//     }
+//   });
+// };
+
+exports.getCartItems = asyncHandler(async (req, res, next) => {
+  const cart = await Cart.findOne({ user: req.userId })
     .populate("cartItems.product", "_id name price productImgs")
-    .exec((err, cart) => {
-      if (err) return next(new ErrorResponse(err, 400));
-      if (cart) {
-        console.log(cart);
-        let cartItems = [];
-        cartItems = cart.cartItems.map((item) => ({
-          _id: item.product._id,
-          name: item.product.name,
-          img: item.product.productImgs[0].fileName,
-          price: item.product.price,
-          qty: item.quantity,
-          size: item.size,
-        }));
-        res.status(200).json({ cartItems });
-      }
-    });
-};
+    .exec();
 
-exports.removeCartItems = (req, res, next) => {
-  const { user, cartItems } = req.body;
-  const products = cartItems.map((cartItem) => cartItem.product);
+  const cartItems = cart.cartItems.map((item) => ({
+    _id: item.product._id,
+    name: item.product.name,
+    img: item.product.productImgs[0].fileName,
+    price: item.product.price,
+    qty: item.quantity,
+    size: item.size,
+  }));
 
-  Cart.findOneAndUpdate(
-    { user },
-    {
-      $pull: {
-        cartItems: {
-          product: { $nin: products },
-        },
-      },
-    },
-    {
-      new: true,
-    }
-  ).exec((err, cart) => {
-    if (err) return next(new ErrorResponse(err, 400));
-    if (cart) res.status(202).json({ cart });
-  });
-};
+  res.status(200).json({ cartItems });
+});
+
+// exports.getCartItems = (req, res, next) => {
+
+//   Cart.findOne({ user: req.userId })
+//     .populate("cartItems.product", "_id name price productImgs")
+//     .exec((err, cart) => {
+//       if (err) return next(new ErrorResponse(err, 400));
+//       if (cart) {
+//         console.log(cart);
+//         let cartItems = [];
+//         cartItems = cart.cartItems.map((item) => ({
+//           _id: item.product._id,
+//           name: item.product.name,
+//           img: item.product.productImgs[0].fileName,
+//           price: item.product.price,
+//           qty: item.quantity,
+//           size: item.size,
+//         }));
+//         res.status(200).json({ cartItems });
+//       }
+//     });
+// };

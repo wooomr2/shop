@@ -27,7 +27,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["auth", "user","collection","lookbook","modal","product","review","screen"],
+  blacklist: ["auth","brand","cart","category", "collection","lookbook","modal","product","review","screen", "user"],
 };
 
 const rootReducer = combineReducers({

@@ -7,7 +7,7 @@ import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Product from "../../components/product/Product";
 import BrandSidebar from "../../components/brandsidebar/BrandSidebar";
 import { getBrand } from "../../slice/brandSlice";
-import { getProductsByBrand } from "../../slice/productSlice";
+import { getProducts, getProductsByBrand } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
 import Pagination from "../../components/pagination/Pagination";
 
@@ -33,7 +33,7 @@ function Brand({ brandName }) {
       currentPage,
       sort,
     };
-    dispatch(getProductsByBrand(payload));
+    dispatch(getProducts(payload));
   }, [params, brandName, perPage, currentPage, sort]);
 
   const handleGridColums = (boolean) => () => {

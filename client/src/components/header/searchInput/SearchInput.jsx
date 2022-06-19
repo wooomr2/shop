@@ -10,8 +10,6 @@ function Search() {
     e.preventDefault();
     if (keyword.trim()) {
       navigate(`/search/${keyword}`);
-    } else {
-      navigate("/search");
     }
   };
   return (

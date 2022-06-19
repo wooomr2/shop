@@ -50,6 +50,9 @@ function Menu({ menuOpen, setMenuOpen }) {
         <div className="menu-item" onClick={onClickNavigate("/contact")}>
           CONTACT
         </div>
+        <div className="menu-item" onClick={onClickNavigate("/orders")}>
+          order
+        </div>
       </div>
     </div>
   );

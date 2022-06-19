@@ -5,7 +5,7 @@ import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Pagination from "../../components/pagination/Pagination";
 import Product from "../../components/product/Product";
-import { getProductsByKeyword } from "../../slice/productSlice";
+import { getProducts, getProductsByKeyword } from "../../slice/productSlice";
 
 function Search() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function Search() {
       currentPage,
       sort,
     };
-    dispatch(getProductsByKeyword(payload));
+    dispatch(getProducts(payload));
   }, [params, keyword, perPage, currentPage, sort]);
 
   const handleGridColums = (boolean) => () => {

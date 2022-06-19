@@ -114,6 +114,10 @@ function Header() {
             <div className="navbar-item" onClick={onClickNavigate("/contact")}>
               CONTACT
             </div>
+            <div className="menu-item" onClick={onClickNavigate("/orders")}>
+              order
+            </div>
+            
           </div>
           <div className="navbar-items-lg">
             <div className="search-icon-wrapper" onClick={onClickSearchOpen}>

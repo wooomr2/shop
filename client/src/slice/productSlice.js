@@ -28,11 +28,11 @@ export const getProductsByCategories = createAsyncThunk(
   }
 );
 
-export const getProductsByBrand = createAsyncThunk(
-  "product/getProductsByBrand",
+export const getProducts = createAsyncThunk(
+  "product/getProducts",
   async (payload, thunkAPI) => {
     try {
-      const res = await axios.post(`/products/brand`, payload);
+      const res = await axios.post(`/products/get`, payload);
       thunkAPI.dispatch(saveFeatures(payload));
       return res.data;
     } catch (err) {
@@ -41,18 +41,31 @@ export const getProductsByBrand = createAsyncThunk(
   }
 );
 
-export const getProductsByKeyword = createAsyncThunk(
-  "product/getProductsByKeyword",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await axios.post(`/products/keyword`, payload);
-      thunkAPI.dispatch(saveFeatures(payload));
-      return res.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
-  }
-);
+// export const getProductsByBrand = createAsyncThunk(
+//   "product/getProductsByBrand",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await axios.post(`/products/brand`, payload);
+//       thunkAPI.dispatch(saveFeatures(payload));
+//       return res.data;
+//     } catch (err) {
+//       return thunkAPI.rejectWithValue(err.response.data);
+//     }
+//   }
+// );
+
+// export const getProductsByKeyword = createAsyncThunk(
+//   "product/getProductsByKeyword",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await axios.post(`/products/keyword`, payload);
+//       thunkAPI.dispatch(saveFeatures(payload));
+//       return res.data;
+//     } catch (err) {
+//       return thunkAPI.rejectWithValue(err.response.data);
+//     }
+//   }
+// );
 
 export const getProduct = createAsyncThunk(
   "product/getProduct",
@@ -97,31 +110,44 @@ const productSlice = createSlice({
       state.isLoading = false;
     },
 
-    [getProductsByBrand.pending]: (state) => {
+    [getProducts.pending]: (state) => {
       state.isLoading = true;
     },
-    [getProductsByBrand.fulfilled]: (state, action) => {
+    [getProducts.fulfilled]: (state, action) => {
       state.products = action.payload.products;
       state.brandData = [];
       state.total = action.payload.total;
       state.isLoading = false;
     },
-    [getProductsByBrand.rejected]: (state, action) => {
+    [getProducts.rejected]: (state, action) => {
       state.isLoading = false;
     },
 
-    [getProductsByKeyword.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [getProductsByKeyword.fulfilled]: (state, action) => {
-      state.products = action.payload.products;
-      state.brandData = [];
-      state.total = action.payload.total;
-      state.isLoading = false;
-    },
-    [getProductsByKeyword.rejected]: (state, action) => {
-      state.isLoading = false;
-    },
+    // [getProductsByBrand.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [getProductsByBrand.fulfilled]: (state, action) => {
+    //   state.products = action.payload.products;
+    //   state.brandData = [];
+    //   state.total = action.payload.total;
+    //   state.isLoading = false;
+    // },
+    // [getProductsByBrand.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    // },
+
+    // [getProductsByKeyword.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [getProductsByKeyword.fulfilled]: (state, action) => {
+    //   state.products = action.payload.products;
+    //   state.brandData = [];
+    //   state.total = action.payload.total;
+    //   state.isLoading = false;
+    // },
+    // [getProductsByKeyword.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    // },
 
     [getProduct.pending]: (state) => {
       state.isLoading = true;

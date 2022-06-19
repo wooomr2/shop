@@ -17,7 +17,7 @@ function Orders() {
     <div>
       {orders?.map((order) => (
         <div key={order._id}>
-          <p>{order._id}</p>
+          <p>주문 번호: {order._id}</p>
           <div style={{display:"flex"}}>
             {order.items.map((item) => (
               <div key={item._id}>

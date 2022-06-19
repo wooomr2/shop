@@ -1,7 +1,8 @@
 const ErrorResponse = require("../utils/ErrorResponse");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-const Address = require("../models/Address");
+const UserAddress = require("../models/Address");
+const asyncHandler = require("../middlewares/asyncHandler");
 
 exports.addOrder = (req, res) => {
   console.log(req.body);
@@ -38,36 +39,29 @@ exports.addOrder = (req, res) => {
   });
 };
 
-exports.getOrdersByUserId = (req, res) => {
-  Order.find({ user: req.params.uid })
+exports.getAllOrders = asyncHandler(async (req, res, next) => {});
+
+exports.getOrdersByUserId = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.userId })
     .select("_id paymentStatus paymentType orderStatus items")
     .populate("items.product", "_id name productImgs")
-    .exec((error, orders) => {
-      if (error) return res.status(400).json({ error });
-      if (orders) {
-        res.status(200).json({ orders });
-      }
-    });
-};
+    .exec();
 
-exports.getOrder = (req, res) => {
-  Order.findOne({ _id: req.body.orderId })
-    .populate("items.productId", "_id name productPictures")
-    .lean()
-    .exec((error, order) => {
-      if (error) return res.status(400).json({ error });
-      if (order) {
-        Address.findOne({
-          user: req.userId,
-        }).exec((error, address) => {
-          if (error) return res.status(400).json({ error });
-          order.address = address.address.find(
-            (adr) => adr._id.toString() == order.addressId.toString()
-          );
-          res.status(200).json({
-            order,
-          });
-        });
-      }
-    });
-};
+  res.status(200).json({ orders });
+});
+
+exports.getOrder = asyncHandler(async (req, res, next) => {
+  const order = await Order.findById(req.params.id)
+    .populate("items.product", "_id name color brand productImgs")
+    .exec();
+
+  const userAddress = await UserAddress.findOne({
+    user: order.user,
+  }).exec();
+
+  const shippingAddress = userAddress.address.find(
+    (addr) => addr._id.toString() === order.address.toString()
+  );
+
+  res.status(200).json({ order, shippingAddress });
+});

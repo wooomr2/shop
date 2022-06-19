@@ -124,3 +124,20 @@
 20220619	01:17:23	5453dc3b-acd6-4995-ba44-d70dc72690bd	Error: ReferenceError: queryStr is not defined
 20220619	01:17:25	50c9839a-5e85-4a39-8fdf-4e0e469a1ec4	Error: ReferenceError: queryStr is not defined
 20220619	01:17:29	f12bd9d0-c742-49a7-8709-754a53f24c67	Error: ReferenceError: queryStr is not defined
+20220619	13:45:30	fa253a86-8284-4d4e-9659-5b30f237713c	Error: 관리자가 아닙니다
+20220619	14:05:36	4bca92c2-dfe6-4808-bfc4-6e9abda39fba	Error: 관리자가 아닙니다
+20220619	15:13:51	abdfa106-0ff5-4d7e-8b16-1f8a3586c9d4	Error: 유효하지 않은 토큰
+20220619	20:14:48	384e886f-5f46-4689-b269-21d14ab85fdf	Error: 유효하지 않은 토큰
+20220619	20:59:28	63692479-3467-422f-ae60-09c872a77d9a	Error: 유효하지 않은 토큰
+20220619	22:02:07	cacc9cc1-e16e-4172-91c4-88b4b1da637d	ReferenceError: items is not defined
+20220619	22:06:18	4580d326-6091-4897-ab9c-4ed9b17d0733	MissingSchemaError: Schema hasn't been registered for model "UserAddress.address".
+Use mongoose.model(name, schema)
+20220619	22:08:19	a0940128-ec13-4d5b-882b-1961ff70df61	MissingSchemaError: Schema hasn't been registered for model "UserAddress.address".
+Use mongoose.model(name, schema)
+20220619	22:12:06	0175feac-ba50-4ff4-bb6b-5238743d69e1	MissingSchemaError: Schema hasn't been registered for model "address".
+Use mongoose.model(name, schema)
+20220619	22:30:15	3fe88ae2-8468-4f69-936d-262c5ca6b179	Error: 유효하지 않은 토큰
+20220619	22:45:14	36ca4e74-0f3d-4dd9-bd30-d1c9a57efc97	TypeError: userAddress.find is not a function
+20220619	22:45:51	f72571df-8d90-4127-b029-78d0a6555653	TypeError: userAddress.filter is not a function
+20220619	22:46:05	235b28f6-7340-44cd-a0ac-a9df38c781d2	ReferenceError: orderedAddress is not defined
+20220619	23:03:18	f5737c1c-e63c-4d1a-abc8-8a7bfa3bc3f8	Error: 유효하지 않은 토큰

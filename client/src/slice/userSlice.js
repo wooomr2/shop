@@ -4,9 +4,11 @@ import { clearCart } from "./cartSlice";
 
 const initialState = {
   addresses: [],
+  shippingAddress: {},
   orders: [],
+  order: {},
   latestOrder: {},
-  orderDetails: {},
+  // orderDetails: {},
   isLoading: false,
 };
 
@@ -53,7 +55,19 @@ export const getOrders = createAsyncThunk(
   "user/getOrders",
   async (uid, thunkAPI) => {
     try {
-      const res = await axios.get(`/orders/user/${uid}`);
+      const res = await axios.get(`/orders`);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getOrder = createAsyncThunk(
+  "user/getOrder",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.get(`/orders/${id}`);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -100,6 +114,18 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
     [getOrders.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
+    [getOrder.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getOrder.fulfilled]: (state, action) => {
+      state.order = action.payload.order;
+      state.shippingAddress = action.payload.shippingAddress;
+      state.isLoading = false;
+    },
+    [getOrder.rejected]: (state, action) => {
       state.isLoading = false;
     },
 

@@ -65,11 +65,11 @@ exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
   } else {
     cids = cids.map((cid) => new ObjectId(cid));
 
-    !brands?.length
-      ? (findQuery = { category: { $in: cids } })
-      : (findQuery = {
-          $and: [{ category: { $in: cids } }, { brand: { $in: brands } }],
-        });
+    brands?.length > 0
+      ? (findQuery = {
+        $and: [{ category: { $in: cids } }, { brand: { $in: brands } }], 
+        })
+      : (findQuery = { category: { $in: cids } }) 
 
     matchQuery = { category: { $in: cids } };
   }
@@ -240,10 +240,11 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 
   const product = await Product.findOne({ _id: id });
 
-  let relatedProducts;
+  let relatedProducts=[];
+  if(product?.code) relatedProducts = await Product.find({ code: product.code });
 
-  if (!product?.code) relatedProducts = [];
-  else relatedProducts = await Product.find({ code: product.code });
+  // if (!product?.code) relatedProducts = [];
+  // else relatedProducts = await Product.find({ code: product.code });
 
   res.status(200).json({ product, relatedProducts });
 });
@@ -295,12 +296,21 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 
 });
 
-exports.deleteProduct = (req, res, next) => {
+// exports.deleteProduct = (req, res, next) => {
+//   const { id } = req.params;
+//   if (!id) return next(new ErrorResponse("Params required", 400));
+
+//   Product.deleteOne({ _id: id })
+//     .exec()
+//     .catch((err) => next(new ErrorResponse(err, 400)))
+//     .then((result) => res.status(201).json({ result, id }));
+// };
+
+exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  Product.deleteOne({ _id: id })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((result) => res.status(201).json({ result, id }));
-};
+  await Product.deleteOne({ _id: id }).exec()
+
+  res.status(201).json({ id });
+});

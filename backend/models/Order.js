@@ -9,7 +9,7 @@ const orderSchema = new mongoose.Schema(
     },
     address: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "UserAddress.address",
+      ref: "address",
       required: true,
     },
     totalPrice: {
@@ -31,6 +31,10 @@ const orderSchema = new mongoose.Schema(
           required: true,
         },
         purchasedQty: {
+          type: Number,
+          required: true,
+        },
+        purchasedSize: {
           type: Number,
           required: true,
         },

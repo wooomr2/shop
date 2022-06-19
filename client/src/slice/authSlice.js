@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
-import { addCartItems, clearCart } from "./cartSlice";
+import { clearCart } from "./cartSlice";
 
 const initialState = {
   isAuthenticated: false,

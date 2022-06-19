@@ -1,10 +1,6 @@
-ACCESS_TOKEN_SECRET = 1084c3c4107a9aca9636262baebf8a17383e9064b05c14a5ce285dda569bcfb85d607e
-ACCESS_TOKEN_EXPIRE = 30min
-REFRESH_TOKEN_SECRET = 498de84b64da2c24335480d5844fcabe3076fdad2277e5966f6dfe6f5912b38acfe6c8
-REFRESH_TOKEN_EXPIRE = 1200min
-
-
+- cartItem 동일상품 중 하나만 delete하면 제대로 저장안됨
 - setIsHovering에 에러 있음 고치기
+- userId token에서 뽑을수 있으니까 컨트롤러 최적화할것
 
 # 컴포넌트 재활용 방법 찾기
 -- category, brand, collection, search페이지에서 중복 사용중

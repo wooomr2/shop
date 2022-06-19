@@ -6,11 +6,10 @@ import publicURL from "../../utils/publicURL";
 
 function Orders() {
   const dispatch = useDispatch();
-  const user = JSON.parse(sessionStorage.getItem("user"));
   const { orders } = useSelector((store) => store.user);
   
   useEffect(() => {
-    dispatch(getOrders(user._id));
+    dispatch(getOrders());
   }, []);
 
   return (

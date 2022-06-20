@@ -55,7 +55,7 @@ class Feature {
 
     switch (sort) {
       case "latest":
-        sortQuery = { timestamps: 1 };
+        sortQuery = { createdAt: -1 };
         break;
       case "ascending":
         sortQuery = { price: 1 };
@@ -64,10 +64,15 @@ class Feature {
         sortQuery = { price: -1 };
         break;
       default:
+        sortQuery = { createdAt: -1 };
     }
 
     this.query = this.query.sort(sortQuery);
     return this;
+  }
+
+  getQuery() {
+    return this.query
   }
 }
 

@@ -2,8 +2,8 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const asyncHandler = require("../middlewares/asyncHandler");
 const slugify = require("slugify");
 const Product = require("../models/Product");
-const mongoose = require("mongoose");
 const Feature = require("../utils/Feature");
+const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
 exports.addProduct = asyncHandler(async (req, res, next) => {
@@ -47,13 +47,14 @@ exports.addProduct = asyncHandler(async (req, res, next) => {
   res.status(201).json({ product });
 });
 
-exports.getAllProducts = (req, res, next) => {
-  Product.find({})
+exports.getAllProducts = asyncHandler(async (req, res, next) => {
+  const products = await Product.find({})
     .populate({ path: "category", select: "_id name" })
+    .sort({updatedAt:-1})
     .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((products) => res.status(200).json({ products }));
-};
+
+  res.status(200).json({ products })
+});
 
 exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
   let { cids, brands, ...queryOptions } = req.body;
@@ -78,7 +79,8 @@ exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
 
   const products = await new Feature(Product.find(findQuery), queryOptions)
     .pagination()
-    .sort().query;
+    .sort()
+    .getQuery();
 
   const brandData = await Product.aggregate([
     { $match: matchQuery },
@@ -100,136 +102,19 @@ exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
   res.status(200).json({ products, brandData, total });
 });
 
-// exports.getProductsByCategories = async (req, res, next) => {
-//   let { cids, brands, perPage, currentPage, sort } = req.body;
-//   let findQuery;
-//   let matchQuery;
-
-//   if (cids?.length > 0) {
-//     cids = cids.map((cid) => new ObjectId(cid));
-
-//     brands && brands.length > 0
-//       ? (findQuery = {
-//           $and: [{ category: { $in: cids } }, { brand: { $in: brands } }],
-//         })
-//       : (findQuery = { category: { $in: cids } });
-
-//     matchQuery = { category: { $in: cids } };
-//   } else {
-//     brands && brands.length > 0
-//       ? (findQuery = { brand: { $in: brands } })
-//       : (findQuery = {});
-
-//     matchQuery = {};
-//   }
-
-//   try {
-//     const total = await Product.countDocuments(findQuery);
-
-//     const feature = new Features(Product.find(findQuery), queryStr)
-//       .search()
-//       .filter()
-//       .pagination(perPage, currentPage)
-//       .sort(sort);
-
-//     const products = await feature.query;
-
-//     const brandData = await Product.aggregate([
-//       { $match: matchQuery },
-//       {
-//         //select
-//         $project: {
-//           brand: 1,
-//         },
-//       },
-//       {
-//         $group: {
-//           _id: "$brand",
-//           total: { $sum: 1 },
-//         },
-//       },
-//       { $sort: { _id: 1 } },
-//     ]);
-
-//     res.status(200).json({ products, brandData, total });
-//   } catch (err) {
-//     return next(new ErrorResponse(err, 400));
-//   }
-// };
-
-// exports.getProductsByBrand = async (req, res, next) => {
-//   let { brand, perPage, currentPage, sort, ...queryStr } = req.body;
-
-//   try {
-//     const total = await Product.countDocuments({ brand });
-
-//     const feature = new Features(Product.find({ brand }), queryStr)
-//       .pagination(perPage, currentPage)
-//       .sort(sort);
-
-//     const products = await feature.query;
-//     res.status(200).json({ products, total });
-//   } catch (err) {
-//     return next(new ErrorResponse(err, 400));
-//   }
-// };
-
-// exports.getProductsByKeyword = async (req, res, next) => {
-//   let { keyword, perPage, currentPage, sort, ...queryStr } = req.body;
-
-//   const keywordArray = keyword.split(" ").map((item) => new RegExp(item, "i"));
-
-//   console.log(keyword, keywordArray);
-
-//   let findQuery = {
-//     $or: [{ name: { $in: keywordArray } }, { brand: { $in: keywordArray } }],
-//   };
-
-//   try {
-//     const total = await Product.countDocuments(findQuery);
-
-//     const feature = new Features(Product.find(findQuery), queryStr)
-//       .pagination(perPage, currentPage)
-//       .sort(sort);
-
-//     const products = await feature.query;
-//     console.log(total);
-//     res.status(200).json({ products, total });
-//   } catch (err) {
-//     return next(new ErrorResponse(err, 400));
-//   }
-// };
-
-// exports.getProductsByKeyword = asyncHandler(async (req, res, next) => {
-//   const { brand, keyword, perPage, currentPage, sort } = req.body;
-
-//   const total = await new Feature(Product)
-//     .filter(brand)
-//     .search(keyword, "product")
-//     .query.countDocuments();
-
-//   const products = await new Feature(Product)
-//     .filter(brand)
-//     .search(keyword, "product")
-//     .pagination(perPage, currentPage)
-//     .sort(sort).query;
-
-//   console.log(total);
-
-//   res.status(200).json({ products, total });
-// });
-
 exports.getProducts = asyncHandler(async (req, res, next) => {
   const total = await new Feature(Product, req.body)
     .filter()
     .search("product")
-    .query.countDocuments();
+    .getQuery()
+    .countDocuments();
 
   const products = await new Feature(Product, req.body)
     .filter()
     .search("product")
     .pagination()
-    .sort().query;
+    .sort()
+    .getQuery();
 
   res.status(200).json({ products, total });
 });
@@ -242,9 +127,6 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 
   let relatedProducts=[];
   if(product?.code) relatedProducts = await Product.find({ code: product.code });
-
-  // if (!product?.code) relatedProducts = [];
-  // else relatedProducts = await Product.find({ code: product.code });
 
   res.status(200).json({ product, relatedProducts });
 });
@@ -295,16 +177,6 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   res.status(201).json({ updatedProduct });
 
 });
-
-// exports.deleteProduct = (req, res, next) => {
-//   const { id } = req.params;
-//   if (!id) return next(new ErrorResponse("Params required", 400));
-
-//   Product.deleteOne({ _id: id })
-//     .exec()
-//     .catch((err) => next(new ErrorResponse(err, 400)))
-//     .then((result) => res.status(201).json({ result, id }));
-// };
 
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;

@@ -13,7 +13,7 @@ const addressSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  pinCode: {
+  zonecode: {
     type: String,
     required: true,
     trim: true,
@@ -44,7 +44,7 @@ const userAddressSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
-    address: [addressSchema],
+    addresses: [addressSchema],
   },
   { timestamps: true }
 );

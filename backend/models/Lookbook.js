@@ -23,12 +23,7 @@ const lookbookSchema = new mongoose.Schema(
         img: { type: String },
       },
     ],
-    cards: [
-      {
-        img: { type: String },
-      },
-    ],
-    products: [],
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

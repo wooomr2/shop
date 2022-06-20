@@ -1,108 +1,97 @@
-const Lookbook = require("../models/Lookbook");
-const Product = require("../models/Product");
 const ErrorResponse = require("../utils/ErrorResponse");
+const Feature = require("../utils/Feature");
+const asyncHandler = require("../middlewares/asyncHandler");
+const Lookbook = require("../models/Lookbook");
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
-exports.addLookbook = async (req, res, next) => {
+exports.addLookbook = asyncHandler(async (req, res, next) => {
   const { name, description, products, modelInfo, wearingSize } = req.body;
-  let { banners, cards } = req.files;
-  
-  try {
-    if (typeof banners !== "undefined") {
-      banners = banners.map((banner) => ({
-        img: banner.filename,
-      }));
-    }
-    if (typeof cards !== "undefined") {
-      cards = cards.map((card) => ({
-        img: card.filename,
-      }));
-    }
+  let { banners } = req.files;
 
-    let lookbookObj = {
-      name,
-      description,
-      modelInfo,
-      wearingSize,
-      products,
-      createdBy: req.userId,
-    };
-    if (typeof banners !== "undefined") lookbookObj.banners = banners;
-    if (typeof cards !== "undefined") lookbookObj.cards = cards;
+  const pids = products.split(",").map((product) => new ObjectId(product));
 
-    let lookbook = await Lookbook.create(lookbookObj);
-
-    res.status(201).json({ lookbook });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
+  if (!!banners) {
+    banners = banners.map((banner) => ({
+      img: banner.filename,
+    }));
   }
-};
 
-exports.getLookbooks = (req, res, next) => {
-  Lookbook.find({})
-    .sort({ timestamps: 1 })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((lookbooks) => res.status(200).json({ lookbooks }));
-};
+  const lookbook = await Lookbook.create({
+    name,
+    description,
+    modelInfo,
+    wearingSize,
+    products: pids,
+    banners,
+    createdBy: req.userId,
+  });
 
-exports.getLookbook = async (req, res, next) => {
-  try {
-    const lookbook = await Lookbook.findById({ _id: req.params.id });
+  res.status(201).json({ lookbook });
+});
 
-    const relatedProducts = await Product.find({
-      _id: { $in: lookbook.products },
-    });
+exports.getAllLookbooks = asyncHandler(async (req, res, next) => {
+  const lookbooks = await Lookbook.find({}).sort({ updatedAt: -1 }).exec();
 
-    res.status(200).json({ lookbook, relatedProducts });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
-  }
-};
+  res.status(200).json({ lookbooks });
+});
 
-exports.updateLookbook = async (req, res, next) => {
-  const { _id, name, description, products, modelInfo, wearingSize } = req.body;
-  let { banners, cards } = req.files;
-  console.log(req.body, req.files);
+exports.getLookbooks = asyncHandler(async (req, res, next) => {
+  const total = await Lookbook.find({}).countDocuments();
+  const lookbooks = await new Feature(Lookbook, req.body)
+    .filter()
+    .pagination()
+    .sort()
+    .getQuery();
 
-  try {
-    if (typeof banners !== "undefined") {
-      banners = banners.map((banner) => ({
-        img: banner.filename,
-      }));
-    }
-    if (typeof cards !== "undefined") {
-      cards = cards.map((card) => ({
-        img: card.filename,
-      }));
-    }
+  res.status(200).json({ total, lookbooks });
+});
 
-    let lookbook = {
-      name,
-      description,
-      modelInfo,
-      wearingSize,
-      products,
-      createdBy: req.userId,
-    };
-    if (typeof banners !== "undefined") lookbook.banners = banners;
-    if (typeof cards !== "undefined") lookbook.cards = cards;
-
-    let updatedLookbook = await Lookbook.findOneAndUpdate({ _id }, lookbook, {
-      new: true,
-    });
-
-    res.status(201).json({ updatedLookbook });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
-  }
-}
-
-exports.deleteLookbook = (req, res, next) => {
+exports.getLookbook = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  Lookbook.deleteOne({ _id: id })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((result) => res.status(201).json({ result, id }));
-};
+  const lookbook = await Lookbook.findById({ _id: id })
+    .populate("products", "_id brand color name price, productImgs")
+    .exec();
+
+  res.status(200).json({ lookbook });
+});
+
+exports.updateLookbook = asyncHandler(async (req, res, next) => {
+  const { _id, name, description, products, modelInfo, wearingSize } = req.body;
+  let { banners } = req.files;
+
+  const pids = products.split(",").map((product) => new ObjectId(product));
+
+  if (!!banners) {
+    banners = banners.map((banner) => ({
+      img: banner.filename,
+    }));
+  }
+
+  const lookbook = {
+    name,
+    description,
+    modelInfo,
+    wearingSize,
+    products: pids,
+    banners,
+    createdBy: req.userId,
+  };
+
+  const updatedLookbook = await Lookbook.findOneAndUpdate({ _id }, lookbook, {
+    new: true,
+  }).exec();
+
+  res.status(201).json({ updatedLookbook });
+});
+
+exports.deleteLookbook = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) return next(new ErrorResponse("Params required", 400));
+
+  const result = await Lookbook.deleteOne({ _id: id }).exec();
+
+  res.status(201).json({ result, id });
+});

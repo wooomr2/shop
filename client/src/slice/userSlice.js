@@ -12,11 +12,11 @@ const initialState = {
   isLoading: false,
 };
 
-export const getAddress = createAsyncThunk(
-  "user/getAddress",
-  async (uid, thunkAPI) => {
+export const getAddresses = createAsyncThunk(
+  "user/getAddresses",
+  async (dummy, thunkAPI) => {
     try {
-      const res = await axios.get(`/address/${uid}`);
+      const res = await axios.get(`/addresses`);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -28,9 +28,21 @@ export const upsertAddress = createAsyncThunk(
   "user/upsertAddress",
   async (address, thunkAPI) => {
     try {
-      const user = JSON.parse(sessionStorage.getItem("user"));
-      const res = await axios.patch(`/address`, { user, address });
-      // console.log(res.data);
+      const res = await axios.patch(`/addresses`, { address });
+
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const deleteAddress = createAsyncThunk(
+  "user/deleteAddress",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.delete(`/addresses/${id}`);
+
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -84,14 +96,14 @@ const userSlice = createSlice({
     // }
   },
   extraReducers: {
-    [getAddress.pending]: (state) => {
+    [getAddresses.pending]: (state) => {
       state.isLoading = true;
     },
-    [getAddress.fulfilled]: (state, action) => {
-      state.addresses = action.payload.userAddress.address;
+    [getAddresses.fulfilled]: (state, action) => {
+      state.addresses = action.payload.userAddress.addresses;
       state.isLoading = false;
     },
-    [getAddress.rejected]: (state, action) => {
+    [getAddresses.rejected]: (state, action) => {
       state.isLoading = false;
     },
 
@@ -99,10 +111,21 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [upsertAddress.fulfilled]: (state, action) => {
-      state.addresses = action.payload.userAddress.address;
+      state.addresses = action.payload.userAddress.addresses;
       state.isLoading = false;
     },
     [upsertAddress.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
+    [deleteAddress.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteAddress.fulfilled]: (state, action) => {
+      state.addresses = action.payload.userAddress.addresses;
+      state.isLoading = false;
+    },
+    [deleteAddress.rejected]: (state, action) => {
       state.isLoading = false;
     },
 

@@ -19,14 +19,22 @@ import collectionReducer from "./slice/collectionSlice";
 import lookbookReducer from "./slice/lookbookSlice";
 import modalReducer from "./slice/modalSlice";
 import productReducer from "./slice/productSlice";
-import screenReducer from "./slice/screenSlice";
 import userReducer from "./slice/userSlice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["auth", "user","collection","lookbook","modal","product","review","screen"],
+  blacklist: [
+    "auth",
+    "brand",
+    "category",
+    "collection",
+    "lookbook",
+    "modal",
+    "product",
+    "user",
+  ],
 };
 
 const rootReducer = combineReducers({
@@ -38,7 +46,6 @@ const rootReducer = combineReducers({
   lookbook: lookbookReducer,
   modal: modalReducer,
   product: productReducer,
-  screen: screenReducer,
   user: userReducer,
 });
 

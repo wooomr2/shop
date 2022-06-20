@@ -1,47 +1,55 @@
-const UserAddress = require("../models/Address");
 const ErrorResponse = require("../utils/ErrorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
+const UserAddress = require("../models/Address");
 
-exports.upsertAddress = (req, res, next) => {
-  const { user, address } = req.body;
-  console.log({ user, address });
+exports.upsertAddress = asyncHandler(async (req, res, next) => {
+  const { address } = req.body;
 
   if (!address) return next(new ErrorResponse("주소 전송 안됨", 400));
 
   if (address._id) {
-    UserAddress.findOneAndUpdate(
-      { user: user._id, "address._id": address._id },
+    const userAddress = await UserAddress.findOneAndUpdate(
+      { user: req.userId, "addresses._id": address._id },
       {
         $set: {
-          "address.$": address,
+          "addresses.$": address,
         },
       },
       { new: true }
-    ).exec((err, userAddress) => {
-      if (err) return next(new ErrorResponse(err, 400));
-      if (userAddress) res.status(201).json({ userAddress });
-    });
+    ).exec();
+
+    res.status(201).json({ userAddress });
   } else {
-    UserAddress.findOneAndUpdate(
-      { user: user._id },
+    const userAddress = await UserAddress.findOneAndUpdate(
+      { user: req.userId },
       {
         $push: {
-          address: address,
+          addresses: address,
         },
       },
       { new: true, upsert: true }
-    ).exec((err, userAddress) => {
-      if (err) return next(new ErrorResponse(err, 400));
-      if (userAddress) res.status(201).json({ userAddress });
-    });
-  }
-};
+    ).exec();
 
-exports.getAddress = (req, res, next) => {
-  const { uid } = req.params;
-  UserAddress.findOne({ user: uid }).exec((err, userAddress) => {
-    if (err) return next(new ErrorResponse(err, 400));
-    if (userAddress) {
-      res.status(200).json({ userAddress });
-    }
-  });
-};
+    res.status(201).json({ userAddress });
+  }
+});
+
+exports.getAddresses = asyncHandler(async (req, res, next) => {
+  const userAddress = await UserAddress.findOne({ user: req.userId }).exec();
+
+  res.status(200).json({ userAddress });
+});
+
+exports.deleteAddress = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) return next(new ErrorResponse("Params required", 400));
+
+  const userAddress = await UserAddress.findOneAndUpdate(
+    { user: req.userId },
+    { $pull: { addresses: { _id: id } } },
+    { new: true }
+  ).exec();
+
+  console.log(id, userAddress);
+  res.status(200).json({ userAddress });
+});

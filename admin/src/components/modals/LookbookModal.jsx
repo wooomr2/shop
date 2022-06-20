@@ -11,7 +11,6 @@ function LookbookModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [banners, setBanners] = useState([]);
-  const [cards, setCards] = useState([]);
   const [products, setProducts] = useState("");
   const [modelInfo, setModelInfo] = useState("");
   const [wearingSize, setWearingSize] = useState("");
@@ -20,8 +19,7 @@ function LookbookModal() {
     setName("");
     setDescription("");
     setBanners([]);
-    setCards([]);
-    setProducts([]);
+    setProducts("");
     setModelInfo("");
     setWearingSize("");
   };
@@ -38,9 +36,6 @@ function LookbookModal() {
     banners.forEach((banner) => {
       form.append("banners", banner);
     });
-    cards.forEach((card) => {
-      form.append("cards", card);
-    });
 
     dispatch(addLookbook(form));
     dispatch(closeModal());
@@ -56,17 +51,6 @@ function LookbookModal() {
       }
     }
     setBanners(files);
-  };
-
-  const handleCardImgs = (fileList) => {
-    let files = [];
-    for (const key in fileList) {
-      if (Object.hasOwnProperty.call(fileList, key)) {
-        const value = fileList[key];
-        files.push(value);
-      }
-    }
-    setCards(files);
   };
 
   switch (modalType) {
@@ -122,22 +106,6 @@ function LookbookModal() {
                 multiple
                 accept=".png, .jpeg, .jpg"
                 onChange={(e) => handleBannerImgs(e.target.files)}
-              />
-
-              <span>Card images</span>
-              {cards &&
-                cards.map((img, i) => (
-                  <div key={i}>
-                    <img src={URL.createObjectURL(img)} alt="" height="50" />
-                  </div>
-                ))}
-
-              <input
-                type="file"
-                id="file"
-                multiple
-                accept=".png, .jpeg, .jpg"
-                onChange={(e) => handleCardImgs(e.target.files)}
               />
 
               <button type="submit">submit</button>

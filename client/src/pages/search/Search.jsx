@@ -5,7 +5,7 @@ import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Pagination from "../../components/pagination/Pagination";
 import Product from "../../components/product/Product";
-import { getProducts, getProductsByKeyword } from "../../slice/productSlice";
+import { getProducts } from "../../slice/productSlice";
 
 function Search() {
   const dispatch = useDispatch();

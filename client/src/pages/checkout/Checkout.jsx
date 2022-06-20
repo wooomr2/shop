@@ -2,7 +2,7 @@ import "./checkout.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addOrder, getAddress } from "../../slice/userSlice";
+import { addOrder, getAddresses } from "../../slice/userSlice";
 import { selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
 import CartItem from "../../components/cartItem/CartItem";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -30,12 +30,8 @@ function Checkout() {
 
   const [name, setName] = useState(selectedAddress?.name || "");
 
-  if (!user) {
-    navigate("/");
-  }
-
   useEffect(() => {
-    user && dispatch(getAddress(user._id));
+    user && dispatch(getAddresses());
     // dispatch(clearLastestOrder());
   }, []);
 
@@ -61,7 +57,6 @@ function Checkout() {
       paymentType,
     };
 
-    console.log(order);
     dispatch(addOrder(order));
     setIsOrderConfirmed(true);
   };

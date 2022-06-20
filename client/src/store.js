@@ -19,7 +19,6 @@ import collectionReducer from "./slice/collectionSlice";
 import lookbookReducer from "./slice/lookbookSlice";
 import modalReducer from "./slice/modalSlice";
 import productReducer from "./slice/productSlice";
-import screenReducer from "./slice/screenSlice";
 import userReducer from "./slice/userSlice";
 import reviewReducer from "./slice/reviewSlice";
 
@@ -27,7 +26,18 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["auth","brand","cart","category", "collection","lookbook","modal","product","review","screen", "user"],
+  blacklist: [
+    "auth",
+    // "brand",
+    // "cart",
+    // "category",
+    "collection",
+    "lookbook",
+    "modal",
+    "product",
+    "review",
+    "user",
+  ],
 };
 
 const rootReducer = combineReducers({
@@ -40,7 +50,6 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   product: productReducer,
   review: reviewReducer,
-  screen: screenReducer,
   user: userReducer,
 });
 

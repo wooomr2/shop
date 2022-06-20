@@ -2,19 +2,20 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
-  collection: {},
   collections: [],
-  mainCollections: [],
-  subCollections: [],
+  collection: {},
+  total: 0,
+  perPage: 22,
+  _currentPage: 1,
   isLoading: false,
   error: null,
 };
 
 export const getCollections = createAsyncThunk(
   "collection/getCollections",
-  async (dummy, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const res = await axios.get("/collections");
+      const res = await axios.post("/collections/get", payload);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -43,13 +44,8 @@ const collectionSlice = createSlice({
       state.isLoading = true;
     },
     [getCollections.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
       state.collections = action.payload.collections;
-      state.mainCollections = action.payload.collections.filter(
-        (c) => c.priority === true
-      );
-      state.subCollections = action.payload.collections.filter(
-        (c) => c.priority === false
-      );
       state.isLoading = false;
     },
     [getCollections.rejected]: (state, action) => {

@@ -6,12 +6,12 @@ exports.verifyRoles = (...allowedRoles) => {
 
     const rolesArray = [...allowedRoles];
 
-    const isVerified = req.roles
+    const result = req.roles
       .map((role) => rolesArray.includes(role))
       .find((val) => val === true);
 
-    if (!isVerified) return next(new ErrorResponse("유효한 권한 아님", 401));
-   
+    if (!result) return next(new ErrorResponse("유효한 권한 아님", 401));
+
     next();
   };
 };

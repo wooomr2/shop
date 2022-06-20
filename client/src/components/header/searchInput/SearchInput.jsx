@@ -8,10 +8,9 @@ function Search() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
-    }
+    if (keyword.trim()) navigate(`/search/${keyword}`);
   };
+  
   return (
     <div>
       <form className="search-container" onSubmit={onSubmit}>

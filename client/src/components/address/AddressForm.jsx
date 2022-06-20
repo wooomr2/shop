@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { upsertAddress } from "../../slice/userSlice";
+import { deleteAddress, upsertAddress } from "../../slice/userSlice";
 import PostCodeModal from "../postCodeModal/PostCodeModal";
 
 function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
@@ -9,7 +9,7 @@ function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
 
   const [name, setName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [pinCode, setPinCode] = useState("");
+  const [zonecode, setZonecode] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [claim, setClaim] = useState("");
@@ -19,18 +19,18 @@ function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
     const address = {
       name,
       contactNumber,
-      pinCode,
+      zonecode,
       address1,
       address2,
       claim,
     };
     if (selectedAddress) address._id = selectedAddress._id;
-    console.log(address);
+
     if (
       !(
         address.name.length ||
         address.contactNumber.length ||
-        address.pinCode.length ||
+        address.zonecode.length ||
         address.address2.length
       )
     )
@@ -42,7 +42,7 @@ function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
   useEffect(() => {
     setName(selectedAddress?.name || "");
     setContactNumber(selectedAddress?.contactNumber || "");
-    setPinCode(selectedAddress?.pinCode || "");
+    setZonecode(selectedAddress?.zonecode || "");
     setAddress1(selectedAddress?.address1 || "");
     setAddress2(selectedAddress?.address2 || "");
     setClaim(selectedAddress?.claim || "");
@@ -54,7 +54,7 @@ function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
       {isModalOpen && (
         <PostCodeModal
           onClick={() => setIsModalOpen((prev) => !prev)}
-          setPinCode={setPinCode}
+          setZonecode={setZonecode}
           setAddress1={setAddress1}
         />
       )}
@@ -83,7 +83,7 @@ function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
       <div className="shipping-item">
         <div className="shipping-item-left">우편번호</div>
         <div className="shipping-item-right">
-          <input type="text" value={pinCode} className="pincode" disabled />
+          <input type="text" value={zonecode} className="zonecode" disabled />
           <button
             onClick={() => setIsModalOpen((prev) => !prev)}
             disabled={selectedAddress && !enableInput ? true : false}
@@ -126,6 +126,7 @@ function AddressForm({ selectedAddress, enableInput, setEnableInput }) {
         {selectedAddress && !enableInput && (
           <>
             <button onClick={() => setEnableInput(true)}>수정하기</button>
+            <button onClick={() => dispatch(deleteAddress(selectedAddress._id))}>삭제하기</button>
           </>
         )}
         {enableInput && (

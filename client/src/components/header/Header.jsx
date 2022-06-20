@@ -8,12 +8,13 @@ import { clearFeatures } from "../../slice/productSlice";
 import { signout } from "../../slice/authSlice";
 import SearchInput from "./searchInput/SearchInput";
 import Menu from "./menu/Menu";
+import { clearCart, updateCartItems } from "../../slice/cartSlice";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = sessionStorage.getItem("user");
-  const { cartItems } = useSelector((store) => store.cart);
+  const cartItems = useSelector((store) => store.cart.cartItems);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(0);
@@ -26,10 +27,11 @@ function Header() {
     []
   );
 
-  const onClickLogout = useCallback(() => {
+  const logout = () => {
+    dispatch(updateCartItems(cartItems));
     dispatch(signout());
     navigate("/");
-  }, []);
+  };
 
   const onClickMenuOpen = useCallback(() => {
     setMenuOpen(!menuOpen);
@@ -55,7 +57,7 @@ function Header() {
               CATEGORY
             </div>
             <div className="navbar-item" onMouseOver={() => setIsHovering(1)}>
-              BRANDS
+              BRAND
             </div>
             <div
               className="navbar-item"
@@ -84,7 +86,7 @@ function Header() {
               SEARCH
             </div>
             {user ? (
-              <div className="navbar-item" onClick={onClickLogout}>
+              <div className="navbar-item" onClick={logout}>
                 SIGNOUT
               </div>
             ) : (
@@ -117,7 +119,6 @@ function Header() {
             <div className="menu-item" onClick={onClickNavigate("/orders")}>
               order
             </div>
-            
           </div>
           <div className="navbar-items-lg">
             <div className="search-icon-wrapper" onClick={onClickSearchOpen}>

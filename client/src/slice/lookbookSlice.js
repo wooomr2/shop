@@ -4,16 +4,18 @@ import axios from "../utils/axiosInstance";
 const initialState = {
   lookbooks: [],
   lookbook: {},
-  relatedProducts: [],
+  total: 0,
+  perPage: 20,
+  _currentPage: 1,
   isLoading: false,
   error: null,
 };
 
 export const getLookbooks = createAsyncThunk(
   "lookbook/getLookbooks",
-  async (dummy, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const res = await axios.get("/lookbooks");
+      const res = await axios.post("/lookbooks/get", payload);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -42,6 +44,7 @@ const lookbookSlice = createSlice({
       state.isLoading = true;
     },
     [getLookbooks.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
       state.lookbooks = action.payload.lookbooks;
       state.isLoading = false;
     },
@@ -55,7 +58,6 @@ const lookbookSlice = createSlice({
     },
     [getLookbook.fulfilled]: (state, action) => {
       state.lookbook = action.payload.lookbook;
-      state.relatedProducts = action.payload.relatedProducts;
       state.isLoading = false;
     },
     [getLookbook.rejected]: (state, action) => {

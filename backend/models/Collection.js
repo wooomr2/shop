@@ -29,7 +29,7 @@ const collectionSchema = new mongoose.Schema(
     },
     priority: {
       type: Boolean,
-      default:false,
+      default: false,
     },
     banners: [
       {

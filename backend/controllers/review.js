@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/ErrorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
 const ProductReview = require("../models/Review");
 const Product = require("../models/Product");
 
@@ -11,7 +12,7 @@ exports.upsertReview = async (req, res, next) => {
   try {
     if (review._id) {
       productReview = await ProductReview.findOneAndUpdate(
-        { product: pid, "review._id": review._id },
+        { product: pid, "reviews._id": review._id },
         {
           $set: {
             "reviews.$": review,
@@ -53,6 +54,7 @@ exports.upsertReview = async (req, res, next) => {
 
 exports.getReviews = async (req, res, next) => {
   const { pid } = req.params;
+  if (!pid) return next(new ErrorResponse("Params required", 400));
 
   try {
     let productReview = await ProductReview.find({ product: pid });

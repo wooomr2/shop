@@ -9,7 +9,7 @@ function Lookbook() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const { lookbook, relatedProducts } = useSelector((store) => store.lookbook);
+  const { lookbook } = useSelector((store) => store.lookbook);
 
   useEffect(() => {
     dispatch(getLookbook(params.id));
@@ -20,7 +20,7 @@ function Lookbook() {
       <div>
         <h1>{lookbook?.name}</h1>
         <span>{lookbook?.description}</span>
-        {lookbook?.banners?.map((banner,i) => (
+        {lookbook?.banners?.map((banner, i) => (
           <div key={i}>
             <img src={publicURL(banner.img)} alt="" width="300" height="300" />
           </div>
@@ -35,17 +35,19 @@ function Lookbook() {
 
         <div>
           <span>착용상품</span>
-          {relatedProducts?.map((product) => (
+          {lookbook?.products?.map((product) => (
             <div
               key={product._id}
               onClick={() => navigate(`/products/${product._id}`)}
             >
-              <img
-                src={publicURL(product.productImgs[0].fileName)}
-                alt=""
-                width="100"
-                height="100"
-              />
+              {product.productImgs && (
+                <img
+                  src={publicURL(product.productImgs[0].fileName)}
+                  alt=""
+                  width="100"
+                  height="100"
+                />
+              )}
               <span>{product.brand}</span>
               <span>{product.name}</span>
               <span>{product.price}</span>

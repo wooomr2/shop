@@ -24,14 +24,6 @@ const categorySchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    filters: [
-      {
-        filter: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Filter",
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

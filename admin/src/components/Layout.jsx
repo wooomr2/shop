@@ -9,7 +9,6 @@ import { getCategories } from "../slice/categorySlice";
 import { getCollections } from "../slice/collectionSlice";
 import { getLookbooks } from "../slice/lookbookSlice";
 import { getProducts } from "../slice/productSlice";
-import { getScreens } from "../slice/screenSlice";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -18,7 +17,6 @@ function Layout() {
     batch(() => {
       dispatch(getCategories());
       dispatch(getProducts());
-      dispatch(getScreens());
       dispatch(getBrands());
       dispatch(getLookbooks());
       dispatch(getCollections());

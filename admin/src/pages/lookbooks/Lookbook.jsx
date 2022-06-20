@@ -16,7 +16,7 @@ function Lookbook() {
   const [description, setDescription] = useState(lookbook.description);
   const [modelInfo, setModelInfo] = useState(lookbook.modelInfo);
   const [wearingSize, setWearingSize] = useState(lookbook.wearingSize);
-  const [products, setProducts] = useState(lookbook.products);
+  const [products, setProducts] = useState(lookbook.products?.toString());
   const [banners, setBanners] = useState(lookbook.banners);
 
   const resetState = () => {
@@ -25,6 +25,7 @@ function Lookbook() {
     setModelInfo(lookbook.modelInfo);
     setWearingSize(lookbook.wearingSize);
     setBanners(lookbook.banners);
+    setProducts(lookbook.products.toString())
   };
 
   const handleSubmit = (e) => {
@@ -36,6 +37,7 @@ function Lookbook() {
     form.append("description", description);
     form.append("modelInfo", modelInfo);
     form.append("wearingSize", wearingSize);
+    form.append("products", products)
 
     for (let img of banners) {
       form.append("banners", img);

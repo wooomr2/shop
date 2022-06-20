@@ -60,139 +60,17 @@ exports.addCartItems = asyncHandler(async (req, res, next) => {
     .then((response) => res.status(201).json({ response }));
 });
 
-// exports.addCartItems = (req, res, next) => {
-//   const user = req.userId;
-//   const cartItems = req.body;
-
-//   Cart.findOne({ user }).exec((err, cart) => {
-//     if (err) return next(new ErrorResponse(err, 400));
-//     if (cart) {
-//       let promiseArray = [];
-
-//       cartItems.forEach((cartItem) => {
-//         const { product, size } = cartItem;
-//         const item = cart.cartItems.find(
-//           (c) => c.product == product && c.size === size
-//         );
-
-//         let condition, update;
-
-//         if (item) {
-//           condition = {
-//             user,
-//             "cartItems.product": product,
-//             "cartItems.size": size,
-//           };
-//           update = {
-//             $set: {
-//               "cartItems.$": cartItem,
-//             },
-//           };
-//         } else {
-//           condition = { user };
-//           update = {
-//             $push: {
-//               cartItems: cartItem,
-//             },
-//           };
-//         }
-
-//         promiseArray.push(updatePromise(condition, update));
-//       });
-
-//       Promise.all(promiseArray)
-//         .catch((err) => next(new ErrorResponse(err, 400)))
-//         .then((response) => res.status(201).json({ response }));
-//     } else {
-//       const cart = new Cart({
-//         user,
-//         cartItems,
-//       });
-//       cart.save((err, cart) => {
-//         if (err) return next(new ErrorResponse(err, 400));
-//         if (cart) return res.status(201).json({ cart });
-//       });
-//     }
-//   });
-// };
-
 exports.updateCartItems = asyncHandler(async (req, res, next) => {
   const user = req.userId;
   const cartItems = req.body;
 
-  const cart = await Cart.findOneAndReplace({ user }, { user, cartItems });
+  const cart = await Cart.findOneAndReplace(
+    { user },
+    { user, cartItems }
+  ).exec();
 
   res.status(201).json({ cart });
 });
-
-// exports.updateCartItems = (req, res, next) => {
-//   const user = req.userId
-//   const cartItems = req.body;
-
-//   const products = cartItems.map((cartItem) => cartItem.product);
-
-//   Cart.findOneAndUpdate(
-//     { user },
-//     {
-//       $pull: {
-//         cartItems: {
-//           product: { $nin: products },
-//         },
-//       },
-//     },
-//     {
-//       new: true,
-//     }
-//   ).exec((err, cart) => {
-//     if (err) return next(new ErrorResponse(err, 400));
-//     if (cart) {
-//       let promiseArray = [];
-
-//       cartItems.forEach((cartItem) => {
-//         const { product, size } = cartItem;
-//         const item = cart.cartItems.find(
-//           (c) => c.product == product && c.size === size
-//         );
-
-//         let condition, update;
-//         if (item) {
-//           condition = {
-//             user,
-//             "cartItems.product": product,
-//             "cartItems.size": size,
-//           };
-//           update = {
-//             $set: {
-//               "cartItems.$": cartItem,
-//             },
-//           };
-//         } else {
-//           condition = { user };
-//           update = {
-//             $push: {
-//               cartItems: cartItem,
-//             },
-//           };
-//         }
-
-//         promiseArray.push(updatePromise(condition, update));
-//       });
-
-//       Promise.all(promiseArray)
-//         .catch((err) => next(new ErrorResponse(err, 400)))
-//         .then((response) => res.status(201).json({ response }));
-//     } else {
-//       const cart = new Cart({
-//         user,
-//         cartItems,
-//       });
-//       cart.save((err, cart) => {
-//         if (err) return next(new ErrorResponse(err, 400));
-//         if (cart) return res.status(201).json({ cart });
-//       });
-//     }
-//   });
-// };
 
 exports.getCartItems = asyncHandler(async (req, res, next) => {
   const cart = await Cart.findOne({ user: req.userId })
@@ -210,25 +88,3 @@ exports.getCartItems = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ cartItems });
 });
-
-// exports.getCartItems = (req, res, next) => {
-
-//   Cart.findOne({ user: req.userId })
-//     .populate("cartItems.product", "_id name price productImgs")
-//     .exec((err, cart) => {
-//       if (err) return next(new ErrorResponse(err, 400));
-//       if (cart) {
-//         console.log(cart);
-//         let cartItems = [];
-//         cartItems = cart.cartItems.map((item) => ({
-//           _id: item.product._id,
-//           name: item.product.name,
-//           img: item.product.productImgs[0].fileName,
-//           price: item.product.price,
-//           qty: item.quantity,
-//           size: item.size,
-//         }));
-//         res.status(200).json({ cartItems });
-//       }
-//     });
-// };

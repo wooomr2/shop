@@ -1,93 +1,71 @@
-const Brand = require("../models/Brand");
 const ErrorResponse = require("../utils/ErrorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
+const Brand = require("../models/Brand");
 
-exports.addBrand = async (req, res, next) => {
+exports.addBrand = asyncHandler(async (req, res, next) => {
   const { name, description } = req.body;
-  let { banners, cards } = req.files;
+  let { banners } = req.files;
 
-  try {
-    if (typeof banners !== "undefined") {
-      banners = banners.map((banner) => ({
-        img: banner.filename,
-      }));
-    }
-    if (typeof cards !== "undefined") {
-      cards = cards.map((card) => ({
-        img: card.filename,
-      }));
-    }
-
-    let brandObj = {
-      name,
-      description,
-      createdBy: req.userId,
-    };
-    if (typeof banners !== "undefined") brandObj.banners = banners;
-    if (typeof cards !== "undefined") brandObj.cards = cards;
-
-    let brand = await Brand.create(brandObj);
-
-    res.status(201).json({ brand });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
+  if (!!banners) {
+    banners = banners.map((banner) => ({
+      img: banner.filename,
+    }));
   }
-};
 
-exports.getBrands = (req, res, next) => {
-  Brand.find({})
-    .sort({ name: 1 })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((brands) => res.status(200).json({ brands }));
-};
+  const brand = await Brand.create({
+    name,
+    description,
+    banners,
+    createdBy: req.userId,
+  });
 
-exports.getBrand = (req, res, next) => {
-  Brand.findOne({ name: req.params.name })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((brand) => res.status(200).json({ brand }));
-};
+  res.status(201).json({ brand });
+});
 
-exports.updateBrand = async (req, res, next) => {
+exports.getBrands = asyncHandler(async (req, res, next) => {
+  const brands = await Brand.find({}).sort({ name: 1 }).exec();
+
+  res.status(200).json({ brands });
+});
+
+exports.getBrand = asyncHandler(async (req, res, next) => {
+  const { name } = req.params;
+  if (!name) return next(new ErrorResponse("Params required", 400));
+
+  const brand = await Brand.findOne({ name }).exec();
+
+  res.status(200).json({ brand });
+});
+
+exports.updateBrand = asyncHandler(async (req, res, next) => {
   const { _id, name, description } = req.body;
-  let { banners, cards } = req.files;
+  let { banners } = req.files;
 
-  try {
-    if (typeof banners !== "undefined") {
-      banners = banners.map((banner) => ({
-        img: banner.filename,
-      }));
-    }
-    if (typeof cards !== "undefined") {
-      cards = cards.map((card) => ({
-        img: card.filename,
-      }));
-    }
-
-    let brand = {
-      name,
-      description,
-      createdBy: req.userId,
-    };
-    if (typeof banners !== "undefined") brand.banners = banners;
-    if (typeof cards !== "undefined") brand.cards = cards;
-
-    let updatedBrand = await Brand.findOneAndUpdate({ _id }, brand, {
-      new: true,
-    });
-
-    res.status(201).json({ updatedBrand });
-  } catch (err) {
-    return next(new ErrorResponse(err, 400));
+  if (!!banners) {
+    banners = banners.map((banner) => ({
+      img: banner.filename,
+    }));
   }
-};
 
-exports.deleteBrand = (req, res, next) => {
+  const brand = {
+    name,
+    description,
+    banners,
+    createdBy: req.userId,
+  };
+
+  const updatedBrand = await Brand.findOneAndUpdate({ _id }, brand, {
+    new: true,
+  }).exec();
+
+  res.status(201).json({ updatedBrand });
+});
+
+exports.deleteBrand = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  Brand.deleteOne({ _id: id })
-    .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
-    .then((result) => res.status(201).json({ result, id }));
-};
+  const result = await Brand.deleteOne({ _id: id }).exec();
+
+  res.status(201).json({ result, id });
+});

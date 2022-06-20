@@ -143,3 +143,66 @@ Use mongoose.model(name, schema)
 20220619	23:03:18	f5737c1c-e63c-4d1a-abc8-8a7bfa3bc3f8	Error: 유효하지 않은 토큰
 20220620	00:01:29	fb92c65f-b694-42e8-9710-43ab8ad08107	Error: 잘못된 비밀번호
 20220620	00:50:02	0036bd69-a436-45c7-813d-9632929ce858	Error: 잘못된 비밀번호
+20220620	10:23:27	3ab7d24f-d348-482c-b047-c1b4f62b64ce	Error: 토큰 없음
+20220620	10:24:35	1ff18ee7-e416-40c3-878f-c7354c285294	Error: 토큰 없음
+20220620	10:46:32	214c4c78-eccd-48b4-96f6-6003b6b4ec38	Error: 토큰 없음
+20220620	10:46:58	cf7fb22e-574a-4e75-ada6-dcf4ec44d084	Error: 토큰 없음
+20220620	13:29:57	b0ffc78d-4553-408a-9ea3-f400b61bf803	Error: 유효하지 않은 토큰
+20220620	13:41:39	8df5c366-0ada-45ec-a7f0-cc92c2c8a40f	CastError: Cast to ObjectId failed for value "{ id: '62aff7c53473a5d6d4d3f44f' }" (type Object) at path "_id" for model "Lookbook"
+20220620	13:53:01	9d2be41a-5702-42ab-abf9-53f598e83d65	TypeError: Cannot read properties of undefined (reading 'split')
+20220620	13:54:06	97f9f229-3f00-4ab5-b402-c3e368909051	TypeError: Cannot read properties of undefined (reading 'split')
+20220620	13:54:43	8aabda5a-ad06-4424-9c1d-110b1ccb4bf3	TypeError: Cannot read properties of undefined (reading 'split')
+20220620	13:55:25	3c2a44b3-5e7c-4dc3-a803-0c77834ceb5e	TypeError: Cannot read properties of undefined (reading 'split')
+20220620	13:55:39	b2e3e8f8-b34d-4b17-b0be-a8b0c4b121de	TypeError: Cannot read properties of undefined (reading 'split')
+20220620	14:01:12	ad5dd604-1a29-4a0e-b3b4-3e26ee93bbbf	TypeError: Cannot read properties of undefined (reading 'split')
+20220620	15:06:56	e8cb9edb-b91d-4d66-914b-dc8d1edd5a62	Error: 유효하지 않은 토큰
+20220620	17:40:13	a0a53e23-4ec5-47ca-82eb-6a228e9c16e1	Error: 유효하지 않은 토큰
+20220620	17:40:13	12fa88f8-5b6e-4183-9276-3b292b43b9ee	Error: 유효한 권한 아님
+20220620	18:20:36	739809da-80ec-4426-82ea-76ef86d5c5d0	ReferenceError: Lookbook is not defined
+20220620	18:20:40	5c8a76e5-39d1-4d4b-bdf1-51fba852a663	ReferenceError: Lookbook is not defined
+20220620	18:20:42	7197f62f-cf3b-4033-9599-9c817d53450a	ReferenceError: Lookbook is not defined
+20220620	19:02:21	255acebe-5f49-4c1b-baca-601a4612fbcb	Error: 유효하지 않은 토큰
+20220620	19:07:30	c850e153-5d41-4ec2-adfa-c8793f5a45d5	TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'Topology'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'topology' closes the circle
+20220620	19:07:37	89564653-feb4-4995-9815-0ecf36984589	TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'Topology'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'topology' closes the circle
+20220620	19:35:48	d3f054ff-dfd2-4ce5-84c7-5f7b9d344ec7	Error: 유효하지 않은 토큰
+20220620	20:51:43	1090a7ba-0bd3-452c-a1c0-5ce7330e134d	TypeError: (intermediate value).filter(...).search(...).countDocuments is not a function
+20220620	23:05:53	fe67afcf-406f-4f07-a55e-632ba1859857	Error: 유효하지 않은 토큰
+20220620	23:23:58	cb2efbb8-0a1f-4b10-91ee-12f2f449b4f0	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220620	23:46:22	f578b520-3b60-4e34-bd9f-64c8d379252e	Error: 유효하지 않은 토큰
+20220620	23:48:46	5e3d560c-e778-4fd1-82db-5cdd64b207c0	Error: Params required
+20220620	23:49:28	786db338-901b-4b5e-906c-010fe34ebf28	Error: Params required
+20220620	23:50:01	b212c251-59b5-4433-b654-cf248df97be1	Error: Params required
+20220621	00:03:31	babe7556-ef29-4fc2-a3e5-ff0898d1dfc0	TypeError: res.sstatus is not a function
+20220621	00:18:40	e192a2f9-2faa-4cc2-9a05-246e70b73232	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:21:26	a5369238-bf22-424c-af1b-c5b2c584a84c	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:27:26	3394175e-b925-46c5-90a7-2f498d088adf	ReferenceError: address is not defined
+20220621	00:32:59	1772ccc5-b877-4d3b-bea1-b0b062fd9ac4	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:33:20	fd92b095-5412-418d-8aec-4f2ea2f84f16	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:38:40	277b6823-e071-44fa-958e-dfeca2c3237b	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:41:34	a5445e17-6a1d-42f0-8221-094cb1e42b71	Error: 유효하지 않은 토큰
+20220621	00:42:55	86b007d7-0b7c-4c76-9adf-2aa492000faa	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:49:39	ebfb2ff5-28f6-4134-bac9-29791069a202	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:45	768c518d-d4cf-4b7c-a8b0-09aba4d11996	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:47	30eeb601-8b23-4a87-bcfa-28b597776dc5	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:47	052ad6d3-97cc-4876-ad14-1bdd986dd348	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:48	ca1b5db1-d337-4061-a222-3b2c1cb1bfd3	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:48	61209a01-f890-4dd5-a9e2-482c6a4fd050	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:48	69868a0d-ae48-47eb-9515-0dbf35491547	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:49	b15b18bf-8660-4adb-aa33-a43808a2fed3	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:49	5dfcdbe9-9de1-4cd9-932c-e3ffd83845af	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:49	1ef8117d-f612-4bd6-b934-76eee62c1677	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	00:53:50	a0bcc0e6-c22f-4b62-9355-cdab3b28a364	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	01:06:26	2bfd8008-38ed-4029-93a6-bcc96a1eaabc	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	01:06:29	fd3d395a-1dca-4b09-b156-1e19b8bb495d	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
+20220621	01:16:48	33b22eb2-1783-4e0f-8933-2092cc7e48e1	Error: 유효하지 않은 토큰
+20220621	01:18:16	760b2029-dc12-4cfc-8de1-36422322f87a	Error: Invalid atomic update value for $pull. Expected an object, received string
+20220621	01:19:35	0355bf4b-fffa-473e-a1fc-a35eebe1cc03	MongoServerError: Plan executor error during findAndModify :: caused by :: Cannot use the part (_id) of (address._id) to traverse the element ({address: [ { name: "제발22", contactNumber: "010-3333-4444", zonecode: "32597", address1: "충남 공주시 가나무정길 3", address2: "상세", claim: "배송", _id: ObjectId('62b09d129d192255773c0349') } ]})
+20220621	01:22:13	b3af8da7-ef91-4065-a11f-70d298dcd9fe	TypeError: Cannot read properties of undefined (reading '_id')

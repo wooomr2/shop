@@ -3,14 +3,14 @@ import DaumPostCode from "react-daum-postcode";
 import CloseIcon from "@mui/icons-material/Close";
 
 import "./postCodeModal.scss";
-function PostCodeModal({ onClick, setPinCode, setAddress1 }) {
+function PostCodeModal({ onClick, setZonecode, setAddress1 }) {
   
-  const onCompleteHandler = (data) => {
-    console.log(data);
-    setPinCode(data.zonecode);
+  const onComplete = (data) => {
+    setZonecode(data.zonecode);
     setAddress1(data.address);
     onClick();
   };
+
   return (
     <div className="postcode-container">
       <div className="postcode">
@@ -20,7 +20,7 @@ function PostCodeModal({ onClick, setPinCode, setAddress1 }) {
             <CloseIcon />
           </span>
         </div>
-        <DaumPostCode onComplete={onCompleteHandler} />
+        <DaumPostCode onComplete={onComplete} />
       </div>
     </div>
   );

@@ -11,13 +11,12 @@ function BrandModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [banners, setBanners] = useState([]);
-  const [cards, setCards] = useState([]);
+
 
   const resetState = () => {
     setName("");
     setDescription("");
     setBanners([]);
-    setCards([]);
   };
 
   const handleSubmit = (e) => {
@@ -28,9 +27,6 @@ function BrandModal() {
     form.append("description", description);
     banners.forEach((banner) => {
       form.append("banners", banner);
-    });
-    cards.forEach((card) => {
-      form.append("cards", card);
     });
 
     dispatch(addBrand(form));
@@ -47,17 +43,6 @@ function BrandModal() {
       }
     }
     setBanners(files);
-  };
-
-  const handleCardImgs = (fileList) => {
-    let files = [];
-    for (const key in fileList) {
-      if (Object.hasOwnProperty.call(fileList, key)) {
-        const value = fileList[key];
-        files.push(value);
-      }
-    }
-    setCards(files);
   };
 
   switch (modalType) {
@@ -97,22 +82,6 @@ function BrandModal() {
                   multiple
                   accept=".png, .jpeg, .jpg"
                   onChange={(e) => handleBannerImgs(e.target.files)}
-                />
-
-              <span>Card images</span>
-              {cards &&
-                cards.map((img, i) => (
-                  <div key={i}>
-                    <img src={URL.createObjectURL(img)} alt="" height="50" />
-                  </div>
-                ))}
-
-                <input
-                  type="file"
-                  id="file"
-                  multiple
-                  accept=".png, .jpeg, .jpg"
-                  onChange={(e) => handleCardImgs(e.target.files)}
                 />
 
               <button type="submit">submit</button>

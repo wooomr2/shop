@@ -10,7 +10,7 @@ import { addCartItems } from "../../slice/cartSlice";
 function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { cartItems } = useSelector((store) => store.cart);
+  const cartItems = useSelector((store) => store.cart.cartItems);
   const { isLoading, isAuthenticated, error } = useSelector(
     (store) => store.auth
   );

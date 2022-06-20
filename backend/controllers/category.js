@@ -1,4 +1,5 @@
 const ErrorResponse = require("../utils/ErrorResponse");
+const asyncHandler = require("../middlewares/asyncHandler");
 const slugify = require("slugify");
 const Category = require("../models/Category");
 

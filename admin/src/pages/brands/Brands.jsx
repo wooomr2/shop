@@ -4,7 +4,7 @@ import BrandModal from "../../components/modals/BrandModal";
 import { deleteBrand } from "../../slice/brandSlice";
 import { openModal } from "../../slice/modalSlice";
 
-function Screens() {
+function Brands() {
   const dispatch = useDispatch();
   const { brands } = useSelector((store) => store.brand);
 
@@ -42,4 +42,4 @@ function Screens() {
   );
 }
 
-export default Screens;
+export default Brands;

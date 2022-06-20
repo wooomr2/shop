@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Signin from "./pages/signin/Signin";
 import Layout from "./components/Layout";
@@ -7,8 +7,6 @@ import Products from "./pages/products/Products";
 import Product from "./pages/products/Product";
 import Users from "./pages/users/Users";
 import Orders from "./pages/orders/Orders";
-import Screens from "./pages/screens/Screens";
-import Screen from "./pages/screens/Screen";
 import Brands from "./pages/brands/Brands";
 import Brand from "./pages/brands/Brand";
 import Lookbooks from "./pages/lookbooks/Lookbooks";
@@ -22,7 +20,7 @@ import { ROLES } from "./utils/roleList";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
           <Route path="/" element={<Layout />}>
@@ -34,8 +32,6 @@ function App() {
             <Route path="lookbooks/:id" element={<Lookbook />} />
             <Route path="collections" element={<Collections />} />
             <Route path="collections/:id" element={<Collection />} />
-            <Route path="screens" element={<Screens />} />
-            <Route path="screens/:id" element={<Screen />} />
             <Route path="categories" element={<Categories />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:slug" element={<Product />} />
@@ -47,7 +43,7 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<Missing />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

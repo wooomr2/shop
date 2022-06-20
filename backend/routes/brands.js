@@ -6,8 +6,8 @@ const { verifyRoles } = require("../middlewares/verifyRoles");
 const ROLES = require("../config/roleList");
 const router = express.Router();
 
-router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'},{name:'cards'}]), addBrand);
-router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'},{name:'cards'}]), updateBrand);
+router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'}]), addBrand);
+router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'}]), updateBrand);
 router.get("/", getBrands);
 router.get("/:name", getBrand);
 router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteBrand);

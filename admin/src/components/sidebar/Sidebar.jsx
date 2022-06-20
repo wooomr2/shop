@@ -1,11 +1,10 @@
 import "./sidebar.scss";
+import CategoryIcon from "@mui/icons-material/Category";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import CategoryIcon from "@mui/icons-material/Category";
-import ScreenshotMonitorOutlinedIcon from '@mui/icons-material/ScreenshotMonitorOutlined';
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { NavLink } from "react-router-dom";
 
 function Sidebar() {
@@ -32,12 +31,6 @@ function Sidebar() {
             <NavLink to="/users" style={{ textDecoration: "none" }}>
               <PersonOutlinedIcon className="icon" />
               <span>Users</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/screens" style={{ textDecoration: "none" }}>
-              <ScreenshotMonitorOutlinedIcon className="icon" />
-              <span>Screens</span>
             </NavLink>
           </li>
           <li>

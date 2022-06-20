@@ -28,7 +28,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           CATEGORY
         </div>
         <div className="menu-item" onClick={onClickNavigate("/brands")}>
-          BRANDS
+          BRAND
         </div>
         <div className="menu-item" onClick={onClickNavigate("/lookbooks")}>
           LOOKBOOK

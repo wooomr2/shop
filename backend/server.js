@@ -20,7 +20,7 @@ app.use("/public", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/refresh", require("./routes/refresh"));
 
-app.use("/api/address", require("./routes/address"));
+app.use("/api/addresses", require("./routes/addresses"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/brands", require("./routes/brands"));
 app.use("/api/carts", require("./routes/carts"));
@@ -30,13 +30,12 @@ app.use("/api/lookbooks", require("./routes/lookbooks"));
 app.use("/api/orders", require("./routes/orders"));
 app.use("/api/products", require("./routes/products"));
 app.use("/api/reviews", require("./routes/reviews"));
-app.use("/api/screens", require("./routes/sceeens"));
 app.use("/api/stripe", require("./routes/stripe"));
 
 app.use(errorHandler);
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`서버 running on ${PORT}`));
 
 process.on("unhandledRejection", (err, promise) => {
   console.log(`비정상적 에러로 서버 종료 ${err.message}`);

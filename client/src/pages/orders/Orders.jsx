@@ -23,7 +23,7 @@ function Orders() {
                 <Link to={`/orders/${order._id}`}>
                   <div>
                     <img
-                      src={publicURL(item.product.productImgs[0].fileName)}
+                      src={publicURL(item.product?.productImgs[0].fileName)}
                       alt=""
                       width="50"
                       height="50"

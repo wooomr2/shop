@@ -38,7 +38,7 @@ exports.addCollection = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllCollections = asyncHandler(async (req, res, next) => {
-  const collections = await Collection.find({}).sort({ updatedAt: -1 }).exec()
+  const collections = await Collection.find({}).sort({ createdAt: -1 }).exec()
 
   res.status(200).json({ collections })
 });
@@ -58,7 +58,7 @@ exports.getCollection = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  const collection = await Collection.findById({ _id: id }).exec();
+  const collection = await Collection.findById(id).exec();
 
   res.status(200).json({ collection });
 });

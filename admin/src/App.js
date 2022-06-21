@@ -1,21 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
-import Signin from "./pages/signin/Signin";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import Categories from "./pages/categories/Categories";
-import Products from "./pages/products/Products";
-import Product from "./pages/products/Product";
-import Users from "./pages/users/Users";
-import Orders from "./pages/orders/Orders";
-import Brands from "./pages/brands/Brands";
-import Brand from "./pages/brands/Brand";
-import Lookbooks from "./pages/lookbooks/Lookbooks";
-import Lookbook from "./pages/lookbooks/Lookbook";
-import Collections from "./pages/collections/Collections";
-import Collection from "./pages/collections/Collection";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Unauthorized from "./pages/unauthorized/Unauthorized";
+import Brand from "./pages/brands/Brand";
+import Brands from "./pages/brands/Brands";
+import Categories from "./pages/categories/Categories";
+import Collection from "./pages/collections/Collection";
+import Collections from "./pages/collections/Collections";
+import Home from "./pages/home/Home";
+import Lookbook from "./pages/lookbooks/Lookbook";
+import Lookbooks from "./pages/lookbooks/Lookbooks";
 import Missing from "./pages/missing/Missing";
+import Orders from "./pages/orders/Orders";
+import Product from "./pages/products/Product";
+import Products from "./pages/products/Products";
+import Signin from "./pages/signin/Signin";
+import Unauthorized from "./pages/unauthorized/Unauthorized";
+import User from "./pages/users/User";
+import Users from "./pages/users/Users";
 import { ROLES } from "./utils/roleList";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="users" element={<Users />} />
+            <Route path="users/:id" element={<User />} />
             <Route path="brands" element={<Brands />} />
             <Route path="brands/:name" element={<Brand />} />
             <Route path="lookbooks" element={<Lookbooks />} />

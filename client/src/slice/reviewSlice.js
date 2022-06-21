@@ -4,6 +4,7 @@ import axios from "../utils/axiosInstance";
 const initialState = {
   reviews: [],
   review: {},
+  isLoading:false,
 };
 
 export const getReviews = createAsyncThunk(

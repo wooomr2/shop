@@ -13,7 +13,6 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import authReducer from "./slice/authSlice";
 import brandReducer from "./slice/brandSlice";
-import cartReducer from "./slice/cartSlice";
 import categoryReducer from "./slice/categorySlice";
 import collectionReducer from "./slice/collectionSlice";
 import lookbookReducer from "./slice/lookbookSlice";
@@ -40,7 +39,6 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   brand: brandReducer,
-  cart: cartReducer,
   category: categoryReducer,
   collection: collectionReducer,
   lookbook: lookbookReducer,

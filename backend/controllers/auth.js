@@ -22,7 +22,7 @@ const sendToken = asyncHandler(async (req, res, user) => {
     if (!foundUser) newRefreshTokenArray = [];
 
     //쿠키 초기화
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    res.clearCookie("jwt", { HttpOnly: true, SameSite: "None", Secure: true });
   }
 
   // newRefreshToken db저장
@@ -31,21 +31,19 @@ const sendToken = asyncHandler(async (req, res, user) => {
 
   // newRefreshToken 쿠키 저장
   res.cookie("jwt", newRefreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
-    maxAge: 24 * 60 * 60 * 1000,
+    HttpOnly: true,
+    Secure: true,
+    SameSite: "None",
+    MaxAge: 24 * 60 * 60 * 1000,
   });
 
   // Send token to user
-  const { _id, email, username } = user._doc;
+  const { _id } = user._doc;
   const roles = Object.values(user._doc.roles).filter(Boolean);
   res.status(200).json({
     accessToken,
     user: {
       _id,
-      email,
-      username,
       roles,
     },
   });
@@ -115,7 +113,7 @@ exports.signout = asyncHandler(async (req, res, next) => {
   // Is refreshToken in db?
   const foundUser = await User.findOne({ refreshToken }).exec();
   if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    res.clearCookie("jwt", { HttpOnly: true, SameSite: "None", Secure: true });
     return res.status(204).json("로그아웃");
   }
 
@@ -125,7 +123,7 @@ exports.signout = asyncHandler(async (req, res, next) => {
   );
   await foundUser.save();
 
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+  res.clearCookie("jwt", { HttpOnly: true, SameSite: "None", Secure: true });
   res.status(204).json("로그아웃");
 });
 
@@ -134,8 +132,10 @@ exports.matchEmail = asyncHandler(async (req, res, next) => {
 
   const user = await User.findOne({ email }).exec();
   if (!user) {
-    return res.status(200).json({ msg: `${email} 은 사용가능한 이메일입니다.` });
-  } 
+    return res
+      .status(200)
+      .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
+  }
 
   return res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });
 });

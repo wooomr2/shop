@@ -1,34 +1,33 @@
-import "./category.scss";
+import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProductsByCategories } from "../../slice/productSlice";
-import {
-  categoryToggle,
-  createLinearCategory,
-} from "../../slice/categorySlice";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Paging from "../../components/paging/Paging";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import Pagination from "../../components/pagination/Pagination";
 import Product from "../../components/product/Product";
-import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+import Sidebar from "../../components/sidebar/Sidebar";
+import {
+  categoryToggle,
+  createLinearCategory
+} from "../../slice/categorySlice";
+import { getProductsByCategories } from "../../slice/productSlice";
+import "./category.scss";
 
 function Category() {
   const dispatch = useDispatch();
   const params = useParams();
-  const { products, total, _currentPage, _sort, _brands, brandData } =
-    useSelector((store) => store.product);
-  const perPage = 20;
   const { categories, categoryOpen } = useSelector((store) => store.category);
-  const [currentPage, setCurrentPage] = useState(_currentPage);
-  const [sort, setSort] = useState(_sort);
-  const [brands, setBrands] = useState(_brands);
-  const currentCategory = [];
-  let cids = [];
+  const { total, products, brandData } = useSelector((store) => store.product);
+  const perPage = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sort, setSort] = useState("latest");
+  const [brands, setBrands] = useState([]);
 
   const [selectedGrid, setSelectedGrid] = useState(false);
+
+  const currentCategory = [];
+  let cids = [];
 
   if (params.cid === "all") {
     cids = [];
@@ -117,13 +116,6 @@ function Category() {
           </div>
         </section>
       </div>
-
-      {/* <Paging
-        total={total}
-        perPage={perPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      /> */}
       <Pagination
         total={total}
         perPage={perPage}

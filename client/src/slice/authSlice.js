@@ -56,7 +56,7 @@ export const signout = createAsyncThunk(
   async (dummy, thunkAPI) => {
     try {
       await axios.get("/auth/signout");
-
+      
       sessionStorage.clear();
       thunkAPI.dispatch(clearCart());
     } catch (err) {

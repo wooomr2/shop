@@ -1,67 +1,97 @@
 const ErrorResponse = require("../utils/ErrorResponse");
+const Feature = require("../utils/Feature");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-const UserAddress = require("../models/Address");
+const Product = require("../models/Product");
+const User = require("../models/User");
 
-exports.addOrder = (req, res) => {
-  console.log(req.body);
-  Cart.deleteOne({ user: req.body.user }).exec((err, result) => {
-    if (err) next(new ErrorResponse(err, 400));
-    if (result) {
-      req.body.orderStatus = [
-        {
-          type: "ordered",
-          date: new Date(),
-          isCompleted: true,
-        },
-        {
-          type: "packed",
-          isCompleted: false,
-        },
-        {
-          type: "shipped",
-          isCompleted: false,
-        },
-        {
-          type: "delivered",
-          isCompleted: false,
-        },
-      ];
-      const order = new Order(req.body);
-      order.save((err, order) => {
-        if (err) next(new ErrorResponse(err, 400));
-        if (order) {
-          res.status(201).json({ order });
-        }
-      });
-    }
+function updatePromise(condition, update) {
+  return new Promise((resolve, reject) => {
+    Product.findOneAndUpdate(condition, update, { new: true })
+      .catch((err) => reject(err))
+      .then((result) => resolve(result));
   });
-};
+}
 
-exports.getAllOrders = asyncHandler(async (req, res, next) => {});
+exports.addOrder = asyncHandler(async (req, res, next) => {
+  const result = await Cart.deleteOne({ user: req.userId }).exec();
 
-exports.getOrdersByUserId = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.userId })
-    .select("_id paymentStatus paymentType orderStatus items")
-    .populate("items.product", "_id name productImgs")
-    .exec();
+  let promiseArray = [];
+
+  const { items } = req.body;
+
+  items.forEach((item) => {
+    let condition, update;
+
+    condition = {
+      _id: item._id,
+      "stock.size": item.size,
+    };
+    update = {
+      $inc: {
+        "stock.$.qty": -item.qty,
+      },
+    };
+
+    promiseArray.push(updatePromise(condition, update));
+  });
+
+  Promise.all(promiseArray)
+    .catch((err) => next(new ErrorResponse(err, 400)))
+    .then((response) => console.log(response));
+
+  // const point = req.body.totalPrice;
+  const user = await User.findOneAndUpdate(
+    { _id: req.userId },
+    { $inc: { point: +(req.body.totalPrice / 100).toFixed() } }
+  );
+
+  req.body.orderStatus = [
+    {
+      type: "ordered",
+      date: new Date(),
+      isCompleted: true,
+    },
+    {
+      type: "packed",
+      isCompleted: false,
+    },
+    {
+      type: "shipped",
+      isCompleted: false,
+    },
+    {
+      type: "delivered",
+      isCompleted: false,
+    },
+  ];
+
+  const order = await Order.create(req.body);
+
+  res.status(201).json({ order });
+});
+
+exports.getAllOrders = asyncHandler(async (req, res, next) => {
+  const orders = await Order.find({}).sort({ createdAt: -1 }).exec();
 
   res.status(200).json({ orders });
 });
 
+exports.getOrders = asyncHandler(async (req, res) => {
+  const total = await Order.find({ user: req.userId }).countDocuments();
+  const orders = await new Feature(Order.find({ user: req.userId }), req.body)
+    .pagination()
+    .sort()
+    .getQuery();
+
+  res.status(200).json({ total, orders });
+});
+
 exports.getOrder = asyncHandler(async (req, res, next) => {
-  const order = await Order.findById(req.params.id)
-    .populate("items.product", "_id name color brand productImgs")
-    .exec();
+  const { id } = req.params;
+  if (!id) return next(new ErrorResponse("Params required", 400));
+  const order = await Order.findById(id).exec();
 
-  const userAddress = await UserAddress.findOne({
-    user: order.user,
-  }).exec();
-
-  const shippingAddress = userAddress.address.find(
-    (addr) => addr._id.toString() === order.address.toString()
-  );
-
-  res.status(200).json({ order, shippingAddress });
+  res.status(200).json({ order });
 });

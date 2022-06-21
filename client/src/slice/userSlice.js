@@ -1,16 +1,27 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 import { clearCart } from "./cartSlice";
 
 const initialState = {
-  addresses: [],
-  shippingAddress: {},
+  user:{},
+  total: 0,
   orders: [],
   order: {},
-  latestOrder: {},
-  // orderDetails: {},
+  addresses: [],
   isLoading: false,
 };
+
+export const getUser = createAsyncThunk(
+  "user/getUser",
+  async (dummy, thunkAPI) => {
+    try {
+      const res = await axios.get(`/users/id`);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const getAddresses = createAsyncThunk(
   "user/getAddresses",
@@ -29,7 +40,6 @@ export const upsertAddress = createAsyncThunk(
   async (address, thunkAPI) => {
     try {
       const res = await axios.patch(`/addresses`, { address });
-
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -42,7 +52,6 @@ export const deleteAddress = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const res = await axios.delete(`/addresses/${id}`);
-
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -65,9 +74,9 @@ export const addOrder = createAsyncThunk(
 
 export const getOrders = createAsyncThunk(
   "user/getOrders",
-  async (uid, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const res = await axios.get(`/orders`);
+      const res = await axios.post(`/orders/get`, payload);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -90,12 +99,20 @@ export const getOrder = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    // clearLatestOrder: (state)=> {
-    //   state.latestOrder = {}
-    // }
-  },
+  reducers: {},
   extraReducers: {
+    [getUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUser.fulfilled]: (state, action) => {
+      state.user = action.payload.user;
+      state.addresses = action.payload.userAddress.addresses;
+      state.isLoading = false;
+    },
+    [getUser.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
     [getAddresses.pending]: (state) => {
       state.isLoading = true;
     },
@@ -133,6 +150,7 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [getOrders.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
       state.orders = action.payload.orders;
       state.isLoading = false;
     },
@@ -145,7 +163,6 @@ const userSlice = createSlice({
     },
     [getOrder.fulfilled]: (state, action) => {
       state.order = action.payload.order;
-      state.shippingAddress = action.payload.shippingAddress;
       state.isLoading = false;
     },
     [getOrder.rejected]: (state, action) => {
@@ -156,7 +173,6 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [addOrder.fulfilled]: (state, action) => {
-      // state.orders = [...state.orders, action.payload.order];
       state.latestOrder = action.payload.order;
       state.isLoading = false;
     },
@@ -166,6 +182,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { clearLatestOrder } = userSlice.actions;
+export const {} = userSlice.actions;
 
 export default userSlice.reducer;

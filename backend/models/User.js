@@ -24,11 +24,6 @@ const UserSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
-    // role: {
-    //   type: String,
-    //   enum: ["user", "admin", "root"],
-    //   default: "user",
-    // },
     roles: {
       USER: {
         type: Number,
@@ -37,9 +32,10 @@ const UserSchema = new mongoose.Schema(
       ADMIN: Number,
       ROOT: Number,
     },
-
     mobile: { type: String },
     profileImg: { type: String },
+
+    point: { type: Number, default: 0 },
 
     refreshToken: [String],
     resetPasswordToken: String,
@@ -69,13 +65,9 @@ UserSchema.methods = {
     // { USER: 2001 } -> [ 2001, undefined, undefined ] -> [ 2001 ]
     const roles = Object.values(this.roles).filter(Boolean);
 
-    return jwt.sign(
-      { id: this._id, roles },
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRE,
-      }
-    );
+    return jwt.sign({ id: this._id, roles }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRE,
+    });
   },
 
   generateRefreshToken: function () {

@@ -30,13 +30,14 @@ function Products() {
   const addCart = () => {
     if (!size) return alert("사이즈를 선택하셔야 합니다.");
 
-    console.log(product.price * (1 - product?.discountPrice / 100));
     dispatch(
       addItem({
         _id: product._id,
         name: product.name,
+        brand: product.brand,
+        color:product.color,
         img: product.productImgs[0].fileName,
-        price: product.price * (1 - product?.discountPrice / 100),
+        price: product.discountPrice,
         size,
         qty,
       })

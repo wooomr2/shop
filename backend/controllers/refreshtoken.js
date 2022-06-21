@@ -8,7 +8,7 @@ exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
   if (!cookies?.jwt) return next(new ErrorResponse("refreshToken 없음", 401));
 
   const refreshToken = cookies.jwt;
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+  res.clearCookie("jwt", { HttpOnly: true, SameSite: "None", Secure: true });
 
   const foundUser = await User.findOne({ refreshToken }).exec();
   if (!foundUser) {
@@ -45,10 +45,10 @@ exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
       await foundUser.save();
 
       res.cookie("jwt", newRefreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-        maxAge: 24 * 60 * 60 * 1000,
+        HttpOnly: true,
+        Secure: true,
+        SameSite: "None",
+        MaxAge: 24 * 60 * 60 * 1000,
       });
 
       res.status(200).json({ accessToken });

@@ -26,7 +26,7 @@ export const addCartItems = createAsyncThunk(
         return {
           product: cartItem._id,
           size: cartItem.size,
-          quantity: cartItem.qty,
+          qty: cartItem.qty,
         };
       });
       const res = await axios.post("/carts", cartItems);
@@ -47,7 +47,7 @@ export const updateCartItems = createAsyncThunk(
         return {
           product: cartItem._id,
           size: cartItem.size,
-          quantity: cartItem.qty,
+          qty: cartItem.qty,
         };
       });
 
@@ -74,9 +74,11 @@ const cartSlice = createSlice({
         ? (cartItem.qty += qty)
         : (state.cartItems = [...state.cartItems, action.payload]);
     },
+
     clearCart: (state, action) => {
       state.cartItems = [];
     },
+
     removeItem: (state, action) => {
       const { _id, size } = action.payload;
 
@@ -85,6 +87,7 @@ const cartSlice = createSlice({
         else return item._id !== _id;
       });
     },
+
     increaseQty: (state, action) => {
       const { _id, size } = action.payload;
 
@@ -93,6 +96,7 @@ const cartSlice = createSlice({
       );
       cartItem.qty += 1;
     },
+
     decreaseQty: (state, action) => {
       const { _id, size } = action.payload;
 

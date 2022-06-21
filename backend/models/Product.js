@@ -1,29 +1,23 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema(
   {
+    code: {
+      type: String,
+    },
+
     name: {
       type: String,
       required: true,
       trim: true,
     },
+
     slug: {
       type: String,
       required: true,
       unique: true,
     },
-    price: {
-      type: Number,
-      required: true,
-    },
-    quantity: {
-      //grossSales
-      type: Number,
-      required: true,
-    },
-    discountPrice: {
-      type: Number,
-    },
-    code: {
+
+    brand: {
       type: String,
     },
 
@@ -31,12 +25,29 @@ const productSchema = new mongoose.Schema(
       type: String,
     },
 
-    stock: [{ size: { type: String }, qty: { type: Number } }],
     description: {
       type: String,
       trim: true,
     },
+
     productImgs: [{ fileName: { type: String } }],
+
+    price: {
+      type: Number,
+      required: true,
+    },
+
+    discountPrice: {
+      type: Number,
+    },
+
+    stock: [{ size: { type: String }, qty: { type: Number } }],
+
+    grossSale: {
+      type: Number,
+      required: true,
+    },
+
     ratings: {
       total: { type: Number },
       sum: { type: Number },
@@ -48,9 +59,7 @@ const productSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
-    brand: {
-      type: String,
-    },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

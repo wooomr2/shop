@@ -1,26 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { combineReducers } from "redux";
 import authReducer from "./slice/authSlice";
 import brandReducer from "./slice/brandSlice";
 import cartReducer from "./slice/cartSlice";
 import categoryReducer from "./slice/categorySlice";
 import collectionReducer from "./slice/collectionSlice";
 import lookbookReducer from "./slice/lookbookSlice";
-import modalReducer from "./slice/modalSlice";
 import productReducer from "./slice/productSlice";
-import userReducer from "./slice/userSlice";
 import reviewReducer from "./slice/reviewSlice";
+import userReducer from "./slice/userSlice";
 
 const persistConfig = {
   key: "root",
@@ -33,7 +32,6 @@ const persistConfig = {
     // "category",
     "collection",
     "lookbook",
-    "modal",
     "product",
     "review",
     "user",
@@ -47,7 +45,6 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   collection: collectionReducer,
   lookbook: lookbookReducer,
-  modal: modalReducer,
   product: productReducer,
   review: reviewReducer,
   user: userReducer,

@@ -50,6 +50,5 @@ exports.deleteAddress = asyncHandler(async (req, res, next) => {
     { new: true }
   ).exec();
 
-  console.log(id, userAddress);
   res.status(200).json({ userAddress });
 });

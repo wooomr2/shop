@@ -1,18 +1,17 @@
-import "./lookbooks.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../../components/pagination/Pagination";
 import { getLookbooks } from "../../slice/lookbookSlice";
 import publicURL from "../../utils/publicURL";
-import Pagination from "../../components/pagination/Pagination";
+import "./lookbooks.scss";
 
 function Lookbooks() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { lookbooks, total, perPage, _currentPage } = useSelector(
-    (store) => store.lookbook
-  );
-  const [currentPage, setCurrentPage] = useState(_currentPage);
+  const { total, lookbooks } = useSelector((store) => store.lookbook);
+  const perPage = 20;
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const payload = { perPage, currentPage };

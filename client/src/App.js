@@ -1,30 +1,30 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop";
+import Brand from "./pages/brands/Brand";
+import Cart from "./pages/cart/Cart";
+import Category from "./pages/categories/Category";
+import Checkout from "./pages/checkout/Checkout";
+import Collection from "./pages/collections/Collection";
+import Collections from "./pages/collections/Collections";
+import Contact from "./pages/contact/Contact";
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
 import Home from "./pages/home/Home";
+import Lookbook from "./pages/lookbooks/Lookbook";
+import Lookbooks from "./pages/lookbooks/Lookbooks";
+import Missing from "./pages/missing/Missing";
+import Mypage from "./pages/mypage/Mypage";
+import Order from "./pages/orders/Order";
+import Orders from "./pages/orders/Orders";
+import Product from "./pages/products/Product";
+import ResetPassword from "./pages/resetPassword/ResetPassword";
+import Search from "./pages/search/Search";
 import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
-import ResetPassword from "./pages/resetPassword/ResetPassword";
-import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
-import Layout from "./components/Layout";
-import Product from "./pages/products/Product";
-import Cart from "./pages/cart/Cart";
-import Checkout from "./pages/checkout/Checkout";
 import Success from "./pages/success/Success";
-import Orders from "./pages/orders/Orders";
-import Order from "./pages/orders/Order";
-import Category from "./pages/categories/Category";
-import Brand from "./pages/brands/Brand";
-import Brands from "./pages/brands/Brands";
-import Lookbooks from "./pages/lookbooks/Lookbooks";
-import Lookbook from "./pages/lookbooks/Lookbook";
-import ScrollToTop from "./components/ScrollToTop";
-import Contact from "./pages/contact/Contact";
-import Collections from "./pages/collections/Collections";
-import Collection from "./pages/collections/Collection";
 import UnAuthorized from "./pages/unauthorized/Unauthorized";
-import Missing from "./pages/missing/Missing";
-import ProtectedRoute from "./components/ProtectedRoute";
 import { ROLES } from "./utils/roleList";
-import Search from "./pages/search/Search";
 
 function App() {
   return (
@@ -35,7 +35,6 @@ function App() {
           <Route index element={<Home />} />
           <Route path="search/:keyword" element={<Search />} />
           <Route path=":slug/:cid" element={<Category />} />
-          <Route path="brands" element={<Brands />} />
           <Route path="brands/:name" element={<Brand />} />
           <Route path="lookbooks" element={<Lookbooks />} />
           <Route path="lookbooks/:id" element={<Lookbook />} />
@@ -48,6 +47,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route element={<ProtectedRoute allowedRoles={[ROLES.USER]} />}>
+            <Route path="/mypage" element={<Mypage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:id" element={<Order />} />

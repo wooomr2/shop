@@ -2,11 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
+  total: 0,
   collections: [],
   collection: {},
-  total: 0,
-  perPage: 22,
-  _currentPage: 1,
   isLoading: false,
   error: null,
 };

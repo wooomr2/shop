@@ -8,10 +8,9 @@ import publicURL from "../../utils/publicURL";
 function Collections() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { collections, total, perPage, _currentPage } = useSelector(
-    (store) => store.collection
-  );
-  const [currentPage, setCurrentPage] = useState(_currentPage);
+  const { total, collections } = useSelector((store) => store.collection);
+  const perPage = 20;
+  const [currentPage, setCurrentPage] = useState(1);
 
   let mainCollections = [];
   let subCollections = [];

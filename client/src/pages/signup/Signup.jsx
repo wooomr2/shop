@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import PostCodeModal from "../../components/postCodeModal/PostCodeModal";
 import Term from "../../components/term/Term";
 import useInput from "../../hooks/useInput";
+import useToggle from "../../hooks/useToggle";
 import { matchEmail, signup, clearMatchResult } from "../../slice/authSlice";
 import "./signup.scss";
 
@@ -19,15 +20,14 @@ function Signup() {
   const [passwordError, setPasswordError] = useState(false); // 비밀번호 일치 검사
   const [username, setUsername] = useInput("");
   const [mobile, setMobile] = useInput("");
-
   //우편번호 모달
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, toggleIsModalOpen] = useToggle(false);
   const [pinCode, setPinCode] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useInput("");
 
   //약관
-  const [isTermOpen, setIsTermOpen] = useState(false);
+  const [isTermOpen, toggleIsTermOpen] = useToggle(false);
   const [term, setTerm] = useState("");
   const [termError, setTermError] = useState(false);
 
@@ -90,7 +90,7 @@ function Signup() {
     <div className="signup">
       {isModalOpen && (
         <PostCodeModal
-          onClick={() => setIsModalOpen((prev) => !prev)}
+          onClick={toggleIsModalOpen}
           setPinCode={setPinCode}
           setAddress1={setAddress1}
         />
@@ -176,7 +176,7 @@ function Signup() {
               />
               <div
                 className="zipcode-button"
-                onClick={() => setIsModalOpen((prev) => !prev)}
+                onClick={toggleIsModalOpen}
               >
                 <span>우편번호 찾기</span>
               </div>
@@ -198,7 +198,7 @@ function Signup() {
           </div>
           <div className="signupForm-item-term">
             <div className="term-check">
-              <span onClick={() => setIsTermOpen((prev) => !prev)}>
+              <span onClick={toggleIsTermOpen}>
                 이용약관과 개인정보 수집 및 이용
               </span>{" "}
               동의

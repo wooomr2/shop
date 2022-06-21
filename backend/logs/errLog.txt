@@ -1,208 +1,67 @@
-20220617	19:42:49	65e6e8e0-b586-4f20-92be-468bc5cef202	Error: 유효하지 않은 토큰
-20220617	19:44:54	efe0942d-7beb-4721-b006-f030d1171d4b	Error: 유효하지 않은 토큰
-20220617	19:44:54	c6eb559a-8451-4cd2-ac91-0dfaf4318f18	Error: 만료된 refreshToken
-20220617	19:44:54	c6c79cf2-ee65-4b78-8dc6-2a1fec8af478	Error: refreshToken 없음
-20220617	19:45:58	2c09f0a9-8769-4dae-9ef4-c70ab5554cbc	Error: 유효하지 않은 토큰
-20220617	19:45:58	5743c79c-752a-4cf1-8094-215dfdcc0abd	Error: MongoServerError: Plan executor error during findAndModify :: caused by :: E11000 duplicate key error collection: shop.products index: slug_1 dup key: { slug: "stocktest" }
-20220617	19:46:18	2c97dee9-da65-41d3-a2bf-1e4355905c17	Error: 유효하지 않은 토큰
-20220617	19:46:24	bb6456c6-3c48-4a34-ab74-3eede63fd9b1	Error: 유효하지 않은 토큰
-20220617	19:46:31	250746d1-88e4-4a2b-8262-2bfdaa3f2f21	Error: 유효하지 않은 토큰
-20220617	19:46:36	ea70ecf4-d74f-4041-8cd5-f8efe0895766	Error: 유효하지 않은 토큰
-20220617	19:46:41	1ec28fd6-4dc7-4c5f-9c4d-7e124c4401d6	Error: 유효하지 않은 토큰
-20220617	19:46:50	16bf7f09-d0cb-430f-bc07-ed08d9fdb1de	Error: 유효하지 않은 토큰
-20220617	19:47:10	63182ee3-3e1f-4009-9f0f-c244aeea5283	Error: 유효하지 않은 토큰
-20220617	19:48:37	04fce3b8-1d66-409f-8bb6-70bf90ebf4b7	Error: 유효하지 않은 토큰
-20220617	19:48:37	2aa1da9f-28db-482d-ac14-a51985de86a9	Error: 만료된 refreshToken
-20220617	19:48:37	62c43dc6-cc01-4bcd-8c5e-63e9e6feb713	Error: refreshToken 없음
-20220617	19:54:40	5de610a8-7058-45df-a73f-ff5506bd4652	Error: 유효하지 않은 토큰
-20220617	19:54:40	a2761230-b33a-40fd-84dd-f86dc99ae5d5	Error: refreshToken 없음
-20220617	21:26:02	1d425428-c727-4e42-8f8d-4569f4250d3a	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:34:48	2de50876-7804-4477-8d7f-dfe6edf11e2a	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:34:50	f3862f81-4500-49b2-ad1f-f7e8332df1e6	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:35:11	69cfd739-7ba5-4cbf-bc70-393286a39346	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:35:54	62bf0a01-a7ea-4433-8aa8-43ac6cc39f86	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:37:19	deac0840-2a3d-4914-b26c-81d7760eb73b	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:37:27	f3ea4269-71bb-43c1-ad0a-df45c611d549	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:38:48	049d4388-d11e-40c1-bfd6-9ab8ffa299c6	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	21:38:59	bb5cc238-8358-48d9-9b19-219d114132ca	Error: CastError: Cast to ObjectId failed for value "undefined" (type string) at path "user" for model "Cart"
-20220617	22:14:47	0c34a8b2-87f0-40c2-9972-2c7f050a7513	Error: 토큰 없음
-20220617	22:21:07	4e3e902e-13f0-4f71-9659-b65fc4706cb0	Error: 토큰 없음
-20220617	22:27:07	0db01f07-c4ed-4053-a7d8-68f7eae8bfd8	Error: 토큰 없음
-20220617	22:40:57	00a8f410-fc65-404f-855e-0cb95aeaabc6	Error: 토큰 없음
-20220617	22:52:28	250ef887-fa83-40f6-96f9-27a504c868d4	Error: 토큰 없음
-20220617	23:35:13	4eaafe1d-8a47-4dde-8841-9bdc068c5bf1	Error: 유효하지 않은 토큰
-20220617	23:35:13	92c00102-5377-433e-8449-9001d83f3fec	Error: refreshToken 재사용됨
-20220617	23:35:13	ab3b238d-9f00-43d5-a3ce-ba1cf8f39332	Error: refreshToken 없음
-20220617	23:47:33	084ea3e5-2262-4caa-b1e9-ef5163e7be3e	Error: 토큰 없음
-20220617	23:51:07	3378e783-e620-4e60-8634-e925f2539db9	Error: 토큰 없음
-20220618	00:00:42	54252dcb-154e-4d66-910b-953828f2028a	Error: 토큰 없음
-20220618	00:02:31	a7de313d-4a26-4344-942b-1208b202b59f	Error: 토큰 없음
-20220618	00:03:26	73205a93-57b8-4711-9b5b-47038eebdb49	Error: 토큰 없음
-20220618	00:28:41	4d394ee3-fd1e-4ac6-9458-5cbc78334f5b	Error: 토큰 없음
-20220618	00:32:47	a85eb1c0-93e3-430f-bdf2-ab0537c404fc	Error: 토큰 없음
-20220618	00:33:25	c58209b6-532e-4229-8c31-84dff928b4a9	Error: 토큰 없음
-20220618	00:34:29	6decde0a-2cfc-477d-bab6-309e491a2fe2	Error: 토큰 없음
-20220618	00:55:17	75977c58-694a-4690-b0e5-60f56cf2d799	Error: ValidationError: user: Path `user` is required.
-20220618	00:55:23	d38e3f99-1d55-4778-b09c-2b563caf5cf6	Error: ValidationError: user: Path `user` is required.
-20220618	00:55:32	7c26576b-db95-4734-ac63-df2c825fd8e5	Error: ValidationError: user: Path `user` is required.
-20220618	00:55:35	ca2f4df0-29d7-4a1a-ac16-67c6805275ed	Error: ValidationError: user: Path `user` is required.
-20220618	00:55:52	d9a2e176-e747-4185-9e63-ad7bd11bd16a	Error: ValidationError: user: Path `user` is required.
-20220618	00:57:11	72bfb2fe-caf5-4b3b-a41c-5acf52e5224d	Error: ValidationError: user: Path `user` is required.
-20220618	00:58:10	af534cd0-a655-4504-ac8e-9cbd7755ef21	Error: ValidationError: user: Path `user` is required.
-20220618	00:58:28	4026111f-2c12-4862-b4fc-48e7296b0f4e	Error: ValidationError: user: Path `user` is required.
-20220618	00:58:41	eb33543c-b753-4ea1-851b-650a28c6180a	Error: ValidationError: user: Path `user` is required.
-20220618	00:58:43	689e0313-1051-4a6a-a2d0-b27db837e23a	Error: ValidationError: user: Path `user` is required.
-20220618	00:59:00	348a2590-85de-4c46-b203-888e365603e6	Error: ValidationError: user: Path `user` is required.
-20220618	01:00:08	523361f9-0ff7-42d1-858e-09278d5bf306	Error: 토큰 없음
-20220618	01:02:27	50c0e5e1-cb5b-47d3-b7fe-ad13a36bdcae	Error: 토큰 없음
-20220618	01:04:22	839267ea-64bf-42ad-833f-a4e073476c43	Error: 토큰 없음
-20220618	01:04:39	d8ee3378-fc91-4cad-8441-d9ef8fea1e42	Error: 토큰 없음
-20220618	01:06:22	601e7e00-1ba8-45c5-8825-61bd89ade593	Error: 토큰 없음
-20220618	01:12:30	c9cf1530-9259-4c21-b2e9-50e0f547e1ce	Error: 존재하지 않는 유저
-20220618	01:12:33	1418b796-e39b-440a-8693-d9a96c1ad448	Error: 존재하지 않는 유저
-20220618	01:12:40	b2e2f16c-fa81-4d7e-b2b6-26b4fd30f621	Error: 잘못된 비밀번호
-20220618	01:12:47	864db97e-55dd-47d5-b367-3673f0cfc63a	Error: 잘못된 비밀번호
-20220618	12:15:43	ed86f78e-830d-4d8d-8401-918a74fb9aa7	Error: CastError: Cast to ObjectId failed for value "{ _id: 'favicon.ico' }" (type Object) at path "_id" for model "Lookbook"
-20220618	12:20:30	7ee2d57c-4b93-4b02-9a25-760deafd0d5b	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:51	b711ca60-fee7-4396-bb60-6fb33f4c2dde	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:53	16b079b3-1292-41a8-91a7-367ad9401ed5	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:54	05aaddf2-d137-4ac1-85ee-fbb7d4345f31	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:55	a43b9541-b954-403b-aaea-3b29cf2e285f	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:56	1a6ed78a-550c-4f30-821b-e1827b2897da	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:57	1dd7f989-9678-4e6e-809d-215dd043d190	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:57	f93839f0-0085-4aa1-a28d-5b582e3bbe3b	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:20:58	18deccf0-26da-480c-90b1-a6b42c9adce1	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:00	ce714d93-373b-4e52-8cac-a7e4c585489e	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:00	7f7f83ec-4a52-4919-a696-e66aac328cb9	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:02	a8bbfea4-8ecb-4235-bf1b-77b6a1cd7610	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:03	d993386e-2e62-4776-b0fd-415479a3d41e	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:04	608eae6b-79b3-42f8-b36f-2326340c62c4	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:05	2f3b6d49-00c8-494c-a184-965b64fb351a	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:07	488998b3-0247-4c7b-b6b5-e0a491ee6f09	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:07	023ce709-402b-46e6-bd4b-d1be634e4a37	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:08	92165a75-33d6-48b5-b500-c8f585fbe9bc	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:09	efe3da56-709b-4719-9324-badb6fce5e49	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:12	3f552ded-63b7-4519-8407-49fe7845d47c	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:14	ac4a2956-15b9-4f91-810a-ddb2a983e548	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:17	a58961b1-62db-41b3-b5cf-b3e25df978ac	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:20	59600edb-3a37-4d3c-9d1a-f25b1cfa3ed0	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:21	2156c3a1-4629-4644-9906-95e34b118ca2	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:21	1cb673d7-cad0-403d-9ca1-878d051cbecc	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:22	69f2224d-cf57-478a-9b3b-0678982f1baf	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:22	190038ae-04f5-400e-a1f1-65b8402fb5db	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:21:23	b922e175-2840-4b52-b63a-421a7d104931	Error: CastError: Cast to ObjectId failed for value "favicon.ico" (type string) at path "_id" for model "Product"
-20220618	12:29:02	f7b9915a-ec87-4572-82d6-3cfb5c0a7530	Error: CastError: Cast to ObjectId failed for value "ajsdp" (type string) at path "_id" for model "Product"
-20220618	12:29:06	0392c649-abf0-48cc-8631-7ab55069c310	Error: CastError: Cast to ObjectId failed for value "ajsdpashdio" (type string) at path "_id" for model "Product"
-20220618	12:29:08	d5db0e15-d082-4136-a6f4-adb3b97d1460	Error: CastError: Cast to ObjectId failed for value "ajsdp" (type string) at path "_id" for model "Product"
-20220618	14:45:38	d5ceadf8-ea34-48fe-ab00-4ac908af6220	Error: ReferenceError: keyword is not defined
-20220618	14:45:48	44e13ebe-c399-4ef3-b13d-f550f5b9f7a6	Error: ReferenceError: keyword is not defined
-20220618	14:45:50	fd0ba0f2-a780-4e33-8ad8-71a5355f0853	Error: ReferenceError: keyword is not defined
-20220618	14:46:00	987e734c-ba98-4500-bd46-90a088a685c5	Error: ReferenceError: keyword is not defined
-20220618	14:46:01	7b6090ab-0d10-4bcd-a38e-68b85c6dcd7c	Error: ReferenceError: keyword is not defined
-20220618	14:46:02	d4b75a69-1b0a-4fd9-a74e-7d76624743eb	Error: ReferenceError: keyword is not defined
-20220618	21:33:50	0bec62bc-f246-4bf2-90b1-10690a5c170a	Error: CastError: Cast to string failed for value "{ '$in': [ '/MFPEN/i', '/s/i' ] }" (type Object) at path "name" for model "Product"
-20220618	21:34:56	56368678-868a-4a9a-adeb-7fa051778518	Error: CastError: Cast to string failed for value "{ '$in': [ 'MFPEN', 's' ] }" (type Object) at path "name" for model "Product"
-20220618	21:37:41	23833426-1ffb-4a6b-862c-8dbe810de684	Error: CastError: Cast to string failed for value "{ '$in': [ /MFPEN/i, /s/i ] }" (type Object) at path "name" for model "Product"
-20220618	23:20:46	8410ce1b-61f6-4f38-8fe7-62ebef66d6ab	ReferenceError: keyword is not defined
-20220618	23:21:16	eee1cd6e-b89c-406b-ba7d-d22f26bdff63	MongooseError: Query was already executed: Product.countDocuments({ '$or': [ { name: [Object] }, { bran...
-20220618	23:21:55	ea0e16d7-2e96-4fc8-a7aa-9dbab8921d67	MongooseError: Query was already executed: Product.countDocuments({ '$or': [ { name: [Object] }, { bran...
-20220618	23:23:52	bee3c3ea-62ce-4fe6-ba9e-50dcfcaabde4	ReferenceError: total is not defined
-20220618	23:24:09	c8259b7d-b8e7-465a-98d9-192b62d5678e	ReferenceError: total is not defined
-20220618	23:28:56	0ad40537-6bb7-4b43-867b-6654c06fe509	TypeError: abc.countDocuments is not a function
-20220618	23:29:10	8138a1b1-2fa0-4a11-b1de-c69fb60f04a2	ReferenceError: products is not defined
-20220618	23:59:39	45e99dd8-f9b4-42fa-af5b-5929beaf940c	TypeError: Cannot read properties of undefined (reading 'split')
-20220618	23:59:47	cf6b356c-b9aa-42ff-8e78-a4224dc49240	TypeError: Cannot read properties of undefined (reading 'split')
-20220619	00:06:52	55c5f322-8444-42e2-b58e-ae91d0388d56	ObjectParameterError: Parameter "filter" to find() must be an object, got DIGAWEL
-20220619	00:06:55	cdf0beb3-ea17-4e43-b56b-009448bb396b	ObjectParameterError: Parameter "filter" to find() must be an object, got DIGAWEL
-20220619	01:14:48	a187b8b0-6d30-41a2-8a98-57eab7e37034	MongooseError: Query was already executed: Product.countDocuments({ brand: 'DIGAWEL' })
-20220619	01:15:44	b5850f5e-8349-4d58-9660-f2cef0dfad31	MongooseError: Query was already executed: Product.countDocuments({ brand: 'DIGAWEL' })
-20220619	01:16:25	98ff56b7-133b-44bf-bc5d-685c16007802	MongooseError: Query was already executed: Product.countDocuments({ brand: 'MFPEN' })
-20220619	01:16:27	54350b5d-c7db-4777-9ce1-0cd9daf58860	MongooseError: Query was already executed: Product.countDocuments({ brand: 'RUS' })
-20220619	01:16:37	f4b7a92e-d641-40ad-9d10-15b1594a26f4	MongooseError: Query was already executed: Product.countDocuments({ brand: 'RUS' })
-20220619	01:16:37	ca699773-0771-47eb-8ee3-3fb00c0a91c7	MongooseError: Query was already executed: Product.countDocuments({ brand: 'MFPEN' })
-20220619	01:16:37	d61d236f-27e0-4ca4-8054-7c05fce860c6	MongooseError: Query was already executed: Product.countDocuments({ brand: 'DIGAWEL' })
-20220619	01:17:23	5453dc3b-acd6-4995-ba44-d70dc72690bd	Error: ReferenceError: queryStr is not defined
-20220619	01:17:25	50c9839a-5e85-4a39-8fdf-4e0e469a1ec4	Error: ReferenceError: queryStr is not defined
-20220619	01:17:29	f12bd9d0-c742-49a7-8709-754a53f24c67	Error: ReferenceError: queryStr is not defined
-20220619	13:45:30	fa253a86-8284-4d4e-9659-5b30f237713c	Error: 관리자가 아닙니다
-20220619	14:05:36	4bca92c2-dfe6-4808-bfc4-6e9abda39fba	Error: 관리자가 아닙니다
-20220619	15:13:51	abdfa106-0ff5-4d7e-8b16-1f8a3586c9d4	Error: 유효하지 않은 토큰
-20220619	20:14:48	384e886f-5f46-4689-b269-21d14ab85fdf	Error: 유효하지 않은 토큰
-20220619	20:59:28	63692479-3467-422f-ae60-09c872a77d9a	Error: 유효하지 않은 토큰
-20220619	22:02:07	cacc9cc1-e16e-4172-91c4-88b4b1da637d	ReferenceError: items is not defined
-20220619	22:06:18	4580d326-6091-4897-ab9c-4ed9b17d0733	MissingSchemaError: Schema hasn't been registered for model "UserAddress.address".
-Use mongoose.model(name, schema)
-20220619	22:08:19	a0940128-ec13-4d5b-882b-1961ff70df61	MissingSchemaError: Schema hasn't been registered for model "UserAddress.address".
-Use mongoose.model(name, schema)
-20220619	22:12:06	0175feac-ba50-4ff4-bb6b-5238743d69e1	MissingSchemaError: Schema hasn't been registered for model "address".
-Use mongoose.model(name, schema)
-20220619	22:30:15	3fe88ae2-8468-4f69-936d-262c5ca6b179	Error: 유효하지 않은 토큰
-20220619	22:45:14	36ca4e74-0f3d-4dd9-bd30-d1c9a57efc97	TypeError: userAddress.find is not a function
-20220619	22:45:51	f72571df-8d90-4127-b029-78d0a6555653	TypeError: userAddress.filter is not a function
-20220619	22:46:05	235b28f6-7340-44cd-a0ac-a9df38c781d2	ReferenceError: orderedAddress is not defined
-20220619	23:03:18	f5737c1c-e63c-4d1a-abc8-8a7bfa3bc3f8	Error: 유효하지 않은 토큰
-20220620	00:01:29	fb92c65f-b694-42e8-9710-43ab8ad08107	Error: 잘못된 비밀번호
-20220620	00:50:02	0036bd69-a436-45c7-813d-9632929ce858	Error: 잘못된 비밀번호
-20220620	10:23:27	3ab7d24f-d348-482c-b047-c1b4f62b64ce	Error: 토큰 없음
-20220620	10:24:35	1ff18ee7-e416-40c3-878f-c7354c285294	Error: 토큰 없음
-20220620	10:46:32	214c4c78-eccd-48b4-96f6-6003b6b4ec38	Error: 토큰 없음
-20220620	10:46:58	cf7fb22e-574a-4e75-ada6-dcf4ec44d084	Error: 토큰 없음
-20220620	13:29:57	b0ffc78d-4553-408a-9ea3-f400b61bf803	Error: 유효하지 않은 토큰
-20220620	13:41:39	8df5c366-0ada-45ec-a7f0-cc92c2c8a40f	CastError: Cast to ObjectId failed for value "{ id: '62aff7c53473a5d6d4d3f44f' }" (type Object) at path "_id" for model "Lookbook"
-20220620	13:53:01	9d2be41a-5702-42ab-abf9-53f598e83d65	TypeError: Cannot read properties of undefined (reading 'split')
-20220620	13:54:06	97f9f229-3f00-4ab5-b402-c3e368909051	TypeError: Cannot read properties of undefined (reading 'split')
-20220620	13:54:43	8aabda5a-ad06-4424-9c1d-110b1ccb4bf3	TypeError: Cannot read properties of undefined (reading 'split')
-20220620	13:55:25	3c2a44b3-5e7c-4dc3-a803-0c77834ceb5e	TypeError: Cannot read properties of undefined (reading 'split')
-20220620	13:55:39	b2e3e8f8-b34d-4b17-b0be-a8b0c4b121de	TypeError: Cannot read properties of undefined (reading 'split')
-20220620	14:01:12	ad5dd604-1a29-4a0e-b3b4-3e26ee93bbbf	TypeError: Cannot read properties of undefined (reading 'split')
-20220620	15:06:56	e8cb9edb-b91d-4d66-914b-dc8d1edd5a62	Error: 유효하지 않은 토큰
-20220620	17:40:13	a0a53e23-4ec5-47ca-82eb-6a228e9c16e1	Error: 유효하지 않은 토큰
-20220620	17:40:13	12fa88f8-5b6e-4183-9276-3b292b43b9ee	Error: 유효한 권한 아님
-20220620	18:20:36	739809da-80ec-4426-82ea-76ef86d5c5d0	ReferenceError: Lookbook is not defined
-20220620	18:20:40	5c8a76e5-39d1-4d4b-bdf1-51fba852a663	ReferenceError: Lookbook is not defined
-20220620	18:20:42	7197f62f-cf3b-4033-9599-9c817d53450a	ReferenceError: Lookbook is not defined
-20220620	19:02:21	255acebe-5f49-4c1b-baca-601a4612fbcb	Error: 유효하지 않은 토큰
-20220620	19:07:30	c850e153-5d41-4ec2-adfa-c8793f5a45d5	TypeError: Converting circular structure to JSON
-    --> starting at object with constructor 'Topology'
-    |     property 's' -> object with constructor 'Object'
-    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
-    --- property 'topology' closes the circle
-20220620	19:07:37	89564653-feb4-4995-9815-0ecf36984589	TypeError: Converting circular structure to JSON
-    --> starting at object with constructor 'Topology'
-    |     property 's' -> object with constructor 'Object'
-    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
-    --- property 'topology' closes the circle
-20220620	19:35:48	d3f054ff-dfd2-4ce5-84c7-5f7b9d344ec7	Error: 유효하지 않은 토큰
-20220620	20:51:43	1090a7ba-0bd3-452c-a1c0-5ce7330e134d	TypeError: (intermediate value).filter(...).search(...).countDocuments is not a function
-20220620	23:05:53	fe67afcf-406f-4f07-a55e-632ba1859857	Error: 유효하지 않은 토큰
-20220620	23:23:58	cb2efbb8-0a1f-4b10-91ee-12f2f449b4f0	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220620	23:46:22	f578b520-3b60-4e34-bd9f-64c8d379252e	Error: 유효하지 않은 토큰
-20220620	23:48:46	5e3d560c-e778-4fd1-82db-5cdd64b207c0	Error: Params required
-20220620	23:49:28	786db338-901b-4b5e-906c-010fe34ebf28	Error: Params required
-20220620	23:50:01	b212c251-59b5-4433-b654-cf248df97be1	Error: Params required
-20220621	00:03:31	babe7556-ef29-4fc2-a3e5-ff0898d1dfc0	TypeError: res.sstatus is not a function
-20220621	00:18:40	e192a2f9-2faa-4cc2-9a05-246e70b73232	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:21:26	a5369238-bf22-424c-af1b-c5b2c584a84c	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:27:26	3394175e-b925-46c5-90a7-2f498d088adf	ReferenceError: address is not defined
-20220621	00:32:59	1772ccc5-b877-4d3b-bea1-b0b062fd9ac4	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:33:20	fd92b095-5412-418d-8aec-4f2ea2f84f16	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:38:40	277b6823-e071-44fa-958e-dfeca2c3237b	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:41:34	a5445e17-6a1d-42f0-8221-094cb1e42b71	Error: 유효하지 않은 토큰
-20220621	00:42:55	86b007d7-0b7c-4c76-9adf-2aa492000faa	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:49:39	ebfb2ff5-28f6-4134-bac9-29791069a202	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:45	768c518d-d4cf-4b7c-a8b0-09aba4d11996	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:47	30eeb601-8b23-4a87-bcfa-28b597776dc5	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:47	052ad6d3-97cc-4876-ad14-1bdd986dd348	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:48	ca1b5db1-d337-4061-a222-3b2c1cb1bfd3	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:48	61209a01-f890-4dd5-a9e2-482c6a4fd050	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:48	69868a0d-ae48-47eb-9515-0dbf35491547	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:49	b15b18bf-8660-4adb-aa33-a43808a2fed3	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:49	5dfcdbe9-9de1-4cd9-932c-e3ffd83845af	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:49	1ef8117d-f612-4bd6-b934-76eee62c1677	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	00:53:50	a0bcc0e6-c22f-4b62-9355-cdab3b28a364	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	01:06:26	2bfd8008-38ed-4029-93a6-bcc96a1eaabc	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	01:06:29	fd3d395a-1dca-4b09-b156-1e19b8bb495d	MongoServerError: Plan executor error during findAndModify :: caused by :: The positional operator did not find the match needed from the query.
-20220621	01:16:48	33b22eb2-1783-4e0f-8933-2092cc7e48e1	Error: 유효하지 않은 토큰
-20220621	01:18:16	760b2029-dc12-4cfc-8de1-36422322f87a	Error: Invalid atomic update value for $pull. Expected an object, received string
-20220621	01:19:35	0355bf4b-fffa-473e-a1fc-a35eebe1cc03	MongoServerError: Plan executor error during findAndModify :: caused by :: Cannot use the part (_id) of (address._id) to traverse the element ({address: [ { name: "제발22", contactNumber: "010-3333-4444", zonecode: "32597", address1: "충남 공주시 가나무정길 3", address2: "상세", claim: "배송", _id: ObjectId('62b09d129d192255773c0349') } ]})
-20220621	01:22:13	b3af8da7-ef91-4065-a11f-70d298dcd9fe	TypeError: Cannot read properties of undefined (reading '_id')
+20220621	21:13:45	72f0e642-7a28-470f-8ae1-18db173ea9d2	Error: CastError: Cast to Number failed for value "{ '$subtract': [ 'stock.qty', 1 ] }" (type Object) at path "qty"
+20220621	21:15:37	722e8c41-b0a2-4277-9c2e-47273470315b	Error: 유효하지 않은 토큰
+20220621	21:18:22	3c6b5178-b146-4373-a64b-9987e7c55640	ReferenceError: stock is not defined
+20220621	21:33:48	3ad37986-7713-4e6d-b13c-6b791078343e	Error: CastError: Cast to Number failed for value "{ '$subtract': [ 'stock.qty', 1 ] }" (type Object) at path "qty"
+20220621	21:35:09	9eab6b35-88af-4994-8c96-17f3112b0328	ReferenceError: stock is not defined
+20220621	21:36:03	62813b88-eac8-4162-920e-1a13c1141989	Error: CastError: Cast to Number failed for value "{ qty: { '$subtract': [ 'stock.qty', 2 ] } }" (type Object) at path "qty"
+20220621	21:38:55	d7b32e14-8585-4b06-918e-d08779fc5d73	Error: CastError: Cast to Number failed for value "{ 'stock.qty': { '$subtract': [ 'stock.qty', 1 ] } }" (type Object) at path "qty"
+20220621	21:45:34	7049016c-bf85-408f-b260-45aad86aa827	Error: CastError: Cast to Number failed for value "{ '$subtract': [ 'stock.$[element].qty', 1 ] }" (type Object) at path "qty"
+20220621	21:46:56	f14b71e9-aebd-42a0-a826-399c15e77b2d	Error: 유효하지 않은 토큰
+20220621	21:46:56	e43414b7-ff27-4837-92d1-2803eab65f87	Error: 유효하지 않은 토큰
+20220621	21:46:56	108a1a91-0117-489d-9d70-e4818238043a	Error: 유효하지 않은 토큰
+20220621	21:46:56	5d408e9c-7bb0-4f08-8604-ad98bbd74dbe	Error: 유효한 권한 아님
+20220621	21:46:56	2ef24828-c8d2-4236-9764-cbc181fb4366	Error: refreshToken 재사용됨
+20220621	21:48:06	8800e8d1-3fef-42a6-97d6-1593f0fde0b4	Error: 유효하지 않은 토큰
+20220621	21:48:30	1a2e6b29-e8e2-4e38-9ec9-e8513b2ad8d7	Error: CastError: Cast to Number failed for value "[ 'stock.$[element].qty', 1 ]" (type Array) at path "qty"
+20220621	21:54:50	b03c4ba4-6593-4bd5-b128-55c24db77f6f	Error: MongoServerError: No array filter found for identifier 'element' in path 'stock.$[element].qty'
+20220621	21:55:38	8c84c94f-a70a-4384-91f2-d7abb0575384	Error: MongoServerError: Plan executor error during findAndModify :: caused by :: Cannot create field 'qty' in element {stock: [ { size: "S", qty: 10, _id: ObjectId('6298aa7fb46fb811135be761') }, { size: "M", qty: 0, _id: ObjectId('6298aa7fb46fb811135be762') }, { size: "L", qty: 20, _id: ObjectId('6298aa7fb46fb811135be763') }, { size: "XL", qty: 30, _id: ObjectId('6298aa7fb46fb811135be764') } ]}
+20220621	21:57:54	27c0e568-ad0a-47a9-8411-1757391dedae	Error: MongoServerError: Plan executor error during findAndModify :: caused by :: Cannot create field 'qty' in element {stock: [ { size: "S", qty: 10, _id: ObjectId('6298aa7fb46fb811135be761') }, { size: "M", qty: 0, _id: ObjectId('6298aa7fb46fb811135be762') }, { size: "L", qty: 20, _id: ObjectId('6298aa7fb46fb811135be763') }, { size: "XL", qty: 30, _id: ObjectId('6298aa7fb46fb811135be764') } ]}
+20220621	22:53:38	22ae757a-2644-4101-b767-73fa8c7c1e61	Error: 유효하지 않은 토큰
+20220621	22:53:55	7c6b476b-d51e-4c42-b8cb-4bdaf9c6cb94	Error: 유효하지 않은 토큰
+20220621	22:53:55	d0547c8a-6366-4647-a2af-d28829870aef	Error: 유효하지 않은 토큰
+20220621	22:53:55	66517ae0-8ff7-4702-8214-7ab1bfaf2f63	Error: 유효하지 않은 토큰
+20220621	22:53:55	a21f6b41-2dd5-4c59-909c-0ecda10a3204	Error: 유효한 권한 아님
+20220621	22:53:55	633be731-07ab-46b2-9933-73e456faadd1	Error: refreshToken 재사용됨
+20220621	23:30:56	70ef9456-ea00-417a-8dd1-07a390b13e8d	Error: 유효하지 않은 토큰
+20220621	23:33:31	c86392e8-953d-4222-b61f-0a5ba502804e	ReferenceError: _id is not defined
+20220621	23:57:13	cba81433-e0b6-4ec9-962b-0470743121ab	Error: 유효하지 않은 토큰
+20220621	23:57:13	4cf4e86e-1d31-4055-8c1f-bcab90685667	Error: 유효하지 않은 토큰
+20220621	23:57:13	25beb214-7c96-4f82-9914-35d833d54686	Error: 유효하지 않은 토큰
+20220621	23:57:13	337202f5-aff3-4526-9c49-2e55bb713c51	Error: 유효한 권한 아님
+20220621	23:57:13	134a3201-802f-4a18-92e4-947111dd5397	Error: refreshToken 재사용됨
+20220622	00:02:50	247ca66d-6207-41b5-ade4-aa30d5a0b7fb	Error: 유효하지 않은 토큰
+20220622	00:02:50	3ba2c072-c329-4ed7-9578-ab10e31e6a31	Error: refreshToken 재사용됨
+20220622	00:02:50	5c7ae8f6-1786-4e78-9ad3-d8975ee039d1	Error: refreshToken 없음
+20220622	00:22:20	4a5a6154-b5f2-45f3-9095-82f02d3873ab	TypeError: User.find(...).aggregate is not a function
+20220622	00:22:48	74af2621-3933-400c-b21c-3c6dd477df77	Error: Arguments must be aggregate pipeline operators
+20220622	00:38:11	c95c4e3b-24a7-4a24-a21c-6ae702dd60bb	Error: 유효하지 않은 토큰
+20220622	00:38:11	ba573dc4-31d4-4750-9188-b75c87432e9b	Error: 유효하지 않은 토큰
+20220622	00:38:11	5399fff4-6b75-427a-9208-e6210b64b872	Error: 유효하지 않은 토큰
+20220622	00:38:11	d44750c0-7a91-4704-bb53-3fde7088f5cd	Error: 유효하지 않은 토큰
+20220622	00:38:11	636b41ca-bad8-44af-b3ab-330c40ae6037	Error: refreshToken 재사용됨
+20220622	00:38:11	e042e757-5cc2-41dd-a05b-e765de51ed19	Error: refreshToken 재사용됨
+20220622	00:38:12	99227008-dd38-4707-912a-2cd7670a53af	Error: refreshToken 재사용됨
+20220622	00:38:12	e731a281-4b93-4117-8da2-a8ea4d58b0d6	Error: refreshToken 없음
+20220622	00:38:12	0425d24c-389a-46eb-9402-1a63a814f0e4	Error: refreshToken 없음
+20220622	00:38:12	5cb652b9-f0ba-44cb-9cb7-e1f06895a4a1	Error: refreshToken 없음
+20220622	01:18:46	d361cce6-41bb-4f12-b143-54c4213b826a	Error: 유효하지 않은 토큰
+20220622	01:18:46	c993f9ef-9677-4bd2-9afa-2f79c1e8ae6d	Error: 유효하지 않은 토큰
+20220622	01:18:46	b6291583-a50c-4e5d-ac1a-e3f96ec2c0de	Error: 유효하지 않은 토큰
+20220622	01:18:46	7418bd37-8cd3-4f61-a3b3-8da149847ad2	Error: 유효하지 않은 토큰
+20220622	01:18:46	596f2ae6-ff45-4b32-8012-465ec1a892f1	Error: refreshToken 재사용됨
+20220622	01:18:46	33091f41-8eff-49b0-8c1c-07ec8cbdf0dd	Error: refreshToken 재사용됨
+20220622	01:18:46	c007464c-681a-4e17-9645-d448dcb08dc4	Error: refreshToken 재사용됨
+20220622	01:18:46	c859df80-1d5a-46a3-922e-7b04b1780d66	Error: refreshToken 없음
+20220622	01:18:46	78b0ff1c-8d61-4f77-bee0-deb0971142ab	Error: refreshToken 없음
+20220622	01:18:46	a47fb1ce-5d85-4f57-b9c5-e561fb773f15	Error: refreshToken 없음
+20220622	01:39:15	6e901c80-1840-4329-a420-7a95e41d467d	ReferenceError: id is not defined
+20220622	01:40:17	9733d7bc-5848-40f4-be61-a11b1ddce373	CastError: Cast to Number failed for value "undefined" (type string) at path "point"
+20220622	01:43:33	da239799-6b33-4e42-b366-b9993d0cee36	CastError: Cast to Number failed for value "NaN" (type number) at path "point"
+20220622	01:44:02	3d8f4281-b8dd-4bae-96a1-ee4cac494758	CastError: Cast to Number failed for value "NaN" (type number) at path "point"
+20220622	01:50:08	0dc9ca58-40bd-46ef-a4cb-3d14da9f5529	Error: 유효하지 않은 토큰
+20220622	01:50:08	da55668e-6143-4ba5-a3f2-02cb7a022041	TypeError: Cannot read properties of undefined (reading 'filename')
+20220622	01:50:19	ae1f50e7-922d-441e-90d8-dac541aac8c7	TypeError: Cannot read properties of undefined (reading 'filename')
+20220622	01:51:45	28a4a2c4-52e3-4867-a382-75cea643482b	TypeError: Cannot read properties of undefined (reading 'length')
+20220622	02:08:06	7200ec13-5e2b-4f52-a10d-24ae7fa2565c	ReferenceError: categoryObj is not defined
+20220622	02:19:30	aa591dfd-2438-478c-9e2a-58a301b0f7eb	TypeError: Cannot read properties of undefined (reading 'length')
+20220622	02:20:17	1933c738-f57d-4651-8ccd-fc2ed76bffd3	Error: 유효하지 않은 토큰

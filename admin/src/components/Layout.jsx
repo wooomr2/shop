@@ -9,6 +9,7 @@ import { getCategories } from "../slice/categorySlice";
 import { getCollections } from "../slice/collectionSlice";
 import { getLookbooks } from "../slice/lookbookSlice";
 import { getProducts } from "../slice/productSlice";
+import { getUsers } from "../slice/userSlice";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function Layout() {
       dispatch(getBrands());
       dispatch(getLookbooks());
       dispatch(getCollections());
+      dispatch(getUsers())
     });
   }, []);
 

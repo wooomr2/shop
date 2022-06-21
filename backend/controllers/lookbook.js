@@ -31,7 +31,7 @@ exports.addLookbook = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllLookbooks = asyncHandler(async (req, res, next) => {
-  const lookbooks = await Lookbook.find({}).sort({ updatedAt: -1 }).exec();
+  const lookbooks = await Lookbook.find({}).sort({ createdAt: -1 }).exec();
 
   res.status(200).json({ lookbooks });
 });
@@ -51,7 +51,7 @@ exports.getLookbook = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  const lookbook = await Lookbook.findById({ _id: id })
+  const lookbook = await Lookbook.findById(id)
     .populate("products", "_id brand color name price, productImgs")
     .exec();
 

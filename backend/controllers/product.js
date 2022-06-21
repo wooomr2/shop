@@ -50,7 +50,7 @@ exports.addProduct = asyncHandler(async (req, res, next) => {
 exports.getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find({})
     .populate({ path: "category", select: "_id name" })
-    .sort({updatedAt:-1})
+    .sort({ createdAt: -1 })
     .exec()
 
   res.status(200).json({ products })
@@ -68,7 +68,7 @@ exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
 
     brands?.length > 0
       ? (findQuery = {
-        $and: [{ category: { $in: cids } }, { brand: { $in: brands } }], 
+        $and: [{ brand: { $in: brands } }, { category: { $in: cids } }], 
         })
       : (findQuery = { category: { $in: cids } }) 
 
@@ -83,6 +83,7 @@ exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
     .getQuery();
 
   const brandData = await Product.aggregate([
+    //where
     { $match: matchQuery },
     {
       //select
@@ -97,7 +98,7 @@ exports.getProductsByCategories = asyncHandler(async (req, res, next) => {
       },
     },
     { $sort: { _id: 1 } },
-  ]);
+  ]).exec();
 
   res.status(200).json({ products, brandData, total });
 });
@@ -123,10 +124,10 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorResponse("Params required", 400));
 
-  const product = await Product.findOne({ _id: id });
+  const product = await Product.findById(id).exec();
 
   let relatedProducts=[];
-  if(product?.code) relatedProducts = await Product.find({ code: product.code });
+  if(product?.code) relatedProducts = await Product.find({ code: product.code }).exec();
 
   res.status(200).json({ product, relatedProducts });
 });
@@ -167,7 +168,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   //new:true => update된 객체 return 받음
   let updatedProduct = await Product.findOneAndUpdate({ _id }, product, {
     new: true,
-  });
+  }).exec();
 
   updatedProduct = await updatedProduct.populate({
     path: "category",

@@ -1,64 +1,42 @@
-import "./checkout.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { addOrder, getAddresses } from "../../slice/userSlice";
-import { selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
-import CartItem from "../../components/cartItem/CartItem";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AddressForm from "../../components/address/AddressForm";
+import CartItem from "../../components/cartItem/CartItem";
+import { selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
+import { addOrder, getUser } from "../../slice/userSlice";
+import "./checkout.scss";
 
 function Checkout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((store) => store.cart);
-  const { addresses } = useSelector((store) => store.user);
-  const addressName = addresses.map((v) => v.name);
+  const { user, addresses } = useSelector((store) => store.user);
   const totalPrice = useSelector(selectTotalPrice);
   const totalQty = useSelector(selectTotalQty);
-  const { latestOrder, clearLatestOrder } = useSelector((store) => store.user);
-  const user = JSON.parse(sessionStorage.getItem("user"));
 
-  const [confirmedAddress, setConfirmAddress] = useState("");
   const [formType, setFormType] = useState("add");
-  const [isItemConfirmed, setIsItemConfirmed] = useState(false);
-  const [paymentType, setPaymentType] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
   const [enableInput, setEnableInput] = useState(false);
-  const [ready, setReady] = useState(false);
-  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
-
-  const [name, setName] = useState(selectedAddress?.name || "");
+  const [paymentType, setPaymentType] = useState("");
 
   useEffect(() => {
-    user && dispatch(getAddresses());
-    // dispatch(clearLastestOrder());
+    dispatch(getUser());
   }, []);
 
-  useEffect(() => {
-    user && confirmedAddress && isItemConfirmed && paymentType
-      ? setReady(true)
-      : setReady(false);
-  }, [user, confirmedAddress, isItemConfirmed, paymentType]);
-
   const handleOrderSubmit = () => {
-    const items = cartItems.map((item) => ({
-      product: item._id,
-      purchasedPrice: item.price,
-      purchasedQty: item.qty,
-    }));
     const order = {
       user: user._id,
-      address: confirmedAddress._id,
+      address: selectedAddress,
       totalPrice,
       totalQty,
-      items,
+      items: cartItems,
       paymentStatus: "pending",
-      paymentType,
+      paymentType: "card",
     };
 
     dispatch(addOrder(order));
-    setIsOrderConfirmed(true);
+    navigate("/success", { replace: true });
   };
 
   return (
@@ -71,8 +49,8 @@ function Checkout() {
           <div className="product-title">
             <h3>상품 정보</h3>
           </div>
-          {cartItems.map((cartItem) => (
-            <CartItem key={cartItem._id} cartItem={cartItem} onlyInfo={true} />
+          {cartItems.map((cartItem, i) => (
+            <CartItem key={i} cartItem={cartItem} onlyInfo={true} />
           ))}
           <div className="product-total">
             <div className="product-total-item">
@@ -97,7 +75,7 @@ function Checkout() {
               <div className="buyer-info-left">이메일</div>{" "}
               <div>{user.email}</div>
               <div className="buyer-info-left">연락처</div>{" "}
-              <div>{user.phoneNumber}</div>
+              <div>{user.mobile}</div>
             </div>
           )}
         </div>
@@ -134,7 +112,6 @@ function Checkout() {
                       onClick={() => {
                         setSelectedAddress(address);
                         setFormType("update");
-                        setName(address.name);
                       }}
                     />{" "}
                     <label htmlFor={address.name}>{address.name}</label>
@@ -161,6 +138,9 @@ function Checkout() {
             <h3>결제 정보</h3>
           </div>
         </div>
+
+        <div>잔여 포인트: {user.point}</div>
+        <div onClick={handleOrderSubmit}>결제고고</div>
       </div>
     </div>
   );

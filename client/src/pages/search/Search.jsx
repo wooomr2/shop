@@ -1,8 +1,8 @@
+import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
+import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Pagination from "../../components/pagination/Pagination";
 import Product from "../../components/product/Product";
 import { getProducts } from "../../slice/productSlice";
@@ -11,13 +11,11 @@ function Search() {
   const dispatch = useDispatch();
   const params = useParams();
   const keyword = params.keyword;
-  const { products, total, perPage, _currentPage, _sort } = useSelector(
-    (store) => store.product
-  );
-  const [sort, setSort] = useState(_sort);
-  const [currentPage, setCurrentPage] = useState(_currentPage);
+  const { total, products } = useSelector((store) => store.product);
+  const perPage = 20;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sort, setSort] = useState("latest");
   const [selectedGrid, setSelectedGrid] = useState(false);
-
 
   useEffect(() => {
     const payload = {

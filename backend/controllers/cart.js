@@ -26,13 +26,13 @@ exports.addCartItems = asyncHandler(async (req, res, next) => {
   cartItems.forEach((cartItem) => {
     const { product, size } = cartItem;
 
-    const item = foundCart.cartItems.find(
+    const foundItem = foundCart.cartItems.find(
       (c) => c.product == product && c.size === size
     );
 
     let condition, update;
 
-    if (item) {
+    if (foundItem) {
       condition = {
         user,
         "cartItems.product": product,
@@ -74,15 +74,17 @@ exports.updateCartItems = asyncHandler(async (req, res, next) => {
 
 exports.getCartItems = asyncHandler(async (req, res, next) => {
   const cart = await Cart.findOne({ user: req.userId })
-    .populate("cartItems.product", "_id name price productImgs")
+    .populate("cartItems.product", "_id name brand color price productImgs")
     .exec();
 
   const cartItems = cart.cartItems.map((item) => ({
     _id: item.product._id,
     name: item.product.name,
+    brand: item.product.brand,
+    color: item.product.color,
     img: item.product.productImgs[0].fileName,
     price: item.product.price,
-    qty: item.quantity,
+    qty: item.qty,
     size: item.size,
   }));
 

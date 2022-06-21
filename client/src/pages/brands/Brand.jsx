@@ -1,25 +1,24 @@
-import "./brands.scss";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import Product from "../../components/product/Product";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import BrandSidebar from "../../components/brandsidebar/BrandSidebar";
-import { getBrand } from "../../slice/brandSlice";
-import { getProducts, getProductsByBrand } from "../../slice/productSlice";
-import publicURL from "../../utils/publicURL";
 import Pagination from "../../components/pagination/Pagination";
+import Product from "../../components/product/Product";
+import { getBrand } from "../../slice/brandSlice";
+import { getProducts } from "../../slice/productSlice";
+import publicURL from "../../utils/publicURL";
+import "./brands.scss";
 
 function Brand({ brandName }) {
   const dispatch = useDispatch();
   const params = useParams();
   const { brand } = useSelector((store) => store.brand);
-  const { products, total, perPage, _currentPage, _sort } = useSelector(
-    (store) => store.product
-  );
-  const [sort, setSort] = useState(_sort);
-  const [currentPage, setCurrentPage] = useState(_currentPage);
+  const { products, total } = useSelector((store) => store.product);
+  const perPage = 20;
+  const [sort, setSort] = useState("latest");
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedGrid, setSelectedGrid] = useState(false);
 
   useEffect(() => {

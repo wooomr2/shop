@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../../slice/authSlice";
-import { clearFeatures } from "../../../slice/productSlice";
 import "./menu.scss";
 
 
@@ -11,7 +10,6 @@ function Menu({ menuOpen, setMenuOpen }) {
   const user = sessionStorage.getItem("user");
 
   const onClickNavigate = (cate) => () => {
-    if (cate === "/categories/all" || "/brands") dispatch(clearFeatures());
     setMenuOpen(!menuOpen);
     navigate(cate);
   };

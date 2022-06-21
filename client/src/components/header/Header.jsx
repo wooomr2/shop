@@ -1,14 +1,13 @@
-import "./header.scss";
+import SearchIcon from "@mui/icons-material/Search";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
-import BrandSidebar from "../brandsidebar/BrandSidebar";
-import { clearFeatures } from "../../slice/productSlice";
+import { NavLink, useNavigate } from "react-router-dom";
 import { signout } from "../../slice/authSlice";
-import SearchInput from "./searchInput/SearchInput";
+import { updateCartItems } from "../../slice/cartSlice";
+import BrandSidebar from "../brandsidebar/BrandSidebar";
+import "./header.scss";
 import Menu from "./menu/Menu";
-import { clearCart, updateCartItems } from "../../slice/cartSlice";
+import SearchInput from "./searchInput/SearchInput";
 
 function Header() {
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ function Header() {
 
   const onClickNavigate = useCallback(
     (cate) => () => {
-      if (cate === "/categories/all" || "/brands") dispatch(clearFeatures());
       navigate(cate);
     },
     []
@@ -49,13 +47,11 @@ function Header() {
       <div className="navbar-container">
         <div className="navbar-wrapper">
           <div className="navbar-items">
-            <div
-              className="navbar-item"
-              onClick={onClickNavigate("/categories/all")}
-              onMouseOver={() => setIsHovering(0)}
-            >
-              CATEGORY
-            </div>
+            <NavLink to="/caregories/all">
+              <div className="navbar-item" onMouseOver={() => setIsHovering(0)}>
+                CATEGORY
+              </div>
+            </NavLink>
             <div className="navbar-item" onMouseOver={() => setIsHovering(1)}>
               BRAND
             </div>
@@ -118,6 +114,9 @@ function Header() {
             </div>
             <div className="menu-item" onClick={onClickNavigate("/orders")}>
               order
+            </div>
+            <div className="menu-item" onClick={onClickNavigate("/mypage")}>
+              mypage
             </div>
           </div>
           <div className="navbar-items-lg">

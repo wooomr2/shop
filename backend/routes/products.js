@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.array("productImg"), addProduct);
 router.post("/cate", getProductsByCategories)
 router.post("/get", getProducts);
-router.get("/", getAllProducts);
+router.get("/", verifyToken, verifyRoles(ROLES.ADMIN), getAllProducts);
 router.get("/:id", getProduct);
 router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.array("productImg"), updateProduct);
 router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteProduct);

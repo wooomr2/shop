@@ -6,6 +6,7 @@ import ProductList from "../../components/product/ProductList";
 import { getProducts } from "../../slice/productSlice";
 import "./search.scss";
 
+
 function Search() {
   const dispatch = useDispatch();
   const params = useParams();

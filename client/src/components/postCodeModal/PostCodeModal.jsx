@@ -1,8 +1,8 @@
 import React from "react";
 import DaumPostCode from "react-daum-postcode";
 import CloseIcon from "@mui/icons-material/Close";
-
 import "./postCodeModal.scss";
+
 function PostCodeModal({ onClick, setZonecode, setAddress1 }) {
   
   const onComplete = (data) => {

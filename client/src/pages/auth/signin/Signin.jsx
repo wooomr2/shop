@@ -1,11 +1,10 @@
-import "./signin.scss";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useInput from "../../../hooks/useInput";
 import { clearError, signin } from "../../../slice/authSlice";
 import { addCartItems } from "../../../slice/cartSlice";
+import "./signin.scss";
 
 function Signin() {
   const navigate = useNavigate();
@@ -57,9 +56,9 @@ function Signin() {
         <form onSubmit={login} className="signinForm">
           <div className="form-box">
             <input
-              ref={emailRef}
               type="email"
               placeholder="Email"
+              ref={emailRef}
               onChange={setEmail}
             />
             <label htmlFor="email">Email</label>
@@ -79,7 +78,7 @@ function Signin() {
         <div className="navigate-item" onClick={() => navigate("/signup")}>
           회원가입
         </div>
-        <div className="navigate-item" onClick={() => navigate("/signup")}>
+        <div className="navigate-item" onClick={() => navigate("/forgot_password")}>
           비밀번호 찾기
         </div>
       </div>

@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-
-import "./newLookbook.scss";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getNewLookbook } from "../../../slice/lookbookSlice";
 import publicURL from "../../../utils/publicURL";
+import "./newLookbook.scss";
+
 
 function NewLookbook() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const refContent = useRef(null);
   const refInner = useRef(null);
   const { lookbooks } = useSelector((store) => store.lookbook);
@@ -67,9 +66,11 @@ function NewLookbook() {
             <FiberManualRecordIcon className="icon" />
             <h3>Lookbook</h3>
           </div>
-          <div className="viewMore" onClick={() => navigate("lookbooks")}>
-            <h4>View More</h4>
-          </div>
+          <Link to={`lookbooks`}>
+            <div className="viewMore">
+              <h4>View More</h4>
+            </div>
+          </Link>
         </div>
         <div
           ref={refContent}
@@ -79,45 +80,32 @@ function NewLookbook() {
           onMouseMove={onMouseMove}
           className="newLookbook-wrapper-content"
         >
-          <div ref={refInner} className="content-inner">
+          <div ref={refInner} className="content-inner" >
             {lookbooks?.map(({ _id, banners, name, products }, i) => (
               <div className="content-inner-wrapper" key={i}>
-                <div
-                  className="mainImg-wrapper"
-                  onClick={() => {
-                    navigate(`lookbooks/${_id}`);
-                  }}
-                >
-                  <img src={publicURL(banners[0]?.img)} alt="mainImg" />
-                </div>
+                <Link to={`lookbooks/${_id}`}>
+                  <div className="mainImg-wrapper">
+                    <img src={publicURL(banners[0]?.img)} alt="mainImg" />
+                  </div>
+                </Link>
                 <div className="newLookbook-info">
-                  <p>
-                    <b>{name}</b>
-                  </p>
+                  <p><b>{name}</b></p>
                 </div>
+
                 <div className="relatedProduct">
                   {products?.map(({ _id, name, brand, color, productImgs },i ) => (
-                    <div
-                    key={i}
-                      className="relatedProduct-wrapper"
-                      onClick={() => navigate(`products/${_id}`)}
-                    >
-                      <div className="img-wrapper">
-                        <img
-                          src={
-                            productImgs && publicURL(productImgs[0]?.fileName)
-                          }
-                          alt=""
-                        />
+                    <Link to={`products/${_id}`} key={i}>
+                      <div className="relatedProduct-wrapper">
+                        <div className="img-wrapper">
+                          <img src={productImgs && publicURL(productImgs[0]?.fileName)} alt="" />
+                        </div>
+                        <div className="relatedProduct-info">
+                          <p><b>{brand}</b></p>
+                          <p>{name}</p>
+                          <p>{color}</p>
+                        </div>
                       </div>
-                      <div className="relatedProduct-info">
-                        <p>
-                          <b>{brand}</b>
-                        </p>
-                        <p>{name}</p>
-                        <p>{color}</p>
-                      </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

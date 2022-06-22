@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sansita:wght@400;700&display=swap');
 @import "../../variable.scss";
-
-$logo-font: 'Sansita', sans-serif;
 
 .header-container {
   height: $headerHeight;
@@ -9,7 +6,6 @@ $logo-font: 'Sansita', sans-serif;
   position: relative;
   
   .logo-wrapper {
-    // font-size: calc(0.8rem + 0.5vw);
     font-size: 1.4rem;
     position: absolute;
     z-index: 10;

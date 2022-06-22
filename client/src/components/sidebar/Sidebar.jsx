@@ -1,7 +1,6 @@
-import "./sidebar.scss";
-import CategoryList from "./CategoryList";
 import CloseIcon from '@mui/icons-material/Close';
-
+import CategoryList from "./categoryList/CategoryList";
+import "./sidebar.scss";
 
 function Sidebar({
   brands,
@@ -25,6 +24,7 @@ function Sidebar({
         <div className="categoryToggleBtn-wrapper" onClick={categoryToggleHandler}>
           <CloseIcon className="categoryToggleBtn"/>
         </div>
+
         <div className="categorylist-name">
           <h4>CATEGORY</h4>
         </div>
@@ -34,6 +34,7 @@ function Sidebar({
           categoryToggleHandler={categoryToggleHandler}
           />
       </div>
+      
       <div className="brands-wrapper">
         <div className="brands-name">
           <h4>BRANDS</h4>

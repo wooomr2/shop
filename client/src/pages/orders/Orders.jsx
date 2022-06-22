@@ -8,7 +8,7 @@ import publicURL from "../../utils/publicURL";
 function Orders() {
   const dispatch = useDispatch();
   const { total, orders } = useSelector((store) => store.user);
-  const perPage = 20;
+  const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

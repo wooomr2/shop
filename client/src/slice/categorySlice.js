@@ -4,8 +4,8 @@ import axios from "../utils/axiosInstance";
 const initialState = {
   categories: [],
   linearCategories: [],
-  isLoading: false,
   categoryOpen: false,
+  isLoading: false,
 };
 
 export const createLinearCategory = (categories, linearCategories = []) => {
@@ -33,9 +33,6 @@ const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    clearToggle: (state) => {
-      state.categoryOpen = false;
-    },
     categoryToggle: (state) => {
       state.categoryOpen = !state.categoryOpen;
     },
@@ -55,6 +52,6 @@ const categorySlice = createSlice({
   },
 });
 
-export const { setCurrentStatus, categoryToggle, clearToggle } = categorySlice.actions;
+export const { setCurrentStatus, categoryToggle } = categorySlice.actions;
 
 export default categorySlice.reducer;

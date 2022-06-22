@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-
 import "./tile.scss";
+
 
 function Tile({ page, currentPage, numberOfPage }) {
   const refContainer = useRef(null);

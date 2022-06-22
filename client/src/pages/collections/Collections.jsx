@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
 import { getCollections } from "../../slice/collectionSlice";
 import publicURL from "../../utils/publicURL";
@@ -32,14 +32,12 @@ function Collections() {
       <div className="collections">
         <div className="collections-main">
           {mainCollections?.map((collection) => (
-            <div
-              className="collections-main-items"
-              key={collection._id}
-              onClick={() => navigate(`/collections/${collection._id}`)}
-            >
-              <div className="imgWrapper">
-                <img src={publicURL(collection.banners[0].img)} alt="" />
-              </div>
+            <div className="collections-main-items" key={collection._id}>
+              <Link to={`/collections/${collection._id}`}>
+                <div className="imgWrapper">
+                  <img src={publicURL(collection.banners[0].img)} alt="" />
+                </div>
+              </Link>
               <div className="collectionsName">
                 {collection.name.split("\n").map((line, i) => (
                   <div key={i}>
@@ -53,14 +51,12 @@ function Collections() {
         </div>
         <div className="collections-sub">
           {collections?.map((collection) => (
-            <div
-              className="collections-sub-items"
-              key={collection._id}
-              onClick={() => navigate(`/collections/${collection._id}`)}
-            >
-              <div className="imgWrapper">
-                <img src={publicURL(collection.banners[0].img)} alt="" />
-              </div>
+            <div className="collections-sub-items" key={collection._id}>
+              <Link to={`/collections/${collection._id}`}>
+                <div className="imgWrapper">
+                  <img src={publicURL(collection.banners[0].img)} alt="" />
+                </div>
+              </Link>
               <div className="collectionsName">
                 {collection.name.split("\n").map((line, i) => (
                   <p key={i}>
@@ -71,12 +67,12 @@ function Collections() {
             </div>
           ))}
         </div>
-      <Pagination
-        total={total}
-        perPage={perPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+        <Pagination
+          total={total}
+          perPage={perPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </>
   );

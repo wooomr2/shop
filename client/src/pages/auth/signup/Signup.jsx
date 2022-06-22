@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import PostCodeModal from "../../../components/postCodeModal/PostCodeModal";
 import Term from "../../../components/term/Term";
 import useInput from "../../../hooks/useInput";
 import useToggle from "../../../hooks/useToggle";
 import { clearMatchResult, matchEmail, signup } from "../../../slice/authSlice";
 import "./signup.scss";
+
 
 function Signup() {
   const navigate = useNavigate();
@@ -14,17 +14,13 @@ function Signup() {
   const { matchResult } = useSelector((store) => store.auth);
   const user = sessionStorage.getItem("user");
 
-  const [email, setEmail] = useInput("");
-  const [password, setPassword] = useInput("");
+  const emailRef = useRef();
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false); // 비밀번호 일치 검사
-  const [username, setUsername] = useInput("");
-  const [mobile, setMobile] = useInput("");
-  //우편번호 모달
-  const [isModalOpen, toggleIsModalOpen] = useToggle(false);
-  const [pinCode, setPinCode] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useInput("");
+  const [username, onChangeUsername] = useInput("");
+  const [mobile, onChangeMobile] = useInput("");
 
   //약관
   const [isTermOpen, toggleIsTermOpen] = useToggle(false);
@@ -65,20 +61,8 @@ function Signup() {
   }, []);
 
   useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.cssText = `
-        position: fixed;
-        top: -${window.scrollY}px;
-        overflow-y: scroll;
-        width: 100%
-      `;
-      return () => {
-        const scrollY = document.body.style.top;
-        document.body.style.cssText = "";
-        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-      };
-    }
-  }, [isModalOpen]);
+    emailRef?.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (!email) dispatch(clearMatchResult());
@@ -88,13 +72,6 @@ function Signup() {
 
   return (
     <div className="signup">
-      {isModalOpen && (
-        <PostCodeModal
-          onClick={toggleIsModalOpen}
-          setPinCode={setPinCode}
-          setAddress1={setAddress1}
-        />
-      )}
       <div className="signup-title">
         <h3>SIGN UP</h3>
       </div>
@@ -108,13 +85,15 @@ function Signup() {
               value={email}
               placeholder="EMAIL"
               required
-              onChange={setEmail}
+              ref={emailRef}
+              onChange={onChangeEmail}
               onBlur={() => {
                 if (email?.length > 0) dispatch(matchEmail(email));
               }}
             />
             {matchResult && <div className="matchResult">{matchResult}</div>}
           </div>
+
           <div className="signupForm-item">
             <label htmlFor="user-password">비밀번호</label>
             <input
@@ -123,9 +102,10 @@ function Signup() {
               value={password}
               placeholder="PASSWORD"
               required
-              onChange={setPassword}
+              onChange={onChangePassword}
             />
           </div>
+          
           <div className="signupForm-item">
             <label htmlFor="user-passwordCheck">비밀번호 확인</label>
             <input
@@ -142,6 +122,7 @@ function Signup() {
               </div>
             )}
           </div>
+
           <div className="signupForm-item">
             <label htmlFor="user-name">이름</label>
             <input
@@ -150,9 +131,10 @@ function Signup() {
               value={username}
               placeholder="NAME"
               required
-              onChange={setUsername}
+              onChange={onChangeUsername}
             />
           </div>
+
           <div className="signupForm-item">
             <label htmlFor="user-phoneNumber">연락처</label>
             <input
@@ -161,41 +143,10 @@ function Signup() {
               value={mobile}
               placeholder="PHONE NUMBER"
               required
-              onChange={setMobile}
+              onChange={onChangeMobile}
             />
           </div>
-          <div className="signupForm-item">
-            <label htmlFor="user-address">주소</label>
-            <div className="zipcode-wrapper">
-              <input
-                type="text"
-                value={pinCode}
-                placeholder="ZIP CODE"
-                required
-                disabled
-              />
-              <div
-                className="zipcode-button"
-                onClick={toggleIsModalOpen}
-              >
-                <span>우편번호 찾기</span>
-              </div>
-            </div>
-            <input
-              type="text"
-              value={address1}
-              placeholder="ADDRESS 1"
-              required
-              disabled
-            />
-            <input
-              type="text"
-              value={address2}
-              placeholder="ADDRESS 2"
-              required
-              onChange={setAddress2}
-            />
-          </div>
+
           <div className="signupForm-item-term">
             <div className="term-check">
               <span onClick={toggleIsTermOpen}>
@@ -213,6 +164,7 @@ function Signup() {
               <div className="term-unchecked">약관에 동의하셔야 합니다.</div>
             )}
           </div>
+
           <button type="submit">회원가입</button>
         </form>
       </div>

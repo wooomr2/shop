@@ -1,19 +1,18 @@
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-
-import "./newArrival.scss";
-import { getProductsByCategories } from "../../../slice/productSlice";
+import { Link } from "react-router-dom";
 import ProductList from "../../../components/product/ProductList";
+import { getProductsByCategories } from "../../../slice/productSlice";
+import "./newArrival.scss";
+
 
 function NewArraval() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { total, products } = useSelector((store) => store.product);
+  const { products } = useSelector((store) => store.product);
 
-  const perPage = 20;
-  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 12;
+  const [currentPage] = useState(1);
   const [sort, setSort] = useState("latest");
 
   useEffect(() => {
@@ -33,9 +32,11 @@ function NewArraval() {
             <FiberManualRecordIcon className="icon" />
             <h3>New Arrival</h3>
           </div>
-          <div className="viewMore" onClick={() => navigate("category/all")}>
-            <h4>View More</h4>
-          </div>
+          <Link to="category/all">
+            <div className="viewMore">
+              <h4>View More</h4>
+            </div>
+          </Link>
         </div>
         <ProductList setSort={setSort} products={products} />
       </div>

@@ -1,11 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-
+import React, { useEffect, useRef } from "react";
 import "./masthead.scss";
 
 function Masthead({ scrollY }) {
-  const navigate = useNavigate();
   const refContainer = useRef(null);
 
   let progress = 0;
@@ -46,53 +43,22 @@ function Masthead({ scrollY }) {
         className="masthead-container"
         style={{ transform: `translateY(-${progress * 10}vh)` }}
       >
-        <div className="masthead-slide active">
-          <img src="/assets/mainbg1.jpeg" alt="" />
-          <div className="masthead-mainText">
-            <strong>HOW ABOUT OOTD</strong>
-            <div className="masthead-mainText-num">
-              0 <span>1</span>
+        {Array(5)
+          .fill()
+          .map((_, idx) => (
+            <div className={`masthead-slide ${idx === 0 ? "active" : ""}`} key={idx}>
+              <img src={`/assets/mainbg${idx}.jpeg`} alt="" />
+              <div className="masthead-mainText">
+                <strong>HOW ABOUT OOTD</strong>
+                <div className="masthead-mainText-num">
+                  0 <span>{idx+1}</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="masthead-slide">
-          <img src="/assets/mainbg2.jpeg" alt="" />
-          <div className="masthead-mainText">
-            <strong>HOW ABOUT OOTD</strong>
-            <div className="masthead-mainText-num">
-              0 <span>2</span>
-            </div>
-          </div>
-        </div>
-        <div className="masthead-slide">
-          <img src="/assets/mainbg3.jpeg" alt="" />
-          <div className="masthead-mainText">
-            <strong>HOW ABOUT OOTD</strong>
-            <div className="masthead-mainText-num">
-              0 <span>3</span>
-            </div>
-          </div>
-        </div>
-        <div className="masthead-slide">
-          <img src="/assets/mainbg4.jpeg" alt="" />
-          <div className="masthead-mainText">
-            <strong>HOW ABOUT OOTD</strong>
-            <div className="masthead-mainText-num">
-              0 <span>4</span>
-            </div>
-          </div>
-        </div>
-        <div className="masthead-slide">
-          <img src="/assets/mainbg5.jpeg" alt="" />
-          <div className="masthead-mainText">
-            <strong>HOW ABOUT OOTD</strong>
-            <div className="masthead-mainText-num">
-              0 <span>5</span>
-            </div>
-          </div>
-        </div>
+        ))}
+
         <div className="masthead-bar">
-          <div onClick={() => navigate("/")}>View More</div>
+          <div>View More</div>
         </div>
         <div className="masthead-arrow">
           <KeyboardArrowDownIcon className="masthead-arrow-down" />

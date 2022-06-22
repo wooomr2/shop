@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-
 import "./productList.scss";
-import Product from "./Product";
+import ProductItem from "./ProductItem";
 
 function ProductList({ haveFilter, products, setSort, categoryToggleHandler }) {
   const [selectedGrid, setSelectedGrid] = useState(false);
 
-  console.log(haveFilter);
   return (
     <section>
       <div className="top">
@@ -46,7 +44,7 @@ function ProductList({ haveFilter, products, setSort, categoryToggleHandler }) {
       </div>
       <div className={`products-wrapper ${selectedGrid ? "selected" : ""}`}>
         {products?.map((product) => (
-          <Product key={product._id} product={product} />
+          <ProductItem key={product._id} product={product} />
         ))}
       </div>
     </section>

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-
-import "./collectionTile.scss";
 import Tile from "./Tile";
+import "./collectionTile.scss";
+
 
 function CollectionTile({ scrollY, numberOfPage }) {
   const refContainer = useRef(null);
@@ -41,18 +41,17 @@ function CollectionTile({ scrollY, numberOfPage }) {
           page={0}
           numberOfPage={numberOfPage}
           currentPage={currentPage}
-        ></Tile>
+        />
         <Tile
           page={1}
           numberOfPage={numberOfPage}
           currentPage={currentPage}
-        ></Tile>
+        />
         <Tile
           page={2}
           numberOfPage={numberOfPage}
           currentPage={currentPage}
-        ></Tile>
-        
+        />  
       </div>
     </div>
   );

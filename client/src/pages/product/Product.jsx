@@ -4,13 +4,13 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import useInput from "../../hooks/useInput";
+import useToggle from "../../hooks/useToggle";
 import { addItem } from "../../slice/cartSlice";
 import { getProduct } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
 import toKRW from "../../utils/toKRW";
 import "./product.scss";
-import useToggle from "../../hooks/useToggle";
-import useInput from "../../hooks/useInput";
 
 function Products() {
   const dispatch = useDispatch();
@@ -19,9 +19,9 @@ function Products() {
   const { product, relatedProducts } = useSelector((store) => store.product);
   const [size, onChangeSize] = useInput("");
   const [qty, onChangeQty, setQty] = useInput(1);
-  const [src, onChangeSrc, setSrc] = useInput("");
+  const [src, setSrc] = useState("");
   const [isDescOpen, toggleIsDescOpen] = useToggle(false);
-  const [isCartOpen, toggleIsCartOpen, setIsCartOpen] = useToggle(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getProduct(params.id));
@@ -58,8 +58,7 @@ function Products() {
         brand: product.brand,
         color: product.color,
         img: product.productImgs[0].fileName,
-        price: product.price,
-        discountPrice:product.discountPrice,
+        price: product.discountPrice ? product.discountPrice : product.price,
         size,
         qty,
       })
@@ -105,7 +104,7 @@ function Products() {
           </p>
           <p>
             ₩ {toKRW(product?.discountPrice)}{" "}
-            <span>{product?.price * (1 - product?.discountPrice / 100)}%</span>
+            <span>{((1 - product?.discountPrice / product?.price) * 100).toFixed()}%</span>
           </p>
         </div>
         <div className="product-right-desc">

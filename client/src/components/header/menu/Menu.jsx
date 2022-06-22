@@ -8,15 +8,15 @@ function Menu({ menuOpen, setMenuOpen }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = sessionStorage.getItem("user");
-
-  const onClickNavigate = (cate) => () => {
-    setMenuOpen(!menuOpen);
-    navigate(cate);
-  };
-
-  const onClickLogout = () => {
+  
+  const logout = () => {
     dispatch(signout());
     setMenuOpen(!menuOpen);
+  };
+
+  const onClickNavigate = (page) => () => {
+    setMenuOpen(!menuOpen);
+    navigate(page);
   };
 
   return (
@@ -25,16 +25,19 @@ function Menu({ menuOpen, setMenuOpen }) {
         <div className="menu-item" onClick={onClickNavigate("/categories/all")}>
           CATEGORY
         </div>
-        <div className="menu-item" onClick={onClickNavigate("/brands")}>
+        <div className="menu-item" onClick={onClickNavigate("/brands/DIGAWEL")}>
           BRAND
         </div>
         <div className="menu-item" onClick={onClickNavigate("/lookbooks")}>
           LOOKBOOK
         </div>
+        <div className="menu-item" onClick={onClickNavigate("/collections")}>
+          COLLECTION
+        </div>
       </div>
       <div className="menu-items">
         {user ? (
-          <div className="menu-item" onClick={onClickLogout}>
+          <div className="menu-item" onClick={logout}>
             SIGNOUT
           </div>
         ) : (
@@ -47,9 +50,6 @@ function Menu({ menuOpen, setMenuOpen }) {
         </div>
         <div className="menu-item" onClick={onClickNavigate("/contact")}>
           CONTACT
-        </div>
-        <div className="menu-item" onClick={onClickNavigate("/orders")}>
-          order
         </div>
       </div>
     </div>

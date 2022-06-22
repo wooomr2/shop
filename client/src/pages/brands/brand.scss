@@ -1,0 +1,80 @@
+@import "../../variable.scss";
+
+.brands-container {
+  margin: 7rem 0;
+  width: 100vw;
+  font-size: 1.4rem;
+
+  .brands-wrapper {
+    width: 70%;
+    margin: 0 auto;
+
+    .img-wrapper {
+      position: relative;
+      width: 100%;
+      
+      .brands-img {
+        width: 100%;
+
+        > img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .brands-info {
+      display: flex;
+      flex-direction: column;
+      margin: 2rem 0;
+      row-gap: 1rem;
+      line-height: 2.4rem;
+
+      .navi {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .brands-container {
+    margin: 5rem 0;
+    
+    .brands-wrapper {
+      width: 80%;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .brands-container {
+    font-size: 1.3rem;
+    .brands-wrapper {
+      width: 80%;
+
+      .brands-info {
+        line-height: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .brands-container {
+    margin: 2rem 0;
+    font-size: 1rem;
+    margin-top: 0;
+
+    .brands-wrapper {
+      padding-top: 1rem;
+
+      .brands-info {
+        row-gap: 0.5rem;
+        margin-top: 1rem;
+        line-height: 1.4rem;
+      }
+    }
+  }
+}

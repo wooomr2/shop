@@ -3,9 +3,9 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { clearError, signin } from "../../slice/authSlice";
-import useInput from "../../hooks/useInput";
-import { addCartItems } from "../../slice/cartSlice";
+import useInput from "../../../hooks/useInput";
+import { clearError, signin } from "../../../slice/authSlice";
+import { addCartItems } from "../../../slice/cartSlice";
 
 function Signin() {
   const navigate = useNavigate();

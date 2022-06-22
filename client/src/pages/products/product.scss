@@ -18,10 +18,10 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
 
     &-img {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      width: 9%;
+      height: 9%;
       row-gap: 0.2rem;
-      width: 8.5%;
 
       .img-wrapper {
         display: flex;
@@ -178,11 +178,57 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     &-button {
+      position: relative;
       display: flex;
       flex-direction: column;
+      align-items: center;
       row-gap: 0.5rem;
 
+      .cart-alert {
+        padding: 1.5rem 0;
+        width: 80%;
+        height: max-content;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 0.7rem;
+        border: 1.5px solid $main-color;
+        background-color: #fff;
+        top: -10rem;
+
+        &-close {
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          cursor: pointer;
+        }
+
+        > button {
+          cursor: pointer;
+          outline: none;
+          border: 1px solid $main-color;
+          color: $main-color;
+          background-color: #fff;
+          padding: 0.3rem;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          bottom: -3rem;
+          transform: translateX(-50%);
+          border-top: 1.5rem solid $main-color;
+          border-right: 1.5rem solid transparent;
+          border-bottom: 1.5rem solid transparent;
+          border-left: 1.5rem solid transparent;
+        }
+      }
+
       .purchase {
+        width: 100%;
         cursor: pointer;
         padding: 1rem;
         border: none;
@@ -229,11 +275,11 @@ input[type="number"]::-webkit-inner-spin-button {
       row-gap: 1rem;
 
       &-img {
-        position: relative;
-        left: 10%;
+        grid-template-columns: repeat(10, 1fr);
         flex-direction: row;
         column-gap: 0.3rem;
-        width: 35%;
+        width: 80%;
+        margin: 0 auto;
       }
 
       &-mainImg {
@@ -250,6 +296,59 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
+@media screen and (max-width: $md) {
+  .product {
+    font-size: 1.3rem;
+
+    &-right {
+
+      .brand-button {
+        font-size: 1.3rem;
+      }
+
+      &-brand {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+  
+      &-name {
+        font-size: 1.5rem;
+      }
+  
+      &-price {
+        font-size: 1.5rem;
+      }
+
+      &-size {
+        .selection {
+          padding: 0.5rem 0.3rem;
+          font-size: 1.3rem;
+        }
+      }
+
+      &-button {
+
+        .cart-alert {
+          top: -9rem;
+
+          > button {
+            font-size: 1.3rem;
+          }
+
+          &-close {
+            .closeIcon {
+              font-size: 1.5rem;
+            }
+          }
+        }
+        .purchase {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: $sm) {
   .product {
     margin-top: 1rem;
@@ -262,12 +361,7 @@ input[type="number"]::-webkit-inner-spin-button {
       row-gap: 0.5rem;
 
       &-img {
-        flex-direction: row;
-        width: 40%;
-        // .img-wrapper {
-        //   width: 4rem;
-        //   height: 4rem;
-        // }
+        grid-template-columns: repeat(7, 1fr);
       }
 
       &-mainImg {
@@ -305,6 +399,20 @@ input[type="number"]::-webkit-inner-spin-button {
       }
 
       &-button {
+
+        .cart-alert {
+          top: -9rem;
+
+          > button {
+            font-size: 1rem;
+          }
+
+          &-close {
+            .closeIcon {
+              font-size: 1.2rem;
+            }
+          }
+        }
         .purchase {
           font-size: 1rem;
           padding: 0.5rem;

@@ -1,10 +1,11 @@
-import "./searchInput.scss";
+import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import useInput from "../../../hooks/useInput";
+import "./searchInput.scss";
 
-function Search() {
+function Search({ setSearchOpen }) {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useInput("");
+  const [keyword, onChangeKeyword] = useInput("");
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -12,14 +13,22 @@ function Search() {
   };
   
   return (
-    <div>
-      <form className="search-container" onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="Search for items ..."
-          onChange={setKeyword}
-        />
-      </form>
+    <div className="search">
+      <div className="search-wrapper">
+        <form className="search-wrapper-form" onSubmit={onSubmit}>
+          <input
+            type="text"
+            placeholder="Search from items ..."
+            onChange={onChangeKeyword}
+          />
+        </form>
+        <div className="search-wrapper-close">
+          <CloseIcon
+            className="closeIcon"
+            onClick={() => setSearchOpen(false)}
+          />
+        </div>
+      </div>
     </div>
   );
 }

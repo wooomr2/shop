@@ -3,11 +3,11 @@ import { useState } from "react";
 function useInput(initValue = null) {
   const [value, setValue] = useState(initValue);
 
-  const handler = (e) => {
+  const onChange = (e) => {
     setValue(e.target.value);
   };
 
-  return [value, handler, setValue];
+  return [value, onChange, setValue];
 }
 
 export default useInput;

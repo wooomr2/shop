@@ -1,7 +1,86 @@
-.search-container {
+@import "../../../variable.scss";
+
+.search {
+  position: relative;
   width: 100vw;
-  height: 5rem;
-  position: absolute;
-  background-color: royalblue;
-  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  background-color: $gray-light;
+  z-index: 1050;
+  color: $black-light;
+  
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+
+    &-form {
+      width: 100%;
+
+      > input[type="text"] {
+        width: 100%;
+        padding: 1rem;
+        outline: none;
+        border: none;
+        color: $black-light;
+        font-size: 1.6rem;
+        border-bottom: 1.5px solid $black-light;
+        background-color: transparent;
+
+        &::placeholder {
+          font-size: 1.6rem;
+          color: $black-light;
+        }
+      }
+    }
+
+    &-close {
+      .closeIcon {
+        cursor: pointer;
+        font-size: 3rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .search {
+    padding: 3rem 0;
+    &-wrapper {
+      width: 80%;
+    }
+  }
+}
+
+
+@media screen and (max-width: $sm) {
+  .search {
+    padding: 2rem 0;
+
+    &-wrapper {
+      width: 80%;
+
+      &-form {
+        width: 100%;
+        > input[type="text"] {
+          font-size: 1.2rem;
+          padding: 0.5rem;
+
+          &::placeholder {
+            font-size: 1.2rem;
+          }
+        }
+      }
+
+      &-close {
+        .closeIcon {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
 }

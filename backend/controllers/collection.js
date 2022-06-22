@@ -4,8 +4,16 @@ const asyncHandler = require("../middlewares/asyncHandler");
 const Collection = require("../models/Collection");
 
 exports.addCollection = asyncHandler(async (req, res, next) => {
-  const { name, description, brand, launched, director,
-    country, shop, priority } = req.body;
+  const {
+    name,
+    description,
+    brand,
+    launched,
+    director,
+    country,
+    shop,
+    priority,
+  } = req.body;
   let { banners, cards } = req.files;
 
   if (!!banners) {
@@ -38,15 +46,16 @@ exports.addCollection = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllCollections = asyncHandler(async (req, res, next) => {
-  const collections = await Collection.find({}).sort({ createdAt: -1 }).exec()
+  const collections = await Collection.find({}).sort({ createdAt: -1 }).exec();
 
-  res.status(200).json({ collections })
+  res.status(200).json({ collections });
 });
 
 exports.getCollections = asyncHandler(async (req, res, next) => {
   const total = await Collection.find({}).countDocuments();
   const collections = await new Feature(Collection, req.body)
     .filter()
+    .search()
     .pagination()
     .sort()
     .getQuery();
@@ -64,8 +73,17 @@ exports.getCollection = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateCollection = asyncHandler(async (req, res, next) => {
-  const { _id, name, description, brand, launched, director,
-    country, shop, priority } = req.body;
+  const {
+    _id,
+    name,
+    description,
+    brand,
+    launched,
+    director,
+    country,
+    shop,
+    priority,
+  } = req.body;
   let { banners, cards } = req.files;
 
   if (!!banners) {

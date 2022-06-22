@@ -7,15 +7,16 @@ $logo-font: 'Sansita', sans-serif;
   height: $headerHeight;
   width: 100vw;
   position: relative;
-
+  
   .logo-wrapper {
+    // font-size: calc(0.8rem + 0.5vw);
     font-size: 1.4rem;
     position: absolute;
     z-index: 10;
     height: max-content;
     width: max-content;
     left: 50%;
-    top: 48%;
+    top: 46%;
     transform: translate(-50%, -50%);
     h1 {
       cursor: pointer;
@@ -157,7 +158,7 @@ $logo-font: 'Sansita', sans-serif;
   }
 }
 
-@media screen and (max-width: $sm) {
+@media screen and (max-width: $md) {
   .header-container {
   
     .logo-wrapper {

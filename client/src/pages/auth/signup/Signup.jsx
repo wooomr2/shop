@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import PostCodeModal from "../../components/postCodeModal/PostCodeModal";
-import Term from "../../components/term/Term";
-import useInput from "../../hooks/useInput";
-import useToggle from "../../hooks/useToggle";
-import { matchEmail, signup, clearMatchResult } from "../../slice/authSlice";
+import PostCodeModal from "../../../components/postCodeModal/PostCodeModal";
+import Term from "../../../components/term/Term";
+import useInput from "../../../hooks/useInput";
+import useToggle from "../../../hooks/useToggle";
+import { clearMatchResult, matchEmail, signup } from "../../../slice/authSlice";
 import "./signup.scss";
 
 function Signup() {

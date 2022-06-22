@@ -1,44 +1,85 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import CollectionSection from "../../components/collectionSection/CollectionSection";
 import { getCollection } from "../../slice/collectionSlice";
-import publicURL from "../../utils/publicURL";
-import Brand from "../brands/Brand";
+import "./collection.scss";
+
 
 function Collection() {
   const dispatch = useDispatch();
   const params = useParams();
   const collection = useSelector((store) => store.collection.collection);
+  const [scrollY, setScrollY] = useState(0);
+  
+  const handleScroll = useCallback(() => {
+    console.log("window.scrollY", window.scrollY);
+    setScrollY(window.scrollY);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+    return () => document.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
 
   useEffect(() => {
     dispatch(getCollection(params.id));
   }, [params]);
 
   return (
-    <div>
-      <div>
-        <h1>{collection?.name}</h1>
-        <span>{collection?.description}</span>
-      </div>
+    <section className="collection">
+    <div className="collection-wrapper">
 
-      <div>
-        <span>브랜드: {collection?.brand}</span>
-        <span>런칭 : {collection?.launched}</span>
-        <span>디렉터 : {collection?.director}</span>
-        <span>국가 : {collection?.country}</span>
-        <span>상점 : {collection?.shop}</span>
-      </div>
+      <div className="collection-wrapper-top">
+        <div className="top-left">
+          <h2 className="top-left-name">
+            {collection?.name?.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </h2>
+          <p className="top-left-desc">
+            {collection?.description?.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </p>
+        </div>
 
-      <div>
-        {collection?.cards?.map((card) => (
-          <div key={card._id}>
-            <img src={publicURL(card.img)} alt="" width="300" height="300" />
+        <div className="top-right">
+          <div className="top-right-item">
+            <h3>브랜드</h3>
+            <p>{collection?.brand}</p>
           </div>
-        ))}
+          <div className="top-right-item">
+            <h3>런칭</h3>
+            <p>{collection?.launched}</p>
+          </div>
+          <div className="top-right-item">
+            <h3>디렉터</h3>
+            <p>{collection?.director}</p>
+          </div>
+          <div className="top-right-item">
+            <h3>국가</h3>
+            <p>{collection?.country}</p>
+          </div>
+        </div>
       </div>
-
-      {/* {collection?.brand && <Brand brandName={collection.brand} />} */}
+      
+      <CollectionSection
+        collection={collection}
+        scrollY={scrollY}
+        numberOfPage={collection?.cards?.length / 2}
+      />
     </div>
+  </section>
   );
 }
 

@@ -54,6 +54,10 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    usedPoint: {
+      type: Number,
+    },
+    
     items: [
       {
         _id: {

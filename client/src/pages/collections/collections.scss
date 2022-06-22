@@ -1,0 +1,58 @@
+@import "../../variable.scss";
+
+.collections {
+  margin: 7rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  font-size: 1.4rem;
+  line-height: 2rem;
+
+  &-main {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid $line-color;
+
+    &-items {
+      display: flex;
+      flex-direction: column;
+
+      .imgWrapper {
+        width: 100%;
+        height: inherit;
+
+        >img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+  
+  &-sub {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    margin-top: 2.5rem;
+
+    &-items {
+      display: flex;
+      flex-direction: column;
+      
+      .imgWrapper {
+        width: 100%;
+        height: inherit;
+
+        > img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}

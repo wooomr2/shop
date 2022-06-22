@@ -148,7 +148,7 @@ export const { addItem, clearCart, removeItem, increaseQty, decreaseQty } =
 export const selectTotalQty = (store) =>
   store.cart.cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
 
-export const selectTotalPrice = (state) =>
+export const selectTotalPrice = (state) => 
   state.cart.cartItems.reduce(
     (totalPrice, item) => totalPrice + item.price * item.qty,
     0

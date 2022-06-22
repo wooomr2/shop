@@ -21,6 +21,7 @@ function CollectionTile({ scrollY, numberOfPage }) {
       ) / clientHeight;
     currentPage = percentY * numberOfPage;
     console.log("currentPage", currentPage);
+    console.log("clientHeight", clientHeight);
   }
 
   return (

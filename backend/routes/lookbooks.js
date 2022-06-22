@@ -1,5 +1,5 @@
 const express = require("express");
-const { addLookbook, getLookbooks, getLookbook, deleteLookbook, updateLookbook, getAllLookbooks } = require("../controllers/lookbook");
+const { addLookbook, getLookbooks, getLookbook, deleteLookbook, updateLookbook, getAllLookbooks, getNewLookbooks } = require("../controllers/lookbook");
 const { upload } = require("../middlewares/multer");
 const { verifyToken } = require("../middlewares/verifyToken")
 const { verifyRoles } = require("../middlewares/verifyRoles");
@@ -10,6 +10,8 @@ router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'b
 router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'}]), updateLookbook);
 router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteLookbook);
 router.get("/", verifyToken, verifyRoles(ROLES.ADMIN), getAllLookbooks);
+router.get("/new",  getNewLookbooks);
+
 
 
 router.post("/get", getLookbooks)

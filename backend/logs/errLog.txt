@@ -65,3 +65,7 @@
 20220622	02:08:06	7200ec13-5e2b-4f52-a10d-24ae7fa2565c	ReferenceError: categoryObj is not defined
 20220622	02:19:30	aa591dfd-2438-478c-9e2a-58a301b0f7eb	TypeError: Cannot read properties of undefined (reading 'length')
 20220622	02:20:17	1933c738-f57d-4651-8ccd-fc2ed76bffd3	Error: 유효하지 않은 토큰
+20220622	14:53:48	a6bca8f4-b566-41ef-b16d-084a6b377a03	ValidationError: Order validation failed: user: Path `user` is required.
+20220622	14:58:55	38c44962-04f2-4b0f-894a-52c2be420e46	ValidationError: Order validation failed: user: Path `user` is required.
+20220622	15:20:56	72863adc-1360-4fbc-8d77-955103d79ac9	ValidationError: Order validation failed: totalPrice: Path `totalPrice` is required.
+20220622	15:56:10	6c0eeeae-05f7-4260-80da-df0aaddadeaa	Error: 유효하지 않은 토큰

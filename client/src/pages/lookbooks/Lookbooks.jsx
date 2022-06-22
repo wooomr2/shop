@@ -19,8 +19,8 @@ function Lookbooks() {
   }, [perPage, currentPage]);
 
   return (
-    <>
-      <div className="lookbooks-container">
+    <div className="lookbooks-container">
+      <div className="lookbooks-wrapper">
         {lookbooks?.map((lookbook) => (
           <div
             className="lookbooks-items"
@@ -38,7 +38,7 @@ function Lookbooks() {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-    </>
+    </div>
   );
 }
 

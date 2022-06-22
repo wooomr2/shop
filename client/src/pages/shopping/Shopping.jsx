@@ -12,13 +12,14 @@ import {
   createLinearCategory
 } from "../../slice/categorySlice";
 import { getProductsByCategories } from "../../slice/productSlice";
-import "./category.scss";
+import "./shopping.scss";
 
 function Category() {
   const dispatch = useDispatch();
   const params = useParams();
   const { categories, categoryOpen } = useSelector((store) => store.category);
   const { total, products, brandData } = useSelector((store) => store.product);
+  
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState("latest");

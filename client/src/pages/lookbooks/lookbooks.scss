@@ -1,17 +1,54 @@
+@import "../../variable.scss";
+
 .lookbooks-container {
-  margin-top: 2rem;
-  padding: 5rem 14rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  margin: 7rem 0;
   font-size: 1.4rem;
 
-  .lookbooks-items {
-    width: 90%;
-    margin: 0 auto;
+  .lookbooks-wrapper {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5rem;
 
-    > img {
+    .lookbooks-items {
       width: 100%;
+      margin: 0 auto;
+  
+      > img {
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: $lg) {
+  .lookbooks-container {
+    .lookbooks-wrapper {
+      grid-template-columns: repeat(3, 1fr); 
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .lookbooks-container {
+    .lookbooks-wrapper {
+      grid-template-columns: repeat(2, 1fr); 
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .lookbooks-container {
+    margin: 2rem 0;
+
+    .lookbooks-wrapper {
+      grid-template-columns: 1fr; 
     }
   }
 }

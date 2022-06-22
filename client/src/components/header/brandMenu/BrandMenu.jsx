@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import "./brandsidebar.scss";
+import "./brandMenu.scss";
 
-function BrandSidebar({onMouseOver, onMouseOut, setIsHovering}) {
+function BrandMenu({onMouseOver, onMouseOut, setIsHovering}) {
   const navigate = useNavigate();
   const { brands } = useSelector((store) => store.brand);
 
@@ -42,4 +42,4 @@ function BrandSidebar({onMouseOver, onMouseOut, setIsHovering}) {
   );
 }
 
-export default BrandSidebar;
+export default BrandMenu;

@@ -1,0 +1,167 @@
+@import "../../../variable.scss";
+
+.newLookbook {
+  background-color: #fff;
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+  position: relative;
+  width: 100vw;
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    width: 80%;
+
+    &-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      .title {
+        display: flex;
+        column-gap: 1rem;
+
+        .icon {
+          font-size: 1.2rem;
+          transform: translateY(0.2rem);
+          color: royalblue;
+        }
+      }
+
+      .viewMore {
+        color: $sub-color;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #898989;
+        }
+      }
+    }
+
+    &-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      .content-inner {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+
+        &-wrapper {
+          display: flex;
+          flex-direction: column;
+
+          .mainImg-wrapper {
+            cursor: pointer;
+            width: 100%;
+
+            > img {
+              width: 100%;
+            }
+          }
+
+          .newLookbook-info {
+            padding: 1rem 0;
+            border-bottom: 1px solid $line-color;
+          }
+
+          .relatedProduct {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 1rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+
+            &-wrapper {
+              cursor: pointer;
+              display: flex;
+              column-gap: 1rem;
+
+              .img-wrapper {
+                width: 30%;
+                height: auto;
+
+                > img {
+                  width: 100%;
+                  height: auto;
+                }
+              }
+
+              .relatedProduct-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .newLookbook {
+    &-wrapper {
+      &-content {
+        .content-inner {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .newLookbook {
+    font-size: 1rem;
+    &-wrapper {
+      row-gap: 1rem;
+
+      &-top {
+        .title {
+          column-gap: 0.5rem;
+
+          .icon {
+            font-size: 1rem;
+            transform: translateY(0.1rem);
+          }
+        }
+      }
+
+      &-content {
+        .content-inner {
+          grid-template-columns: repeat(1, 1fr);
+
+          &-wrapper {
+            .newLookbook-info {
+              padding: 0.5rem 0;
+            }
+
+            .relatedProduct {
+              display: grid;
+              grid-template-columns: repeat(5, 1fr);
+              margin-top: 0.5rem;
+
+              .img-wrapper {
+                width: 100%;
+              }
+
+              .relatedProduct-info {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

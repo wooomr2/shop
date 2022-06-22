@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
-import Masthead from "./mastHead/Masthead";
-import CollectionTile from "./tile/CollectionTile";
+import CollectionTile from "../../components/home/tile/CollectionTile";
+import Masthead from "../../components/home/mastHead/Masthead";
+import NewLookbook from "../../components/home/newLookbook/NewLookbook";
+import NewArraval from "../../components/home/newArrival/NewArraval";
 
 function Home() {
-
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = useCallback(() => {
@@ -22,6 +23,8 @@ function Home() {
   return (
     <>
       <Masthead scrollY={scrollY} />
+      <NewArraval />
+      <NewLookbook />
       <CollectionTile scrollY={scrollY} numberOfPage={3} />
     </>
   );

@@ -31,7 +31,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const foundUser = await User.findById(req.userId).exec();
 
   const { refreshToken, resetPasswordToken, resetPasswordExpire, ...user } =
-    foundUser;
+    foundUser._doc;
 
   res.status(200).json({ user, userAddress });
 });

@@ -1,13 +1,12 @@
-import "./cart.scss";
-import CartItem from "../../components/cartItem/CartItem";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import CartItem from "../../components/cartItem/CartItem";
 import {
   clearCart,
   selectTotalPrice,
-  selectTotalQty,
-  updateCartItems,
+  selectTotalQty
 } from "../../slice/cartSlice";
+import "./cart.scss";
 
 function Cart() {
   const navigate = useNavigate();
@@ -42,11 +41,6 @@ function Cart() {
         </div>
         <div className="cart-button">
           <button onClick={() => dispatch(clearCart())}>카트 초기화</button>
-          {user && (
-            <button onClick={() => dispatch(updateCartItems(cartItems))}>
-              카트 저장
-            </button>
-          )}
         </div>
         <div className="checkout-button">
           <button

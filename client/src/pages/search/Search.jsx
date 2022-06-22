@@ -1,11 +1,10 @@
-import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
-import Product from "../../components/product/Product";
+import ProductList from "../../components/product/ProductList";
 import { getProducts } from "../../slice/productSlice";
+import "./search.scss";
 
 function Search() {
   const dispatch = useDispatch();
@@ -15,7 +14,6 @@ function Search() {
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState("latest");
-  const [selectedGrid, setSelectedGrid] = useState(false);
 
   useEffect(() => {
     const payload = {
@@ -27,51 +25,20 @@ function Search() {
     dispatch(getProducts(payload));
   }, [params, keyword, perPage, currentPage, sort]);
 
-  const handleGridColums = (boolean) => () => {
-    setSelectedGrid(boolean);
-  };
-
   return (
-    <div className="brands-container">
-      <div>
-        <div className="top">
-          <div className="top-left">
-            <div className="sort">
-              <select onChange={(e) => setSort(e.target.value)}>
-                <option defaultValue hidden>
-                  SORT
-                </option>
-                <option value={"latest"}>신상품</option>
-                <option value={"ascending"}>낮은가격</option>
-                <option value={"descending"}>높은가격</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="top-right">
-            <GridViewRoundedIcon
-              className={`grid-icon ${selectedGrid && "selected"}`}
-              onClick={handleGridColums(true)}
-            />
-            <AppsOutlinedIcon
-              className={`grid-icon ${!selectedGrid && "selected"}`}
-              onClick={handleGridColums(false)}
-            />
-          </div>
+    <div className="searchResult">
+      <div className="searchResult-wrapper">
+        <div className="searchResult-wrapper-info">
+          <div className="keyword">{keyword}</div>
+          <div className="length">검색결과 {total} 개</div>
         </div>
-
-        <div className={`products-wrapper ${selectedGrid && "selected"}`}>
-          {products?.map((product) => (
-            <Product key={product._id} product={product} />
-          ))}
-        </div>
+        <ProductList setSort={setSort} products={products} />
       </div>
-
       <Pagination
         total={total}
         perPage={perPage}
-        setCurrentPage={setCurrentPage}
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );

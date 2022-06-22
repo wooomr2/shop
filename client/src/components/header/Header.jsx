@@ -1,10 +1,11 @@
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import useToggle from "../../hooks/useToggle";
 import { signout } from "../../slice/authSlice";
 import { updateCartItems } from "../../slice/cartSlice";
-import BrandSidebar from "../brandsidebar/BrandSidebar";
+import BrandMenu from "./brandMenu/BrandMenu";
 import "./header.scss";
 import Menu from "./menu/Menu";
 import SearchInput from "./searchInput/SearchInput";
@@ -12,11 +13,18 @@ import SearchInput from "./searchInput/SearchInput";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const user = sessionStorage.getItem("user");
   const cartItems = useSelector((store) => store.cart.cartItems);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
+  // const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, toggleMenuOpen, setMenuOpen] = useToggle(false);
+  const [searchOpen, toggleSearchOpen, setSearchOpen] = useToggle(false);
   const [isHovering, setIsHovering] = useState(0);
+
+  useEffect(() => {
+    setSearchOpen(false);
+  }, [pathname]);
 
   const onClickNavigate = useCallback(
     (cate) => () => {
@@ -30,14 +38,6 @@ function Header() {
     dispatch(signout());
     navigate("/");
   };
-
-  const onClickMenuOpen = useCallback(() => {
-    setMenuOpen(!menuOpen);
-  }, [menuOpen]);
-
-  const onClickSearchOpen = useCallback(() => {
-    setSearchOpen(!searchOpen);
-  }, [searchOpen]);
 
   return (
     <div className="header-container">
@@ -70,7 +70,7 @@ function Header() {
             </div>
           </div>
           <div className={`navbar-items-lg ${menuOpen ? "opened" : ""}`}>
-            <div onClick={onClickMenuOpen} className="menuOpen-btn">
+            <div onClick={toggleMenuOpen} className="menuOpen-btn">
               <span className="menuLine"></span>
               <span className="menuLine"></span>
               <span className="menuLine"></span>
@@ -78,7 +78,7 @@ function Header() {
           </div>
 
           <div className="navbar-items">
-            <div className="navbar-item" onClick={onClickSearchOpen}>
+            <div className="navbar-item" onClick={toggleSearchOpen}>
               SEARCH
             </div>
             {user ? (
@@ -120,7 +120,7 @@ function Header() {
             </div>
           </div>
           <div className="navbar-items-lg">
-            <div className="search-icon-wrapper" onClick={onClickSearchOpen}>
+            <div className="search-icon-wrapper" onClick={toggleSearchOpen}>
               <SearchIcon className="search-icon" />
             </div>
           </div>
@@ -128,13 +128,13 @@ function Header() {
       </div>
 
       {isHovering ? (
-        <BrandSidebar
+        <BrandMenu
           onMouseOver={() => setIsHovering(1)}
           onMouseOut={() => setIsHovering(0)}
           setIsHovering={setIsHovering}
         />
       ) : null}
-      {searchOpen && <SearchInput />}
+      {searchOpen && <SearchInput setSearchOpen={setSearchOpen} />}
       <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
     </div>
   );

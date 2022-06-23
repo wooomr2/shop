@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
 import ProductList from "../../components/product/ProductList";
 import Sidebar from "../../components/sidebar/Sidebar";
+import useInput from "../../hooks/useInput";
 import {
   categoryToggle,
   createLinearCategory,
@@ -14,20 +15,24 @@ import "./shopping.scss";
 function Category() {
   const dispatch = useDispatch();
   const params = useParams();
-  const { categories, categoryOpen } = useSelector((store) => store.category);
+  const categories = useSelector((store) => store.category.categories);
+  const categoryOpen = useSelector((store) => store.category.categoryOpen);
   const { total, products, brandData } = useSelector((store) => store.product);
 
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
-  const [sort, setSort] = useState("latest");
+  const [sort, onChangeSort] = useInput("latest");
   const [brands, setBrands] = useState([]);
 
   const currentCategory = [];
   let cids = [];
 
+  console.log("얼마나도니")
+
   if (params.cid === "all") {
     cids = [];
   } else {
+    console.log("얼마나도니")
     function findCategory(categories) {
       if (currentCategory.length > 0) return;
       for (let c of categories) {
@@ -70,11 +75,12 @@ function Category() {
         />
         <ProductList
           haveFilter={true}
-          setSort={setSort}
           products={products}
+          onChangeSort={onChangeSort}
           categoryToggleHandler={categoryToggleHandler}
         />
       </div>
+      
       <Pagination
         total={total}
         perPage={perPage}

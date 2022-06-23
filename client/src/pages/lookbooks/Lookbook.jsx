@@ -27,11 +27,13 @@ function Lookbook() {
           ))}
         </div>
       </div>
+
       <div className="lookbook-right">
         <div className="lookbook-right-item">
           <h3 className="rightName">모델 사이즈</h3>
           <p>{lookbook?.modelInfo}</p>
         </div>
+
         <div className="lookbook-right-item">
           <h3 className="rightName">착용 사이즈</h3>
           <p>
@@ -43,6 +45,7 @@ function Lookbook() {
             ))}
           </p>
         </div>
+        
         <div className="lookbook-right-item">
           <h3 className="rightName">관련 상품</h3>
           <div className="relatedProduct">

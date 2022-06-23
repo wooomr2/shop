@@ -5,7 +5,7 @@ import useInput from "../../../hooks/useInput";
 import "./searchInput.scss";
 
 
-function Search({ setSearchOpen }) {
+function Search({ toggleSearchOpen }) {
   const navigate = useNavigate();
   const [keyword, onChangeKeyword] = useInput("");
   const keywordRef = useRef();
@@ -33,7 +33,7 @@ function Search({ setSearchOpen }) {
         <div className="search-wrapper-close">
           <CloseIcon
             className="closeIcon"
-            onClick={() => setSearchOpen(false)}
+            onClick={toggleSearchOpen}
           />
         </div>
       </div>

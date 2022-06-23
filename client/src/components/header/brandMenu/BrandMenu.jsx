@@ -2,9 +2,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./brandMenu.scss";
 
-
-function BrandMenu({ onMouseOver, onMouseOut, setIsHovering }) {
-  const { brands } = useSelector((store) => store.brand);
+function BrandMenu({altIsHovering }) {
+  const brands = useSelector((store) => store.brand.brands);
 
   const initial = brands.map((v) => v.name.slice(0, 1));
   const brandList = initial.filter((v, i) => initial.indexOf(v) === i);
@@ -12,8 +11,8 @@ function BrandMenu({ onMouseOver, onMouseOut, setIsHovering }) {
   return (
     <div
       className="brandsidebar-container"
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
+      onMouseOver={altIsHovering(1)}
+      onMouseOut={altIsHovering(0)}
     >
       {brandList?.map((brand) => (
         <div key={brand} className="brandsidebar-wrapper">
@@ -26,7 +25,7 @@ function BrandMenu({ onMouseOver, onMouseOut, setIsHovering }) {
                 _brand.name.slice(0, 1) === brand && (
                   <div key={_brand.name} className="brand-item">
                     <Link to={`/brands/${_brand.name}`}>
-                      <div onClick={() => setIsHovering(false)}>
+                      <div onClick={altIsHovering(0)}>
                         {_brand.name}
                       </div>
                     </Link>

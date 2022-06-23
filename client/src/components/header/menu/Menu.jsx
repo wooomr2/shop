@@ -3,35 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { signout } from "../../../slice/authSlice";
 import "./menu.scss";
 
-
 function Menu({ menuOpen, setMenuOpen }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = sessionStorage.getItem("user");
-  
+
   const logout = () => {
     dispatch(signout());
     setMenuOpen(!menuOpen);
   };
 
-  const onClickNavigate = (page) => () => {
+  const onNavigate = (path) => () => {
     setMenuOpen(!menuOpen);
-    navigate(page);
+    navigate(path);
   };
 
   return (
     <div className={`menu-container ${menuOpen ? "menuOpen" : ""}`}>
       <div className="menu-items">
-        <div className="menu-item" onClick={onClickNavigate("/categories/all")}>
+        <div className="menu-item" onClick={onNavigate("/categories/all")}>
           CATEGORY
         </div>
-        <div className="menu-item" onClick={onClickNavigate("/brands/DIGAWEL")}>
+        <div className="menu-item" onClick={onNavigate("/brands/DIGAWEL")}>
           BRAND
         </div>
-        <div className="menu-item" onClick={onClickNavigate("/lookbooks")}>
+        <div className="menu-item" onClick={onNavigate("/lookbooks")}>
           LOOKBOOK
         </div>
-        <div className="menu-item" onClick={onClickNavigate("/collections")}>
+        <div className="menu-item" onClick={onNavigate("/collections")}>
           COLLECTION
         </div>
       </div>
@@ -41,14 +40,14 @@ function Menu({ menuOpen, setMenuOpen }) {
             SIGNOUT
           </div>
         ) : (
-          <div className="menu-item" onClick={onClickNavigate("/signin")}>
+          <div className="menu-item" onClick={onNavigate("/signin")}>
             SIGNIN
           </div>
         )}
-        <div className="menu-item" onClick={onClickNavigate("/cart")}>
+        <div className="menu-item" onClick={onNavigate("/cart")}>
           CART
         </div>
-        <div className="menu-item" onClick={onClickNavigate("/contact")}>
+        <div className="menu-item" onClick={onNavigate("/contact")}>
           CONTACT
         </div>
       </div>

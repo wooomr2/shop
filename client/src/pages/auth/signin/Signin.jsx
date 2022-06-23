@@ -52,6 +52,7 @@ function Signin() {
       <div className="signinForm-title">
         <h3>SIGN IN</h3>
       </div>
+
       <div className="signinForm-wrapper">
         <form onSubmit={login} className="signinForm">
           <div className="form-box">
@@ -63,6 +64,7 @@ function Signin() {
             />
             <label htmlFor="email">Email</label>
           </div>
+
           <div className="form-box">
             <input
               type="password"
@@ -71,9 +73,11 @@ function Signin() {
             />
             <label htmlFor="email">Password</label>
           </div>
+
           <button type="submit">로그인</button>
         </form>
       </div>
+      
       <div className="navigate-wrapper">
         <div className="navigate-item" onClick={() => navigate("/signup")}>
           회원가입

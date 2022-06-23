@@ -1,11 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../../components/cartItem/CartItem";
-import {
-  clearCart,
-  selectTotalPrice,
-  selectTotalQty
-} from "../../slice/cartSlice";
+import { clearCart, selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
 import "./cart.scss";
 
 function Cart() {
@@ -24,11 +20,13 @@ function Cart() {
             {cartItems?.length > 0 ? "Your Shopping Cart" : "Cart is empty"}
           </h2>
         </div>
+
         <div className="cart-list">
           {cartItems?.map((cartItem, i) => (
             <CartItem key={i} cartItem={cartItem} />
           ))}
         </div>
+
         <div className="cart-total">
           <div className="cart-total-item">
             <h4>총계</h4>
@@ -39,6 +37,7 @@ function Cart() {
             <h4>₩ {totalPrice}</h4>
           </div>
         </div>
+
         <div className="cart-button">
           <button onClick={() => dispatch(clearCart())}>카트 초기화</button>
         </div>

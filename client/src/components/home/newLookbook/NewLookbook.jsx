@@ -11,7 +11,7 @@ function NewLookbook() {
   const dispatch = useDispatch();
   const refContent = useRef(null);
   const refInner = useRef(null);
-  const { lookbooks } = useSelector((store) => store.lookbook);
+  const lookbooks = useSelector((store) => store.lookbook.lookbooks);
 
   useEffect(() => {
     dispatch(getNewLookbook());
@@ -93,7 +93,7 @@ function NewLookbook() {
                 </div>
 
                 <div className="relatedProduct">
-                  {products?.map(({ _id, name, brand, color, productImgs },i ) => (
+                  {products?.map(({ _id, name, brand, color, productImgs }, i) => (
                     <Link to={`products/${_id}`} key={i}>
                       <div className="relatedProduct-wrapper">
                         <div className="img-wrapper">

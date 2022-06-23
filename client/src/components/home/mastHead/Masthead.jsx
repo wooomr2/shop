@@ -47,7 +47,7 @@ function Masthead({ scrollY }) {
           .fill()
           .map((_, idx) => (
             <div className={`masthead-slide ${idx === 0 ? "active" : ""}`} key={idx}>
-              <img src={`/assets/mainbg${idx}.jpeg`} alt="" />
+              <img src={`/assets/mainbg${idx}.jpeg`} alt="" loading={`${idx < 2 ? "eager" : "lazy"}`} />
               <div className="masthead-mainText">
                 <strong>HOW ABOUT OOTD</strong>
                 <div className="masthead-mainText-num">

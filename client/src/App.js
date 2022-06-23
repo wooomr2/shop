@@ -24,6 +24,7 @@ import Orders from "./pages/orders/Orders";
 import Product from "./pages/product/Product";
 import Search from "./pages/search/Search";
 import Shopping from "./pages/shopping/Shopping";
+import Stripe from "./pages/stripe/Stripe";
 import { ROLES } from "./utils/roleList";
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:id" element={<Order />} />
           </Route>
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={[ROLES.USER]} />}>
+          <Route path="/stripe" element={<Stripe />} />
         </Route>
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password/:resetToken" element={<ResetPassword />} />

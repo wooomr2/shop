@@ -11,7 +11,7 @@ import "./signup.scss";
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { matchResult } = useSelector((store) => store.auth);
+  const matchResult = useSelector((store) => store.auth.mathResult);
   const user = sessionStorage.getItem("user");
 
   const emailRef = useRef();

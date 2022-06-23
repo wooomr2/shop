@@ -1,9 +1,10 @@
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import useAlt from "../../hooks/useAlt";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
 import { addItem } from "../../slice/cartSlice";
@@ -19,9 +20,11 @@ function Products() {
   const { product, relatedProducts } = useSelector((store) => store.product);
   const [size, onChangeSize] = useInput("");
   const [qty, onChangeQty, setQty] = useInput(1);
-  const [src, setSrc] = useState("");
+  const [src, altSrc, setSrc] = useAlt("");
   const [isDescOpen, toggleIsDescOpen] = useToggle(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartOpen, altIsCartOpen, setIsCartOpen] = useAlt(false);
+  
+  const otherColors = relatedProducts?.filter((v) => v._id !== product._id);
 
   useEffect(() => {
     dispatch(getProduct(params.id));
@@ -66,8 +69,6 @@ function Products() {
     return setIsCartOpen(true);
   };
 
-  const otherColors = relatedProducts?.filter((v) => v._id !== product._id);
-
   return (
     <div className="product">
       <div className="product-left">
@@ -76,7 +77,7 @@ function Products() {
             <div
               key={i}
               className="img-wrapper"
-              onClick={() => setSrc(publicURL(productImg.fileName))}
+              onClick={altSrc(publicURL(productImg.fileName))}
             >
               <img src={publicURL(productImg.fileName)} alt="" />
             </div>
@@ -88,25 +89,28 @@ function Products() {
       </div>
 
       <div className="product-right">
-        <div
-          className="brand-button"
-          onClick={() => navigate(`/brands/${product.brand.toLowerCase()}`)}
-        >
-          브랜드 홈 바로가기
-        </div>
+        <Link to={`/brands/${product.brand}`}>
+          <div className="brand-button">브랜드 홈 바로가기</div>
+        </Link>
+
         <div className="product-right-brand">{product?.brand}</div>
+
         <div className="product-right-name">
           {product?.name} ({product?.color})
         </div>
+
         <div className={"product-right-price"}>
           <p className={`${product?.discountPrice ? "hasDiscount" : ""}`}>
             ₩ {toKRW(product?.price)}
           </p>
           <p>
             ₩ {toKRW(product?.discountPrice)}{" "}
-            <span>{((1 - product?.discountPrice / product?.price) * 100).toFixed()}%</span>
+            <span>
+              {((1 - product?.discountPrice / product?.price) * 100).toFixed()}%
+            </span>
           </p>
         </div>
+
         <div className="product-right-desc">
           <div className="descMenu" onClick={toggleIsDescOpen}>
             <p>제품 상세정보</p>
@@ -118,6 +122,7 @@ function Products() {
             {product?.description}
           </div>
         </div>
+
         <div className="product-right-color">
           <p>COLOR</p>
           <div className="color-wrapper">
@@ -135,6 +140,7 @@ function Products() {
             ))}
           </div>
         </div>
+
         <div className="product-right-size">
           <p>SIZE</p>
           <select onChange={onChangeSize} className="selection">
@@ -191,13 +197,14 @@ function Products() {
             </div>
           )}
         </div>
+
         <div className="product-right-button">
           {isCartOpen && (
             <div className="cart-alert">
               <div className="cart-alert-close">
                 <CloseIcon
                   className="closeIcon"
-                  onClick={() => setIsCartOpen(false)}
+                  onClick={altIsCartOpen(false)}
                 />
               </div>
               <p>장바구니로 이동하시겠습니까?</p>

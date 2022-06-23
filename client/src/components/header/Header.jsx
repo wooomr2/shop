@@ -1,7 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import useAlt from "../../hooks/useAlt";
 import useToggle from "../../hooks/useToggle";
 import { signout } from "../../slice/authSlice";
 import { updateCartItems } from "../../slice/cartSlice";
@@ -9,7 +10,6 @@ import BrandMenu from "./brandMenu/BrandMenu";
 import "./header.scss";
 import Menu from "./menu/Menu";
 import SearchInput from "./searchInput/SearchInput";
-
 
 function Header() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Header() {
   const cartItems = useSelector((store) => store.cart.cartItems);
   const [menuOpen, toggleMenuOpen, setMenuOpen] = useToggle(false);
   const [searchOpen, toggleSearchOpen, setSearchOpen] = useToggle(false);
-  const [isHovering, setIsHovering] = useState(0);
+  const [isHovering, altIsHovering] = useAlt(0);
 
   useEffect(() => {
     setSearchOpen(false);
@@ -32,8 +32,8 @@ function Header() {
   };
 
   return (
-    <div className="header-container" onMouseEnter={() => setIsHovering(0)}>
-      <Link to={`/`}> 
+    <div className="header-container" onMouseEnter={altIsHovering(0)}>
+      <Link to={`/`}>
         <div className="logo-wrapper">
           <h1>HOW ABOUT OOTD</h1>
         </div>
@@ -42,16 +42,16 @@ function Header() {
       <div className="navbar-container">
         <div className="navbar-wrapper">
           <div className="navbar-items">
-            <NavLink to={`/categories/all`} onMouseOver={() => setIsHovering(0)}>
+            <NavLink to={`/categories/all`} onMouseOver={altIsHovering(0)}>
               <div className="navbar-item">CATEGORY</div>
             </NavLink>
-            <div className="navbar-item" onMouseOver={() => setIsHovering(1)}>
+            <div className="navbar-item" onMouseOver={altIsHovering(1)}>
               BRAND
             </div>
-            <NavLink to={`/lookbooks`} onMouseOver={() => setIsHovering(0)}>
+            <NavLink to={`/lookbooks`} onMouseOver={altIsHovering(0)}>
               <div className="navbar-item">LOOKBOOK</div>
             </NavLink>
-            <NavLink to={`/collections`} onMouseOver={() => setIsHovering(0)}>
+            <NavLink to={`/collections`} onMouseOver={altIsHovering(0)}>
               <div className="navbar-item">COLLECTION</div>
             </NavLink>
           </div>
@@ -75,12 +75,12 @@ function Header() {
               </div>
             ) : (
               <>
-              <NavLink to={`/signin`}>
-                <div className="navbar-item">SIGNIN</div>
-              </NavLink>
-              <NavLink to={`/signup`}>
-                <div className="navbar-item">SIGNUP</div>
-              </NavLink>
+                <NavLink to={`/signin`}>
+                  <div className="navbar-item">SIGNIN</div>
+                </NavLink>
+                <NavLink to={`/signup`}>
+                  <div className="navbar-item">SIGNUP</div>
+                </NavLink>
               </>
             )}
 
@@ -96,7 +96,7 @@ function Header() {
             </NavLink>
 
             <NavLink to={`/contact`}>
-                <div className="navbar-item">CONTACT</div>
+              <div className="navbar-item">CONTACT</div>
             </NavLink>
             <NavLink to={`/orders`}>
               <div className="navbar-item">ORDER</div>
@@ -114,13 +114,7 @@ function Header() {
         </div>
       </div>
 
-      {isHovering ? (
-        <BrandMenu
-          onMouseOver={() => setIsHovering(1)}
-          onMouseOut={() => setIsHovering(0)}
-          setIsHovering={setIsHovering}
-        />
-      ) : null}
+      {isHovering ? <BrandMenu altIsHovering={altIsHovering} /> : null}
 
       {searchOpen ? <SearchInput setSearchOpen={setSearchOpen} /> : null}
       <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />

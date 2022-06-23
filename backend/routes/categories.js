@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.single("categoryImg"), addCategory);
 router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.array("categoryImg"), updateCategories);
-router.get("/", getCategories);
 router.put("/", verifyToken, verifyRoles(ROLES.ADMIN), deleteCategories);
+router.get("/", getCategories);
 
 module.exports = router;

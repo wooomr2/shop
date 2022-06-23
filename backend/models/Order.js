@@ -45,18 +45,6 @@ const orderSchema = new mongoose.Schema(
         max: 200,
       },
     },
-
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
-    totalQty: {
-      type: Number,
-      required: true,
-    },
-    usedPoint: {
-      type: Number,
-    },
     
     items: [
       {
@@ -94,16 +82,35 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
-    paymentStatus: {
-      type: String,
-      enum: ["pending", "completed", "cancelled", "refund"],
+
+    totalPrice: {
+      type: Number,
       required: true,
     },
+    totalQty: {
+      type: Number,
+      required: true,
+    },
+    usedPoint: {
+      type: Number,
+    },
+
+    paymentPrice:{
+      type:Number,
+    },
+
     paymentType: {
       type: String,
       enum: ["card"],
       required: true,
     },
+
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "completed", "cancelled", "refund"],
+      required: true,
+    },
+
     orderStatus: [
       {
         type: {

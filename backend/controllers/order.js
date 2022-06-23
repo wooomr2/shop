@@ -19,7 +19,7 @@ exports.addOrder = asyncHandler(async (req, res, next) => {
 
   let promiseArray = [];
 
-  const { items } = req.body;
+  const { items,totalPrice, usedPoint } = req.body;
 
   items.forEach((item) => {
     let condition, update;
@@ -41,10 +41,9 @@ exports.addOrder = asyncHandler(async (req, res, next) => {
     .catch((err) => next(new ErrorResponse(err, 400)))
     .then((response) => console.log(response));
 
-  // const point = req.body.totalPrice;
   const user = await User.findOneAndUpdate(
     { _id: req.userId },
-    { $inc: { point: +(req.body.totalPrice / 100).toFixed() } }
+    { $inc: { point: +(totalPrice / 100).toFixed()-usedPoint } }
   );
 
   req.body.orderStatus = [

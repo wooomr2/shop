@@ -69,3 +69,12 @@
 20220622	14:58:55	38c44962-04f2-4b0f-894a-52c2be420e46	ValidationError: Order validation failed: user: Path `user` is required.
 20220622	15:20:56	72863adc-1360-4fbc-8d77-955103d79ac9	ValidationError: Order validation failed: totalPrice: Path `totalPrice` is required.
 20220622	15:56:10	6c0eeeae-05f7-4260-80da-df0aaddadeaa	Error: 유효하지 않은 토큰
+20220622	20:29:40	30442229-9802-4baf-a167-0a757b2da876	Error: 유효하지 않은 토큰
+20220622	20:29:40	01650526-cfbf-470d-96eb-61990430a4bc	Error: refreshToken 재사용됨
+20220622	20:29:40	157ac699-7863-4349-91c7-3700d234d3ae	Error: refreshToken 없음
+20220623	01:23:18	e1134ec7-42ea-4ab9-ac18-d52cc8c210c9	Error: 유효하지 않은 토큰
+20220623	02:56:38	72ab02e4-98b2-4748-afdd-9ffef1803902	Error: 유효하지 않은 토큰
+20220623	02:56:39	ed87b163-0bd6-4bef-912f-a0897a557fec	Error: refreshToken 재사용됨
+20220623	02:56:39	fab6bc0b-beb7-4475-a668-bda3208e6fdd	Error: refreshToken 없음
+20220623	03:51:05	88eb0bb3-a303-498a-a5ab-22e37833f4e5	CastError: Cast to ObjectId failed for value "digawel" (type string) at path "_id" for model "Collection"
+20220623	11:18:45	1e923679-d110-47c1-bb73-dc683a4b0c87	Error: 유효하지 않은 토큰

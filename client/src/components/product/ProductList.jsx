@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
+import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import "./productList.scss";
+import React from "react";
+import useAlt from "../../hooks/useAlt";
 import ProductItem from "./ProductItem";
+import "./productList.scss";
 
-function ProductList({ haveFilter, products, setSort, categoryToggleHandler }) {
-  const [selectedGrid, setSelectedGrid] = useState(false);
+function ProductList({ haveFilter, products, onChangeSort, categoryToggleHandler }) {
+  const [selectedGrid, altSelectedGrid] = useAlt(false)
 
   return (
     <section>
@@ -20,7 +21,7 @@ function ProductList({ haveFilter, products, setSort, categoryToggleHandler }) {
           )}
 
           <div className="sort">
-            <select onChange={(e) => setSort(e.target.value)}>
+            <select onChange={onChangeSort}>
               <option defaultValue hidden>
                 SORT
               </option>
@@ -34,11 +35,11 @@ function ProductList({ haveFilter, products, setSort, categoryToggleHandler }) {
         <div className="top-right">
           <GridViewRoundedIcon
             className={`grid-icon ${selectedGrid ? "selected" : ""}`}
-            onClick={() => setSelectedGrid(true)}
+            onClick={altSelectedGrid(true)}
           />
           <AppsOutlinedIcon
             className={`grid-icon ${!selectedGrid ? "selected" : ""}`}
-            onClick={() => setSelectedGrid(false)}
+            onClick={altSelectedGrid(false)}
           />
         </div>
       </div>

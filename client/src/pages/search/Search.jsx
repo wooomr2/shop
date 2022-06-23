@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
 import ProductList from "../../components/product/ProductList";
+import useInput from "../../hooks/useInput";
 import { getProducts } from "../../slice/productSlice";
 import "./search.scss";
 
@@ -14,7 +15,7 @@ function Search() {
   const { total, products } = useSelector((store) => store.product);
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
-  const [sort, setSort] = useState("latest");
+  const [sort, onChangeSort] = useInput("latest");
 
   useEffect(() => {
     const payload = {
@@ -33,7 +34,7 @@ function Search() {
           <div className="keyword">{keyword}</div>
           <div className="length">검색결과 {total} 개</div>
         </div>
-        <ProductList setSort={setSort} products={products} />
+        <ProductList products={products} onChangeSort={onChangeSort}  />
       </div>
       <Pagination
         total={total}

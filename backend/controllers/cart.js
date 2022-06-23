@@ -83,8 +83,7 @@ exports.getCartItems = asyncHandler(async (req, res, next) => {
     brand: item.product.brand,
     color: item.product.color,
     img: item.product.productImgs[0].fileName,
-    price: item.product.price,
-    discountPrice: item.product.discountPrice,
+    price: item.product.discountPrice || item.product.price,
     qty: item.qty,
     size: item.size,
   }));

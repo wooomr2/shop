@@ -3,11 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddressForm from "../../components/addressForm/AddressForm";
 import CartItem from "../../components/cartItem/CartItem";
-import CheckoutItem from "../../components/checkoutItem/CheckoutItem";
 import useInput from "../../hooks/useInput";
 import { selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
 import { addOrder, getUser } from "../../slice/userSlice";
 import "./checkout.scss";
+
+function CheckoutItem({ title, children }) {
+  return (
+    <div className="checkoutItem">
+      <div className="checkoutItem-title">
+        <h3>{title}</h3>
+      </div>
+      {children}
+    </div>
+  );
+}
 
 function Checkout() {
   const navigate = useNavigate();
@@ -34,7 +44,7 @@ function Checkout() {
       totalQty,
       totalPrice: totalPrice,
       usedPoint,
-      paymentPrice: totalPrice-usedPoint,
+      paymentPrice: totalPrice - usedPoint,
       paymentType: "card",
       paymentStatus: "pending",
     };
@@ -125,9 +135,9 @@ function Checkout() {
               />
             ) : (
               <AddressForm
+                selectedAddress={selectedAddress}
                 enableInput={enableInput}
                 setEnableInput={setEnableInput}
-                selectedAddress={selectedAddress}
               />
             )}
           </div>
@@ -141,7 +151,7 @@ function Checkout() {
 
         <div>잔여 포인트: {user.point}</div>
         <div>
-          사용할 포인트 :<input type="number" onChange={onChangeUsedPoint}/>
+          사용할 포인트 :<input type="number" onChange={onChangeUsedPoint} />
         </div>
         <div onClick={handleOrderSubmit}>결제고고</div>
       </div>

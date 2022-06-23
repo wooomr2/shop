@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
 import ProductList from "../../components/product/ProductList";
+import useInput from "../../hooks/useInput";
 import { getBrand } from "../../slice/brandSlice";
 import { getProducts } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
@@ -14,7 +15,7 @@ function Brand() {
   const { brand } = useSelector((store) => store.brand);
   const { products, total } = useSelector((store) => store.product);
   const perPage = 20;
-  const [sort, setSort] = useState("latest");
+  const [sort, onChangeSort] = useInput("latest");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function Brand() {
             </Link>
           </div>
 
-          <ProductList setSort={setSort} products={products} />
+          <ProductList onChangeSort={onChangeSort} products={products} />
         </div>
       </div>
       <Pagination

@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'}]), addBrand);
 router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'}]), updateBrand);
+router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteBrand);
 router.get("/", getBrands);
 router.get("/:name", getBrand);
-router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteBrand);
 
 module.exports = router;

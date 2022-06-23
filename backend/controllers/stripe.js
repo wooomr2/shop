@@ -2,6 +2,23 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const asyncHandler = require("../middlewares/asyncHandler");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+exports.createPaymentIntent = asyncHandler(async (req, res, next) => {
+  const { amount } = req.body;
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "krw",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.status(201).send({
+    clientSecret: paymentIntent.client_secret,
+    stripeApiKey: process.env.STRIPE_PUBLIC_KEY,
+  });
+});
+
 exports.createCheckoutSession = asyncHandler(async (req, res, next) => {
   console.log("체크아웃 세션");
   const { cartItems, email } = req.body;

@@ -16,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(express.static("public"));
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/refresh", require("./routes/refresh"));
@@ -38,10 +39,10 @@ app.use(errorHandler);
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`서버 running on ${PORT}`));
 
-process.on("unhandledRejection", (err, promise) => {
-  console.log(`비정상적 에러로 서버 종료 ${err.message}`);
-  server.close(() => process.exit(1));
-});
+// process.on("unhandledRejection", (err, promise) => {
+//   console.log(`비정상적 에러로 서버 종료 ${err.message}`);
+//   server.close(() => process.exit(1));
+// });
 
 //200 OK
 //201 CREATED (as a result of POST)

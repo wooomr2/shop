@@ -69,3 +69,28 @@
 20220622	14:58:55	38c44962-04f2-4b0f-894a-52c2be420e46	ValidationError: Order validation failed: user: Path `user` is required.
 20220622	15:20:56	72863adc-1360-4fbc-8d77-955103d79ac9	ValidationError: Order validation failed: totalPrice: Path `totalPrice` is required.
 20220622	15:56:10	6c0eeeae-05f7-4260-80da-df0aaddadeaa	Error: 유효하지 않은 토큰
+20220622	20:29:40	30442229-9802-4baf-a167-0a757b2da876	Error: 유효하지 않은 토큰
+20220622	20:29:40	01650526-cfbf-470d-96eb-61990430a4bc	Error: refreshToken 재사용됨
+20220622	20:29:40	157ac699-7863-4349-91c7-3700d234d3ae	Error: refreshToken 없음
+20220623	01:23:18	e1134ec7-42ea-4ab9-ac18-d52cc8c210c9	Error: 유효하지 않은 토큰
+20220623	02:56:38	72ab02e4-98b2-4748-afdd-9ffef1803902	Error: 유효하지 않은 토큰
+20220623	02:56:39	ed87b163-0bd6-4bef-912f-a0897a557fec	Error: refreshToken 재사용됨
+20220623	02:56:39	fab6bc0b-beb7-4475-a668-bda3208e6fdd	Error: refreshToken 없음
+20220623	03:51:05	88eb0bb3-a303-498a-a5ab-22e37833f4e5	CastError: Cast to ObjectId failed for value "digawel" (type string) at path "_id" for model "Collection"
+20220623	11:18:45	1e923679-d110-47c1-bb73-dc683a4b0c87	Error: 유효하지 않은 토큰
+20220623	14:14:38	ab664cac-df6a-4445-8ce3-9cc33d706f57	Error: Missing required param: amount.
+20220623	14:17:28	2332c792-f2ee-4b94-8439-cd250f70368e	Error: Received unknown parameter: order
+20220623	14:18:23	e1710610-c315-4634-82b9-4b201ac2edf0	Error: Received unknown parameter: order
+20220623	14:18:24	c82a0ffb-6fe1-47c9-bf55-461a50f928cb	Error: Received unknown parameter: order
+20220623	14:20:51	3325afd4-0341-403e-803d-058ac952df4a	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:21:19	08a6c5cb-938c-4867-896c-83bb98e9672a	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:21:20	4ad5fe91-d4c5-422b-8240-f65ac049518f	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:21:58	655d5173-f29b-4992-8f7c-8eb2236f9f7c	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:23:43	b57aa05b-a12d-47bd-8c74-4010899d5fa1	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:23:43	929ff774-8877-452e-975f-abbae72e1bc8	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:23:50	8c8e1c62-fdfd-4383-a67b-6b10b14471d2	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:24:08	898ce711-603b-475a-b318-d508d1a5a127	TypeError: Cannot read properties of undefined (reading 'paymentPrice')
+20220623	14:26:18	0d2bcc03-3cce-48d4-a2de-7de3ebf0f23e	ReferenceError: amount is not defined
+20220623	14:28:50	9fdd0596-fbf0-4ee6-b0e0-83ed5330f8b7	Error: Received unknown parameter: items
+20220623	14:30:24	cdf9df43-7861-44ac-a68b-3497592839a4	Error: No valid payment method types for this Payment Intent. Please ensure that you have activated payment methods compatible with your chosen currency in your dashboard (https://dashboard.stripe.com/settings/payment_methods) or specify payment_method_types
+20220623	15:43:08	e0f86038-0052-4487-b7f8-a0c6d7caa2c7	Error: 유효하지 않은 토큰

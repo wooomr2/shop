@@ -72,7 +72,7 @@ class Feature {
   }
 
   getQuery() {
-    return this.query
+    return this.query;
   }
 }
 

@@ -10,7 +10,6 @@ router.post("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'b
 router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: 'banners'},{name:'cards'}]), updateCollection);
 router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteCollection);
 router.get("/",verifyToken, verifyRoles(ROLES.ADMIN), getAllCollections);
-
 router.post("/get", getCollections);
 router.get("/:id", getCollection);
 

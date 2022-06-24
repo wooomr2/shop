@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteUser } from "../../slice/userSlice";
+import { deleteUser, getUsers } from "../../slice/userSlice";
 
 function Users() {
   const dispatch = useDispatch();
   const { users } = useSelector((store) => store.user);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   return (
     <div>
@@ -29,9 +34,10 @@ function Users() {
               </td>
               <td>{user.email}</td>
               <td>
-                {user.roles && Object.keys(user?.roles).map((role, i) => (
-                  <p key={i}>{role}</p>
-                ))}
+                {user.roles &&
+                  Object.keys(user?.roles).map((role, i) => (
+                    <p key={i}>{role}</p>
+                  ))}
               </td>
               <td>
                 <button onClick={() => dispatch(deleteUser(user._id))}>

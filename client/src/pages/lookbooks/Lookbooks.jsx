@@ -29,6 +29,7 @@ function Lookbooks() {
           </Link>
         ))}
       </div>
+      
       <Pagination
         total={total}
         perPage={perPage}

@@ -3,10 +3,20 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      username: {
+        type: String,
+      },
+      email: {
+        type: String,
+      },
+      mobile: { type: String },
     },
+    
     address: {
       _id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -45,7 +55,7 @@ const orderSchema = new mongoose.Schema(
         max: 200,
       },
     },
-    
+
     items: [
       {
         _id: {
@@ -95,8 +105,8 @@ const orderSchema = new mongoose.Schema(
       type: Number,
     },
 
-    paymentPrice:{
-      type:Number,
+    paymentPrice: {
+      type: Number,
     },
 
     paymentType: {

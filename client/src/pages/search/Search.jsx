@@ -36,6 +36,7 @@ function Search() {
         </div>
         <ProductList products={products} onChangeSort={onChangeSort}  />
       </div>
+      
       <Pagination
         total={total}
         perPage={perPage}

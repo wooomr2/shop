@@ -27,12 +27,10 @@ function Category() {
   const currentCategory = [];
   let cids = [];
 
-  console.log("얼마나도니")
 
   if (params.cid === "all") {
     cids = [];
   } else {
-    console.log("얼마나도니")
     function findCategory(categories) {
       if (currentCategory.length > 0) return;
       for (let c of categories) {

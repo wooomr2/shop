@@ -63,6 +63,12 @@ class Feature {
       case "descending":
         sortQuery = { price: -1 };
         break;
+      case "salesRate":
+        sortQuery = { salesRate: -1 };
+        break;
+      case "ratings":
+        sortQuery = { "ratings.avg": -1 };
+        break;
       default:
         sortQuery = { createdAt: -1 };
     }

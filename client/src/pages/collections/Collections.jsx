@@ -14,13 +14,6 @@ function Collections() {
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
 
-  // let mainCollections = [];
-  // let subCollections = [];
-
-  // for (let c of collections) {
-  //   c.priority ? mainCollections.push(c) : subCollections.push(c);
-  // }
-
   useEffect(() => {
     const payload = { perPage, currentPage, keyword };
     dispatch(getCollections(payload));
@@ -47,6 +40,7 @@ function Collections() {
           </div>
         ))}
       </div>
+
       <div className="collections-sub">
         {collections?.slice(2).map((collection) => (
           <div className="collections-sub-items" key={collection._id}>
@@ -65,6 +59,7 @@ function Collections() {
           </div>
         ))}
       </div>
+      
       <Pagination
         total={total}
         perPage={perPage}

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "../../utils/axiosInstance";
 import StripeForm from "./StripeForm";
 import "./stripe.css";
-import axios from "../../utils/axiosInstance";
-import { useLocation } from "react-router-dom";
 
 export default function Stripe() {
   const location = useLocation();
@@ -37,6 +37,8 @@ export default function Stripe() {
     clientSecret,
     appearance,
   };
+
+  console.log(clientSecret, appearance)
 
   return (
     <div className="stripe">

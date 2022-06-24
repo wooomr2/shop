@@ -38,7 +38,7 @@ function Checkout() {
 
   const handleOrderSubmit = () => {
     const order = {
-      user: user._id,
+      user,
       address: selectedAddress,
       items: cartItems,
       totalQty,
@@ -50,7 +50,8 @@ function Checkout() {
     };
 
     dispatch(addOrder(order));
-    navigate("/succress", { replace: true });
+    navigate("/success", { replace: true });
+    // navigate("/stripe", {state: order});
   };
 
   return (

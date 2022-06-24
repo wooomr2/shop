@@ -1,5 +1,5 @@
 const express = require("express");
-const { removeCartItems, getCartItems, addCartItems, updateCartItems } = require("../controllers/cart");
+const { getCartItems, addCartItems, updateCartItems } = require("../controllers/cart");
 const { verifyToken } = require("../middlewares/verifyToken")
 const { verifyRoles } = require("../middlewares/verifyRoles");
 const ROLES = require("../config/roleList");

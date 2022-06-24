@@ -11,6 +11,7 @@ import Unauthorized from "./pages/etc/unauthorized/Unauthorized";
 import Home from "./pages/home/Home";
 import Lookbook from "./pages/lookbooks/Lookbook";
 import Lookbooks from "./pages/lookbooks/Lookbooks";
+import Order from "./pages/orders/Order";
 import Orders from "./pages/orders/Orders";
 import Product from "./pages/products/Product";
 import Products from "./pages/products/Products";
@@ -38,6 +39,7 @@ function App() {
             <Route path="products" element={<Products />} />
             <Route path="products/:slug" element={<Product />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="orders/:id" element={<Order />} />
           </Route>
         </Route>
 

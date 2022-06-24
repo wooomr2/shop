@@ -43,9 +43,11 @@ const productSchema = new mongoose.Schema(
 
     stock: [{ size: { type: String }, qty: { type: Number } }],
 
-    grossSale: {
+    grossSales: {
       type: Number,
-      required: true,
+    },
+    salesRate: {
+      type:Number,
     },
 
     ratings: {

@@ -11,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
   // 몽고DB id Error
   if (err.name === "CastError") {
     const message = `Resources not found with this id..Invalid ${err.path}`;
-    err = new ErrorResponse(message, 400);
+    error = new ErrorResponse(message, 400);
   }
 
   //11000 - duplicate error key

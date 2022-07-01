@@ -1,4 +1,4 @@
-@import "../../variable.scss";
+@import "../../../variable.scss";
 
 .mypage {
   display: flex;
@@ -8,7 +8,7 @@
   width: 75%;
   font-size: 1.4rem;
 
-  &-top {
+  .mypage-top {
     width: 100%;
     display: flex;
     column-gap: 3rem;

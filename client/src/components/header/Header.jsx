@@ -43,7 +43,7 @@ function Header() {
         <div className="navbar-wrapper">
           <div className="navbar-items">
             <NavLink to={`/categories/all`} onMouseOver={altIsHovering(0)}>
-              <div className="navbar-item">CATEGORY</div>
+              <div className="navbar-item">SHOPPING</div>
             </NavLink>
             <div className="navbar-item" onMouseOver={altIsHovering(1)}>
               BRAND
@@ -69,25 +69,9 @@ function Header() {
               SEARCH
             </div>
 
-            {user ? (
-              <>
-                <div className="navbar-item" onClick={logout}>
-                  SIGNOUT
-                </div>
-                <NavLink to={`/orders`}>
-                  <div className="navbar-item">MYPAGE</div>
-                </NavLink>
-              </>
-            ) : (
-              <>
-                <NavLink to={`/signin`}>
-                  <div className="navbar-item">SIGNIN</div>
-                </NavLink>
-                <NavLink to={`/signup`}>
-                  <div className="navbar-item">SIGNUP</div>
-                </NavLink>
-              </>
-            )}
+            <NavLink to={`/contact`}>
+              <div className="navbar-item">CONTACT</div>
+            </NavLink>
 
             <NavLink to={`/cart`}>
               <div className="navbar-item">
@@ -100,9 +84,25 @@ function Header() {
               </div>
             </NavLink>
 
-            <NavLink to={`/contact`}>
-              <div className="navbar-item">CONTACT</div>
-            </NavLink>
+            {user ? (
+              <>
+                <NavLink to={`/mypage/orders`}>
+                  <div className="navbar-item">MYPAGE</div>
+                </NavLink>
+                <div className="navbar-item" onClick={logout}>
+                  SIGNOUT
+                </div>
+              </>
+            ) : (
+              <>
+                <NavLink to={`/signin`}>
+                  <div className="navbar-item">SIGNIN</div>
+                </NavLink>
+                <NavLink to={`/signup`}>
+                  <div className="navbar-item">SIGNUP</div>
+                </NavLink>
+              </>
+            )}
           </div>
 
           <div className="navbar-items-lg">

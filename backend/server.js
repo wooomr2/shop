@@ -28,16 +28,16 @@ app.use("/auth", require("./routes/auth"));
 app.use("/brands", require("./routes/brands"));
 app.use("/carts", require("./routes/carts"));
 app.use("/categories", require("./routes/categories"));
+app.use("/chatrooms", require("./routes/chatrooms"));
 app.use("/collections", require("./routes/collections"));
 app.use("/lookbooks", require("./routes/lookbooks"));
+app.use("/messages", require("./routes/messages"));
 app.use("/orders", require("./routes/orders"));
 app.use("/products", require("./routes/products"));
 app.use("/reviews", require("./routes/reviews"));
 app.use("/stripe", require("./routes/stripe"));
 app.use("/users", require("./routes/users"));
 
-app.use("/chatrooms", require("./routes/chatrooms"));
-app.use("/messages", require("./routes/messages"));
 
 app.use(errorHandler);
 

@@ -50,7 +50,7 @@ function Checkout() {
       paymentStatus: "pending",
     };
 
-    dispatch(addOrder(order));
+    // dispatch(addOrder(order));
     // navigate("/success", { replace: true });
     navigate("/stripe", {state: order});
   };

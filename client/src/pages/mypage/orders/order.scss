@@ -1,4 +1,44 @@
-@import "../../variable.scss";
+@import "../../../variable.scss";
+
+.orderItem {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  width: 100%;
+}
+
+@media screen and (max-width: $lg) {
+  .orderItem:first-child {
+    padding-top: 4rem;
+  }
+}
+
+@media screen and (max-width: $md) {
+  .orderItem {
+    &-title {
+      > h2 {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .orderItem {
+    row-gap: 1rem;
+    
+    &:first-child {
+      padding-top: 2rem;
+    }
+
+    &-title {
+      > h2 {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+///////////////////////////////////////////////
 
 .order {
   display: flex;

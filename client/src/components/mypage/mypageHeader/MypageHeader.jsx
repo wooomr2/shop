@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, selectTotalPaymentPrice } from "../../../slice/userSlice";
+import toKRW from "../../../utils/toKRW";
+import "./mypageHeader.scss";
 
-import "./mypageLayout.scss";
-import { getUser, selectTotalPaymentPrice } from "../../slice/userSlice";
-import toKRW from "../../utils/toKRW";
-import MypageSidebar from "./MypageSidebar";
 
-function MypageLayout({ children }) {
+function MypageHeader() {
   const dispatch = useDispatch();
   const { user, addresses, total, orders } = useSelector((store) => store.user);
   const totalPrice = useSelector(selectTotalPaymentPrice);
@@ -66,14 +64,8 @@ function MypageLayout({ children }) {
           </ul>
         </div>
       </div>
-      <div className="mypage-bottom">
-        <div className="mypage-bottom-left">
-          <MypageSidebar />
-        </div>
-        <div className="mypage-bottom-right">{children}</div>
-      </div>
     </div>
   );
 }
 
-export default MypageLayout;
+export default MypageHeader;

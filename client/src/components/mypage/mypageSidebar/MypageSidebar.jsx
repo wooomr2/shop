@@ -13,8 +13,8 @@ function MypageSidebar() {
         <ul className="content">
           <li>
             <NavLink
-              to="/orders"
-              className={`${pathname === "/orders" ? "selected" : ""}`}
+              to="/mypage/orders"
+              className={`${pathname === "/mypage/orders" ? "selected" : ""}`}
             >
               주문내역조회
             </NavLink>
@@ -23,7 +23,12 @@ function MypageSidebar() {
             <span>취소/반품/교환 내역</span>
           </li>
           <li>
-            <span>상품리뷰</span>
+          <NavLink
+              to="/mypage/reviews"
+              className={`${pathname === "/mypage/reviews" ? "selected" : ""}`}
+            >
+              상품리뷰
+            </NavLink>
           </li>
         </ul>
       </div>
@@ -39,12 +44,12 @@ function MypageSidebar() {
         <div className="title">회원정보</div>
         <ul className="content">
           <li>
-            <NavLink to="/profile" className={`${pathname === "/profile" ? "selected" : ""}`}>
+            <NavLink to="/mypage/profile" className={`${pathname === "/mypage/profile" ? "selected" : ""}`}>
               회원정보 수정
             </NavLink>
           </li>
           <li>
-            <NavLink to="/addresses" className={`${pathname === "/addresses" ? "selected" : ""}`}>
+            <NavLink to="/mypage/addresses" className={`${pathname === "/mypage/addresses" ? "selected" : ""}`}>
               배송지 관리
             </NavLink>
           </li>

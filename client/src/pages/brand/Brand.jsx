@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
-import ProductList from "../../components/product/ProductList";
+import ProductList from "../../components/productList/ProductList";
 import useInput from "../../hooks/useInput";
 import { getBrand } from "../../slice/brandSlice";
 import { getProducts } from "../../slice/productSlice";
@@ -45,7 +45,7 @@ function Brand() {
           )}
           <div className="brands-info">
             <h3>{brand?.name}</h3>
-            <p>{brand?.description}</p>
+            <p className="brands-info-desc">{brand?.description}</p>
             <Link to="/collections" state={brand?.name}>
               <p className="navi">컬렉션 보러가기</p>
             </Link>

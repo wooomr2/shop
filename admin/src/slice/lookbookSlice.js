@@ -141,6 +141,6 @@ const lookbookSlice = createSlice({
   },
 });
 
-export const {} = lookbookSlice.actions;
+// export const {} = lookbookSlice.actions;
 
 export default lookbookSlice.reducer;

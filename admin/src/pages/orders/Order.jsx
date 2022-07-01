@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { updateOrder } from "../../slice/orderSlice";
 import formatDate from "../../utils/formatDate";
-import "./orders.css";
+import "./order.css";
 
 function Order() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const order = location.state;
-
+  const orderSelects = useMemo(
+    () => order.orderStatus.filter((st) => !st.isCompleted),
+    [order]
+  );
   const [type, setType] = useState("");
 
   const handleUpdate = (_id) => () => {
@@ -24,6 +27,7 @@ function Order() {
         <div className="orderTrack">
           {order.orderStatus.map((status) => (
             <div
+              key={status._id}
               className={`orderStatus ${status.isCompleted ? "active" : ""}`}
             >
               <div
@@ -37,22 +41,16 @@ function Order() {
           ))}
         </div>
 
-        {/* select input to apply order action */}
         <div className="orderSelect">
           <select onChange={(e) => setType(e.target.value)}>
             <option value={""}>select status</option>
-            {order.orderStatus.map((status) => {
-              return (
-                <>
-                  {!status.isCompleted ? (
-                    <option value={status.type}>{status.type}</option>
-                  ) : null}
-                </>
-              );
-            })}
+            {orderSelects.map((status) => (
+              <option key={status._id} value={status.type}>
+                {status.type}
+              </option>
+            ))}
           </select>
         </div>
-        {/* button to confirm action */}
 
         <div>
           <button onClick={handleUpdate(order._id)}>confirm</button>

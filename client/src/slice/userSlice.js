@@ -182,6 +182,13 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+// export const {} = userSlice.actions;
+
+export const selectTotalPaymentPrice = (state) =>
+  state.user.orders.reduce(
+    (totalPrice, item) => totalPrice + item.paymentPrice,
+    0
+  );
+
 
 export default userSlice.reducer;

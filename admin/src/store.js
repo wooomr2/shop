@@ -20,6 +20,7 @@ import modalReducer from "./slice/modalSlice";
 import productReducer from "./slice/productSlice";
 import userReducer from "./slice/userSlice";
 import orderReducer from "./slice/orderSlice"
+import chatReducer from "./slice/chatSlice"
 
 const persistConfig = {
   key: "root",
@@ -35,6 +36,7 @@ const persistConfig = {
     "product",
     "user",
     "order",
+    "chat"
   ],
 };
 
@@ -48,6 +50,7 @@ const rootReducer = combineReducers({
   product: productReducer,
   user: userReducer,
   order: orderReducer,
+  chat: chatReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

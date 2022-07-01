@@ -30,7 +30,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const userAddress = await UserAddress.findOne({ user: req.userId }).exec();
   const foundUser = await User.findById(req.userId).exec();
 
-  const { refreshToken, resetPasswordToken, resetPasswordExpire, ...user } =
+  const { refreshToken, resetPasswordToken, resetPasswordExpire, roles, ...user } =
     foundUser._doc;
 
   res.status(200).json({ user, userAddress });

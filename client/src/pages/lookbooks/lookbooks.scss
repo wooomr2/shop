@@ -6,7 +6,7 @@
   align-items: center;
   flex-direction: column;
   width: 100vw;
-  margin: 7rem 0;
+  padding: 7rem 0;
   font-size: 1.4rem;
 
   .lookbooks-wrapper {
@@ -18,6 +18,9 @@
     .lookbooks-items {
       width: 100%;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.5rem;
   
       > img {
         width: 100%;
@@ -29,6 +32,7 @@
 
 @media screen and (max-width: $lg) {
   .lookbooks-container {
+    
     .lookbooks-wrapper {
       grid-template-columns: repeat(3, 1fr); 
     }
@@ -37,6 +41,9 @@
 
 @media screen and (max-width: $md) {
   .lookbooks-container {
+    padding: 5rem 0;
+    font-size: $mdFont;
+
     .lookbooks-wrapper {
       grid-template-columns: repeat(2, 1fr); 
     }
@@ -45,10 +52,12 @@
 
 @media screen and (max-width: $sm) {
   .lookbooks-container {
-    margin: 2rem 0;
+    padding: 2rem 0;
+    font-size: $smFont;
 
     .lookbooks-wrapper {
       grid-template-columns: 1fr; 
+      gap: 2rem 0;
     }
   }
 }

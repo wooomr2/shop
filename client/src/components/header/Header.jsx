@@ -70,9 +70,14 @@ function Header() {
             </div>
 
             {user ? (
-              <div className="navbar-item" onClick={logout}>
-                SIGNOUT
-              </div>
+              <>
+                <div className="navbar-item" onClick={logout}>
+                  SIGNOUT
+                </div>
+                <NavLink to={`/orders`}>
+                  <div className="navbar-item">MYPAGE</div>
+                </NavLink>
+              </>
             ) : (
               <>
                 <NavLink to={`/signin`}>
@@ -97,12 +102,6 @@ function Header() {
 
             <NavLink to={`/contact`}>
               <div className="navbar-item">CONTACT</div>
-            </NavLink>
-            <NavLink to={`/orders`}>
-              <div className="navbar-item">ORDER</div>
-            </NavLink>
-            <NavLink to={`/mypage`}>
-              <div className="navbar-item">MYPAGE</div>
             </NavLink>
           </div>
 

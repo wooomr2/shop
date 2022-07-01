@@ -1,17 +1,19 @@
-import "./header.scss";
-import SearchIcon from "@mui/icons-material/Search";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ListIcon from "@mui/icons-material/List";
-import { useDispatch } from "react-redux";
-import { signout } from "../../slice/authSlice";
-import { useNavigate } from "react-router-dom";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SearchIcon from "@mui/icons-material/Search";
 import { Avatar } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { signout } from "../../slice/authSlice";
+import { clearAlarm } from "../../slice/chatSlice";
+import "./header.scss";
 
 function Header() {
   const dispatch = useDispatch();
+  const alarm = useSelector((store) => store.chat.alarm);
   const navigate = useNavigate();
   const user = sessionStorage.getItem("user");
 
@@ -40,9 +42,11 @@ function Header() {
             <NotificationsNoneIcon className="icon" />
             <div className="counter">1</div>
           </div>
-          <div className="item">
-            <ChatBubbleOutlineIcon className="icon" />
-            <div className="counter">2</div>
+          <div className="item" onClick={()=>dispatch(clearAlarm())}>
+            <Link to="/chat" >
+              <ChatBubbleOutlineIcon className="icon" />
+              <div className="counter">{alarm}</div>
+            </Link>
           </div>
           <div className="item">
             <FullscreenIcon className="icon" />

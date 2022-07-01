@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema(
       },
       ADMIN: Number,
       ROOT: Number,
+      CSR: Number,
     },
     mobile: { type: String },
     profileImg: { type: String },

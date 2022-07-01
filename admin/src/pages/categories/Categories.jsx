@@ -1,19 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import CategoryModal from "../../components/modals/CategoryModal";
-import { openModal } from "../../slice/modalSlice";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
+import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
+import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { useEffect, useState } from "react";
 import CheckboxTree from "react-checkbox-tree";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import RemoveIcon from "@mui/icons-material/Remove";
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
-import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import { useDispatch, useSelector } from "react-redux";
+import CategoryModal from "../../components/modals/CategoryModal";
+import { openModal } from "../../slice/modalSlice";
 
 function Categories() {
   const dispatch = useDispatch();

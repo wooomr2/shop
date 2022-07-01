@@ -38,13 +38,15 @@ const sendToken = asyncHandler(async (req, res, user) => {
   });
 
   // Send token to user
-  const { _id } = user._doc;
+  const { _id, username, profileImg } = user._doc;
   const roles = Object.values(user._doc.roles).filter(Boolean);
   res.status(200).json({
     accessToken,
     user: {
       _id,
       roles,
+      username,
+      profileImg,
     },
   });
 });

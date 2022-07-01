@@ -1,10 +1,9 @@
+import PermMediaIcon from "@mui/icons-material/PermMedia";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { updateLookbook } from "../../slice/lookbookSlice";
-import publicURL from "../../utils/publicURL";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
 import { updateCollection } from "../../slice/collectionSlice";
+import publicURL from "../../utils/publicURL";
 
 function Collection() {
   const navigate = useNavigate();
@@ -20,11 +19,8 @@ function Collection() {
   const [director, setDirector] = useState(collection.director);
   const [country, setCountry] = useState(collection.country);
   const [shop, setShop] = useState(collection.shop);
-  const [priority, setPriority] = useState(collection.priority);
   const [banners, setBanners] = useState(collection.banners);
   const [cards, setCards] = useState(collection.cards);
-
-  console.log(banners,cards);
 
   const resetState = () => {
     setName(collection.name);
@@ -34,7 +30,6 @@ function Collection() {
     setDirector(collection.director);
     setCountry(collection.country);
     setShop(collection.shop);
-    setPriority(collection.priority);
     setBanners(collection.banners);
     setCards(collection.cards);
   };
@@ -51,7 +46,6 @@ function Collection() {
     form.append("director", director);
     form.append("country", country);
     form.append("shop", shop);
-    form.append("priority", priority);
 
     for (let img of banners) {
       form.append("banners", img);
@@ -130,12 +124,6 @@ function Collection() {
         required
         value={shop}
         onChange={(e) => setShop(e.target.value)}
-      />
-            <input
-        placeholder="priority"
-        required
-        value={priority}
-        onChange={(e) => setPriority(e.target.value)}
       />
 
       {banners &&

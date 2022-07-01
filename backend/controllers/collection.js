@@ -4,16 +4,8 @@ const asyncHandler = require("../middlewares/asyncHandler");
 const Collection = require("../models/Collection");
 
 exports.addCollection = asyncHandler(async (req, res, next) => {
-  const {
-    name,
-    description,
-    brand,
-    launched,
-    director,
-    country,
-    shop,
-    priority,
-  } = req.body;
+  const { name, description, brand, launched, director, country, shop } =
+    req.body;
   let { banners, cards } = req.files;
 
   if (!!banners) {
@@ -36,7 +28,6 @@ exports.addCollection = asyncHandler(async (req, res, next) => {
     director,
     country,
     shop,
-    priority,
     banners,
     cards,
     createdBy: req.userId,
@@ -73,17 +64,8 @@ exports.getCollection = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateCollection = asyncHandler(async (req, res, next) => {
-  const {
-    _id,
-    name,
-    description,
-    brand,
-    launched,
-    director,
-    country,
-    shop,
-    priority,
-  } = req.body;
+  const { _id, name, description, brand, launched, director, country, shop } =
+    req.body;
   let { banners, cards } = req.files;
 
   if (!!banners) {
@@ -105,7 +87,6 @@ exports.updateCollection = asyncHandler(async (req, res, next) => {
     director,
     country,
     shop,
-    priority,
     banners,
     cards,
     createdBy: req.userId,

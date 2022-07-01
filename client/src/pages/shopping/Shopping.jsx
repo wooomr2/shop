@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Pagination from "../../components/pagination/Pagination";
-import ProductList from "../../components/product/ProductList";
+import ProductList from "../../components/productList/ProductList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import useInput from "../../hooks/useInput";
 import {

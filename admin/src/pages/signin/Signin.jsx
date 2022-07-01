@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { clearError, signin } from "../../slice/authSlice";
 
 function Signin() {
@@ -28,10 +28,7 @@ function Signin() {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(clearError());
-      navigate("/", { replace: true });
-    }
+    if (isAuthenticated) navigate("/", { replace: true });
   }, [isAuthenticated]);
 
   useEffect(() => {

@@ -27,10 +27,7 @@ const collectionSchema = new mongoose.Schema(
     shop: {
       type: String,
     },
-    priority: {
-      type: Boolean,
-      default: false,
-    },
+
     banners: [
       {
         img: { type: String },

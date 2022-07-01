@@ -64,6 +64,6 @@ const collectionSlice = createSlice({
   },
 });
 
-export const {} = collectionSlice.actions;
+// export const {} = collectionSlice.actions;
 
 export default collectionSlice.reducer;

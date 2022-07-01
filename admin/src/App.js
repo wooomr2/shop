@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Brand from "./pages/brands/Brand";
 import Brands from "./pages/brands/Brands";
 import Categories from "./pages/categories/Categories";
+import Chat from "./pages/chat/Chat";
 import Collection from "./pages/collections/Collection";
 import Collections from "./pages/collections/Collections";
 import Missing from "./pages/etc/missing/Missing";
@@ -40,6 +41,7 @@ function App() {
             <Route path="products/:slug" element={<Product />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:id" element={<Order />} />
+            <Route path="chat" element={<Chat />} />
           </Route>
         </Route>
 

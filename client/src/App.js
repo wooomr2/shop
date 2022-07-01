@@ -18,9 +18,11 @@ import UnAuthorized from "./pages/etc/unauthorized/Unauthorized";
 import Home from "./pages/home/Home";
 import Lookbook from "./pages/lookbooks/Lookbook";
 import Lookbooks from "./pages/lookbooks/Lookbooks";
-import Mypage from "./pages/mypage/Mypage";
-import Order from "./pages/orders/Order";
-import Orders from "./pages/orders/Orders";
+import Addresses from "./pages/mypage/Addresses";
+// import Mypage from "./pages/mypage/Mypage";
+import Profile from "./pages/mypage/Profile";
+import Order from "./pages/mypage/Order";
+import Orders from "./pages/mypage/Orders";
 import Product from "./pages/product/Product";
 import Search from "./pages/search/Search";
 import Shopping from "./pages/shopping/Shopping";
@@ -43,20 +45,22 @@ function App() {
           <Route path="lookbooks/:id" element={<Lookbook />} />
           <Route path="products/:id" element={<Product />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="signin" element={<Signin />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path="contact" element={<Contact />} />\
           <Route element={<ProtectedRoute allowedRoles={[ROLES.USER]} />}>
-            <Route path="mypage" element={<Mypage />} />
+            {/* <Route path="mypage" element={<Mypage />} /> */}
             <Route path="checkout" element={<Checkout />} />
             <Route path="success" element={<Success />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:id" element={<Order />} />
+            <Route path="addresses" element={<Addresses />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
         <Route element={<ProtectedRoute allowedRoles={[ROLES.USER]} />}>
           <Route path="/stripe" element={<Stripe />} />
         </Route>
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<Signup />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password/:resetToken" element={<ResetPassword />} />
         <Route path="/unauthorized" element={<UnAuthorized />} />

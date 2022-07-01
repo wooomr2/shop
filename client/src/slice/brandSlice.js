@@ -64,6 +64,6 @@ const brandSlice = createSlice({
   },
 });
 
-export const {} = brandSlice.actions;
+// export const {} = brandSlice.actions;
 
 export default brandSlice.reducer;

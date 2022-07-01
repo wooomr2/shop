@@ -3,33 +3,16 @@
 .category-container {
   margin-top: 2rem;
   padding: 2rem 6rem;
+  column-gap: 2rem;
   display: flex;
   width: 100vw;
   position: relative;
   text-transform: uppercase;
-
-  section{
-    .top {
-      margin: 0 2rem;
-      padding: 1rem;
-    }
-
-    .product-wrapper {
-      padding: 2rem;
-    }
-    
-  }
 }
 
 @media screen and (max-width: $lg) {
   .category-container {
-    margin-top: 4rem;
+    margin-top: 2rem;
     padding: 0 2rem;
-  }
-}
-
-@media screen and (max-width: $sm) {
-  .category-container {
-    padding: 0 0.1rem;
   }
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.API,
+  baseURL: process.env.BASE_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
@@ -10,7 +10,9 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const accessToken = sessionStorage.getItem("accessToken");
 
-    if (accessToken) config.headers["Authorization"] = `Bearer ${accessToken}`;
+    if (!config.headers["Authorization"]) {
+      config.headers["Authorization"] = `Bearer ${accessToken}`;
+    }
 
     return config;
   },

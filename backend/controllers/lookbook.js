@@ -62,7 +62,7 @@ exports.getLookbook = asyncHandler(async (req, res, next) => {
   if (!id) return next(new ErrorResponse("Params required", 400));
 
   const lookbook = await Lookbook.findById(id)
-    .populate("products", "_id brand color name price, productImgs")
+    .populate("products", "_id brand color name price discountPrice productImgs")
     .exec();
 
   res.status(200).json({ lookbook });

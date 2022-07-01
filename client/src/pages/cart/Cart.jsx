@@ -1,7 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItem from "../../components/cartItem/CartItem";
-import { clearCart, selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
+import {
+  clearCart,
+  selectTotalPrice,
+  selectTotalQty
+} from "../../slice/cartSlice";
+import toKRW from "../../utils/toKRW";
 import "./cart.scss";
 
 function Cart() {
@@ -34,7 +39,7 @@ function Cart() {
           </div>
           <div className="cart-total-item">
             <h4>총금액</h4>
-            <h4>₩ {totalPrice}</h4>
+            <h4>₩ {toKRW(totalPrice)}</h4>
           </div>
         </div>
 

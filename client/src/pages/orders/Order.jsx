@@ -6,13 +6,13 @@ import { getOrder } from "../../slice/userSlice";
 function Order() {
   const params = useParams();
   const dispatch = useDispatch();
-  const { order, shippingAddress } = useSelector(store=>store.user);
+  const { order } = useSelector(store=>store.user);
 
   useEffect(() => {
     dispatch(getOrder(params.id));
   }, [params]);
 
-  console.log(order, shippingAddress);
+  console.log({order});
 
   return <div>Order</div>;
 }

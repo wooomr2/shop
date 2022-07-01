@@ -2,7 +2,7 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ProductList from "../../../components/product/ProductList";
+import ProductList from "../../../components/productList/ProductList";
 import useInput from "../../../hooks/useInput";
 import { getProductsByCategories } from "../../../slice/productSlice";
 import "./newArrival.scss";

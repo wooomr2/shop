@@ -17,7 +17,7 @@
 
 .checkout-container {
   width: 100vw;
-  padding: 10rem 0;
+  padding: 7rem 0;
   font-size: 1.4rem;
   color: $black-light;
 
@@ -40,6 +40,19 @@
     width: 48%;
     margin: auto;
 
+    .checkout-btn {
+      padding: 1.5rem 0;
+      border: none;
+      background-color: $main-color;
+      color: #fff;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $sub-color;
+      }
+    }
+
     .product-total {
       &-item {
         padding: 0.7rem 1.5rem;
@@ -50,17 +63,46 @@
         }
       }
     }
-    
-    .buyer-info {
-      display: grid;
-      grid-template-columns: 1fr 5fr;
-      padding: 2rem 1rem;
-      row-gap: 2.5rem;
-      align-items: center;
 
-      &-left {
-        font-size: 1.4rem;
-        font-weight: 600;
+    .buyer-info {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1rem;
+      row-gap: 2rem;
+      width: 100%;
+
+      &-item {
+        display: flex;
+        align-items: center;
+
+        .item-left {
+          padding: 0.7rem 0;
+          width: 15rem;
+          font-weight: 600;
+
+          &.total {
+            font-size: 1.8rem;
+          }
+        }
+
+        .item-right {
+          width: calc(100% - 15rem);
+
+          > input {
+            width: 50%;
+            padding: 0.7rem;
+            background-color: #fff;
+            border: 1px solid $line-color;
+            outline: none;
+          }
+
+          .total {
+            padding: 0.7rem 0;
+            width: 100%;
+            font-size: 1.8rem;
+            font-weight: 600;
+          }
+        }
       }
     }
 
@@ -69,6 +111,7 @@
       flex-direction: column;
       padding: 2rem 1rem;
       row-gap: 2rem;
+      width: 100%;
 
       .shipping-item {
         display: flex;
@@ -76,14 +119,13 @@
 
         &-left {
           padding: 0.7rem 0;
-          width: 20%;
-          font-size: 1.4rem;
+          width: 15rem;
           font-weight: 600;
         }
 
         &-right {
-          width: 75%;
-          
+          width: calc(100% - 15rem);
+
           > input {
             padding: 0.7rem;
             background-color: #fff;
@@ -116,12 +158,12 @@
         }
 
         .shipping-selection {
+          font-size: 1.4rem;
           display: flex;
           column-gap: 2rem;
           flex-flow: row wrap;
-          font-size: 1.3rem;
           row-gap: 1rem;
-          width: 75%;
+          width: calc(100% - 15rem);
 
           input[type="radio"] {
             margin-right: 0.3rem;
@@ -129,24 +171,25 @@
             accent-color: #898989;
           }
         }
-      }
 
-      .shipping-button {
-        display: flex;
-        justify-content: center;
-        padding: 0.5rem 0;
-        column-gap: 1rem;
+        .shipping-button {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          padding: 0.5rem 0;
+          column-gap: 1rem;
 
-        > button {
-          cursor: pointer;
-          padding: 1rem 3rem;
-          border: none;
-          background-color: $sub-color;
-          color: #fff;
-          transition: background-color 0.2s ease;
+          > button {
+            cursor: pointer;
+            padding: 1rem 3rem;
+            border: none;
+            background-color: $sub-color;
+            color: #fff;
+            transition: background-color 0.2s ease;
 
-          &:hover {
-            background-color: $main-color;
+            &:hover {
+              background-color: $main-color;
+            }
           }
         }
       }
@@ -155,18 +198,6 @@
 }
 
 @media screen and (max-width: $lg) {
-  .checkout-container {
-    .checkout-title {
-      width: 70%;
-    }
-
-    .checkout-wrapper {
-      width: 70%;
-    }
-  }
-}
-
-@media screen and (max-width: $md) {
   .checkout-container {
     padding: 5rem 0;
 
@@ -182,24 +213,143 @@
 
 @media screen and (max-width: $md) {
   .checkout-container {
+    padding: 5rem 0;
+    font-size: $mdFont;
+
+    .checkout-title {
+      > h2 {
+        font-size: 2rem;
+      }
+    }
+
     .checkout-wrapper {
-      &-shipping {
-        .shipping-content {
-          .shipping-item {
-            &-left {
-              width: 25%;
+      .buyer-info {
+        &-item {
+          .item-left {
+            &.total {
+              font-size: 1.7rem;
+            }
+          }
+
+          .item-right {
+            .total {
+              font-size: 1.7rem;
+            }
+          }
+        }
+      }
+
+      .shipping-content {
+        .shipping-item {
+          .shipping-selection {
+            font-size: $mdFont;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .checkout-container {
+    padding: 2rem 0;
+    font-size: $smFont;
+
+    .checkout-title {
+      > h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .checkout-wrapper {
+      .checkout-btn {
+        font-size: $smFont;
+        padding: 1rem 0;
+      }
+
+      .product-total {
+        &-item {
+          padding: 0.7rem;
+        }
+      }
+
+      .buyer-info {
+        padding: 1rem;
+        row-gap: 1rem;
+
+        &-item {
+          .item-left {
+            width: 10rem;
+
+            &.total {
+              font-size: 1.3rem;
+            }
+          }
+
+          .item-right {
+            width: calc(100% - 10rem);
+
+            > input {
+              padding: 0.5rem;
+              font-size: $smFont;
             }
 
-            &-right {
-              > input {
-                &.pincode {
-                  width: 30%;
-                }
+            .total {
+              font-size: 1.3rem;
+            }
+          }
+        }
+      }
 
-                &.explain {
-                  width: 90%;
-                }
+      .shipping-content {
+        padding: 1rem;
+        row-gap: 1rem;
+
+        .shipping-item {
+          &-left {
+            width: 10rem;
+          }
+
+          &-right {
+            width: calc(100% - 10rem);
+
+            > input {
+              padding: 0.5rem;
+              font-size: $smFont;
+              width: 50%;
+
+              &.mobile {
+                width: 100%;
               }
+
+              &.explain {
+                width: 100%;
+              }
+            }
+
+            > button {
+              padding: 0.5rem 1rem;
+
+              > span {
+                font-size: $smFont;
+              }
+            }
+          }
+
+          .shipping-selection {
+            column-gap: 1rem;
+            font-size: $smFont;
+            width: calc(100% - 12rem);
+
+            input[type="radio"] {
+              transform: scale(0.9) translateY(0.2rem);
+            }
+          }
+
+          .shipping-button {
+            > button {
+              font-size: $smFont;
+              padding: 0.7rem 2rem;
             }
           }
         }

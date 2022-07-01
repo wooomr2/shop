@@ -34,6 +34,7 @@ function Menu({ menuOpen, setMenuOpen }) {
           COLLECTION
         </div>
       </div>
+      
       <div className="menu-items">
         {user ? (
           <div className="menu-item" onClick={logout}>

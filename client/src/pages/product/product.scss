@@ -7,7 +7,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .product {
-  margin: 10rem 0;
+  padding: 10rem 0;
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -87,6 +87,7 @@ input[type="number"]::-webkit-inner-spin-button {
     &-desc {
       display: flex;
       flex-direction: column;
+      cursor: pointer;
 
       .descMenu {
         padding: 1rem 0;
@@ -266,8 +267,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 @media screen and (max-width: $lg) {
   .product {
-    margin-top: 1rem;
     flex-direction: column;
+    padding: 5rem 0;
 
     &-left {
       width: 100%;
@@ -351,9 +352,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
 @media screen and (max-width: $sm) {
   .product {
-    margin-top: 1rem;
+    padding: 1rem 0;
     flex-direction: column;
-    font-size: 1rem;
+    font-size: $smFont;
 
     &-left {
       width: 100%;
@@ -379,7 +380,7 @@ input[type="number"]::-webkit-inner-spin-button {
       }
 
       &-brand {
-        font-size: 1rem;
+        font-size: $smFont;
         font-weight: bold;
       }
   
@@ -394,7 +395,7 @@ input[type="number"]::-webkit-inner-spin-button {
       &-size {
         .selection {
           padding: 0.5rem 0.3rem;
-          font-size: 1rem;
+          font-size: $smFont;
         }
       }
 
@@ -404,7 +405,7 @@ input[type="number"]::-webkit-inner-spin-button {
           top: -9rem;
 
           > button {
-            font-size: 1rem;
+            font-size: $smFont;
           }
 
           &-close {
@@ -414,7 +415,7 @@ input[type="number"]::-webkit-inner-spin-button {
           }
         }
         .purchase {
-          font-size: 1rem;
+          font-size: $smFont;
           padding: 0.5rem;
         }
       }

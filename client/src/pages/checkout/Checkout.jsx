@@ -6,6 +6,7 @@ import CartItem from "../../components/cartItem/CartItem";
 import useInput from "../../hooks/useInput";
 import { selectTotalPrice, selectTotalQty } from "../../slice/cartSlice";
 import { addOrder, getUser } from "../../slice/userSlice";
+import toKRW from "../../utils/toKRW";
 import "./checkout.scss";
 
 function CheckoutItem({ title, children }) {
@@ -42,7 +43,7 @@ function Checkout() {
       address: selectedAddress,
       items: cartItems,
       totalQty,
-      totalPrice: totalPrice,
+      totalPrice,
       usedPoint,
       paymentPrice: totalPrice - usedPoint,
       paymentType: "card",
@@ -50,8 +51,8 @@ function Checkout() {
     };
 
     dispatch(addOrder(order));
-    navigate("/success", { replace: true });
-    // navigate("/stripe", {state: order});
+    // navigate("/success", { replace: true });
+    navigate("/stripe", {state: order});
   };
 
   return (
@@ -59,7 +60,7 @@ function Checkout() {
       <div className="checkout-title">
         <h2>CHECK OUT</h2>
       </div>
-      
+
       <div className="checkout-wrapper">
         <CheckoutItem title={"상품 정보"}>
           {cartItems.map((cartItem) => (
@@ -145,17 +146,30 @@ function Checkout() {
           </div>
         </CheckoutItem>
 
-        <div className="checkout-wrapper-payment">
-          <div className="shipping-title">
-            <h3>결제 정보</h3>
+        <CheckoutItem title={"결제 정보"}>
+          <div className="buyer-info">
+            <div className="buyer-info-item">
+              <p className="item-left">마일리지</p>
+              <p className="item-right">{user.point}</p>
+            </div>
+            <div className="buyer-info-item">
+              <p className="item-left">사용 마일리지</p>
+              <div className="item-right">
+                <input type="number" onChange={onChangeUsedPoint} />
+              </div>
+            </div>
+            <div className="buyer-info-item">
+              <p className="item-left total">총 결제금액</p>
+              <div className="item-right">
+                <p className="total">₩ {toKRW(totalPrice - usedPoint)}</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div>잔여 포인트: {user.point}</div>
-        <div>
-          사용할 포인트 :<input type="number" onChange={onChangeUsedPoint} />
-        </div>
-        <div onClick={handleOrderSubmit}>결제고고</div>
+        </CheckoutItem>
+        
+        <button className="checkout-btn" onClick={handleOrderSubmit}>
+          결제하기
+        </button>
       </div>
     </div>
   );

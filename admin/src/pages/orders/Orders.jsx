@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getOrders } from "../../slice/orderSlice";
@@ -6,7 +6,6 @@ import { getOrders } from "../../slice/orderSlice";
 function Orders() {
   const dispatch = useDispatch();
   const { orders } = useSelector((store) => store.order);
-  const [type, setType] = useState("");
 
   useEffect(() => {
     dispatch(getOrders());
@@ -19,8 +18,15 @@ function Orders() {
           <Link to={`/orders/${order._id}`} state={order}>
             {order._id}
           </Link>
-          </div>
-      ))};
+
+          {order.orderStatus
+            .filter((status) => status.isCompleted)
+            .slice(-1)
+            .map((st, i) => (
+              <div key={i}>{st.type}</div>
+            ))}
+        </div>
+      ))}
     </div>
   );
 }

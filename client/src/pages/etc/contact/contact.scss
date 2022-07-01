@@ -1,0 +1,83 @@
+.contact {
+  font-size: 1.4rem;
+  width: 70%;
+  padding: 7rem 0;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+
+  &-bar {
+    position: absolute;
+    width: 5px;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e0e0e0;
+  }
+
+  &-list {
+    li {
+      margin-bottom: 8rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .text {
+        width: 42%;
+        text-align-last: center;
+
+        > h2 {
+          font-size: 2.6rem;
+          margin-bottom: 1.8rem;
+          letter-spacing: 0.2rem;
+        }
+
+        > p {
+          font-size: 1.6rem;
+          font-weight: 400;
+          line-height: 2.2rem;
+        }
+      }
+
+      .img {
+        width: 50%;
+        position: relative;
+        z-index: 1;
+        padding: 8rem 0;
+
+        &::before {
+          content: "";
+          width: 80%;
+          height: 100%;
+          background-color: #daeff8;
+          position: absolute;
+          top: 0;
+          right: -8rem;
+          z-index: -1;
+        }
+
+        > img {
+          width: 100%;
+        }
+      }
+
+      &.left {
+        flex-direction: row-reverse;
+
+        .img::before {
+          left: -8rem;
+          background-color: #e6fbf9;
+        }
+      }
+
+      &:nth-child(3) .img::before {
+        background-color: #e6edfb;
+      }
+    }
+  }
+}

@@ -64,7 +64,7 @@
 @media screen and (max-width: $sm) {
   .brands-container {
     margin: 2rem 0;
-    font-size: 1rem;
+    font-size: $smFont;
     margin-top: 0;
 
     .brands-wrapper {
@@ -74,6 +74,10 @@
         row-gap: 0.5rem;
         margin-top: 1rem;
         line-height: 1.4rem;
+
+        &-desc {
+          font-size: 1rem;
+        }
       }
     }
   }

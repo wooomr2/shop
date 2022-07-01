@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { decreaseQty, increaseQty, removeItem } from "../../slice/cartSlice";
 import publicURL from "../../utils/publicURL";
 import "./cartItem.scss";
+import toKRW from "../../utils/toKRW";
 
 function CartItem({ cartItem, onlyInfo = false }) {
   const dispatch = useDispatch();
@@ -22,12 +23,12 @@ function CartItem({ cartItem, onlyInfo = false }) {
           <div className="cartItem-detail-left">
             <p>SIZE: {size}</p>
             <p>COLOR: {name}</p>
-            <p>PRICE: ₩ {price}</p>
+            <p>PRICE: ₩ {toKRW(price)}</p>
           </div>
           {onlyInfo ? (
             <div className="cartItem-detail-right-qty">
               <p>수량: {qty}</p>
-              <p>합계: ₩ {qty * price}</p>
+              <p>합계: ₩ {toKRW(qty * price)}</p>
             </div>
           ) : (
             <div className="cartItem-detail-right">

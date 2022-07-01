@@ -1,0 +1,175 @@
+@import "../../variable.scss";
+
+.mypage {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 7rem 0;
+  width: 75%;
+  font-size: 1.4rem;
+
+  &-top {
+    width: 100%;
+    display: flex;
+    column-gap: 3rem;
+    padding-bottom: 5rem;
+    border-bottom: 1px solid $line-color;
+
+    &-left {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > p {
+        color: $sub-color;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &-right {
+      padding: 2rem 0;
+      width: 80%;
+      
+      .userInfo {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 1rem;
+
+        &-item {
+          > span {
+            margin-right: 1rem;
+          }
+
+          > span:nth-child(2) {
+            font-size: 1.6rem;
+          }
+
+          .icon {
+            transform: translateY(0.2rem);
+            color: $sub-color;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  &-bottom {
+    margin-top: 5rem;
+    width: 100%;
+    display: flex;
+
+    &-left {
+      width: 30%;
+    }
+    &-right {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .mypage {
+    padding: 5rem 0;
+    width: 80%;
+
+    &-top {
+      flex-direction: column;
+      column-gap: 0;
+      padding-bottom: 2rem;
+      
+      &-left {
+        width: 100%;
+      }
+
+      &-right {
+        width: 100%;
+      }
+    }
+
+    &-bottom {
+      margin-top: 4rem;
+      flex-direction: column;
+
+      &-left {
+        width: 100%;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid $line-color;
+      }
+
+      &-right {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .mypage {
+    font-size: $mdFont;
+    
+    &-top {
+      &-left {
+        > h1 {
+          font-size: 2rem;
+        }
+      }
+
+      &-right {
+        padding: 1rem 0;
+
+        .userInfo {
+          &-item {
+            > span:nth-child(2) {
+              font-size: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .mypage {
+    padding: 2rem 0;
+    font-size: $smFont;
+
+    &-top {
+      padding-bottom: 1rem;
+
+      &-left {
+        > h1 {
+          font-size: 1.7rem;
+        }
+      }
+
+      &-right {
+        .userInfo {
+          grid-template-columns: 1fr;
+
+          &-item {
+            > span:nth-child(2) {
+              font-size: 1.3rem;
+            }
+
+            .icon {
+              font-size: 1.3rem;
+            }
+          }
+        }
+      }
+    }
+
+    &-bottom {
+      margin-top: 2rem;
+      
+      &-left {
+        padding-bottom: 2rem;
+      }
+    }
+  }
+}

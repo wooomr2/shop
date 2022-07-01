@@ -2,7 +2,7 @@
 
 .cart-container {
   width: 100vw;
-  padding: 15rem 0;
+  padding: 7rem 0;
   font-size: 1.4rem;
 
   .cart-wrapper {
@@ -28,6 +28,7 @@
         padding: 0.7rem;
         display: flex;
         justify-content: space-between;
+
         > h4 {
           font-weight: 600;
         }
@@ -92,17 +93,68 @@
 
 @media screen and (max-width: $lg) {
   .cart-container {
+    padding: 5rem 0;
+
     .cart-wrapper {
-      width: 70%;
+      width: 80%;
     }
   }
 }
 
+
 @media screen and (max-width: $md) {
   .cart-container {
-    padding: 5rem 0;
+    font-size: $mdFont;
+
     .cart-wrapper {
-      width: 90%;
+      .cart-title {
+        > h2 {
+          font-size: 2rem;
+        }
+      }
+
+      .cart-button {
+        > button {
+          font-size: $mdFont;
+        }
+      }
+
+      .checkout-button {
+        &-general {
+          font-size: $mdFont;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .cart-container {
+    font-size: $smFont;
+    padding: 2rem 0;
+
+    .cart-wrapper {
+      .cart-title {
+        > h2 {
+          font-size: 1.5rem;
+        }
+      }
+
+      .cart-button {
+        > button {
+          padding: 0.5rem;
+          font-size: $smFont;
+        }
+      }
+
+      .checkout-button {
+        margin-top: 1rem;
+
+        &-general {
+          font-size: $smFont;
+          padding: 1rem;
+        }
+      }
     }
   }
 }

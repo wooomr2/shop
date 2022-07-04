@@ -34,7 +34,6 @@ function Chat() {
       socket.current.emit("addUser", user);
       socket.current.on("getRoom", (chatroom) => {
         setArrivalChatroom(chatroom);
-        console.log(chatroom);
       });
     }
   }, []);

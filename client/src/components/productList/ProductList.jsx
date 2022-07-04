@@ -3,7 +3,7 @@ import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import React from "react";
 import useAlt from "../../hooks/useAlt";
-import ProductItem from "./ProductItem";
+import ProductItem from "./productItem/ProductItem";
 import "./productList.scss";
 
 function ProductList({ haveFilter, products, onChangeSort, categoryToggleHandler }) {

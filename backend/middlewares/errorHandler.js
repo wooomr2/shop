@@ -1,5 +1,5 @@
 const ErrorResponse = require("../utils/ErrorResponse");
-const { logEvents } = require("./logHandler");
+const { logEvents } = require("./logger");
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };

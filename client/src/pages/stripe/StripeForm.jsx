@@ -77,7 +77,7 @@ export default function CheckoutForm({ order }) {
       <form id="payment-form" onSubmit={handleSubmit}>
         <div className="payment-info">
           <div>결제금액: {order.paymentPrice}</div>
-          <div>테스트카드: 4242 4242 4242 4242, 유효기간: 08/24, CVC:478</div>
+          <div>테스트 카드 번호: 4242 4242 4242 4242</div>
         </div>
         <PaymentElement id="payment-element" />
         <button disabled={isLoading || !stripe || !elements} id="submit">

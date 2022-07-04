@@ -2,16 +2,41 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
+  total: 0,
   reviews: [],
   review: {},
-  isLoading:false,
+  isLoading: false,
 };
 
-export const getReviews = createAsyncThunk(
-  "product/getReviews",
-  async (pid, thunkAPI) => {
+export const getReviewsByProductId = createAsyncThunk(
+  "product/getReviewsByProductId",
+  async (payload, thunkAPI) => {
     try {
-      const res = await axios.get(`/reviews/${pid}`);
+      const res = await axios.post(`/reviews/getByProductId`, payload);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getReviewsByUserId = createAsyncThunk(
+  "product/getReviewsByUserId",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await axios.post(`/reviews/get`, payload);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getReview = createAsyncThunk(
+  "product/getReview",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.get(`/reviews/${id}`);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -20,11 +45,22 @@ export const getReviews = createAsyncThunk(
 );
 
 export const upsertReview = createAsyncThunk(
-  "product/upsertReview",
-  async (review, thunkAPI) => {
+  "product/addReview",
+  async (form, thunkAPI) => {
     try {
-      const user = JSON.parse(sessionStorage.getItem("user"));
-      const res = await axios.patch(`/reviews`, { user, review });
+      const res = await axios.post(`/reviews`, form);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const deleteReview = createAsyncThunk(
+  "product/deleteReview",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.delete(`/reviews/${id}`);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -37,16 +73,38 @@ const reviewSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getReviews.pending]: (state) => {
+    [getReviewsByProductId.pending]: (state) => {
       state.isLoading = true;
     },
-    [getReviews.fulfilled]: (state, action) => {
-      const {productReview} = action.payload;
-      const reviews = productReview ? productReview.reviews : []
-      state.reviews = reviews;
+    [getReviewsByProductId.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
+      state.reviews = action.payload.reviews;
       state.isLoading = false;
     },
-    [getReviews.rejected]: (state, action) => {
+    [getReviewsByProductId.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
+    [getReviewsByUserId.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getReviewsByUserId.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
+      state.reviews = action.payload.reviews;
+      state.isLoading = false;
+    },
+    [getReviewsByUserId.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
+    [getReview.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getReview.fulfilled]: (state, action) => {
+      state.review = action.payload.review;
+      state.isLoading = false;
+    },
+    [getReview.rejected]: (state, action) => {
       state.isLoading = false;
     },
 
@@ -54,12 +112,23 @@ const reviewSlice = createSlice({
       state.isLoading = true;
     },
     [upsertReview.fulfilled]: (state, action) => {
-      const {productReview} = action.payload;
-      const reviews = productReview ? productReview.reviews : []
-      state.reviews = reviews;
       state.isLoading = false;
+      const result = window.confirm(
+        "등록 완료. 리뷰페이지로 이동하시겠습니까?"
+      );
+      if (result) window.location.href = "/mypage/reviews";
     },
     [upsertReview.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
+    [deleteReview.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteReview.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    },
+    [deleteReview.rejected]: (state, action) => {
       state.isLoading = false;
     },
   },

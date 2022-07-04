@@ -7,11 +7,11 @@ const corsOptions = require('./config/corsOptions');
 const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middlewares/errorHandler");
-const { logHandler } = require("./middlewares/logHandler");
+const { logger } = require("./middlewares/logger");
 const credentials = require('./middlewares/credentials');
 
 connectDB();
-app.use(logHandler);
+app.use(logger);
 app.use(credentials);
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));

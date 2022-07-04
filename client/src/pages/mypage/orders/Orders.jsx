@@ -1,26 +1,26 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../../../components/pagination/Pagination";
-import { getOrders, getUser } from "../../../slice/userSlice";
+import { getOrders } from "../../../slice/userSlice";
 import publicURL from "../../../utils/publicURL";
 import "./orders.scss";
 
 function Mypage() {
   const dispatch = useDispatch();
-  const { user, addresses, total, orders } = useSelector((store) => store.user);
-  const perPage = 20;
+  const navigate = useNavigate();
+  const { total, orders } = useSelector((store) => store.user);
+  const perPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const location = useLocation();
+  const status = location.search.split("=")[1];
 
   useEffect(() => {
-    const payload = { perPage, currentPage };
+    const payload = { status, perPage, currentPage };
+
     dispatch(getOrders(payload));
-  }, [perPage, currentPage]);
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
+  }, [perPage, currentPage, status]);
 
   return (
     <>
@@ -32,15 +32,16 @@ function Mypage() {
         <div className="orders-content">
           {orders?.map((order) => (
             <div key={order._id} className="orders-item">
-              <div className="orders-item-number">
-                <Link to={`/mypage/orders/${order._id}`}>
-                  <p>
-                    {order?._id}
-                    <span>
-                      <ChevronRightIcon className="icon" />
-                    </span>
-                  </p>
-                </Link>
+              <div
+                className="orders-item-number"
+                onClick={() => navigate(`/mypage/orders/${order._id}`)}
+              >
+                <p>
+                  {order?._id}
+                  <span>
+                    <ChevronRightIcon className="icon" />
+                  </span>
+                </p>
               </div>
               <div className="orders-item-detail">
                 <div className="img">
@@ -62,7 +63,20 @@ function Mypage() {
                       {order?.items[0].color}]
                     </p>
                   )}
-                  <p>배송 중</p>
+
+                  {!status && (
+                    <p>
+                      {
+                        order?.orderStatus
+                          .filter((os) => os.isCompleted)
+                          .slice(-1)[0].type
+                      }
+                    </p>
+                  )}
+                  {status === "refund" && (
+                    <p>결제상태: {order?.paymentStatus}</p>
+                  )}
+                  {status === "delivered" && <p>배송완료</p>}
                 </div>
               </div>
             </div>

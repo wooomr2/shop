@@ -1,0 +1,40 @@
+@import "../../../variable.scss";
+
+.products-items {
+  width: 100%;
+  height: inherit;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1.8rem;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  .hasDiscount {
+    text-decoration: line-through;
+    color: #898989;
+  }
+
+  .discount {
+    margin-left: 0.5rem;
+  }
+}
+
+@media screen and (max-width: $md) {
+  .products-items {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .products-items {
+    font-size: 1.2rem;
+    
+    p {
+      padding-left: 1rem;
+    }
+  }
+}

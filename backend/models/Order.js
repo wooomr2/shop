@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema(
       },
       mobile: { type: String },
     },
-    
+
     address: {
       _id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -90,6 +90,10 @@ const orderSchema = new mongoose.Schema(
           type: Number,
           required: true,
         },
+        isReviewed: {
+          type: Boolean,
+          default: false,
+        },
       },
     ],
 
@@ -120,6 +124,8 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "completed", "cancelled", "refund"],
       required: true,
     },
+
+    refundRequest: { type: Number, default: 0 },
 
     orderStatus: [
       {

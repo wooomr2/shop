@@ -9,26 +9,29 @@ import Signup from "./pages/auth/signup/Signup";
 import Brand from "./pages/brand/Brand";
 import Cart from "./pages/cart/Cart";
 import Checkout from "./pages/checkout/Checkout";
-import Collection from "./pages/collections/Collection";
+import Collection from "./pages/collections/collection/Collection";
 import Collections from "./pages/collections/Collections";
 import Contact from "./pages/etc/contact/Contact";
 import Missing from "./pages/etc/missing/Missing";
 import Success from "./pages/etc/success/Success";
 import UnAuthorized from "./pages/etc/unauthorized/Unauthorized";
 import Home from "./pages/home/Home";
-import Lookbook from "./pages/lookbooks/Lookbook";
+import Lookbook from "./pages/lookbooks/lookbook/Lookbook";
 import Lookbooks from "./pages/lookbooks/Lookbooks";
 import Addresses from "./pages/mypage/addresses/Addresses";
 import Mypage from "./pages/mypage/Mypage";
 import Profile from "./pages/mypage/profile/Profile";
-import Order from "./pages/mypage/orders/Order";
+import Order from "./pages/mypage/orders/order/Order";
 import Orders from "./pages/mypage/orders/Orders";
-import Reviews from "./pages/mypage/reviews/Reviews";
 import Product from "./pages/product/Product";
 import Search from "./pages/search/Search";
 import Shopping from "./pages/shopping/Shopping";
 import Stripe from "./pages/stripe/Stripe";
 import { ROLES } from "./utils/roleList";
+import Reviewables from "./pages/mypage/reviewables/Reviewables";
+import Reviews from "./pages/mypage/reviews/Reviews";
+import ReviewForm from "./pages/mypage/reviews/submit/ReviewForm";
+import Review from "./pages/mypage/reviews/review/Review";
 
 function App() {
   return (
@@ -53,7 +56,10 @@ function App() {
             <Route path="mypage/" element={<Mypage />}>
               <Route path="orders" element={<Orders />} />
               <Route path="orders/:id" element={<Order />} />
+              <Route path="reviewables" element={<Reviewables />} />
               <Route path="reviews" element={<Reviews />} />
+              <Route path="reviews/:id" element={<Review />} />
+              <Route path="reviews/submit" element={<ReviewForm />} />
               <Route path="addresses" element={<Addresses />} />
               <Route path="profile" element={<Profile />} />
             </Route>

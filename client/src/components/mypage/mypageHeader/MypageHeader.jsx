@@ -1,22 +1,11 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser, selectTotalPaymentPrice } from "../../../slice/userSlice";
+import { useSelector } from "react-redux";
 import toKRW from "../../../utils/toKRW";
 import "./mypageHeader.scss";
 
-
 function MypageHeader() {
-  const dispatch = useDispatch();
-  const { user, addresses, total, orders } = useSelector((store) => store.user);
-  const totalPrice = useSelector(selectTotalPaymentPrice);
-
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-
-  console.log({ user, addresses });
-  console.log("user?.orders?.length", user?.orders?.length);
+  const user = useSelector((store) => store.user.user);
+  const orderStats = useSelector((store) => store.user.orderStats);
 
   return (
     <div className="mypage">
@@ -31,7 +20,7 @@ function MypageHeader() {
           <ul className="userInfo">
             <li className="userInfo-item">
               <span>구매 횟수</span>
-              <span>{orders?.length}</span>
+              <span>{orderStats?.count}</span>
               <span>회</span>
               <span>
                 <ChevronRightIcon className="icon" />
@@ -39,7 +28,7 @@ function MypageHeader() {
             </li>
             <li className="userInfo-item">
               <span>구매 금액</span>
-              <span>{toKRW(totalPrice)}</span>
+              <span>{toKRW(orderStats?.priceAmount)}</span>
               <span>원</span>
               <span>
                 <ChevronRightIcon className="icon" />
@@ -47,7 +36,7 @@ function MypageHeader() {
             </li>
             <li className="userInfo-item">
               <span>마일리지</span>
-              <span>{toKRW(user.point)}</span>
+              <span>{toKRW(user?.point)}</span>
               <span>M</span>
               <span>
                 <ChevronRightIcon className="icon" />
@@ -55,7 +44,7 @@ function MypageHeader() {
             </li>
             <li className="userInfo-item">
               <span>취소/교환/반품</span>
-              <span>0</span>
+              <span>{orderStats?.refundCount}</span>
               <span>회</span>
               <span>
                 <ChevronRightIcon className="icon" />

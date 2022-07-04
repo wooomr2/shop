@@ -3,7 +3,8 @@ import axios from "../utils/axiosInstance";
 import { clearCart } from "./cartSlice";
 
 const initialState = {
-  user:{},
+  user: {},
+  orderStats: {},
   total: 0,
   orders: [],
   order: {},
@@ -96,6 +97,18 @@ export const getOrder = createAsyncThunk(
   }
 );
 
+export const getOrderStats = createAsyncThunk(
+  "user/getOrderStats",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.get(`/orders/stats`);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -146,6 +159,8 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
 
+    /////////////////////////////////////////////////////////////////////
+
     [getOrders.pending]: (state) => {
       state.isLoading = true;
     },
@@ -169,6 +184,17 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
 
+    [getOrderStats.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getOrderStats.fulfilled]: (state, action) => {
+      state.orderStats = action.payload.orderStats[0];
+      state.isLoading = false;
+    },
+    [getOrderStats.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
     [addOrder.pending]: (state) => {
       state.isLoading = true;
     },
@@ -183,12 +209,5 @@ const userSlice = createSlice({
 });
 
 // export const {} = userSlice.actions;
-
-export const selectTotalPaymentPrice = (state) =>
-  state.user.orders.reduce(
-    (totalPrice, item) => totalPrice + item.paymentPrice,
-    0
-  );
-
 
 export default userSlice.reducer;

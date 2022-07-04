@@ -5,6 +5,8 @@ const Order = require("../models/Order");
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 const User = require("../models/User");
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 function updatePromise(condition, update) {
   return new Promise((resolve, reject) => {
@@ -81,12 +83,50 @@ exports.getAllOrders = asyncHandler(async (req, res, next) => {
   res.status(200).json({ orders });
 });
 
+exports.getOrderStats = asyncHandler(async (req, res, next) => {
+  const orderStats = await Order.aggregate([
+    { $match: { "user._id": new ObjectId(req.userId) } },
+    {
+      $group: {
+        _id: null,
+        count: { $sum: 1 },
+        priceAmount: { $sum: "$totalPrice" },
+        refundCount: { $sum: "$refundRequest" },
+      },
+    },
+  ]).exec();
+
+  res.status(200).json({ orderStats });
+});
+
 exports.getOrders = asyncHandler(async (req, res) => {
-  const total = await Order.find({ "user._id": req.userId }).countDocuments();
-  const orders = await new Feature(
-    Order.find({ "user._id": req.userId }),
-    req.body
-  )
+  const { status, ...queryOptions } = req.body;
+  let findQuery = {};
+
+  switch (status) {
+    case "delivered":
+      findQuery = {
+        "user._id": req.userId,
+        orderStatus: {
+          $elemMatch: { $and: [{ type: "delivered" }, { isCompleted: true }] },
+        },
+      };
+      break;
+    case "refund":
+      findQuery = { "user._id": req.userId, refundRequest: true };
+      break;
+    default:
+      findQuery = {
+        "user._id": req.userId,
+        refundRequest: false,
+        orderStatus: {
+          $elemMatch: { $and: [{ type: "delivered" }, { isCompleted: false }] },
+        },
+      };
+  }
+
+  const total = await Order.find(findQuery).countDocuments();
+  const orders = await new Feature(Order.find(findQuery), queryOptions)
     .pagination()
     .sort()
     .getQuery();
@@ -104,7 +144,6 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
 
 exports.updateOrderStatus = asyncHandler(async (req, res, next) => {
   const { _id, type } = req.body;
-  console.log(_id, type);
 
   //orderStatus ["ordered", "packed", "shipped", "delivered"] 변경
   const updatedOrder = await Order.findOneAndUpdate(

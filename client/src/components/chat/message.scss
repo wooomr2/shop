@@ -1,0 +1,62 @@
+@import "../../variable.scss";
+
+.message {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  row-gap: 0.2rem;
+
+  &.own {
+    align-items: flex-end;
+    .messageTop {
+      &-user {
+        .messageImg {
+          display: none;
+        }
+        
+        .messageUsername {
+          width: 100%;
+          text-align: right;         
+        }
+      }
+
+      .messageText {
+        background-color: rgb(224, 224, 224);
+        color: black;
+      }
+    }
+  }
+
+  .messageTop {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    &-user {
+      display: flex;
+      align-items: center;
+      column-gap: 0.5rem;
+
+      .messageImg {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .messageText {
+      padding: 1rem;
+      border-radius: 1.5rem;
+      background-color: $main-color;
+      color: white;
+      width: max-content;
+      max-width: 30rem;
+    }
+  }
+
+  .messageBottom {
+    padding-left: 0.7rem;
+    font-size: 1.3rem;
+  }
+}

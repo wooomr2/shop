@@ -18,8 +18,8 @@ export const signin = createAsyncThunk(
 
       const { accessToken, user } = res.data;
 
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
 
       return res.data;
     } catch (err) {
@@ -33,7 +33,7 @@ export const signout = createAsyncThunk(
   async (dummy, thunkAPI) => {
     try {
       await axios.get("/auth/signout");
-      sessionStorage.clear();
+      localStorage.clear();
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }

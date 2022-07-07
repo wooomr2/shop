@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 import { clearCart } from "./cartSlice";
+import { getUser } from "./userSlice";
 
 const initialState = {
   isAuthenticated: false,
   matchResult: "",
+  matchPwd: false,
   isLoading: false,
   error: null,
 };
@@ -14,6 +16,19 @@ export const matchEmail = createAsyncThunk(
   async (email, thunkAPI) => {
     try {
       const res = await axios.get(`/auth/${email}`);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const matchPassword = createAsyncThunk(
+  "/auth/matchPassword",
+  async (user, thunkAPI) => {
+    try {
+      const res = await axios.post("/auth/check", user);
+      console.log("res", res);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -41,8 +56,8 @@ export const signin = createAsyncThunk(
 
       const { accessToken, user } = res.data;
 
-      sessionStorage.setItem("accessToken", accessToken);
-      sessionStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
 
       return res.data;
     } catch (err) {
@@ -56,8 +71,8 @@ export const signout = createAsyncThunk(
   async (dummy, thunkAPI) => {
     try {
       await axios.get("/auth/signout");
-      
-      sessionStorage.clear();
+
+      localStorage.clear();
       thunkAPI.dispatch(clearCart());
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -65,12 +80,29 @@ export const signout = createAsyncThunk(
   }
 );
 
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (user, thunkAPI) => {
+    try {
+      console.log('user', user);
+      await axios.post("/auth/update", user);
+
+      thunkAPI.dispatch(getUser());
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+)
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     clearMatchResult: (state) => {
       state.matchResult = "";
+    },
+    clearMatchPassword: (state) => {
+      state.matchPwd = false;
     },
     clearError: (state) => {
       state.error = null;
@@ -86,6 +118,18 @@ const authSlice = createSlice({
     },
     [matchEmail.rejected]: (state) => {
       state.isLoading = false;
+    },
+
+    [matchPassword.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [matchPassword.fulfilled]: (state, action) => {
+      state.matchPwd = action.payload.result;
+      state.isLoading = false;
+    },
+    [matchPassword.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
     },
 
     [signup.pending]: (state) => {
@@ -127,6 +171,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearMatchResult, clearError } = authSlice.actions;
+export const { clearMatchResult, clearError,clearMatchPassword } = authSlice.actions;
 
 export default authSlice.reducer;

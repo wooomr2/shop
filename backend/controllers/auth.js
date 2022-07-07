@@ -142,6 +142,24 @@ exports.matchEmail = asyncHandler(async (req, res, next) => {
   return res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });
 });
 
+exports.matchPassword = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password)
+    return next(new ErrorResponse("Email 또는 Password 입력하세요", 400));
+
+  const user = await User.findOne({ email }).select("+password").exec();
+  if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
+
+  const isMatch = await user.matchPassword(password);
+  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 401));
+
+  return res.status(200).json({ result: true });
+});
+
+exports.updateProfile = asyncHandler(async (req, res, next) => {
+});
+
 exports.forgotPassword = (req, res, next) => {
   const { email } = req.body;
 

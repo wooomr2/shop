@@ -6,7 +6,7 @@ import "./menu.scss";
 function Menu({ menuOpen, setMenuOpen }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = sessionStorage.getItem("user");
+  const user = localStorage.getItem("user");
 
   const logout = () => {
     dispatch(signout());

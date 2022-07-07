@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-function useSessionStorage(str = null) {
-  const [value, setValue] = useState(JSON.parse(sessionStorage.getItem(str)));
+function uselocalStorage(str = null) {
+  const [value, setValue] = useState(JSON.parse(localStorage.getItem(str)));
 
   return value;
 }
 
-export default useSessionStorage;
+export default uselocalStorage;

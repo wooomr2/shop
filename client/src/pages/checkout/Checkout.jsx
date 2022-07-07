@@ -85,12 +85,18 @@ function Checkout() {
         <CheckoutItem title={"주문자 정보"}>
           {user && (
             <div className="buyer-info">
-              <div className="buyer-info-left">이름</div>{" "}
-              <div>{user.username}</div>
-              <div className="buyer-info-left">이메일</div>{" "}
-              <div>{user.email}</div>
-              <div className="buyer-info-left">연락처</div>{" "}
-              <div>{user.mobile}</div>
+              <div className="buyer-info-item">
+                <p className="item-left">이름</p>
+                <p className="item-right">{user.username}</p>
+              </div>
+              <div className="buyer-info-item">
+                <p className="item-left">이메일</p>
+                <p className="item-right">{user.email}</p>
+              </div>
+              <div className="buyer-info-item">
+                <p className="item-left">연락처</p>
+                <p className="item-right">{user.mobile}</p>
+              </div>
             </div>
           )}
         </CheckoutItem>

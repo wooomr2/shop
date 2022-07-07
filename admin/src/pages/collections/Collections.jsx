@@ -9,38 +9,48 @@ function Collections() {
   const { collections } = useSelector((store) => store.collection);
 
   return (
-    <div>
-      <button onClick={() => dispatch(openModal("addCollection"))}>add</button>
-      <CollectionModal />
-
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {collections?.map((collection, i) => (
-            <tr key={i}>
-              <td>
-                <Link to={`/collections/${collection._id}`} state={collection}>
-                  {collection.name}
-                </Link>
-              </td>
-              <td>{collection.description}</td>
-              <td>
-                <button
-                  onClick={() => dispatch(deleteCollection(collection._id))}
-                >
-                  del
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="list">
+    <div className="list-btn">
+      <h2>OUR COLLECTIONS</h2>
+      <button onClick={() => dispatch(openModal("addCollection"))}>
+        add
+      </button>
     </div>
+    <CollectionModal />
+
+    <table className="list-table">
+      <thead>
+        <tr className="thead-tr">
+          <th>Name</th>
+          <th>Description</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        {collections?.map((collection, i) => (
+          <tr key={i} className="tbody-tr">
+            <td className="tbody-tr-name">
+              <Link
+                to={`/collections/${collection._id}`}
+                state={collection}
+                className="navi"
+              >
+                {collection.name}
+              </Link>
+            </td>
+            <td>{collection.description}</td>
+            <td>
+              <button
+                onClick={() => dispatch(deleteCollection(collection._id))}
+              >
+                del
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
   );
 }
 

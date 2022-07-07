@@ -1,0 +1,229 @@
+@import "../../variable.scss";
+
+.chat {
+  position: fixed;
+  bottom: 10rem;
+  right: 10rem;
+  font-size: 1.4rem;
+  z-index: 3000;
+
+  .chat-btn {
+    cursor: pointer;
+    background-color: $black-light;
+    color: #fff;
+    font-size: 4rem;
+    height: 5rem;
+    width: 5rem;
+    text-align: center;
+    line-height: 4.5rem;
+    opacity: 1;
+    transition: transform 0.2s ease;
+
+    &.open {
+      transition: all 0.4s ease;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    &:not(open) {
+      transition: all 0.4s ease;
+    }
+
+    &:hover {
+      transform: translateY(-.2rem);
+    }
+
+    &-alarm {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      background-color: #eee;
+      color: $black-light;
+      border-radius: 50%;
+      height: 2rem;
+      width: 2rem;
+      right: -1rem;
+      top: -1rem;
+      font-size: 2rem;
+      line-height: 2.4rem;
+    }
+  }
+
+  .chatBox {
+    display: flex;
+    flex-direction: column;
+    width: 37rem;
+    height: 0rem;
+    opacity: 0;
+    position: fixed;
+    bottom: 10rem;
+    right: 10rem;
+    background-color: #fcfcfc;
+    border-radius: 2.5rem;
+    transition: 0.4s ease;
+    overflow: hidden;
+
+    &.open {
+      height: 65.5rem;
+      opacity: 1;
+    }
+
+    &-title {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5rem;
+      border-bottom: 1px solid $line-color;
+
+      .title {
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+
+      .close {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        &-icon {
+          font-size: 1.7rem;
+        }
+      }
+    }
+
+    &-content {
+      padding-right: 0.3rem;
+
+      .chatBoxTop {
+        height: 48.6rem;
+        overflow: auto;
+
+        &-chat {
+          padding: 0 1.5rem;
+          padding-right: 1.2rem;
+        }
+
+        &::-webkit-scrollbar {
+          width: 2px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #fcfcfc;
+          height: 40%;
+        }
+
+        &:hover {
+          &::-webkit-scrollbar-thumb {
+            background-color: $line-color;
+          }
+        }
+      }
+    }
+
+    .chatBoxBottom {
+      padding: 1.5rem;
+
+      .chatMessageInput {
+        padding: 0.5rem;
+        width: 100%;
+        height: 6rem;
+        border: 1px solid $line-color;
+        resize: none;
+        outline: none;
+        border-radius: 1rem;
+      }
+
+      .chatSubmitButton {
+        cursor: pointer;
+        width: 100%;
+        padding: 0.5rem 0;
+        font-size: 1.4rem;
+        border: none;
+        background-color: $main-color;
+        color: #fff;
+        transition: background-color 0.2s ease;
+        border-radius: 1rem;
+
+        &:hover {
+          background-color: $sub-color;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .chat {
+    font-size: $mdFont;
+
+    .chatBox {
+      &-content {
+        .chatBoxBottom {
+          .chatSubmitButton {
+            font-size: $mdFont;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .chat {
+    font-size: $smFont;
+    right: unset;
+    bottom: 5rem;
+    left: 5rem;
+
+    .chat-btn {
+      height: 4rem;
+      width: 4rem;
+      font-size: 3rem;
+      line-height: 4.4rem;
+
+      &-alarm {
+        top: -0.5rem;
+        right: -0.5rem;
+        height: 1.5rem;
+        width: 1.5rem;
+        font-size: 1.4rem;
+        line-height: 2rem;
+      }
+    }
+
+    .chatBox {
+      width: 100vw;
+      bottom: 0;
+      left: 0;
+
+      &.open {
+        height: 57.95rem;
+        border-radius: 2rem 2rem 0 0;
+      }
+
+      &-title {
+        .title {
+          font-size: 1.4rem;
+        }
+
+        .close {
+          &-icon {
+            font-size: 1.4rem;
+          }
+        }
+      }
+
+      &-content {
+        .chatBoxTop {
+          height: 40.85rem;
+        }
+
+        .chatBoxBottom {
+          .chatSubmitButton {
+            font-size: $smFont;
+          }
+        }
+      }
+    }
+  }
+}

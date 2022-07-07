@@ -1,8 +1,9 @@
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
+import useToggle from "../../hooks/useToggle";
 import axios from "../../utils/axiosInstance";
-import "./chat.css";
-import Chatroom from "./Chatroom";
+import "./chat.scss";
 import Message from "./Message";
 
 function Chat() {
@@ -16,9 +17,11 @@ function Chat() {
 
   const [alarm, setAlarm] = useState(0);
 
+  const [chatOpen, toggleChatOpen] = useToggle(false);
+
   const socket = useRef();
   const scrollRef = useRef();
-  const { roles, ...user } = JSON.parse(sessionStorage.getItem("user"));
+  const { roles, ...user } = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     if (user) {
@@ -142,23 +145,32 @@ function Chat() {
 
   return (
     <div className="chat">
-      <button onClick={() => addChatroom(user._id)}>+ {alarm}</button>
-
-      <div className="chatrooms">
-        {chatrooms?.map((c, i) => (
-          <div key={i} onClick={() => setCurrentChatroom(c)}>
-            <Chatroom chatroom={c} />
-          </div>
-        ))}
+      <div
+        className={`chat-btn ${chatOpen ? "open" : ""}`}
+        onClick={() => {
+          addChatroom(user._id);
+          toggleChatOpen();
+        }}
+      >
+        <div className="chat-btn-name">CS</div>
+        {alarm > 0 && <div className="chat-btn-alarm">{alarm}</div>}
       </div>
 
-      <div className="chatBox">
-        <div className="chatBoxWrapper">
-          {currentChatroom ? (
+      <div className={`chatBox ${chatOpen ? "open" : ""}`}>
+        <div className="chatBox-title">
+          <div className="title">
+            <p>1:1 문의하기</p>
+          </div>
+          <div className="close" onClick={toggleChatOpen}>
+            <CloseIcon className="close-icon" />
+          </div>
+        </div>
+        <div className="chatBox-content">
+          {currentChatroom && (
             <>
               <div className="chatBoxTop">
                 {messages.map((m, i) => (
-                  <div key={i} ref={scrollRef}>
+                  <div key={i} ref={scrollRef} className="chatBoxTop-chat">
                     <Message
                       message={m}
                       own={m.sender === user._id}
@@ -173,6 +185,7 @@ function Chat() {
                   </div>
                 ))}
               </div>
+
               <div className="chatBoxBottom">
                 <textarea
                   className="chatMessageInput"
@@ -185,8 +198,6 @@ function Chat() {
                 </button>
               </div>
             </>
-          ) : (
-            <span className="noChatroom">채팅방 여세요</span>
           )}
         </div>
       </div>

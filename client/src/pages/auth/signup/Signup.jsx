@@ -12,7 +12,7 @@ function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const matchResult = useSelector((store) => store.auth.mathResult);
-  const user = sessionStorage.getItem("user");
+  const user = localStorage.getItem("user");
 
   const emailRef = useRef();
   const [email, onChangeEmail] = useInput("");

@@ -12,23 +12,31 @@ function Users() {
   }, []);
 
   return (
-    <div>
-      <table>
+    <div className="list">
+       <div className="list-btn">
+      <h2>OUR USERS</h2>
+    </div>
+
+      <table className="list-table">
         <thead>
-          <tr>
-            <th>id</th>
-            <th>username</th>
-            <th>email</th>
-            <th>roles</th>
-            <th>delete</th>
+          <tr className="thead-tr">
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Note</th>
           </tr>
         </thead>
         <tbody>
           {users?.map((user, i) => (
-            <tr key={i}>
+            <tr key={i} className="tbody-tr">
               <td>{user._id}</td>
-              <td>
-                <Link to={`/users/${user.username}`} state={user}>
+              <td className="tbody-tr-name">
+                <Link
+                  to={`/users/${user.username}`}
+                  state={user}
+                  className="navi"
+                >
                   {user.username}
                 </Link>
               </td>

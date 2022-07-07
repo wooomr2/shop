@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import MypageHeader from "../../components/mypage/mypageHeader/MypageHeader";
 import MypageSidebar from "../../components/mypage/mypageSidebar/MypageSidebar";
 import { getOrderStats, getUser } from "../../slice/userSlice";
+import "./mypage.scss";
 
 function Mypage() {
   const dispatch = useDispatch();

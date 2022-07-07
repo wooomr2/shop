@@ -1,0 +1,41 @@
+@import "../../../../variable.scss";
+
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    width: 100%;
+
+    .form-item {
+      display: flex;
+      
+      &-left {
+        padding: 0.7rem 0;
+        width: 13rem;
+        font-weight: 600;
+      }
+
+      > input {
+        padding: 0.7rem;
+        background-color: #fff;
+        border: 1px solid $line-color;
+        outline: none;
+      }
+
+      > textarea {
+        width: calc(100% - 13rem);
+        height: 8rem;
+        padding: 0.7rem;
+        background-color: #fff;
+        border: 1px solid $line-color;
+        outline: none;
+        resize: none;
+      }
+    }
+  }
+}

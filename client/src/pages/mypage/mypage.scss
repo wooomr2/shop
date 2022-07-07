@@ -1,0 +1,72 @@
+@import "../../variable.scss";
+
+.mypage {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 7rem 0;
+  width: 75%;
+  font-size: 1.4rem;
+
+  &-bottom {
+    margin-top: 5rem;
+    width: 100%;
+    display: flex;
+  
+    &-left {
+      width: 30%;
+    }
+
+    &-right {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: $lg) {
+  .mypage {
+    padding: 5rem 0;
+    width: 80%;
+
+    &-bottom {
+      margin-top: 4rem;
+      flex-direction: column;
+
+      &-left {
+        width: 100%;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid $line-color;
+      }
+
+      &-right {
+        padding-top: 4rem;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .mypage {
+    font-size: $mdFont;
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .mypage {
+    padding: 2rem 0;
+    font-size: $smFont;
+    
+    &-bottom {
+      margin-top: 2rem;
+
+      &-left {
+        padding-bottom: 2rem;
+      }
+
+      &-right {
+        padding-top: 2rem;
+      }
+    }
+  }
+}

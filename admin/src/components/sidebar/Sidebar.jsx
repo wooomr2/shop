@@ -9,80 +9,77 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   return (
+    <>
+    <input type="checkbox" id="nav-toggle" />
     <div className="sidebar">
-      <div className="top">
-        <NavLink to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">admin</span>
-        </NavLink>
+      <div className="sidebar-brand">
+        <div className="sidebar-brand-img">
+          <img src="./favicon.ico" alt="icon" />
+        </div>
+        <h1>HOW ABOUT OOTD</h1>
       </div>
-      <hr />
 
-      <div className="center">
+      <div className="sidebar-menu">
         <ul>
-          <p className="title">MAIN</p>
           <li>
-            <NavLink to="/" style={{ textDecoration: "none" }}>
+            <NavLink to="/" className="sidebar-menu-item">
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
             </NavLink>
           </li>
-          <p className="title">LIST</p>
           <li>
-            <NavLink to="/users" style={{ textDecoration: "none" }}>
+            <NavLink to="/users" className="sidebar-menu-item">
               <PersonOutlinedIcon className="icon" />
               <span>Users</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/categories" style={{ textDecoration: "none" }}>
+            <NavLink to="/categories" className="sidebar-menu-item">
               <CategoryIcon className="icon" />
               <span>Categories</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/products" style={{ textDecoration: "none" }}>
+            <NavLink to="/products" className="sidebar-menu-item">
               <InventoryIcon className="icon" />
               <span>Products</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/brands" style={{ textDecoration: "none" }}>
+            <NavLink to="/brands" className="sidebar-menu-item">
               <InventoryIcon className="icon" />
               <span>Brands</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/lookbooks" style={{ textDecoration: "none" }}>
+            <NavLink to="/lookbooks" className="sidebar-menu-item">
               <InventoryIcon className="icon" />
               <span>Lookbooks</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/collections" style={{ textDecoration: "none" }}>
+            <NavLink to="/collections" className="sidebar-menu-item">
               <InventoryIcon className="icon" />
               <span>Collections</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/orders" style={{ textDecoration: "none" }}>
+            <NavLink to="/orders" className="sidebar-menu-item">
               <LocalGroceryStoreIcon className="icon" />
               <span>Orders</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/delivery" style={{ textDecoration: "none" }}>
+            <NavLink to="/delivery" className="sidebar-menu-item">
               <LocalShippingIcon className="icon" />
               <span>Dilivery</span>
             </NavLink>
           </li>
         </ul>
       </div>
-
-      <div className="bottom">
-        <div className="colorOption"></div>
-        <div className="colorOption"></div>
-      </div>
+      <div className="close"></div>
     </div>
+  </>
   );
 }
 

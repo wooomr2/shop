@@ -9,6 +9,7 @@ import {
 } from "../../slice/categorySlice";
 import { closeModal } from "../../slice/modalSlice";
 import publicURL from "../../utils/publicURL";
+import "./modal.scss";
 
 function CategoryModal({
   setChecked,

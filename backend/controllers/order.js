@@ -118,10 +118,10 @@ exports.getOrders = asyncHandler(async (req, res) => {
     default:
       findQuery = {
         "user._id": req.userId,
-        refundRequest: false,
-        orderStatus: {
-          $elemMatch: { $and: [{ type: "delivered" }, { isCompleted: false }] },
-        },
+        // refundRequest: false,
+        // orderStatus: {
+        //   $elemMatch: { $and: [{ type: "delivered" }, { isCompleted: false }] },
+        // },
       };
   }
 

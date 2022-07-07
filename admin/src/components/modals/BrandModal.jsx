@@ -1,8 +1,9 @@
 import { Box, Modal } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addBrand } from "../../slice/brandSlice";
 import { closeModal } from "../../slice/modalSlice";
+import "./modal.scss";
 
 function BrandModal() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ function BrandModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [banners, setBanners] = useState([]);
-
+  const fileRef = useRef(null);
 
   const resetState = () => {
     setName("");
@@ -54,38 +55,51 @@ function BrandModal() {
             dispatch(closeModal()) && resetState();
           }}
         >
-          <Box sx={style}>
-            <form onSubmit={handleSubmit}>
-              <p>Add New Brand</p>
+            <Box className="modal-wrapper">
+            <form onSubmit={handleSubmit} className="modal-wrapper-form">
+              <p className="form-title">Add New Brand</p>
               <input
+                className="form-input"
                 placeholder="Brand Title"
                 required
                 onChange={(e) => setName(e.target.value)}
               />
               <input
+                className="form-input"
                 placeholder="Brand Description"
                 required
                 onChange={(e) => setDescription(e.target.value)}
               />
 
-              <span>Banner images</span>
+              <p className="form-imgName">Banner images</p>
               {banners &&
                 banners.map((img, i) => (
-                  <div key={i}>
-                    <img src={URL.createObjectURL(img)} alt="" height="50" />
+                  <div key={i} className="form-imgWrapper">
+                    <img src={URL.createObjectURL(img)} alt="" />
                   </div>
                 ))}
+              <button
+                type="button"
+                className="form-file"
+                onClick={() => {
+                  fileRef.current.click();
+                }}
+              >
+                이미지 업로드
+              </button>
+              <input
+                ref={fileRef}
+                type="file"
+                id="file"
+                multiple
+                accept=".png, .jpeg, .jpg"
+                onChange={(e) => handleBannerImgs(e.target.files)}
+              />
 
-                <input
-                  type="file"
-                  id="file"
-                  multiple
-                  accept=".png, .jpeg, .jpg"
-                  onChange={(e) => handleBannerImgs(e.target.files)}
-                />
-
-              <button type="submit">submit</button>
-              <button type="reset" onClick={resetState}>
+              <button type="submit" className="form-btn">
+                submit
+              </button>
+              <button type="reset" onClick={resetState} className="form-btn">
                 reset
               </button>
             </form>
@@ -97,15 +111,3 @@ function BrandModal() {
 }
 
 export default BrandModal;
-
-const style = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 450,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};

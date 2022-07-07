@@ -1,4 +1,3 @@
-import "./layout.css";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
 import Header from "./header/Header";
@@ -9,6 +8,7 @@ import { getCategories } from "../slice/categorySlice";
 import { getCollections } from "../slice/collectionSlice";
 import { getLookbooks } from "../slice/lookbookSlice";
 import { getProducts } from "../slice/productSlice";
+import "./layout.scss";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -25,14 +25,12 @@ function Layout() {
 
   return (
     <div className="layout">
-      <aside>
-        <Sidebar />
-      </aside>
-      <main>
-        <Header />
-        <Outlet />
-      </main>
-    </div>
+    <Sidebar />
+    <main>
+      <Header />
+      <Outlet />
+    </main>
+  </div>
   );
 }
 

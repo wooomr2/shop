@@ -15,7 +15,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const user = sessionStorage.getItem("user");
+  const user = localStorage.getItem("user");
   const cartItems = useSelector((store) => store.cart.cartItems);
   const [menuOpen, toggleMenuOpen, setMenuOpen] = useToggle(false);
   const [searchOpen, toggleSearchOpen, setSearchOpen] = useToggle(false);

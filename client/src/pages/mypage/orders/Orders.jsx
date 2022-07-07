@@ -60,7 +60,7 @@ function Mypage() {
                   {order?.items && (
                     <p>
                       [옵션: {order?.items[0]?.size}] / [컬러:{" "}
-                      {order?.items[0].color}]
+                      {order?.items[0]?.color}]
                     </p>
                   )}
 
@@ -74,7 +74,7 @@ function Mypage() {
                     </p>
                   )}
                   {status === "refund" && (
-                    <p>결제상태: {order?.paymentStatus}</p>
+                    <p>{order?.paymentStatus === "completed" ? "반품 요청 중" : ""}</p>
                   )}
                   {status === "delivered" && <p>배송완료</p>}
                 </div>

@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux";
 import { useLocation  } from "react-router-dom";
 import { upsertReview } from "../../../../slice/reviewSlice";
 import publicURL from "../../../../utils/publicURL";
+import "./reviewForm.scss";
 
 function ReviewForm() {
   const dispatch = useDispatch();
   const location = useLocation();
   const review = location.state;
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");

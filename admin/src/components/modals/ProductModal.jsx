@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../slice/productSlice";
 import { closeModal } from "../../slice/modalSlice";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
+import "./modal.scss";
 
 function ProductModal() {
   const dispatch = useDispatch();
@@ -84,56 +85,70 @@ function ProductModal() {
             dispatch(closeModal()) && resetState();
           }}
         >
-          <Box sx={style}>
-            <form onSubmit={handleSubmit}>
-              <p>Add New product</p>
-              <input
-                placeholder="Name"
-                required
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                placeholder="Quantity"
-                required
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-              <input
-                placeholder="Price"
-                required
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <input
-                placeholder="Description"
-                required
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <input
-                placeholder="Brand"
-                required
-                onChange={(e) => setBrand(e.target.value)}
-              />
-              <input
-                placeholder="DiscountPrice"
-                required
-                onChange={(e) => setDiscountPrice(e.target.value)}
-              />
-              <input
-                placeholder="Code"
-                required
-                onChange={(e) => setCode(e.target.value)}
-              />
-              <input
-                placeholder="Color"
-                required
-                onChange={(e) => setColor(e.target.value)}
-              />
-              <input
-                placeholder="Stock"
-                required
-                onChange={(e) => setStock(e.target.value)}
-              />
+         <Box className="modal-wrapper">
+            <form onSubmit={handleSubmit} className="modal-wrapper-form">
+              <p className="form-title">Add New product</p>
+              <div className="form-inputWrapper">
+                <input
+                  className="form-input"
+                  placeholder="Name"
+                  required
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Quantity"
+                  required
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Price"
+                  required
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Description"
+                  required
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Brand"
+                  required
+                  onChange={(e) => setBrand(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="DiscountPrice"
+                  required
+                  onChange={(e) => setDiscountPrice(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Code"
+                  required
+                  onChange={(e) => setCode(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Color"
+                  required
+                  onChange={(e) => setColor(e.target.value)}
+                />
+                <input
+                  className="form-input"
+                  placeholder="Stock"
+                  required
+                  onChange={(e) => setStock(e.target.value)}
+                />
+              </div>
 
-              <select onChange={(e) => setCategory(e.target.value)}>
+              <select
+                onChange={(e) => setCategory(e.target.value)}
+                className="form-input"
+              >
                 <option defaultValue hidden>
                   Select Category
                 </option>
@@ -144,28 +159,30 @@ function ProductModal() {
                 ))}
               </select>
 
-              {productImgs &&
-                productImgs.map((img, i) => (
-                  <div key={i}>
-                    <img src={URL.createObjectURL(img)} alt="" height="50" />
-                  </div>
-                ))}
+              <div className="form-gridImg">
+                {productImgs &&
+                  productImgs.map((img, i) => (
+                    <div key={i} className="form-imgWrapper">
+                      <img src={URL.createObjectURL(img)} alt="" />
+                    </div>
+                  ))}
+              </div>
 
-              <label htmlFor="file">
-                <PermMediaIcon />
-                <span>Product images</span>
+              <label htmlFor="file" className="form-productImgs">
+                <PermMediaIcon /> <span>Product Images</span>
                 <input
                   type="file"
                   id="file"
                   multiple
                   accept=".png, .jpeg, .jpg"
-                  style={{ display: "none" }}
                   onChange={(e) => handleProductImgs(e.target.files)}
                 />
               </label>
 
-              <button type="submit">submit</button>
-              <button type="reset" onClick={resetState}>
+              <button className="form-btn" type="submit">
+                submit
+              </button>
+              <button className="form-btn" type="reset" onClick={resetState}>
                 reset
               </button>
             </form>
@@ -178,15 +195,3 @@ function ProductModal() {
 }
 
 export default ProductModal;
-
-const style = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};

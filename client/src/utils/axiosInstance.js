@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = sessionStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
 
     if (!config.headers["Authorization"]) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
       const res = await axiosInstance.get("/refresh");
 
       const newAccessToken = res.data.accessToken;
-      sessionStorage.setItem("accessToken", newAccessToken);
+      localStorage.setItem("accessToken", newAccessToken);
 
       prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
@@ -42,7 +42,7 @@ axiosInstance.interceptors.response.use(
     }
 
     if (error?.response?.status === 401) {
-      sessionStorage.clear();
+      localStorage.clear();
     }
 
     return Promise.reject(error);

@@ -15,7 +15,7 @@ function Cart() {
   const { cartItems } = useSelector((store) => store.cart);
   const totalQty = useSelector(selectTotalQty);
   const totalPrice = useSelector(selectTotalPrice);
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="cart-container">

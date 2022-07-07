@@ -8,37 +8,47 @@ function Brands() {
   const dispatch = useDispatch();
   const { brands } = useSelector((store) => store.brand);
 
-  return (
-    <div>
-      <button onClick={() => dispatch(openModal("addBrand"))}>add</button>
-      <BrandModal />
+  const deleteItem = (id) => () => {
+    if(window.confirm("정말 삭제하시겠습니까?") === true)
+      return dispatch(deleteBrand(id))
+    return;
+  };
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {brands?.map((brand, i) => (
-            <tr key={i}>
-              <td>
-                <Link to={`/brands/${brand.name}`} state={brand}>
-                  {brand.name}
-                </Link>
-              </td>
-              <td>{brand.description}</td>
-              <td>
-                <button onClick={() => dispatch(deleteBrand(brand._id))}>
-                  del
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+  return (
+    <div className="list">
+    <div className="list-btn">
+      <h2>OUR BRANDS</h2>
+      <button onClick={() => dispatch(openModal("addBrand"))}>add</button>
     </div>
+    <BrandModal />
+    <table className="list-table">
+      <thead>
+        <tr className="thead-tr">
+          <th className="thead-tr-th">Name</th>
+          <th className="thead-tr-th">Description</th>
+          <th className="thead-tr-th">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        {brands?.map((brand, i) => (
+          <tr key={i} className="tbody-tr">
+            <td className="tbody-tr-name">
+              <Link to={`/brands/${brand.name}`} state={brand} className="navi">
+                {brand.name}
+              </Link>
+            </td>
+            <td>{brand.description}</td>
+            <td>
+              <button onClick={deleteItem(brand._id)}>
+                삭제
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
   );
 }
 

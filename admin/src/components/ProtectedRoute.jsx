@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 function ProtectedRoute({ allowedRoles }) {
-  const accessToken = sessionStorage.getItem("accessToken");
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const accessToken = localStorage.getItem("accessToken");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const haveRoles = user?.roles?.find((role) => allowedRoles?.includes(role));
 

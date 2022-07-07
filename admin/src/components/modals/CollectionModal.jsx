@@ -1,13 +1,16 @@
 import { Box, Modal } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCollection } from "../../slice/collectionSlice";
 import { closeModal } from "../../slice/modalSlice";
+import "./modal.scss";
 
 function CollectionModal() {
   const dispatch = useDispatch();
   const { isOpen, modalType } = useSelector((store) => store.modal);
 
+  const bannerRef = useRef(null);
+  const cardRef = useRef(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -85,40 +88,47 @@ function CollectionModal() {
             dispatch(closeModal()) && resetState();
           }}
         >
-          <Box sx={style}>
-            <form onSubmit={handleSubmit}>
-              <p>Add New Collection</p>
+          <Box className="modal-wrapper">
+            <form onSubmit={handleSubmit} className="modal-wrapper-form">
+              <p className="form-title">Add New Collection</p>
               <input
+                className="form-input"
                 placeholder="Title"
                 required
                 onChange={(e) => setName(e.target.value)}
               />
               <textarea
+                className="form-textarea"
                 placeholder="Description"
                 required
                 onChange={(e) => setDescription(e.target.value)}
               />
               <input
+                className="form-input"
                 placeholder="Brand"
                 required
                 onChange={(e) => setBrand(e.target.value)}
               />
               <input
+                className="form-input"
                 placeholder="Lanched"
                 required
                 onChange={(e) => setLaunched(e.target.value)}
               />
               <input
+                className="form-input"
                 placeholder="Director"
                 required
                 onChange={(e) => setDirector(e.target.value)}
               />
               <input
+                className="form-input"
                 placeholder="Country"
                 required
                 onChange={(e) => setCountry(e.target.value)}
               />
               <input
+                className="form-input"
                 placeholder="Shop"
                 required
                 onChange={(e) => setShop(e.target.value)}
@@ -127,11 +137,21 @@ function CollectionModal() {
               <span>Banner images</span>
               {banners &&
                 banners.map((img, i) => (
-                  <div key={i}>
-                    <img src={URL.createObjectURL(img)} alt="" height="50" />
+                  <div key={i} className="form-imgWrapper">
+                    <img src={URL.createObjectURL(img)} alt="" />
                   </div>
                 ))}
+              <button
+                type="button"
+                className="form-file"
+                onClick={() => {
+                  bannerRef.current.click();
+                }}
+              >
+                배너 업로드
+              </button>
               <input
+                ref={bannerRef}
                 type="file"
                 id="file"
                 multiple
@@ -139,21 +159,35 @@ function CollectionModal() {
                 onChange={(e) => handleBannerImgs(e.target.files)}
               />
               <span>Card images</span>
-              {cards &&
-                cards.map((img, i) => (
-                  <div key={i}>
-                    <img src={URL.createObjectURL(img)} alt="" height="50" />
-                  </div>
-                ))}
+              <div className="form-gridImg">
+                {cards &&
+                  cards.map((img, i) => (
+                    <div key={i} className="form-imgWrapper">
+                      <img src={URL.createObjectURL(img)} alt="" />
+                    </div>
+                  ))}
+              </div>
+              <button
+                type="button"
+                className="form-file"
+                onClick={() => {
+                  cardRef.current.click();
+                }}
+              >
+                이미지 업로드
+              </button>
               <input
+                ref={cardRef}
                 type="file"
                 id="file"
                 multiple
                 accept=".png, .jpeg, .jpg"
                 onChange={(e) => handleCardImgs(e.target.files)}
               />
-              <button type="submit">submit</button>
-              <button type="reset" onClick={resetState}>
+              <button className="form-btn" type="submit">
+                submit
+              </button>
+              <button className="form-btn" type="reset" onClick={resetState}>
                 reset
               </button>
             </form>
@@ -165,15 +199,3 @@ function CollectionModal() {
 }
 
 export default CollectionModal;
-
-const style = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 450,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};

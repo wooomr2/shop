@@ -1,0 +1,99 @@
+@import "../variable.scss";
+
+main {
+  margin-left: 34.5rem;
+  transition: margin-left 0.3s ease;
+}
+
+#nav-toggle:checked ~ main {
+  margin-left: 6rem;
+}
+
+@media screen and (max-width: $lg) {
+  main {
+    margin-left: 0rem;
+  }
+
+  #nav-toggle:checked ~ main {
+    margin-left: 0rem;
+  }
+}
+
+.list {
+  padding: 0 2rem;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+
+  &-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+
+    > button {
+      padding: 0.7rem 2rem;
+      outline: none;
+      border: none;
+      font-size: 1.4rem;
+      border-radius: 0.7rem;
+      background-color: $sub-color;
+      transition: all 0.3s ease;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $main-color;
+        transform: translateY(-0.2rem);
+      }
+    }
+  }
+
+  &-table {
+    border-collapse: collapse;
+    border: 1px solid $line-color;
+    border-top: 3px solid $main-color;
+
+    .thead-tr {
+      > th {
+        border: 1px solid $line-color;
+        padding: 1.5rem;
+        font-size: 1.7rem;
+      }
+    }
+
+    .tbody-tr {
+      > td {
+        border: 1px solid $line-color;
+        padding: 0.5rem;
+        text-align: center;
+      }
+
+      &-name {
+        text-align: center;
+        
+        .navi {
+          &:hover {
+            font-weight: 600;
+          }
+        }
+      }
+
+      > td button {
+        border-radius: 0.7rem;
+        width: 100%;
+        padding: 1rem 0;
+        border: none;
+        outline: none;
+        background-color: $main-color;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: $black-light;
+        }
+      }
+    }
+  }
+}

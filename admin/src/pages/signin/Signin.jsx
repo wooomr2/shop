@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearError, signin } from "../../slice/authSlice";
+import "./signin.scss";
 
 function Signin() {
   const dispatch = useDispatch();
@@ -39,23 +40,36 @@ function Signin() {
   }, [error]);
 
   return (
-    <div className="signin">
-      <form onSubmit={login}>
-        <input
-          ref={emailRef}
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <div className="signinForm-container">
+    <div className="signinForm-title">
+      <h3>SIGN IN</h3>
+    </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Submit</button>
+    <div className="signinForm-wrapper">
+      <form onSubmit={login} className="signinForm">
+        <div className="form-box">
+          <input
+            type="email"
+            placeholder="Email"
+            ref={emailRef}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label htmlFor="email">Email</label>
+        </div>
+
+        <div className="form-box">
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label htmlFor="email">Password</label>
+        </div>
+
+        <button type="submit">로그인</button>
       </form>
     </div>
+  </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useLocation  } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { upsertReview } from "../../../../slice/reviewSlice";
 import publicURL from "../../../../utils/publicURL";
 import "./reviewForm.scss";
@@ -10,7 +10,7 @@ function ReviewForm() {
   const dispatch = useDispatch();
   const location = useLocation();
   const review = location.state;
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((store) => store.user.user);
 
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -31,7 +31,7 @@ function ReviewForm() {
     setComment(review.comment || "");
     setRating(review.rating || "");
     setReviewImgs(review.reviewImgs || []);
-  }, []);
+  }, [review]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

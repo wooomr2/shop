@@ -27,9 +27,21 @@ export const matchPassword = createAsyncThunk(
   "/auth/matchPassword",
   async (user, thunkAPI) => {
     try {
-      const res = await axios.post("/auth/check", user);
-      console.log("res", res);
+      const res = await axios.post("/auth/pwcheck", user);
       return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (user, thunkAPI) => {
+    try {
+      await axios.post("/auth/update", user);
+
+      thunkAPI.dispatch(getUser());
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -80,29 +92,12 @@ export const signout = createAsyncThunk(
   }
 );
 
-export const updateProfile = createAsyncThunk(
-  "auth/updateProfile",
-  async (user, thunkAPI) => {
-    try {
-      console.log('user', user);
-      await axios.post("/auth/update", user);
-
-      thunkAPI.dispatch(getUser());
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data);
-    }
-  }
-)
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     clearMatchResult: (state) => {
       state.matchResult = "";
-    },
-    clearMatchPassword: (state) => {
-      state.matchPwd = false;
     },
     clearError: (state) => {
       state.error = null;
@@ -116,8 +111,9 @@ const authSlice = createSlice({
       state.matchResult = action.payload.msg;
       state.isLoading = false;
     },
-    [matchEmail.rejected]: (state) => {
+    [matchEmail.rejected]: (state,action) => {
       state.isLoading = false;
+      state.error = action.payload.error;
     },
 
     [matchPassword.pending]: (state) => {
@@ -128,6 +124,18 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
     [matchPassword.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
+
+    [updateProfile.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateProfile.fulfilled]: (state, action) => {
+      state.matchPwd = false;
+      state.isLoading = false;
+    },
+    [updateProfile.rejected]: (state,action) => {
       state.isLoading = false;
       state.error = action.payload.error;
     },
@@ -171,6 +179,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearMatchResult, clearError,clearMatchPassword } = authSlice.actions;
+export const { clearMatchResult, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import useToggle from "../../hooks/useToggle";
 import axios from "../../utils/axiosInstance";
 import "./chat.scss";
-import Message from "./Message";
+import Message from "./message/Message";
 
 function Chat() {
   const [chatrooms, setChatrooms] = useState([]);

@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../hooks/useInput";
-import {
-  matchPassword,
-  clearMatchPassword,
-  clearError,
-  updateProfile,
-} from "../../../slice/authSlice";
-
+import { clearError, matchPassword, updateProfile } from "../../../slice/authSlice";
 import "./profile.scss";
 
 function Profile() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
   const { matchPwd, error } = useSelector((store) => store.auth);
-  const { email, username, mobile } = useSelector((store) => store.user.user);
+  const user = useSelector((store) => store.user.user);
+  const { email, username, mobile } = user;
+
+  const [name, onChangeName, setName] = useInput("");
+  const [phone, onChangePhone, setPhone] = useInput("");
   const [password, onChangePassword, setPassword] = useInput("");
   const [passwordCheck, setPasswordCheck] = useState("");
-console.log({email, mobile});
-
-  const [name, onChangeName, setName] = useInput(username);
-  const [phone, onChangePhone, setPhone] = useInput(mobile);
 
   const checkPassword = (e) => {
-    // matchPwd: false
     e.preventDefault();
     const user = {
       email,
@@ -45,6 +35,9 @@ console.log({email, mobile});
 
     if (!regPhone)
       return alert("연락처를 제대로 입력해주세요. (ex. 010-0000-0000)");
+    if (password.length > 0 && password.length < 6)
+      return alert("비밀번호는 최소 6자리여야 합니다");
+
     if (password.length > 0 && password !== passwordCheck)
       return alert("비밀번호가 일치하지 않습니다.");
 
@@ -61,7 +54,7 @@ console.log({email, mobile});
   useEffect(() => {
     setName(username);
     setPhone(mobile);
-  }, [username, mobile]);
+  }, [user]);
 
   useEffect(() => {
     if (error) {
@@ -71,14 +64,10 @@ console.log({email, mobile});
   }, [error]);
 
   useEffect(() => {
-    dispatch(clearMatchPassword());
-  }, [pathname]);
-
-  useEffect(() => {
     setPassword("");
+    setPasswordCheck("");
   }, [matchPwd]);
 
-  console.log("hi");
   return (
     <div className="profile">
       {!matchPwd && (

@@ -109,6 +109,18 @@ export const getOrderStats = createAsyncThunk(
   }
 );
 
+export const refundRequest = createAsyncThunk(
+  "user/refundRequest",
+  async (_id, thunkAPI) => {
+    try {
+      const res = await axios.post(`/orders/refund`, { _id });
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -125,6 +137,8 @@ const userSlice = createSlice({
     [getUser.rejected]: (state, action) => {
       state.isLoading = false;
     },
+
+    /////////////////////////////////////////////////////////////////////
 
     [getAddresses.pending]: (state) => {
       state.isLoading = true;
@@ -161,6 +175,17 @@ const userSlice = createSlice({
 
     /////////////////////////////////////////////////////////////////////
 
+    [addOrder.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [addOrder.fulfilled]: (state, action) => {
+      state.latestOrder = action.payload.order;
+      state.isLoading = false;
+    },
+    [addOrder.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
     [getOrders.pending]: (state) => {
       state.isLoading = true;
     },
@@ -195,19 +220,18 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
 
-    [addOrder.pending]: (state) => {
+    [refundRequest.pending]: (state) => {
       state.isLoading = true;
     },
-    [addOrder.fulfilled]: (state, action) => {
-      state.latestOrder = action.payload.order;
+    [refundRequest.fulfilled]: (state, action) => {
       state.isLoading = false;
     },
-    [addOrder.rejected]: (state, action) => {
+    [refundRequest.rejected]: (state, action) => {
       state.isLoading = false;
     },
   },
 });
 
-// export const {} = userSlice.actions;
+export const {} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,6 +4,7 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const ROLES = require("../config/roleList");
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 
 const sendToken = asyncHandler(async (req, res, user) => {
   const accessToken = user.generateAccessToken();
@@ -45,8 +46,8 @@ const sendToken = asyncHandler(async (req, res, user) => {
     user: {
       _id,
       roles,
-      username,
-      profileImg,
+      // username,
+      // profileImg,
     },
   });
 });
@@ -61,7 +62,7 @@ exports.adminSignin = asyncHandler(async (req, res, next) => {
   if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
 
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 401));
+  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 400));
 
   const isAdmin = Object.values(user.roles)
     .filter(Boolean)
@@ -83,7 +84,7 @@ exports.signin = asyncHandler(async (req, res, next) => {
   if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
 
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 401));
+  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 400));
 
   sendToken(req, res, user);
 });
@@ -139,7 +140,7 @@ exports.matchEmail = asyncHandler(async (req, res, next) => {
       .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
   }
 
-  return res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });
+  res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });
 });
 
 exports.matchPassword = asyncHandler(async (req, res, next) => {
@@ -152,12 +153,38 @@ exports.matchPassword = asyncHandler(async (req, res, next) => {
   if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
 
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 401));
+  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 400));
 
-  return res.status(200).json({ result: true });
+  res.status(200).json({ result: true });
 });
 
 exports.updateProfile = asyncHandler(async (req, res, next) => {
+  const { email, username, mobile, password } = req.body;
+
+  if (password.length > 5) {
+    await User.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          username,
+          password,
+          mobile,
+        },
+      }
+    );
+  } else {
+    await User.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          username,
+          mobile,
+        },
+      }
+    );
+  }
+
+  return res.status(200).json({ result: true });
 });
 
 exports.forgotPassword = (req, res, next) => {

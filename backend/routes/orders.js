@@ -1,5 +1,5 @@
 const express = require("express");
-const { addOrder, getOrder, getOrders, getAllOrders, updateOrder, updateOrderStatus, getOrderStats } = require("../controllers/order");
+const { addOrder, getOrder, getOrders, getAllOrders, updateOrder, updateOrderStatus, getOrderStats, refundRequest } = require("../controllers/order");
 const { verifyToken } = require("../middlewares/verifyToken")
 const { verifyRoles } = require("../middlewares/verifyRoles");
 const ROLES = require("../config/roleList");
@@ -15,6 +15,7 @@ router.post("/", verifyToken, verifyRoles(ROLES.USER), addOrder);
 router.post("/get", verifyToken, verifyRoles(ROLES.USER), getOrders);
 router.get("/stats", verifyToken, verifyRoles(ROLES.USER), getOrderStats);
 router.get("/:id", verifyToken, verifyRoles(ROLES.USER), getOrder);
+router.post("/refund", verifyToken, verifyRoles(ROLES.USER), refundRequest)
 
 
 

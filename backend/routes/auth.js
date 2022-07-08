@@ -10,12 +10,12 @@ router.post("/admin/signin", validateSignin, isValidated, adminSignin)
 router.post("/signin", validateSignin, isValidated, signin);
 router.post("/signup", validateSignup, isValidated, signup);
 router.get("/signout", signout);
-router.get("/:email", matchEmail)
 router.post("/forgot_password", forgotPassword);
 router.put("/reset_password/:resetToken", resetPassword);
 
 
-router.post("/check", isValidated, matchPassword);
-router.post("/update", isValidated, updateProfile);
+router.get("/:email", matchEmail)
+router.post("/pwcheck", validateSignin, isValidated, matchPassword);
+router.post("/update", updateProfile);
 
 module.exports = router;

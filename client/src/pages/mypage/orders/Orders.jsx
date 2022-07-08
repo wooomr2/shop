@@ -1,9 +1,9 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from "../../../components/pagination/Pagination";
-import { getOrders } from "../../../slice/userSlice";
+import { getOrders, refundRequest } from "../../../slice/userSlice";
 import publicURL from "../../../utils/publicURL";
 import "./orders.scss";
 
@@ -11,7 +11,7 @@ function Mypage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { total, orders } = useSelector((store) => store.user);
-  const perPage = 10;
+  const perPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
   const status = location.search.split("=")[1];
@@ -21,6 +21,10 @@ function Mypage() {
 
     dispatch(getOrders(payload));
   }, [perPage, currentPage, status]);
+
+  const currentStatus = (orderStatus) => {
+    return orderStatus.filter((os) => os.isCompleted).slice(-1)[0].type;
+  };
 
   return (
     <>
@@ -64,21 +68,24 @@ function Mypage() {
                     </p>
                   )}
 
-                  {!status && (
-                    <p>
-                      {
-                        order?.orderStatus
-                          .filter((os) => os.isCompleted)
-                          .slice(-1)[0].type
-                      }
-                    </p>
-                  )}
+                  {!status && <p>{currentStatus(order?.orderStatus)}</p>}
                   {status === "refund" && (
-                    <p>{order?.paymentStatus === "completed" ? "반품 요청 중" : ""}</p>
+                    <p>
+                      {order?.paymentStatus === "completed"
+                        ? "반품 요청 중"
+                        : ""}
+                    </p>
                   )}
                   {status === "delivered" && <p>배송완료</p>}
                 </div>
               </div>
+              {!status && (
+                <button onClick={() => dispatch(refundRequest(order._id))}>
+                  {currentStatus(order?.orderStatus) === "delivered"
+                    ? "반품요청하기"
+                    : "취소요청하기"}
+                </button>
+              )}
             </div>
           ))}
         </div>

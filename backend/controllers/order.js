@@ -107,6 +107,7 @@ exports.getOrders = asyncHandler(async (req, res) => {
     case "delivered":
       findQuery = {
         "user._id": req.userId,
+        refundRequest: 0,
         orderStatus: {
           $elemMatch: { $and: [{ type: "delivered" }, { isCompleted: true }] },
         },
@@ -118,7 +119,7 @@ exports.getOrders = asyncHandler(async (req, res) => {
     default:
       findQuery = {
         "user._id": req.userId,
-        // refundRequest: false,
+        // refundRequest: 0,
         // orderStatus: {
         //   $elemMatch: { $and: [{ type: "delivered" }, { isCompleted: false }] },
         // },
@@ -168,6 +169,25 @@ exports.updatePaymentStatus = asyncHandler(async (req, res, next) => {
     {
       $set: {
         paymentStatus,
+      },
+    },
+    { new: true }
+  ).exec();
+
+  console.log(updatedOrder);
+
+  res.status(201).json({ updatedOrder });
+});
+
+exports.refundRequest = asyncHandler(async (req, res, next) => {
+  const { _id } = req.body;
+
+  // paymentStatus ["pending", "completed", "cancelled", "refund"] 변경
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id },
+    {
+      $set: {
+        refundRequest : 1,
       },
     },
     { new: true }

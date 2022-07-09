@@ -100,7 +100,7 @@ const brandSlice = createSlice({
       state.isLoading = true;
     },
     [addBrand.fulfilled]: (state, action) => {
-      state.brands = [...state.brands, action.payload.brand];
+      state.brands = [action.payload.brand, ...state.brands];
       state.isLoading = false;
     },
     [addBrand.rejected]: (state, action) => {

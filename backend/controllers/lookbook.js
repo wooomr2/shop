@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const Feature = require("../utils/Feature");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Lookbook = require("../models/Lookbook");
@@ -59,7 +59,7 @@ exports.getLookbooks = asyncHandler(async (req, res, next) => {
 
 exports.getLookbook = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const lookbook = await Lookbook.findById(id)
     .populate("products", "_id brand color name price discountPrice productImgs")
@@ -99,7 +99,7 @@ exports.updateLookbook = asyncHandler(async (req, res, next) => {
 
 exports.deleteLookbook = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const result = await Lookbook.deleteOne({ _id: id }).exec();
 

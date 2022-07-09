@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const { logEvents } = require("./logger");
 
 const errorHandler = (err, req, res, next) => {
@@ -11,28 +11,28 @@ const errorHandler = (err, req, res, next) => {
   // 몽고DB id Error
   if (err.name === "CastError") {
     const message = `Resources not found with this id..Invalid ${err.path}`;
-    error = new ErrorResponse(message, 400);
+    error = new ErrorRes(message, 400);
   }
 
   //11000 - duplicate error key
   if (err.code === 11000) {
     const message = `Duplicate Field Value Enter`;
-    error = new ErrorResponse(message, 400);
+    error = new ErrorRes(message, 400);
   }
 
   if (err.name === "ValidationError") {
     const message = Object.values(err.errors).map((val) => val.message);
-    error = new ErrorResponse(message, 400);
+    error = new ErrorRes(message, 400);
   }
 
   if (err.name === "JsonWebTokenError") {
     const message = `Your url is invalid please try again`;
-    error = new ErrorResponse(message, 403);
+    error = new ErrorRes(message, 403);
   }
 
   if (err.name === "TokenExpiredError") {
     const message = `Your url is expired please try again`;
-    error = new ErrorResponse(message, 403);
+    error = new ErrorRes(message, 403);
   }
 
   res.status(error.statusCode || 500).json({

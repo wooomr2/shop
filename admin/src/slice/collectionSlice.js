@@ -101,7 +101,7 @@ const collectionSlice = createSlice({
       state.isLoading = true;
     },
     [addCollection.fulfilled]: (state, action) => {
-      state.collections = [...state.collections, action.payload.collection];
+      state.collections = [action.payload.collection, ...state.collections];
       state.isLoading = false;
     },
     [addCollection.rejected]: (state, action) => {

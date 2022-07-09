@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const Feature = require("../utils/Feature");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Order = require("../models/Order");
@@ -42,7 +42,7 @@ exports.addOrder = asyncHandler(async (req, res, next) => {
   });
 
   Promise.all(promiseArray)
-    .catch((err) => next(new ErrorResponse(err, 400)))
+    .catch((err) => next(new ErrorRes(err, 400)))
     .then((response) => console.log(response));
 
   const user = await User.findOneAndUpdate(
@@ -137,14 +137,16 @@ exports.getOrders = asyncHandler(async (req, res) => {
 
 exports.getOrder = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
   const order = await Order.findById(id).exec();
 
   res.status(200).json({ order });
 });
 
 exports.updateOrderStatus = asyncHandler(async (req, res, next) => {
-  const { _id, type } = req.body;
+  let { _id, type, paymentStatus } = req.body;
+  if (!type) type = "delivered";
+  console.log(type);
 
   //orderStatus ["ordered", "packed", "shipped", "delivered"] 변경
   const updatedOrder = await Order.findOneAndUpdate(
@@ -152,6 +154,7 @@ exports.updateOrderStatus = asyncHandler(async (req, res, next) => {
     {
       $set: {
         "orderStatus.$": [{ type, date: new Date(), isCompleted: true }],
+        paymentStatus,
       },
     },
     { new: true }
@@ -187,7 +190,7 @@ exports.refundRequest = asyncHandler(async (req, res, next) => {
     { _id },
     {
       $set: {
-        refundRequest : 1,
+        refundRequest: 1,
       },
     },
     { new: true }
@@ -196,4 +199,40 @@ exports.refundRequest = asyncHandler(async (req, res, next) => {
   console.log(updatedOrder);
 
   res.status(201).json({ updatedOrder });
+});
+
+
+
+exports.getMonthlyIncome = asyncHandler(async (req, res, next) => {
+  const productId = req.query.pid;
+  const date = new Date();
+  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+  const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
+
+    const income = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: previousMonth },
+          ...(productId && { "items.$": { $elemMatch: { _id: productId } } }),
+        },
+      },
+      {
+        $project: {
+          month: { $month: "$createdAt" },
+          totalQty: "$totalQty",
+          totalPrice: "$totalPrice"
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          salesRate: { $sum: "$totalQty" },
+          grossSales: { $sum: "$totalPrice" },
+        },
+      },
+    ]);
+
+    console.log(income);
+
+    res.status(200).json({income});
 });

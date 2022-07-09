@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { adminSignin, signup, signin, forgotPassword, resetPassword, signout, matchEmail, matchPassword, updateProfile } = require("../controllers/auth");
 const { validateSignup, isValidated, validateSignin } = require("../middlewares/validator");
+const { verifyToken } = require("../middlewares/verifyToken")
+const { verifyRoles } = require("../middlewares/verifyRoles");
+const ROLES = require("../config/roleList");
 
 // ADMIN
 router.post("/admin/signin", validateSignin, isValidated, adminSignin)
@@ -13,9 +16,11 @@ router.get("/signout", signout);
 router.post("/forgot_password", forgotPassword);
 router.put("/reset_password/:resetToken", resetPassword);
 
-
+// 체크
 router.get("/:email", matchEmail)
 router.post("/pwcheck", validateSignin, isValidated, matchPassword);
-router.post("/update", updateProfile);
+
+// 업데이트
+router.post("/update", verifyToken, verifyRoles(ROLES.USER), updateProfile);
 
 module.exports = router;

@@ -14,7 +14,6 @@ function Product() {
   const { _id } = product;
 
   const [name, setName] = useState(product.name);
-  const [quantity, setQuantity] = useState(product.quantity);
   const [price, setPrice] = useState(product.price);
   const [description, setDescription] = useState(product.description);
   const [brand, setBrand] = useState(product.brand);
@@ -36,7 +35,6 @@ function Product() {
 
   const resetState = () => {
     setName(product.name);
-    setQuantity(product.quantity);
     setPrice(product.price);
     setDescription(product.description);
     setBrand(product.brand);
@@ -56,7 +54,6 @@ function Product() {
     const form = new FormData();
     form.append("_id", _id);
     form.append("name", name);
-    form.append("quantity", quantity);
     form.append("price", price);
     form.append("description", description);
     form.append("brand", brand);
@@ -97,12 +94,6 @@ function Product() {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          placeholder="Quantity"
-          required
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
         />
         <input
           placeholder="Price"

@@ -2,10 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
+  income: [],
   orders: [],
   order: {},
   isLoading: false,
 };
+
+export const getMonthlyIncome = createAsyncThunk(
+  "user/getMonthlyIncome",
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.get(`/orders/income`);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const getOrders = createAsyncThunk(
   "order/getOrders",
@@ -48,6 +61,17 @@ const orderSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [getMonthlyIncome.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getMonthlyIncome.fulfilled]: (state, action) => {
+      state.income = action.payload.income;
+      state.isLoading = false;
+    },
+    [getMonthlyIncome.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+    
     [getOrders.pending]: (state) => {
       state.isLoading = true;
     },

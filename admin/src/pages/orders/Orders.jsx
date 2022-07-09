@@ -18,6 +18,7 @@ function Orders() {
           <Link to={`/orders/${order._id}`} state={order}>
             {order._id}
           </Link>
+          반품요청: {order.refundRequest}
 
           {order.orderStatus
             .filter((status) => status.isCompleted)

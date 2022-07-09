@@ -1,11 +1,11 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const UserAddress = require("../models/Address");
 
 exports.upsertAddress = asyncHandler(async (req, res, next) => {
   const { address } = req.body;
 
-  if (!address) return next(new ErrorResponse("주소 전송 안됨", 400));
+  if (!address) return next(new ErrorRes("주소 전송 안됨", 400));
 
   if (address._id) {
     const userAddress = await UserAddress.findOneAndUpdate(
@@ -42,7 +42,7 @@ exports.getAddresses = asyncHandler(async (req, res, next) => {
 
 exports.deleteAddress = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const userAddress = await UserAddress.findOneAndUpdate(
     { user: req.userId },

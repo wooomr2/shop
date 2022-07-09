@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Brand = require("../models/Brand");
 
@@ -30,7 +30,7 @@ exports.getBrands = asyncHandler(async (req, res, next) => {
 
 exports.getBrand = asyncHandler(async (req, res, next) => {
   const { name } = req.params;
-  if (!name) return next(new ErrorResponse("Params required", 400));
+  if (!name) return next(new ErrorRes("Params required", 400));
 
   const brand = await Brand.findOne({ name }).exec();
 
@@ -63,7 +63,7 @@ exports.updateBrand = asyncHandler(async (req, res, next) => {
 
 exports.deleteBrand = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const result = await Brand.deleteOne({ _id: id }).exec();
 

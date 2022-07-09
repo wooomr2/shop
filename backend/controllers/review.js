@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Feature = require("../utils/Feature");
 const Review = require("../models/Review");
@@ -30,8 +30,8 @@ exports.upsertReview = asyncHandler(async (req, res, next) => {
     },
     reviewImgs,
   }
-  
-  if(_id==="undefined") {
+
+  if (_id === "undefined") {
     review = await Review.create(reviewObj);
 
     await Order.findOneAndUpdate(
@@ -68,7 +68,7 @@ exports.upsertReview = asyncHandler(async (req, res, next) => {
 
 exports.getReviewsByProductId = asyncHandler(async (req, res, next) => {
   const { pid, ...queryOptions } = req.body;
-  if (!pid) return next(new ErrorResponse("Params required", 400));
+  if (!pid) return next(new ErrorRes("Params required", 400));
 
   const total = await Review.find({ product: pid }).countDocuments();
   const reviews = await new Feature(Review.find({ product: pid }), queryOptions)
@@ -82,7 +82,7 @@ exports.getReviewsByProductId = asyncHandler(async (req, res, next) => {
 
 exports.getReviewsByUserId = asyncHandler(async (req, res, next) => {
   const total = await Review.find({ user: req.userId }).countDocuments();
-  const reviews = await new Feature(Review, req.body)
+  const reviews = await new Feature(Review.find({ user: req.userId }), req.body)
     .filter()
     .pagination()
     .sort()
@@ -93,7 +93,7 @@ exports.getReviewsByUserId = asyncHandler(async (req, res, next) => {
 
 exports.getReview = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const review = await Review.findById(id).exec();
   
@@ -102,7 +102,7 @@ exports.getReview = asyncHandler(async (req, res, next) => {
 
 exports.deleteReview = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const result = await Review.deleteOne({ _id: id }).exec();
 

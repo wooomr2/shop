@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const slugify = require("slugify");
 const Product = require("../models/Product");
@@ -122,7 +122,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
 
 exports.getProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const product = await Product.findById(id).exec();
 
@@ -181,7 +181,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   await Product.deleteOne({ _id: id }).exec()
 

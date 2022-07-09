@@ -76,7 +76,7 @@ const productSlice = createSlice({
       state.isLoading = true;
     },
     [addProduct.fulfilled]: (state, action) => {
-      state.products = [...state.products, action.payload.product];
+      state.products = [action.payload.product, ...state.products];
       state.isLoading = false;
     },
     [addProduct.rejected]: (state, action) => {

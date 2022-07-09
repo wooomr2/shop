@@ -1,11 +1,11 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
   const cookies = req.cookies;
-  if (!cookies?.jwt) return next(new ErrorResponse("refreshToken 없음", 401));
+  if (!cookies?.jwt) return next(new ErrorRes("refreshToken 없음", 401));
 
   const refreshToken = cookies.jwt;
   res.clearCookie("jwt", { HttpOnly: true, SameSite: "None", Secure: true });
@@ -19,7 +19,7 @@ exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
 
     await hackedUser.save();
 
-    return next(new ErrorResponse("refreshToken 재사용됨", 403));
+    return next(new ErrorRes("refreshToken 재사용됨", 403));
   }
 
   const newRefreshTokenArray = foundUser.refreshToken.filter(
@@ -33,7 +33,7 @@ exports.handleRefreshToken = asyncHandler(async (req, res, next) => {
       if (err) {
         foundUser.refreshToken = [...newRefreshTokenArray];
         await foundUser.save();
-        return next(new ErrorResponse("만료된 refreshToken", 403));
+        return next(new ErrorRes("만료된 refreshToken", 403));
       }
 
       // refreshToken 유효하면

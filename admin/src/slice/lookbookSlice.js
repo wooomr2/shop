@@ -103,7 +103,7 @@ const lookbookSlice = createSlice({
       state.isLoading = true;
     },
     [addLookbook.fulfilled]: (state, action) => {
-      state.lookbooks = [...state.lookbooks, action.payload.lookbook];
+      state.lookbooks = [action.payload.lookbook, ...state.lookbooks];
       state.isLoading = false;
     },
     [addLookbook.rejected]: (state, action) => {

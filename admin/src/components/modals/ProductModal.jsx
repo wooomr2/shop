@@ -12,7 +12,6 @@ function ProductModal() {
   const { isOpen, modalType } = useSelector((store) => store.modal);
 
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -26,7 +25,6 @@ function ProductModal() {
 
   const resetState = () => {
     setName("");
-    setQuantity("");
     setPrice("");
     setDescription("");
     setBrand("");
@@ -46,7 +44,6 @@ function ProductModal() {
 
     const form = new FormData();
     form.append("name", name);
-    form.append("quantity", quantity);
     form.append("price", price);
     form.append("description", description);
     form.append("brand", brand);
@@ -94,12 +91,6 @@ function ProductModal() {
                   placeholder="Name"
                   required
                   onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  className="form-input"
-                  placeholder="Quantity"
-                  required
-                  onChange={(e) => setQuantity(e.target.value)}
                 />
                 <input
                   className="form-input"

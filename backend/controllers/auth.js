@@ -1,10 +1,9 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const ROLES = require("../config/roleList");
 const User = require("../models/User");
-const bcrypt = require("bcryptjs");
 
 const sendToken = asyncHandler(async (req, res, user) => {
   const accessToken = user.generateAccessToken();
@@ -56,19 +55,19 @@ exports.adminSignin = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
-    return next(new ErrorResponse("Email 또는 Password 입력하세요", 400));
+    return next(new ErrorRes("Email 또는 Password 입력하세요", 400));
 
   const user = await User.findOne({ email }).select("+password +role").exec();
-  if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
+  if (!user) return next(new ErrorRes("존재하지 않는 유저", 400));
 
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 400));
+  if (!isMatch) return next(new ErrorRes("잘못된 비밀번호", 400));
 
   const isAdmin = Object.values(user.roles)
     .filter(Boolean)
     .find((role) => role === ROLES.ADMIN);
 
-  if (!isAdmin) return next(new ErrorResponse("관리자가 아닙니다", 401));
+  if (!isAdmin) return next(new ErrorRes("관리자가 아닙니다", 401));
 
   sendToken(req, res, user);
 });
@@ -78,13 +77,13 @@ exports.signin = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
-    return next(new ErrorResponse("Email 또는 Password 입력하세요", 400));
+    return next(new ErrorRes("Email 또는 Password 입력하세요", 400));
 
   const user = await User.findOne({ email }).select("+password").exec();
-  if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
+  if (!user) return next(new ErrorRes("존재하지 않는 유저", 400));
 
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 400));
+  if (!isMatch) return next(new ErrorRes("잘못된 비밀번호", 400));
 
   sendToken(req, res, user);
 });
@@ -92,12 +91,12 @@ exports.signin = asyncHandler(async (req, res, next) => {
 exports.signup = asyncHandler(async (req, res, next) => {
   const { username, email, password } = req.body;
 
-  if (!username) return next(new ErrorResponse("username 입력하세요", 400));
+  if (!username) return next(new ErrorRes("username 입력하세요", 400));
   if (!email || !password)
-    return next(new ErrorResponse("Email 또는 Password 입력하세요", 400));
+    return next(new ErrorRes("Email 또는 Password 입력하세요", 400));
 
   const duplicate = await User.findOne({ email }).exec();
-  if (duplicate) return next(new ErrorResponse("이미 가입한 유저", 409));
+  if (duplicate) return next(new ErrorRes("이미 가입한 유저", 409));
 
   const user = await User.create({
     username,
@@ -135,9 +134,7 @@ exports.matchEmail = asyncHandler(async (req, res, next) => {
 
   const user = await User.findOne({ email }).exec();
   if (!user) {
-    return res
-      .status(200)
-      .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
+    return res.status(200).json({ msg: `${email} 은 사용가능한 이메일입니다.` });
   }
 
   res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });
@@ -147,13 +144,13 @@ exports.matchPassword = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
-    return next(new ErrorResponse("Email 또는 Password 입력하세요", 400));
+    return next(new ErrorRes("Email 또는 Password 입력하세요", 400));
 
   const user = await User.findOne({ email }).select("+password").exec();
-  if (!user) return next(new ErrorResponse("존재하지 않는 유저", 400));
+  if (!user) return next(new ErrorRes("존재하지 않는 유저", 400));
 
   const isMatch = await user.matchPassword(password);
-  if (!isMatch) return next(new ErrorResponse("잘못된 비밀번호", 400));
+  if (!isMatch) return next(new ErrorRes("잘못된 비밀번호", 400));
 
   res.status(200).json({ result: true });
 });
@@ -192,7 +189,7 @@ exports.forgotPassword = (req, res, next) => {
 
   User.findOne({ email }).exec((err, user) => {
     if (err) next(err);
-    if (!user) return next(new ErrorResponse("Email 전송 실패"), 404);
+    if (!user) return next(new ErrorRes("Email 전송 실패"), 404);
 
     const resetToken = user.generateResetPasswordToken();
 
@@ -215,7 +212,7 @@ exports.forgotPassword = (req, res, next) => {
       user.resetPasswordExpire = undefined;
       user.save();
 
-      return next(new ErrorResponse(err, 500));
+      return next(new ErrorRes(err, 500));
     }
   });
 };
@@ -231,7 +228,7 @@ exports.resetPassword = (req, res, next) => {
     resetPasswordExpire: { $gt: Date.now() },
   }).exec((err, user) => {
     if (err) next(err);
-    if (!user) return next(new ErrorResponse("유효하지 않은 토큰", 400));
+    if (!user) return next(new ErrorRes("유효하지 않은 토큰", 400));
 
     user.password = req.body.password;
     user.resetPasswordToken = undefined;

@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const Feature = require("../utils/Feature");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Collection = require("../models/Collection");
@@ -56,7 +56,7 @@ exports.getCollections = asyncHandler(async (req, res, next) => {
 
 exports.getCollection = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const collection = await Collection.findById(id).exec();
 
@@ -105,7 +105,7 @@ exports.updateCollection = asyncHandler(async (req, res, next) => {
 
 exports.deleteCollection = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   const result = await Collection.deleteOne({ _id: id }).exec();
 

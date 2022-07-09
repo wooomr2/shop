@@ -24,7 +24,6 @@ function Products() {
           <th>Product</th>
           <th>Img</th>
           <th>Price</th>
-          <th>Quantity</th>
           <th>Category</th>
           <th>Actions</th>
         </tr>
@@ -51,7 +50,6 @@ function Products() {
               />
             </td>
             <td>{product.price}</td>
-            <td>{product.quantity}</td>
             <td>{product.category.name}</td>
             <td>
               <button onClick={() => dispatch(deleteProduct(product._id))}>

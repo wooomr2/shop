@@ -31,25 +31,4 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-/////////////////////////////////////////////////
-const productReviewSchema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "Product",
-  },
-  total: {
-    type: Number,
-  },
-  totalRating: {
-    type: Number,
-  },
-  averageRating: {
-    type: Number,
-  },
-  reviews: [reviewSchema],
-});
-
-// mongoose.model("Review", reviewSchema);
 module.exports = mongoose.model("Review", reviewSchema);
-// module.exports = mongoose.model("ProductReview", productReviewSchema);

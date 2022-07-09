@@ -1,5 +1,5 @@
 const asyncHandler = require("../middlewares/asyncHandler");
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const Message = require("../models/Message");
 
 exports.addMessage = asyncHandler(async (req, res, next) => {

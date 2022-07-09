@@ -1,5 +1,5 @@
 const asyncHandler = require("../middlewares/asyncHandler");
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const Chatroom = require("../models/Chatroom");
 const ROLES = require("../config/roleList");
 const User = require("../models/User");

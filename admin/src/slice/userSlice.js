@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../utils/axiosInstance";
 
 const initialState = {
+  userStats: [],
   users: [],
   isLoading: false,
 };
@@ -17,6 +18,19 @@ export const getUsers = createAsyncThunk(
     }
   }
 );
+
+export const getUserStats = createAsyncThunk(
+  "user/getUserStats",
+  async (dummy, thunkAPI) => {
+    try {
+      const res = await axios.get(`/users/stats`);
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 
 export const addUser = createAsyncThunk(
   "user/addUser",
@@ -59,6 +73,17 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [getUserStats.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUserStats.fulfilled]: (state, action) => {
+      state.userStats = action.payload;
+      state.isLoading = false;
+    },
+    [getUserStats.rejected]: (state, action) => {
+      state.isLoading = false;
+    },
+
     [getUsers.pending]: (state) => {
       state.isLoading = true;
     },
@@ -74,7 +99,7 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [addUser.fulfilled]: (state, action) => {
-      state.users = [...state.users, action.payload.user];
+      state.users = [action.payload.user, ...state.users];
       state.isLoading = false;
     },
     [addUser.rejected]: (state, action) => {

@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const Cart = require("../models/Cart");
 
@@ -56,7 +56,7 @@ exports.addCartItems = asyncHandler(async (req, res, next) => {
   });
 
   Promise.all(promiseArray)
-    .catch((err) => next(new ErrorResponse(err, 400)))
+    .catch((err) => next(new ErrorRes(err, 400)))
     .then((response) => res.status(201).json({ response }));
 });
 

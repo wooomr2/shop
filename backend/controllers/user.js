@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const User = require("../models/User");
 const UserAddress = require("../models/Address");
@@ -30,8 +30,13 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const userAddress = await UserAddress.findOne({ user: req.userId }).exec();
   const foundUser = await User.findById(req.userId).exec();
 
-  const { refreshToken, resetPasswordToken, resetPasswordExpire, roles, ...user } =
-    foundUser._doc;
+  const {
+    refreshToken,
+    resetPasswordToken,
+    resetPasswordExpire,
+    roles,
+    ...user
+  } = foundUser._doc;
 
   res.status(200).json({ user, userAddress });
 });
@@ -60,10 +65,58 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 
 exports.deleteUser = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorResponse("Params required", 400));
+  if (!id) return next(new ErrorRes("Params required", 400));
 
   await UserAddress.deleteOne({ user: id }).exec();
   await User.deleteOne({ _id: id }).exec();
 
   res.status(201).json({ id });
+});
+
+//GET USER STATS
+exports.getUserStats = asyncHandler(async (req, res, next) => {
+  const date = new Date();
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
+  const data = await User.aggregate([
+    { $match: { createdAt: { $gte: lastYear } } },
+    {
+      $project: {
+        month: { $month: "$createdAt" },
+      },
+    },
+    {
+      $group: {
+        _id: "$month",
+        total: { $sum: 1 },
+      },
+    },
+  ]);
+
+  const MONTHS = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Agu",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const orderedData = data.sort(function (a, b) {
+    return a._id - b._id;
+  });
+
+  const userStats = orderedData.map((item) =>
+    ({ name: MONTHS[item._id - 1], "user": item.total }),
+  )
+
+  console.log(userStats);
+
+  res.status(200).json(userStats);
 });

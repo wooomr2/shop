@@ -1,4 +1,4 @@
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const slugify = require("slugify");
 const Category = require("../models/Category");
@@ -42,14 +42,14 @@ exports.addCategory = async (req, res, next) => {
 
     res.status(201).json(category);
   } catch (err) {
-    return next(new ErrorResponse(err, 400));
+    return next(new ErrorRes(err, 400));
   }
 };
 
 exports.getCategories = (req, res, next) => {
   Category.find({})
     .exec()
-    .catch((err) => next(new ErrorResponse(err, 400)))
+    .catch((err) => next(new ErrorRes(err, 400)))
     .then((categories) => {
       const categoryList = createCategoryHierarchy(categories);
       res.status(200).json(categoryList);
@@ -112,7 +112,7 @@ exports.updateCategories = async (req, res, next) => {
       return res.status(201).json({ updatedCategory });
     }
   } catch (err) {
-    return next(new ErrorResponse(err, 400));
+    return next(new ErrorRes(err, 400));
   }
 };
 
@@ -145,6 +145,6 @@ exports.deleteCategories = async (req, res, next) => {
       res.status(201).json({ deletedCategories, updatedCategories });
     }
   } catch (err) {
-    return next(new ErrorResponse(err, 400));
+    return next(new ErrorRes(err, 400));
   }
 };

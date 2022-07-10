@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.single("profileImg"), updateUser)
 router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteUser)
-router.get("/", verifyToken, verifyRoles(ROLES.ADMIN), getUsers)
+// router.get("/", verifyToken, verifyRoles(ROLES.ADMIN), getUsers)
+router.post("/get", verifyToken, verifyRoles(ROLES.ADMIN), getUsers)
 router.get("/stats",  verifyToken, verifyRoles(ROLES.ADMIN), getUserStats)
 
 router.get("/id", verifyToken, verifyRoles(ROLES.USER), getUser)

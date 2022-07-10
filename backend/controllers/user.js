@@ -2,8 +2,11 @@ const ErrorRes = require("../utils/ErrorRes");
 const asyncHandler = require("../middlewares/asyncHandler");
 const User = require("../models/User");
 const UserAddress = require("../models/Address");
+const MONTHS = require("../utils/MONTHS");
+const Feature = require("../utils/Feature");
 
 exports.getUsers = asyncHandler(async (req, res, next) => {
+  const { perPage, currentPage } = req.body;
   const users = await User.aggregate([
     { $match: {} },
     {
@@ -21,9 +24,13 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
       },
     },
     { $sort: { createdAt: -1 } },
-  ]).exec();
+  ])
+    .skip(perPage * (currentPage - 1))
+    .limit(perPage);
 
-  res.status(200).json({ users });
+  const total = await User.find({}).countDocuments();
+
+  res.status(200).json({ users, total });
 });
 
 exports.getUser = asyncHandler(async (req, res, next) => {
@@ -93,30 +100,14 @@ exports.getUserStats = asyncHandler(async (req, res, next) => {
     },
   ]);
 
-  const MONTHS = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Agu",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
   const orderedData = data.sort(function (a, b) {
     return a._id - b._id;
   });
 
-  const userStats = orderedData.map((item) =>
-    ({ name: MONTHS[item._id - 1], "user": item.total }),
-  )
+  const userStats = orderedData.map((item) => ({
+    month: MONTHS[item._id - 1],
+    user: item.total,
+  }));
 
-  console.log(userStats);
-
-  res.status(200).json(userStats);
+  res.status(200).json({ userStats });
 });

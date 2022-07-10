@@ -5,6 +5,7 @@ const Order = require("../models/Order");
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 const User = require("../models/User");
+const MONTHS = require("../utils/MONTHS");
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -78,9 +79,24 @@ exports.addOrder = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllOrders = asyncHandler(async (req, res, next) => {
-  const orders = await Order.find({}).sort({ createdAt: -1 }).exec();
+  const orders =
+    req.query.at === "dashboard"
+      ? await Order.find({}).sort({ createdAt: -1 }).limit(5).exec()
+      : await Order.find({}).sort({ createdAt: -1 }).exec();
 
   res.status(200).json({ orders });
+});
+
+exports.getOrdersForAdmin = asyncHandler(async (req, res, next) => {
+  const orders = await new Feature(Order.find({}), req.body)
+    .pagination()
+    .sort()
+    .getQuery()
+    .exec();
+
+  const total = await Order.find({}).countDocuments();
+
+  res.status(200).json({ orders, total });
 });
 
 exports.getOrderStats = asyncHandler(async (req, res, next) => {
@@ -196,43 +212,50 @@ exports.refundRequest = asyncHandler(async (req, res, next) => {
     { new: true }
   ).exec();
 
-  console.log(updatedOrder);
-
   res.status(201).json({ updatedOrder });
 });
-
-
 
 exports.getMonthlyIncome = asyncHandler(async (req, res, next) => {
   const productId = req.query.pid;
   const date = new Date();
+  const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
 
-    const income = await Order.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: previousMonth },
-          ...(productId && { "items.$": { $elemMatch: { _id: productId } } }),
-        },
+  const data = await Order.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: lastYear },
+        ...(productId && { "items.$": { $elemMatch: { _id: productId } } }),
       },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-          totalQty: "$totalQty",
-          totalPrice: "$totalPrice"
-        },
+    },
+    {
+      $project: {
+        month: { $month: "$createdAt" },
+        totalQty: "$totalQty",
+        totalPrice: "$totalPrice",
       },
-      {
-        $group: {
-          _id: "$month",
-          salesRate: { $sum: "$totalQty" },
-          grossSales: { $sum: "$totalPrice" },
-        },
+    },
+    {
+      $group: {
+        _id: "$month",
+        salesRate: { $sum: "$totalQty" },
+        grossSales: { $sum: "$totalPrice" },
       },
-    ]);
+    },
+  ]);
 
-    console.log(income);
+  const orderedData = data.sort(function (a, b) {
+    return a._id - b._id;
+  });
 
-    res.status(200).json({income});
+  const income = orderedData.map((item) => ({
+    month: MONTHS[item._id - 1],
+    판매량: item.salesRate,
+    매출: item.grossSales,
+  }));
+
+  console.log(income);
+
+  res.status(200).json({ income });
 });

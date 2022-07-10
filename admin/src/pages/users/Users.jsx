@@ -1,21 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Pagination from "../../components/pagination/Pagination";
 import { deleteUser, getUsers } from "../../slice/userSlice";
 
 function Users() {
   const dispatch = useDispatch();
-  const { users } = useSelector((store) => store.user);
+  const { users, total } = useSelector((store) => store.user);
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 6;
 
   useEffect(() => {
-    dispatch(getUsers());
-  }, []);
+    const payload = { perPage, currentPage };
+    dispatch(getUsers(payload));
+  }, [perPage, currentPage]);
 
   return (
     <div className="list">
-       <div className="list-btn">
-      <h2>OUR USERS</h2>
-    </div>
+      <div className="list-btn">
+        <h2>OUR USERS</h2>
+      </div>
 
       <table className="list-table">
         <thead>
@@ -56,6 +60,12 @@ function Users() {
           ))}
         </tbody>
       </table>
+      <Pagination
+        total={total}
+        perPage={perPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }

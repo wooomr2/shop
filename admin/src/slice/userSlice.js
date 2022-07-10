@@ -3,15 +3,16 @@ import axios from "../utils/axiosInstance";
 
 const initialState = {
   userStats: [],
+  total: 0,
   users: [],
   isLoading: false,
 };
 
 export const getUsers = createAsyncThunk(
   "user/getUsers",
-  async (dummy, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const res = await axios.get(`/users`);
+      const res = await axios.post(`/users/get`, payload);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -30,7 +31,6 @@ export const getUserStats = createAsyncThunk(
     }
   }
 );
-
 
 export const addUser = createAsyncThunk(
   "user/addUser",
@@ -77,7 +77,7 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [getUserStats.fulfilled]: (state, action) => {
-      state.userStats = action.payload;
+      state.userStats = action.payload.userStats;
       state.isLoading = false;
     },
     [getUserStats.rejected]: (state, action) => {
@@ -88,6 +88,7 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [getUsers.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
       state.users = action.payload.users;
       state.isLoading = false;
     },

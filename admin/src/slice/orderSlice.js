@@ -3,6 +3,7 @@ import axios from "../utils/axiosInstance";
 
 const initialState = {
   income: [],
+  total: 0,
   orders: [],
   order: {},
   isLoading: false,
@@ -22,9 +23,9 @@ export const getMonthlyIncome = createAsyncThunk(
 
 export const getOrders = createAsyncThunk(
   "order/getOrders",
-  async (dummy, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const res = await axios.get(`/orders`);
+      const res = await axios.post(`/orders/getAdmin`, payload);
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
@@ -71,11 +72,12 @@ const orderSlice = createSlice({
     [getMonthlyIncome.rejected]: (state, action) => {
       state.isLoading = false;
     },
-    
+
     [getOrders.pending]: (state) => {
       state.isLoading = true;
     },
     [getOrders.fulfilled]: (state, action) => {
+      state.total = action.payload.total;
       state.orders = action.payload.orders;
       state.isLoading = false;
     },

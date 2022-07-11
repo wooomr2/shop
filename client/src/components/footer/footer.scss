@@ -1,0 +1,57 @@
+@import "../../variable.scss";
+
+footer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
+  font-size: 1.4rem;
+  background-color: #fff;
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 2rem;
+
+    > p:first-child {
+      font-weight: 600;
+      font-size: 1.6rem;
+    }
+
+    &-middle {
+      display: flex;
+      flex-direction: column;
+      row-gap: .5rem;
+    }
+
+    &-bottom {
+      @extend .footer-content-middle;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  footer {
+    font-size: $mdFont;
+    padding: 2rem;
+
+    .footer-content {
+      > p:first-child {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  footer {
+    font-size: $smFont;
+
+    .footer-content {
+      > p:first-child {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

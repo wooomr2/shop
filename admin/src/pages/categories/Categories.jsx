@@ -21,16 +21,13 @@ function Categories() {
     (store) => store.category
   );
 
-  // const [showExpandAll, setShowExpandALl] = useState(false);
   const [checked, setChecked] = useState([]);
   const [expanded, setExpanded] = useState([]);
   const [checkedCategories, setCheckedCategories] = useState([]);
-  const [expandedCategories, setExpandedCategories] = useState([]);
 
   useEffect(() => {
-    const updateCheckedAndExpandedCategories = () => {
+    const updateCheckedCategories = () => {
       const checkedCates = [];
-      const expandedCates = [];
 
       checked.length > 0 &&
         checked.forEach((categoryId, i) => {
@@ -40,19 +37,10 @@ function Categories() {
           cate && checkedCates.push(cate);
         });
 
-      expanded.length > 0 &&
-        expanded.forEach((categoryId, i) => {
-          const cate = linearCategories.find(
-            (category, _i) => categoryId === category._id
-          );
-          cate && expandedCates.push(cate);
-        });
-
       setCheckedCategories(checkedCates);
-      setExpandedCategories(expandedCates);
     };
 
-    updateCheckedAndExpandedCategories();
+    updateCheckedCategories();
   }, [checked, expanded, linearCategories]);
 
   const renderCategories = (categories) => {
@@ -69,23 +57,27 @@ function Categories() {
   };
 
   return (
-    <div>
-      {/* <button onClick={() => setShowExpandALl(showExpandAll ? false : true)}>Expand</button> */}
-      <button onClick={() => dispatch(openModal("addCategory"))}>ADD</button>
-      <button onClick={() => dispatch(openModal("updateCategory"))}>
-        UPDATE
-      </button>
-      <button onClick={() => dispatch(openModal("deleteCategory"))}>
-        DELETE
-      </button>
+    <div className="list">
+      <div className="list-btn">
+        <h2>OUR CATEGORIES</h2>
+        <div className="list-btn">
+          <button onClick={() => dispatch(openModal("addCategory"))}>
+            ADD
+          </button>
+          <button onClick={() => dispatch(openModal("updateCategory"))}>
+            UPDATE
+          </button>
+          <button onClick={() => dispatch(openModal("deleteCategory"))}>
+            DELETE
+          </button>
+        </div>
+      </div>
 
       <CategoryModal
         setChecked={setChecked}
         setExpanded={setExpanded}
         checkedCategories={checkedCategories}
-        expandedCategories={expandedCategories}
         setCheckedCategories={setCheckedCategories}
-        setExpandedCategories={setExpandedCategories}
       />
 
       <CheckboxTree
@@ -95,7 +87,7 @@ function Categories() {
         onCheck={(checked) => setChecked(checked)}
         onExpand={(expanded) => setExpanded(expanded)}
         showExpandAll={true}
-        // noCascade={true}
+        noCascade={true}
         icons={{
           check: <CheckBoxIcon />,
           uncheck: <CheckBoxOutlineBlankIcon />,

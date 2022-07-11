@@ -12,25 +12,27 @@
     min-height: 100vh;
 
     &-left {
+      color: #212121;
       height: auto;
-      font-size: 3.5rem;
+      font-size: 3rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-
-      .brandName {
-        text-decoration: underline;
-        text-underline-offset: 0.2rem;
-        text-decoration-thickness: 0.3rem;
-        cursor: pointer;
-      }
+      text-transform: uppercase;
 
       .brandInfo {
-        font-size: 4rem;
         font-weight: 600;
-        color: $main-color;
+
+        > span {
+          font-family: "Roboto Slab";
+        }
+
+        > p {
+          font-size: 2.4rem;
+          font-family: "Roboto Slab";
+        }
       }
     }
 
@@ -42,11 +44,13 @@
 
       .tile-item-imgWrapper {
         width: 100%;
+        height: 100%;
         padding: 0;
-        
+
         > img {
           width: 100%;
           height: 100%;
+          object-fit: fill;
         }
       }
     }
@@ -57,29 +61,52 @@
   .tile {
     &-item {
       grid-template-columns: repeat(1, 1fr);
+
       &-left {
         height: 30vh;
-        font-size: 3rem;
 
-        .brandName {
-          text-decoration: underline;
-          text-underline-offset: 0.2rem;
-          text-decoration-thickness: 0.1rem;
-          cursor: pointer;
-        }
-  
         .brandInfo {
-          font-size: 3.5rem;
-          font-weight: 600;
+          text-align: center;
         }
       }
 
       &-right {
+        height: 70vh;
+      }
+    }
+  }
+}
 
-        .tile-item-imgWrapper {
-          padding-top: 0;
-          > img {
-            object-fit: cover;
+@media screen and (max-width: $md) {
+  .tile {
+    &-item {
+      &-left {
+        height: 20vh;
+        font-size: 2.6rem;
+
+        .brandInfo {
+          > p {
+            font-size: 2rem;
+          }
+        }
+      }
+
+      &-right {
+        height: 80vh;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .tile {
+    &-item {
+      &-left {
+        font-size: 2rem;
+
+        .brandInfo {
+          > p {
+            font-size: 1.6rem;
           }
         }
       }

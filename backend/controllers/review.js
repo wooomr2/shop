@@ -8,10 +8,21 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
 exports.upsertReview = asyncHandler(async (req, res, next) => {
-  const { _id, height, weight, topSize, bottomSize, shoesSize, order, product, ...others } =
-    req.body;
+  const {
+    _id,
+    height,
+    weight,
+    topSize,
+    bottomSize,
+    shoesSize,
+    order,
+    product,
+    ...others
+  } = req.body;
   let { reviewImgs } = req.files;
   let review;
+
+  console.log(req.body);
 
   if (!!reviewImgs) {
     reviewImgs = reviewImgs.map((file) => file.filename);
@@ -29,18 +40,19 @@ exports.upsertReview = asyncHandler(async (req, res, next) => {
       shoesSize,
     },
     reviewImgs,
-  }
+  };
 
   if (_id === "undefined") {
     review = await Review.create(reviewObj);
 
     await Order.findOneAndUpdate(
-      {_id: order, "items._id":product },
-      {$set: {"items.$.isReviewed" : true }},
+      { _id: order, "items._id": new ObjectId(product) },
+      { $set: { "items.$.isReviewed": true } }
     ).exec();
-  }
-  else {
-    review = await Review.findByIdAndUpdate(_id, reviewObj,{new:true}).exec()
+  } else {
+    review = await Review.findByIdAndUpdate(_id, reviewObj, {
+      new: true,
+    }).exec();
   }
 
   const ratings = await Review.aggregate([
@@ -76,8 +88,8 @@ exports.getReviewsByProductId = asyncHandler(async (req, res, next) => {
     .pagination()
     .sort()
     .getQuery();
-   
-    res.status(200).json({ total, reviews });
+
+  res.status(200).json({ total, reviews });
 });
 
 exports.getReviewsByUserId = asyncHandler(async (req, res, next) => {
@@ -86,7 +98,8 @@ exports.getReviewsByUserId = asyncHandler(async (req, res, next) => {
     .filter()
     .pagination()
     .sort()
-    .getQuery();
+    .getQuery()
+    .populate({ path: "product", select: "brand name color" });
 
   res.status(200).json({ total, reviews });
 });
@@ -95,8 +108,10 @@ exports.getReview = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new ErrorRes("Params required", 400));
 
-  const review = await Review.findById(id).exec();
-  
+  const review = await Review.findById(id)
+    .populate({ path: "product", select: "_id name" })
+    .exec();
+
   res.status(200).json({ review });
 });
 

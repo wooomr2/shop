@@ -33,7 +33,7 @@ function Profile() {
 
     const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
-    if (!regPhone)
+    if (!regPhone.test(mobile))
       return alert("연락처를 제대로 입력해주세요. (ex. 010-0000-0000)");
     if (password.length > 0 && password.length < 6)
       return alert("비밀번호는 최소 6자리여야 합니다");

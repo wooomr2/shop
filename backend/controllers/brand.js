@@ -28,6 +28,12 @@ exports.getBrands = asyncHandler(async (req, res, next) => {
   res.status(200).json({ brands });
 });
 
+exports.getNewBrands = asyncHandler(async (req, res, next) => {
+  const brands = await Brand.find({}).limit(6).sort({ createdAt: -1 }).exec();
+
+  res.status(200).json({ brands });
+});
+
 exports.getBrand = asyncHandler(async (req, res, next) => {
   const { name } = req.params;
   if (!name) return next(new ErrorRes("Params required", 400));

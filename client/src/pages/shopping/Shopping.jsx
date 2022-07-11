@@ -17,7 +17,7 @@ function Category() {
   const params = useParams();
   const categories = useSelector((store) => store.category.categories);
   const categoryOpen = useSelector((store) => store.category.categoryOpen);
-  const { total, products, brandData } = useSelector((store) => store.product);
+  const { total, products, brandData,isLoading } = useSelector((store) => store.product);
 
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +60,7 @@ function Category() {
     dispatch(categoryToggle());
   };
 
+  if(isLoading) return <div>로딩중...</div>
   return (
     <>
       <div className="category-container">

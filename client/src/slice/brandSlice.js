@@ -21,6 +21,19 @@ export const getBrands = createAsyncThunk(
   }
 );
 
+export const getNewBrands = createAsyncThunk(
+  "brand/getNewBrands",
+  async (thunkAPI) => {
+    try {
+      const res = await axios.get("/brands/new");
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+
 export const getBrand = createAsyncThunk(
   "brand/getBrand",
   async (name, thunkAPI) => {
@@ -47,6 +60,18 @@ const brandSlice = createSlice({
       state.isLoading = false;
     },
     [getBrands.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
+
+    [getNewBrands.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getNewBrands.fulfilled]: (state, action) => {
+      state.brands = action.payload.brands;
+      state.isLoading = false;
+    },
+    [getNewBrands.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.error;
     },

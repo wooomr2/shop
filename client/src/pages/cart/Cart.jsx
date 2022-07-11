@@ -4,7 +4,8 @@ import CartItem from "../../components/cartItem/CartItem";
 import {
   clearCart,
   selectTotalPrice,
-  selectTotalQty
+  selectTotalQty,
+  clearCartItem,
 } from "../../slice/cartSlice";
 import toKRW from "../../utils/toKRW";
 import "./cart.scss";
@@ -49,7 +50,10 @@ function Cart() {
         <div className="checkout-button">
           <button
             className="checkout-button-general"
-            onClick={() => navigate("/checkout")}
+            onClick={() => {
+              dispatch(clearCartItem());
+              navigate("/checkout");
+            }}
             disabled={!user}
           >
             결제하기

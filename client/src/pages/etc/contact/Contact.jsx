@@ -3,8 +3,8 @@ import "./contact.scss";
 function Contact() {
   return (
     <div className="contact">
-      <span className="contact-bar" />
       <ul className="contact-list">
+        <span className="contact-list-bar" />
         <li>
           <div className="text">
             <h2>CONTACT</h2>
@@ -41,6 +41,30 @@ function Contact() {
           </div>
         </li>
       </ul>
+
+      <div className="team">
+        <div className="team-title">
+          <h2>Our Team</h2>
+        </div>
+
+        <div className="team-wrapper">
+          <a href="https://github.com/wooomr2">
+            <div className="team-wrapper-person">
+              <img src="/assets/team/margelo_faces_christoph.svg" alt="dkj" />
+              <p>MyeongJin</p>
+              <p>@wooomr2</p>
+            </div>
+          </a>
+
+          <a href="https://github.com/oneny">
+            <div className="team-wrapper-person">
+              <img src="/assets/team/margelo_faces_szymon.svg" alt="dkj" />
+              <p>JaeWon</p>
+              <p>@oneny</p>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

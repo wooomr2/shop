@@ -98,8 +98,8 @@ function ProductModal() {
                   required
                   onChange={(e) => setPrice(e.target.value)}
                 />
-                <input
-                  className="form-input"
+                <textarea
+                  className="form-textarea"
                   placeholder="Description"
                   required
                   onChange={(e) => setDescription(e.target.value)}

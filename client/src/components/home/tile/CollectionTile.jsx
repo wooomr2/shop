@@ -1,11 +1,15 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Tile from "./Tile";
 import "./collectionTile.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getNewCollections } from "../../../slice/collectionSlice";
 
 
 function CollectionTile({ scrollY, numberOfPage }) {
   const refContainer = useRef(null);
   let currentPage = 0;
+  const dispatch = useDispatch();
+  const { collections } = useSelector((store) => store.collection);
 
   const { current: elContainer } = refContainer;
   if (elContainer) {
@@ -24,6 +28,11 @@ function CollectionTile({ scrollY, numberOfPage }) {
     console.log("clientHeight", clientHeight);
   }
 
+  useEffect(() => {
+    dispatch(getNewCollections());
+  }, []);
+
+
   return (
     <div
       ref={refContainer}
@@ -37,21 +46,15 @@ function CollectionTile({ scrollY, numberOfPage }) {
         </div>
       </div>
       <div className="tile-content">
-        <Tile
-          page={0}
-          numberOfPage={numberOfPage}
-          currentPage={currentPage}
-        />
-        <Tile
-          page={1}
-          numberOfPage={numberOfPage}
-          currentPage={currentPage}
-        />
-        <Tile
-          page={2}
-          numberOfPage={numberOfPage}
-          currentPage={currentPage}
-        />  
+      {collections?.map((collection, i) => (
+          <Tile
+            key={collection._id}
+            collection={collection}
+            page={i}
+            numberOfPage={numberOfPage}
+            currentPage={currentPage}
+          />
+        ))}
       </div>
     </div>
   );

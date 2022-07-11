@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
+import publicURL from "../../../utils/publicURL";
 import "./tile.scss";
 
-
-function Tile({ page, currentPage, numberOfPage }) {
+function Tile({ page, currentPage, numberOfPage, collection }) {
   const refContainer = useRef(null);
   const progress = Math.max(0, currentPage - page);
 
@@ -15,7 +15,7 @@ function Tile({ page, currentPage, numberOfPage }) {
     opacity = Math.max(0, (1.0 - progress) * 4);
   }
 
-  let translateY = Math.max(0, 50 - progress * 3 * 50);
+  let translateY = Math.max(0, 30 - progress * 3 * 50);
   if (progress > 0.85) translateY = Math.max(-50, -(progress - 0.85) * 2 * 50);
 
   return (
@@ -33,15 +33,25 @@ function Tile({ page, currentPage, numberOfPage }) {
           style={{ transform: `translateY(${translateY}px)` }}
         >
           <div>
-            <div className="brandName">NANAMICA</div>
-            <div className="brandInfo">2022 SPRING/SUMMER</div>
+            <div className="brandInfo">
+              <span>{collection?.name.split(":")[0]}</span>
+              {collection?.name
+                .split(":")[1]
+                .split("\n")
+                .map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
+            </div>
           </div>
         </div>
-        <div
-          className="tile-item-right"
-        >
+
+        <div className="tile-item-right">
           <div className="tile-item-imgWrapper">
-            <img src={`/assets/looks/Look${page}.jpg`} alt="" loading="lazy"/>
+            <img
+              src={publicURL(collection?.cards[0].img)}
+              alt=""
+              loading="lazy"
+            />
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ import ReviewList from "../../components/reviewList/ReviewList";
 import useAlt from "../../hooks/useAlt";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
-import { addItem } from "../../slice/cartSlice";
+import { addItem, buyNow } from "../../slice/cartSlice";
 import { getProduct } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
 import toKRW from "../../utils/toKRW";
@@ -19,7 +19,8 @@ function Products() {
   const navigate = useNavigate();
   const params = useParams();
   const { product, relatedProducts } = useSelector((store) => store.product);
-  const [size, onChangeSize] = useInput("");
+  const { cartItems } = useSelector((store) => store.cart);
+  const [size, onChangeSize, setSize] = useInput("");
   const [qty, onChangeQty, setQty] = useInput(1);
   const [src, altSrc, setSrc] = useAlt("");
   const [isDescOpen, toggleIsDescOpen] = useToggle(false);
@@ -47,27 +48,49 @@ function Products() {
     }
   }, [isCartOpen]);
 
-  const addCart = () => {
+  const addCart = (buy) => () => {
     if (!size) return alert("사이즈를 선택하셔야 합니다.");
 
     const item = product.stock.find((v) => v.size === size);
-    if (item?.qty < qty) {
-      return alert(`${item.qty}개 이상으로 재고가 부족합니다.`);
+    const cartItem = cartItems
+      .filter((v) => v._id === product._id)
+      .find((v) => v.size === size);
+
+    if (item?.qty < qty || item?.qty <= cartItem?.qty) {
+      return alert(`${item.qty}개 이상으로는 재고가 부족합니다.`);
     }
 
-    dispatch(
-      addItem({
-        _id: product._id,
-        name: product.name,
-        brand: product.brand,
-        color: product.color,
-        img: product.productImgs[0].fileName,
-        price: product.discountPrice ? product.discountPrice : product.price,
-        size,
-        qty,
-      })
-    );
-    return setIsCartOpen(true);
+    if (buy === "now") {
+      dispatch(
+        buyNow({
+          _id: product._id,
+          name: product.name,
+          brand: product.brand,
+          color: product.color,
+          img: product.productImgs[0].fileName,
+          price: product.discountPrice ? product.discountPrice : product.price,
+          size,
+          qty,
+        })
+      );
+      navigate("/checkout");
+    } else {
+      dispatch(
+        addItem({
+          _id: product._id,
+          name: product.name,
+          brand: product.brand,
+          color: product.color,
+          img: product.productImgs[0].fileName,
+          price: product.discountPrice ? product.discountPrice : product.price,
+          size,
+          qty,
+        })
+      );
+      setIsCartOpen(true);
+    }
+
+    return setSize("");
   };
 
   return (
@@ -129,7 +152,9 @@ function Products() {
               </p>
             </div>
             <div className={`desc ${isDescOpen ? "descOpen" : ""}`}>
-              {product?.description}
+              {product?.description?.split("\n").map((line, i) => (
+                <p key={line}>{line}</p>
+              ))}
             </div>
           </div>
 
@@ -145,6 +170,7 @@ function Products() {
                   <img
                     src={publicURL(relatedProduct.productImgs[0].fileName)}
                     alt="relatedProduct"
+                    onClick={() => setSize("")}
                   />
                 </Link>
               ))}
@@ -164,7 +190,7 @@ function Products() {
                 </option>
               ))}
             </select>
-            {size && (
+            {size && size.length > 0 && (
               <div className="selection-info">
                 <div>{size}</div>
                 <div className="selection-info-qty">
@@ -221,13 +247,16 @@ function Products() {
                 <button onClick={() => navigate("/cart")}>장바구니 이동</button>
               </div>
             )}
-            <button className="cart" onClick={addCart}>
+            <button className="cart" onClick={addCart()}>
               카트 담기
             </button>
-            <button className="purchase">바로 구매</button>
+            <button type="button" className="purchase" onClick={addCart("now")}>
+              바로 구매
+            </button>
           </div>
         </div>
       </div>
+
       <ReviewList />
     </>
   );

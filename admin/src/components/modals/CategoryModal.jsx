@@ -9,15 +9,14 @@ import {
 } from "../../slice/categorySlice";
 import { closeModal } from "../../slice/modalSlice";
 import publicURL from "../../utils/publicURL";
+import PermMediaIcon from "@mui/icons-material/PermMedia";
 import "./modal.scss";
 
 function CategoryModal({
   setChecked,
   setExpanded,
-  expandedCategories,
   checkedCategories,
   setCheckedCategories,
-  setExpandedCategories,
 }) {
   const dispatch = useDispatch();
   const { linearCategories } = useSelector((store) => store.category);
@@ -39,7 +38,6 @@ function CategoryModal({
     setChecked([]);
     setExpanded([]);
     setCheckedCategories([]);
-    setExpandedCategories([]);
   };
 
   const handleAddFormSubmit = (e) => {
@@ -57,10 +55,9 @@ function CategoryModal({
   const handleDeleteFormSubmit = (e) => {
     e.preventDefault();
     const checkedIds = checkedCategories.map((item) => ({ _id: item._id }));
-    const expandedIds = expandedCategories.map((item) => ({ _id: item._id }));
-    const ids = expandedIds.concat(checkedIds);
-    if (ids.length > 0) {
-      dispatch(deleteCategories(ids));
+
+    if (checkedIds.length > 0) {
+      dispatch(deleteCategories(checkedIds));
       dispatch(closeModal());
       resetCheckedAndExpandedCategories();
     }
@@ -77,56 +74,39 @@ function CategoryModal({
       form.append("viewType", item.viewType);
       form.append("categoryImg", item.categoryImg ? item.categoryImg : "");
     });
-    expandedCategories.forEach((item) => {
-      form.append("_id", item._id);
-      form.append("name", item.name);
-      form.append("parentId", item.parentId ? item.parentId : "");
-      form.append("viewType", item.viewType);
-      form.append("categoryImg", item.categoryImg ? item.categoryImg : "");
-    });
 
     dispatch(updateCategories(form));
     dispatch(closeModal());
     resetCheckedAndExpandedCategories();
   };
 
-  const handleCategoryInputChange = (key, value, idx, type) => {
-    switch (type) {
-      case "checked":
-        const updatedCC = checkedCategories.map((item, _idx) =>
-          idx === _idx ? { ...item, [key]: value } : item
-        );
-        setCheckedCategories(updatedCC);
-        break;
-
-      case "expanded":
-        const updatedEC = expandedCategories.map((item, _idx) =>
-          idx === _idx ? { ...item, [key]: value } : item
-        );
-        setExpandedCategories(updatedEC);
-        break;
-      default:
-    }
+  const handleCategoryInputChange = (key, value, idx) => {
+    const updatedCC = checkedCategories.map((item, _idx) =>
+      idx === _idx ? { ...item, [key]: value } : item
+    );
+    setCheckedCategories(updatedCC);
   };
 
   const commonInputModule = (item, idx, type) => (
-    <div key={idx}>
+    <div key={idx} className="form-inputWrapper">
       <input
+        className="form-input"
         placeholder="Category Name"
         required
         value={type ? item.name : undefined}
         onChange={(e) =>
           type
-            ? handleCategoryInputChange("name", e.target.value, idx, type)
+            ? handleCategoryInputChange("name", e.target.value, idx)
             : setName(e.target.value)
         }
       />
 
       <select
+        className="form-input"
         value={type ? item.parentId : undefined}
         onChange={(e) =>
           type
-            ? handleCategoryInputChange("parentId", e.target.value, idx, type)
+            ? handleCategoryInputChange("parentId", e.target.value, idx)
             : setParentId(e.target.value)
         }
       >
@@ -139,10 +119,11 @@ function CategoryModal({
       </select>
 
       <select
+        className="form-input"
         value={type ? item.viewType : undefined}
         onChange={(e) =>
           type
-            ? handleCategoryInputChange("viewType", e.target.value, idx, type)
+            ? handleCategoryInputChange("viewType", e.target.value, idx)
             : setViewType(e.currentTarget.value)
         }
       >
@@ -154,42 +135,46 @@ function CategoryModal({
         <option value="split">Split</option>
       </select>
 
-      {type
-        ? item.categoryImg && (
-            <div>
-              <img
-                src={
-                  item.categoryImg instanceof File
-                    ? URL.createObjectURL(item.categoryImg)
-                    : publicURL(item.categoryImg)
-                }
-                alt=""
-                height="50"
-              />
-            </div>
-          )
-        : categoryImg && (
-            <div>
-              <img src={URL.createObjectURL(categoryImg)} alt="" height="50" />
-              <Cancel onClick={() => setCategoryImg("")} />
-            </div>
-          )}
+      <div className="form-gridImg">
+        {type
+          ? item.categoryImg && (
+              <div className="form-imgWrapper">
+                <img
+                  src={
+                    item.categoryImg instanceof File
+                      ? URL.createObjectURL(item.categoryImg)
+                      : publicURL(item.categoryImg)
+                  }
+                  alt=""
+                  height="50"
+                />
+              </div>
+            )
+          : categoryImg && (
+              <div className="form-imgWrapper">
+                <img
+                  src={URL.createObjectURL(categoryImg)}
+                  alt=""
+                  height="50"
+                />
+                <Cancel onClick={() => setCategoryImg("")} />
+              </div>
+            )}
+      </div>
 
-      <input
-        type="file"
-        id="file"
-        accept=".png, .jpeg, .jpg"
-        onChange={(e) =>
-          type
-            ? handleCategoryInputChange(
-                "categoryImg",
-                e.target.files[0],
-                idx,
-                type
-              )
-            : setCategoryImg(e.target.files[0])
-        }
-      />
+      <label htmlFor="file" className="form-productImgs">
+        <PermMediaIcon /> <span>Product Images</span>
+        <input
+          type="file"
+          id="file"
+          accept=".png, .jpeg, .jpg"
+          onChange={(e) =>
+            type
+              ? handleCategoryInputChange("categoryImg", e.target.files[0], idx)
+              : setCategoryImg(e.target.files[0])
+          }
+        />
+      </label>
     </div>
   );
 
@@ -202,12 +187,14 @@ function CategoryModal({
             dispatch(closeModal()) && resetState();
           }}
         >
-          <Box sx={style}>
-            <form onSubmit={handleAddFormSubmit}>
-              <p>Add New Category</p>
+          <Box className="modal-wrapper">
+            <form onSubmit={handleAddFormSubmit} className="modal-wrapper-form">
+              <p className="form-title">Add New Category</p>
               {commonInputModule()}
-              <button type="submit">submit</button>
-              <button type="reset" onClick={resetState}>
+              <button className="form-btn" type="submit">
+                submit
+              </button>
+              <button className="form-btn" type="reset" onClick={resetState}>
                 reset
               </button>
             </form>
@@ -223,16 +210,11 @@ function CategoryModal({
             dispatch(closeModal()) && resetCheckedAndExpandedCategories();
           }}
         >
-          <Box sx={style}>
-            <form onSubmit={handleUpdateFormSubmit}>
-              {expandedCategories.length > 0 && (
-                <>
-                  <p>Update expanded Categories</p>
-                  {expandedCategories.map((item, idx) =>
-                    commonInputModule(item, idx, "expanded")
-                  )}
-                </>
-              )}
+          <Box className="modal-wrapper">
+            <form
+              onSubmit={handleUpdateFormSubmit}
+              className="modal-wrapper-form"
+            >
               {checkedCategories.length > 0 && (
                 <>
                   <p>Update Checked Categories</p>
@@ -241,7 +223,9 @@ function CategoryModal({
                   )}
                 </>
               )}
-              <button type="submit">submit</button>
+              <button className="form-btn" type="submit">
+                submit
+              </button>
             </form>
           </Box>
         </Modal>
@@ -255,18 +239,19 @@ function CategoryModal({
             dispatch(closeModal()) && resetCheckedAndExpandedCategories();
           }}
         >
-          <Box sx={style}>
-            <form onSubmit={handleDeleteFormSubmit}>
+          <Box className="modal-wrapper">
+            <form
+              onSubmit={handleDeleteFormSubmit}
+              className="modal-wrapper-form"
+            >
               <p>Delete Categories</p>
-              <h5>Expanded</h5>
-              {expandedCategories.map((item, index) => (
-                <span key={index}>{item.name}@</span>
-              ))}
               <h5>Checked</h5>
               {checkedCategories.map((item, index) => (
-                <span key={index}>{item.name}@</span>
+                <span key={index}>{item.name}</span>
               ))}
-              <button type="submit">submit</button>
+              <button className="form-btn" type="submit">
+                submit
+              </button>
             </form>
           </Box>
         </Modal>
@@ -277,15 +262,3 @@ function CategoryModal({
 }
 
 export default CategoryModal;
-
-const style = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};

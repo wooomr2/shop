@@ -25,126 +25,106 @@ function createCategoryHierarchy(categories, parentId = null) {
   return categoryList;
 }
 
-exports.addCategory = async (req, res, next) => {
+exports.addCategory = asyncHandler(async (req, res, next) => {
   const { name, parentId, viewType } = req.body;
 
-  try {
-    const categoryObj = {
-      name,
-      slug: slugify(name),
-      createdBy: req.userId,
-    };
-    if (parentId) categoryObj.parentId = parentId;
-    if (viewType) categoryObj.viewType = viewType;
-    if (req.file) categoryObj.categoryImg = req.file.filename;
+  const categoryObj = {
+    name,
+    slug: slugify(name),
+    createdBy: req.userId,
+  };
+  if (parentId) categoryObj.parentId = parentId;
+  if (viewType) categoryObj.viewType = viewType;
+  if (req.file) categoryObj.categoryImg = req.file.filename;
 
-    const category = await Category.create(categoryObj);
+  const category = await Category.create(categoryObj);
 
-    res.status(201).json(category);
-  } catch (err) {
-    return next(new ErrorRes(err, 400));
-  }
-};
+  res.status(201).json(category);
+});
 
-exports.getCategories = (req, res, next) => {
-  Category.find({})
-    .exec()
-    .catch((err) => next(new ErrorRes(err, 400)))
-    .then((categories) => {
-      const categoryList = createCategoryHierarchy(categories);
-      res.status(200).json(categoryList);
-    });
-};
+exports.getCategories = asyncHandler(async (req, res, next) => {
+  const categories = await Category.find({}).exec();
 
+  const categoryList = createCategoryHierarchy(categories);
 
-exports.updateCategories = async (req, res, next) => {
+  res.status(200).json(categoryList);
+});
+
+exports.updateCategories = asyncHandler(async (req, res, next) => {
   const { _id, name, parentId, viewType } = req.body;
   const updatedCategories = [];
 
   let categoryImg = [];
   if (req.files.length > 0) {
-    categoryImg = req.files.map((file) => {
-      return file.filename;
-    });
+    categoryImg = req.files.map((file) => file.filename);
   }
 
-  try {
-    //객체 타입이 맞으면 true 아니면 false
-    //배열이면
-    if (_id instanceof Array) {
-      for (let i = 0; i < _id.length; i++) {
-        const category = {
-          name: name[i],
-          viewType: viewType[i],
-          slug: slugify(name[i]),
-        };
-        if (parentId[i] !== "") category.parentId = parentId[i];
-        if (categoryImg[i] !== "") category.categoryImg = categoryImg[i];
-
-        const updatedCategory = await Category.findOneAndUpdate(
-          { _id: _id[i] },
-          category,
-          { new: true }
-        );
-        updatedCategories.push(updatedCategory);
-      }
-
-      return res.status(201).json({ updatedCategories });
-    }
-    //단일 업데이트면
-    else {
+  //객체 타입이 맞으면 true 아니면 false
+  //배열이면
+  if (_id instanceof Array) {
+    for (let i = 0; i < _id.length; i++) {
       const category = {
-        name,
-        slug: slugify(name),
-        viewType,
+        name: name[i],
+        viewType: viewType[i],
+        slug: slugify(name[i]),
       };
-      if (parentId !== "") category.parentId = parentId;
-      if (categoryImg[0] !== "") category.categoryImg = categoryImg[0];
+      if (parentId[i] !== "") category.parentId = parentId[i];
+      if (categoryImg[i] !== "") category.categoryImg = categoryImg[i];
 
       const updatedCategory = await Category.findOneAndUpdate(
-        { _id },
+        { _id: _id[i] },
         category,
-        {
-          new: true,
-        }
+        { new: true }
       );
-
-      return res.status(201).json({ updatedCategory });
+      updatedCategories.push(updatedCategory);
     }
-  } catch (err) {
-    return next(new ErrorRes(err, 400));
-  }
-};
 
-exports.deleteCategories = async (req, res, next) => {
+    return res.status(201).json({ updatedCategories });
+  }
+  //단일 업데이트면
+  else {
+    const category = {
+      name,
+      slug: slugify(name),
+      viewType,
+    };
+    if (parentId !== "") category.parentId = parentId;
+    if (categoryImg[0] !== "") category.categoryImg = categoryImg[0];
+
+    const updatedCategory = await Category.findOneAndUpdate({ _id }, category, {
+      new: true,
+    });
+
+    return res.status(201).json({ updatedCategory });
+  }
+});
+
+exports.deleteCategories = asyncHandler(async (req, res, next) => {
   const ids = req.body;
   const deletedCategories = [];
   const updatedCategories = [];
-  try {
-    for (let i = 0; i < ids.length; i++) {
-      const deleteCategory = await Category.findOneAndDelete({
-        _id: ids[i]._id,
-        createdBy: req.userId,
-      });
-      deletedCategories.push(deleteCategory);
 
-      //$unset : column삭제
-      const updateCategory = await Category.findOneAndUpdate(
-        {
-          parentId: ids[i]._id,
-        },
-        { $unset: { parentId: "" } },
-        {
-          new: true,
-        }
-      );
-      updatedCategories.push(updateCategory);
-    }
+  for (let i = 0; i < ids.length; i++) {
+    const deleteCategory = await Category.findOneAndDelete({
+      _id: ids[i]._id,
+      createdBy: req.userId,
+    });
+    deletedCategories.push(deleteCategory);
 
-    if (deletedCategories.length == ids.length) {
-      res.status(201).json({ deletedCategories, updatedCategories });
-    }
-  } catch (err) {
-    return next(new ErrorRes(err, 400));
+    //$unset : column삭제
+    const updateCategory = await Category.findOneAndUpdate(
+      {
+        parentId: ids[i]._id,
+      },
+      { $unset: { parentId: "" } },
+      {
+        new: true,
+      }
+    );
+    updatedCategories.push(updateCategory);
   }
-};
+
+  if (deletedCategories.length == ids.length) {
+    res.status(201).json({ deletedCategories, updatedCategories });
+  }
+});

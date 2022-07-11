@@ -1,0 +1,69 @@
+@import "../../../variable.scss";
+
+.reviewModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  &-wrapper {
+    position: relative;
+    background-color: #fff;
+    width: 55rem;
+    height: 80%;
+
+    &-top {
+      position: absolute;
+      right: 0;
+      padding: 0.5rem;
+
+      > .icon {
+        cursor: pointer;
+        font-size: 2.5rem;
+        color: #eee;
+      }
+    }
+
+    &-middle {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem;
+
+      > .icon {
+        cursor: pointer;
+        font-size: 2.5rem;
+        color: #eee;
+      }
+    }
+
+    &-img {
+      width: 100%;
+      height: 100%;
+
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .reviewModal {
+    &-wrapper {
+      width: 80%;
+      height: 80vh;
+    }
+  }
+}

@@ -32,6 +32,7 @@ import Reviewables from "./pages/mypage/reviewables/Reviewables";
 import Reviews from "./pages/mypage/reviews/Reviews";
 import ReviewForm from "./pages/mypage/reviews/submit/ReviewForm";
 import Review from "./pages/mypage/reviews/review/Review";
+import Kakao from "./pages/auth/kakao/Kakao";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
         </Route>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/kakao/callback" element={<Kakao />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password/:resetToken" element={<ResetPassword />} />
         <Route path="/unauthorized" element={<UnAuthorized />} />

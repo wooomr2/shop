@@ -7,22 +7,13 @@ import useInput from "../../../hooks/useInput";
 import { getProductsByCategories } from "../../../slice/productSlice";
 import "./newArrival.scss";
 
-
 function NewArraval() {
   const dispatch = useDispatch();
   const products = useSelector((store) => store.product.products);
-
-  const perPage = 12;
-  const currentPage = 1;
   const [sort, onChangeSort] = useInput("latest");
 
   useEffect(() => {
-    const payload = {
-      perPage,
-      currentPage, 
-      sort,
-    };
-    dispatch(getProductsByCategories(payload));
+    dispatch(getProductsByCategories({ perPage: 12, currentPage: 1, sort }));
   }, [sort]);
 
   return (

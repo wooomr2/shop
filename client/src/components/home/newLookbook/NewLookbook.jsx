@@ -12,7 +12,7 @@ function NewLookbook() {
   const refContent = useRef(null);
   const refInner = useRef(null);
   const lookbooks = useSelector((store) => store.lookbook.lookbooks);
-
+  
   useEffect(() => {
     dispatch(getNewLookbook());
   }, []);

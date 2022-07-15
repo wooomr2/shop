@@ -20,8 +20,8 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
-      minlength: 6,
+      // required: [true, "Please add a password"],
+      // minlength: 6,
       select: false,
     },
     roles: {
@@ -38,6 +38,9 @@ const UserSchema = new mongoose.Schema(
 
     point: { type: Number, default: 0 },
 
+    provider: String,
+    kakaoToken:String,
+    
     refreshToken: [String],
     resetPasswordToken: String,
     resetPasswordExpire: Date,

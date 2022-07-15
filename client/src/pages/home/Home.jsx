@@ -11,7 +11,6 @@ function Home() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const handleScroll = useCallback(() => {
-    console.log("window.scrollY", window.scrollY);
     setScrollY(window.scrollY);
   }, []);
 

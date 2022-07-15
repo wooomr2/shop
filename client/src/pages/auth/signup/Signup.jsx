@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Term from "../../../components/term/Term";
 import useInput from "../../../hooks/useInput";
 import useToggle from "../../../hooks/useToggle";
-import { clearMatchResult, matchEmail, signup } from "../../../slice/authSlice";
+import { clearState, matchEmail, signup } from "../../../slice/authSlice";
 import Header from "../../../components/header/Header";
 import Footer from "../../../components/footer/Footer";
 import "./signup.scss";
@@ -13,7 +13,7 @@ import "./signup.scss";
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const matchResult = useSelector((store) => store.auth.matchResult);
+  const matchResult = useSelector((store) => store.auth.msg);
   const user = localStorage.getItem("user");
 
   const emailRef = useRef(null);
@@ -88,7 +88,7 @@ function Signup() {
   }, []);
 
   useEffect(() => {
-    if (!email) dispatch(clearMatchResult());
+    if (!email) dispatch(clearState());
   }, [email]);
 
   if (user) return <Navigate to="/" />;

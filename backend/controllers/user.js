@@ -3,7 +3,6 @@ const asyncHandler = require("../middlewares/asyncHandler");
 const User = require("../models/User");
 const UserAddress = require("../models/Address");
 const MONTHS = require("../utils/MONTHS");
-const Feature = require("../utils/Feature");
 
 exports.getUsers = asyncHandler(async (req, res, next) => {
   const { perPage, currentPage } = req.body;

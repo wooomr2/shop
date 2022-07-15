@@ -5,7 +5,7 @@ import useInput from "../../../hooks/useInput";
 import { clearError, signin } from "../../../slice/authSlice";
 import { addCartItems } from "../../../slice/cartSlice";
 import "./signin.scss";
-import Header from "../../../components/header/Header"
+import Header from "../../../components/header/Header";
 
 function Signin() {
   const navigate = useNavigate();
@@ -79,6 +79,14 @@ function Signin() {
 
             <button type="submit">로그인</button>
           </form>
+
+          <button
+            onClick={() =>
+              (window.location.href = `${process.env.REACT_APP_KAKAO_AUTH_URL}`)
+            }
+          >
+            카카오로그인하기
+          </button>
         </div>
 
         <div className="navigate-wrapper">

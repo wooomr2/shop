@@ -42,17 +42,6 @@ exports.getAllCollections = asyncHandler(async (req, res, next) => {
   res.status(200).json({ collections });
 });
 
-exports.getNewCollections = asyncHandler(async (req, res, next) => {
-  const collections = await Collection.find({})
-    .limit(3)
-    .sort({ createdAt: -1 })
-    .exec();
-
-  console.log(collections);
-
-  res.status(200).json({ collections });
-});
-
 exports.getCollections = asyncHandler(async (req, res, next) => {
   const total = await Collection.find({}).countDocuments();
   const collections = await new Feature(Collection, req.body)

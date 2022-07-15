@@ -1,5 +1,5 @@
 const express = require("express");
-const { addCollection, getCollections, getCollection, deleteCollection, updateCollection, getAllCollections, getNewCollections } = require("../controllers/collection");
+const { addCollection, getCollections, getCollection, deleteCollection, updateCollection, getAllCollections } = require("../controllers/collection");
 const { upload } = require("../middlewares/multer");
 const { verifyToken } = require("../middlewares/verifyToken")
 const { verifyRoles } = require("../middlewares/verifyRoles");
@@ -11,7 +11,6 @@ router.patch("/", verifyToken, verifyRoles(ROLES.ADMIN), upload.fields([{name: '
 router.delete("/:id", verifyToken, verifyRoles(ROLES.ADMIN), deleteCollection);
 router.get("/", verifyToken, verifyRoles(ROLES.ADMIN), getAllCollections);
 router.post("/get", getCollections);
-router.get("/new", getNewCollections);
 router.get("/:id", getCollection);
 
 module.exports = router;

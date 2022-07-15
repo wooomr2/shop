@@ -11,7 +11,6 @@ function Masthead({ scrollY }) {
   if (elContainer) {
     // + 60px -> 헤더 영역까지 더해서 scrollY을 나눠야 함
     progress = Math.min(1, scrollY / elContainer.clientHeight);
-    console.log("progress", progress);
   }
 
   let currentIndex = 0;

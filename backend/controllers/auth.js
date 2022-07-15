@@ -4,6 +4,7 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const ROLES = require("../config/roleList");
 const User = require("../models/User");
+const axios = require("axios");
 
 const sendToken = asyncHandler(async (req, res, user) => {
   const accessToken = user.generateAccessToken();
@@ -38,13 +39,16 @@ const sendToken = asyncHandler(async (req, res, user) => {
   });
 
   // Send token to user
-  const { _id, username, profileImg } = user._doc;
+  const { _id, username, profileImg, provider, kakaoToken } = user._doc;
   const roles = Object.values(user._doc.roles).filter(Boolean);
+
   res.status(200).json({
     accessToken,
+    kakaoToken,
     user: {
       _id,
       roles,
+      provider,
       // username,
       // profileImg,
     },
@@ -73,6 +77,47 @@ exports.adminSignin = asyncHandler(async (req, res, next) => {
 });
 
 ////////////////////////////////////////////////////////////////////////////
+
+exports.kakao = asyncHandler(async (req, res, next) => {
+  let code = req.query.code;
+
+  const response = await axios.post(
+    `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_CLIENT_ID}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${code}`,
+    {
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    }
+  );
+
+  const kakaoToken = response.data.access_token;
+
+  const response2 = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
+    headers: {
+      Authorization: `Bearer ${kakaoToken}`,
+    },
+  });
+
+  const { email, profile } = response2.data.kakao_account;
+
+  let foundUser = await User.findOne({ email }).exec();
+  if (foundUser) {
+    foundUser.kakaoToken = kakaoToken;
+    sendToken(req, res, foundUser);
+  } else {
+    let user = await User.create({
+      username: profile.nickname,
+      email,
+      profileImg: profile.profile_image_url,
+      provider: "kakao",
+      kakaoToken,
+    });
+    sendToken(req, res, user);
+  }
+});
+
+////////////////////////////////////////////////////////////////////////////
+
 exports.signin = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -81,6 +126,7 @@ exports.signin = asyncHandler(async (req, res, next) => {
 
   const user = await User.findOne({ email }).select("+password").exec();
   if (!user) return next(new ErrorRes("존재하지 않는 유저", 400));
+  if (user?.provider) return next(new ErrorRes("소셜 로그인 하세요", 400));
 
   const isMatch = await user.matchPassword(password);
   if (!isMatch) return next(new ErrorRes("잘못된 비밀번호", 400));
@@ -126,6 +172,7 @@ exports.signout = asyncHandler(async (req, res, next) => {
   await foundUser.save();
 
   res.clearCookie("jwt", { HttpOnly: true, SameSite: "None", Secure: true });
+
   res.status(204).json("로그아웃");
 });
 
@@ -134,7 +181,9 @@ exports.matchEmail = asyncHandler(async (req, res, next) => {
 
   const user = await User.findOne({ email }).exec();
   if (!user) {
-    return res.status(200).json({ msg: `${email} 은 사용가능한 이메일입니다.` });
+    return res
+      .status(200)
+      .json({ msg: `${email} 은 사용가능한 이메일입니다.` });
   }
 
   res.status(200).json({ msg: `${email} 은 사용중인 이메일입니다.` });
@@ -184,43 +233,42 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   return res.status(200).json({ result: true });
 });
 
-exports.forgotPassword = (req, res, next) => {
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
 
-  User.findOne({ email }).exec((err, user) => {
-    if (err) next(err);
-    if (!user) return next(new ErrorRes("Email 전송 실패"), 404);
+  const user = await User.findOne({ email }).exec();
+  if (!user) return next(new ErrorRes("Email 전송 실패"), 404);
 
-    const resetToken = user.generateResetPasswordToken();
+  const resetToken = user.generateResetPasswordToken();
 
-    user.save();
+  user.save();
 
-    const resetUrl = `http://localhost:3000/reset_password/${resetToken}`;
-    const message = `<h1>비밀번호 초기화 요청</h1>
-    <p>Please make a put request to the following link:</p>
+  const resetUrl = `http://localhost:3000/reset_password/${resetToken}`;
+  const message = `<h1>비밀번호 초기화 요청</h1>
+    <p>아래 링크로 접속 후 비밀번호 초기화 하세요:</p>
     <a href=${resetUrl} clicktracking=off>${resetUrl}</a>`;
 
-    try {
-      sendEmail({
-        to: user.email,
-        subject: "Password Reset Request",
-        text: message,
-      });
-      res.status(200).json({ success: true, data: "Email Sent" });
-    } catch (err) {
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
-      user.save();
+  try {
+    sendEmail({
+      to: user.email,
+      subject: "Password Reset Request",
+      text: message,
+    });
 
-      return next(new ErrorRes(err, 500));
-    }
-  });
-};
+    res.status(200).json({ success: true, msg: "Email Sent" });
+  } catch (err) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    user.save();
+
+    return next(new ErrorRes(err, 500));
+  }
+});
 
 exports.resetPassword = (req, res, next) => {
   const resetPasswordToken = crypto
     .createHash("sha256")
-    .update(req.params.resetToken)
+    .update(req.body.resetToken)
     .digest("hex");
 
   User.findOne({
@@ -238,8 +286,7 @@ exports.resetPassword = (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      data: "비밀번호 변경 선공",
-      token: user.generateSignedToken(),
+      msg: "비밀번호 변경 선공"
     });
   });
 };

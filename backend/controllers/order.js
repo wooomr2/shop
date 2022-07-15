@@ -91,8 +91,8 @@ exports.getOrdersForAdmin = asyncHandler(async (req, res, next) => {
   const orders = await new Feature(Order.find({}), req.body)
     .pagination()
     .sort()
-    .getQuery()
-    .exec();
+    .exec()
+    .getQuery();
 
   const total = await Order.find({}).countDocuments();
 
@@ -145,8 +145,7 @@ exports.getOrders = asyncHandler(async (req, res) => {
   const total = await Order.find(findQuery).countDocuments();
   const orders = await new Feature(Order.find(findQuery), queryOptions)
     .pagination()
-    .sort()
-    .getQuery();
+    .sort().getQuery();
 
   res.status(200).json({ total, orders });
 });
@@ -162,7 +161,6 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
 exports.updateOrderStatus = asyncHandler(async (req, res, next) => {
   let { _id, type, paymentStatus } = req.body;
   if (!type) type = "delivered";
-  console.log(type);
 
   //orderStatus ["ordered", "packed", "shipped", "delivered"] 변경
   const updatedOrder = await Order.findOneAndUpdate(
@@ -192,8 +190,6 @@ exports.updatePaymentStatus = asyncHandler(async (req, res, next) => {
     },
     { new: true }
   ).exec();
-
-  console.log(updatedOrder);
 
   res.status(201).json({ updatedOrder });
 });
@@ -254,8 +250,6 @@ exports.getMonthlyIncome = asyncHandler(async (req, res, next) => {
     판매량: item.salesRate,
     매출: item.grossSales,
   }));
-
-  console.log(income);
 
   res.status(200).json({ income });
 });

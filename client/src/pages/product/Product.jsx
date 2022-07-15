@@ -56,10 +56,6 @@ function Products() {
       .filter((v) => v._id === product._id)
       .find((v) => v.size === size);
 
-    if (item?.qty < qty || item?.qty <= cartItem?.qty) {
-      return alert(`${item.qty}개 이상으로는 재고가 부족합니다.`);
-    }
-
     if (buy === "now") {
       dispatch(
         buyNow({
@@ -75,6 +71,10 @@ function Products() {
       );
       navigate("/checkout");
     } else {
+      if (item?.qty < qty || item?.qty <= cartItem?.qty) {
+        return alert(`${item.qty}개 이상으로는 재고가 부족합니다.`);
+      }
+
       dispatch(
         addItem({
           _id: product._id,

@@ -22,8 +22,6 @@ exports.upsertReview = asyncHandler(async (req, res, next) => {
   let { reviewImgs } = req.files;
   let review;
 
-  console.log(req.body);
-
   if (!!reviewImgs) {
     reviewImgs = reviewImgs.map((file) => file.filename);
   }

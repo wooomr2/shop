@@ -1,18 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getNewBrands } from "../../../slice/brandSlice";
+import { useSelector } from "react-redux";
 import publicURL from "../../../utils/publicURL";
 import "./scrollable.scss";
 
-function Scrollable({ scrollY }) {
-  const dispatch = useDispatch();
-  const { brands } = useSelector((store) => store.brand);
+function Scrollable() {
+  const brands = useSelector((store) => store.brand.brands);
   let images = [...document.querySelectorAll(".scrollable-img")];
-  console.log("hi");
-
-  useEffect(() => {
-    dispatch(getNewBrands());
-  }, []);
 
   useEffect(() => {
     for (let i = 0; i < images.length; i++) {

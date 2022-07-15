@@ -5,8 +5,8 @@ import { getUser } from "./userSlice";
 
 const initialState = {
   isAuthenticated: false,
-  matchResult: "",
   matchPwd: false,
+  msg: "",
   isLoading: false,
   error: null,
 };
@@ -49,7 +49,7 @@ export const updateProfile = createAsyncThunk(
 );
 
 export const signup = createAsyncThunk(
-  "/user/signup",
+  "/auth/signup",
   async (user, thunkAPI) => {
     try {
       const res = await axios.post(`/auth/signup`, user);
@@ -78,14 +78,67 @@ export const signin = createAsyncThunk(
   }
 );
 
+export const kakao = createAsyncThunk("auth/kakao", async (code, thunkAPI) => {
+  try {
+    const res = await axios.get(`/auth/kakao/?code=${code}`);
+
+    const { accessToken, user, kakaoToken } = res.data;
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("kakaoToken", kakaoToken);
+
+    return res.data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
+
 export const signout = createAsyncThunk(
   "/auth/signout",
   async (dummy, thunkAPI) => {
     try {
-      await axios.get("/auth/signout");
+      const res = await axios.get("/auth/signout");
+      const kakaoToken = localStorage.getItem("kakaoToken");
 
-      localStorage.clear();
-      thunkAPI.dispatch(clearCart());
+      if (res.status === 204) {
+        localStorage.clear();
+        thunkAPI.dispatch(clearCart());
+
+        if (kakaoToken) {
+          await fetch(`https://kapi.kakao.com/v1/user/unlink`, {
+            method: "POST",
+
+            headers: {
+              "Content-type": "application/x-www-form-urlencoded",
+              Authorization: `Bearer ${kakaoToken}`,
+            },
+          });
+        }
+      }
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "/auth/forgot_password",
+  async (email, thunkAPI) => {
+    try {
+      const res = await axios.post(`/auth/forgot_password`, { email });
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "/auth/reset_password",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await axios.put(`/auth/reset_password`, payload);
+      return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -96,8 +149,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    clearMatchResult: (state) => {
-      state.matchResult = "";
+    clearState: (state) => {
+      state.msg = "";
+      state.error= null;
     },
     clearError: (state) => {
       state.error = null;
@@ -108,10 +162,10 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     [matchEmail.fulfilled]: (state, action) => {
-      state.matchResult = action.payload.msg;
+      state.msg = action.payload.msg;
       state.isLoading = false;
     },
-    [matchEmail.rejected]: (state,action) => {
+    [matchEmail.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.error;
     },
@@ -135,7 +189,7 @@ const authSlice = createSlice({
       state.matchPwd = false;
       state.isLoading = false;
     },
-    [updateProfile.rejected]: (state,action) => {
+    [updateProfile.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.error;
     },
@@ -164,6 +218,19 @@ const authSlice = createSlice({
       state.error = action.payload.error;
     },
 
+    [kakao.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [kakao.fulfilled]: (state, action) => {
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.error = null;
+    },
+    [kakao.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
+
     [signout.pending]: (state) => {
       state.isLoading = true;
     },
@@ -176,9 +243,35 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload.error;
     },
+
+    [forgotPassword.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [forgotPassword.fulfilled]: (state, action) => {
+      state.msg = action.payload.msg;
+      state.isLoading = false;
+      state.error = null;
+    },
+    [forgotPassword.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
+
+    [resetPassword.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [resetPassword.fulfilled]: (state, action) => {
+      state.msg = action.payload.msg;
+      state.isLoading = false;
+      state.error = null;
+    },
+    [resetPassword.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.error;
+    },
   },
 });
 
-export const { clearMatchResult, clearError } = authSlice.actions;
+export const { clearState, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

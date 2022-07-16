@@ -10,13 +10,13 @@ exports.addCollection = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: banner.filename,
+      img: `${req.baseUrl}/${banner.filename}`
     }));
   }
 
   if (!!cards) {
     cards = cards.map((card) => ({
-      img: card.filename,
+      img: `${req.baseUrl}/${card.filename}`
     }));
   }
 
@@ -70,12 +70,12 @@ exports.updateCollection = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: banner.filename,
+      img: `${req.baseUrl}/${banner.filename}`
     }));
   }
   if (!!cards) {
     cards = cards.map((card) => ({
-      img: card.filename,
+      img: `${req.baseUrl}/${card.filename}`
     }));
   }
 

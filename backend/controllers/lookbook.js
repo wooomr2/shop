@@ -13,7 +13,7 @@ exports.addLookbook = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: banner.filename,
+      img: `${req.baseUrl}/${banner.filename}`,
     }));
   }
 
@@ -76,7 +76,7 @@ exports.updateLookbook = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: banner.filename,
+      img: `${req.baseUrl}/${banner.filename}`
     }));
   }
 

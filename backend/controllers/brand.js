@@ -8,7 +8,7 @@ exports.addBrand = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: banner.filename,
+      img: `${req.baseUrl}/${banner.filename}`
     }));
   }
 
@@ -43,7 +43,7 @@ exports.updateBrand = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: banner.filename,
+      img: `${req.baseUrl}/${banner.filename}`
     }));
   }
 

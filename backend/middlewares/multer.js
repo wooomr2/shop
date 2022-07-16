@@ -4,10 +4,11 @@ const shortid = require("shortid");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(path.dirname(__dirname), "uploads"));
+    cb(null, path.join(path.dirname(__dirname), `uploads/${req.baseUrl}`));
   },
   filename: function (req, file, cb) {
-    cb(null, shortid.generate() + "-" + file.originalname);
+    const ext = path.extname(file.originalname)
+    cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
   },
   limits: { fileSize: 5 * 1024 * 1024 },
 });

@@ -14,7 +14,7 @@ function Message({ message, own, owner }) {
           src={
             owner.profileImg
               ? publicURL(owner.profileImg)
-              : "/favicon.ico"
+              : "/icon.png"
           }
           alt=""
         />

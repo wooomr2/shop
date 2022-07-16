@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useInput from "../../../hooks/useInput";
-import { clearError, matchPassword, updateProfile } from "../../../slice/authSlice";
+import {
+  clearError,
+  matchPassword,
+  updateProfile,
+} from "../../../slice/authSlice";
 import "./profile.scss";
 
 function Profile() {
   const dispatch = useDispatch();
   const { matchPwd, error } = useSelector((store) => store.auth);
   const user = useSelector((store) => store.user.user);
-  const { email, username, mobile } = user;
+  const { email, username, mobile, provider } = user;
 
   const [name, onChangeName, setName] = useInput("");
   const [phone, onChangePhone, setPhone] = useInput("");
@@ -70,7 +74,7 @@ function Profile() {
 
   return (
     <div className="profile">
-      {!matchPwd && (
+      {!matchPwd && !provider && (
         <div className="profile-item">
           <div className="profile-item-title">
             <h2>비밀번호 확인</h2>
@@ -102,7 +106,7 @@ function Profile() {
         </div>
       )}
 
-      {matchPwd && (
+      {(matchPwd || provider) && (
         <div className="profile-item">
           <div className="profile-item-title">
             <h2>회원정보 수정</h2>

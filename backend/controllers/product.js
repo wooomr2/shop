@@ -19,7 +19,7 @@ exports.addProduct = asyncHandler(async (req, res, next) => {
 
   if (req.files.length > 0) {
     productImgs = req.files.map((file) => {
-      return { fileName: file.filename };
+      return { fileName: `${req.baseUrl}/${file.filename}` };
     });
   }
 
@@ -145,7 +145,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
 
   if (req.files.length > 0) {
     productImgs = req.files.map((file) => {
-      return { fileName: file.filename };
+      return { fileName: `${req.baseUrl}/${file.filename}` };
     });
   }
 

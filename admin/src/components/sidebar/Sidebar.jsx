@@ -13,7 +13,7 @@ function Sidebar() {
       <div className="sidebar">
         <div className="sidebar-brand">
           <div className="sidebar-brand-img">
-            <img src="./favicon.ico" alt="icon" />
+            <img src="./icon.png" alt="icon" />
           </div>
           <h1>HOW ABOUT OOTD</h1>
         </div>

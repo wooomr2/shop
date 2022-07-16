@@ -35,7 +35,7 @@ exports.addCategory = asyncHandler(async (req, res, next) => {
   };
   if (parentId) categoryObj.parentId = parentId;
   if (viewType) categoryObj.viewType = viewType;
-  if (req.file) categoryObj.categoryImg = req.file.filename;
+  if (req.file) categoryObj.categoryImg = `${req.baseUrl}/${req.file.filename}`;
 
   const category = await Category.create(categoryObj);
 
@@ -56,7 +56,7 @@ exports.updateCategories = asyncHandler(async (req, res, next) => {
 
   let categoryImg = [];
   if (req.files.length > 0) {
-    categoryImg = req.files.map((file) => file.filename);
+    categoryImg = req.files.map((file) => `${req.baseUrl}/${file.filename}`);
   }
 
   //객체 타입이 맞으면 true 아니면 false

@@ -30,32 +30,28 @@ function Checkout() {
   const [formType, setFormType] = useState("add");
   const [selectedAddress, setSelectedAddress] = useState("");
   const [enableInput, setEnableInput] = useState(false);
-  const [paymentType, setPaymentType] = useState("");
   const [usedPoint, onChangeUsedPoint] = useInput(0);
-  console.log({cartItem, cartItems, totalQty, totalPrice })
+
   useEffect(() => {
     dispatch(getUser());
   }, []);
 
   const handleOrderSubmit = () => {
-    const paymentPrice = cartItem[0].price
+    const paymentPrice = cartItem[0]?.price
       ? cartItem[0].price - usedPoint
       : totalPrice - usedPoint;
 
     const order = {
       user,
       address: selectedAddress,
-      items: cartItem[0]._id ? cartItem : cartItems,
-      totalQty: cartItem[0].qty ? cartItem[0].qty : totalQty,
-      totalPrice:cartItem[0].price ? cartItem[0].price : totalPrice,
+      items: cartItem[0]?._id ? cartItem : cartItems,
+      totalQty: cartItem[0]?.qty ? cartItem[0].qty : totalQty,
+      totalPrice:cartItem[0]?.price ? cartItem[0].price : totalPrice,
       usedPoint,
       paymentPrice,
       paymentType: "card",
       paymentStatus: "pending",
     };
-
-
-    console.log(order)
 
     dispatch(addOrder(order));
     navigate("/success", { replace: true });
@@ -84,11 +80,11 @@ function Checkout() {
         <div className="product-total">
           <div className="product-total-item">
             <h4>총계</h4>
-            <h4>{cartItem[0].qty ? cartItem[0].qty : totalQty}</h4>
+            <h4>{cartItem[0]?.qty ? cartItem[0].qty : totalQty}</h4>
           </div>
           <div className="product-total-item">
             <h4>총금액</h4>
-            <h4>₩ {toKRW(cartItem[0].price ? cartItem[0].price : totalPrice)}</h4>
+            <h4>₩ {toKRW(cartItem[0]?.price ? cartItem[0].price : totalPrice)}</h4>
           </div>
         </div>
       </CheckoutItem>
@@ -180,8 +176,8 @@ function Checkout() {
             <div className="item-right">
               <p className="total">
                 ₩{" "}
-                {cartItem[0].price
-                  ? toKRW(cartItem[0].price - usedPoint)
+                {cartItem[0]?.price
+                  ? toKRW(cartItem[0]?.price - usedPoint)
                   : toKRW(totalPrice - usedPoint)}
               </p>
             </div>

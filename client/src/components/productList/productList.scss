@@ -3,6 +3,8 @@
 section {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: inherit;
 
   .top {
     display: flex;
@@ -10,6 +12,7 @@ section {
     align-items: center;
     padding: 1rem 0;
     border-bottom: 1px solid $gray-light;
+    width: 100%;
 
     &-left,
     &-right {
@@ -50,16 +53,25 @@ section {
   }
 
   .products-wrapper {
+    position: relative;
+    width: 100%;
+    min-width: 30vh;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     row-gap: 2rem;
     column-gap: 5rem;
-    position: relative;
     padding-top: 1rem;
     z-index: 100;
     
     &.selected {
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    &.loading {
+      display: block;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: unset;
     }
   }
 }

@@ -57,6 +57,10 @@ function Products() {
       .find((v) => v.size === size);
 
     if (buy === "now") {
+      if (item?.qty < qty) {
+        return alert(`${item.qty}개 이상으로는 재고가 부족합니다.`);
+      }
+
       dispatch(
         buyNow({
           _id: product._id,
@@ -66,12 +70,12 @@ function Products() {
           img: product.productImgs[0].fileName,
           price: product.discountPrice ? product.discountPrice : product.price,
           size,
-          qty,
+          qty: parseInt(qty),
         })
       );
       navigate("/checkout");
     } else {
-      if (item?.qty < qty || item?.qty <= cartItem?.qty) {
+      if (item?.qty < qty || item?.qty <= cartItem?.qty + qty) {
         return alert(`${item.qty}개 이상으로는 재고가 부족합니다.`);
       }
 
@@ -84,7 +88,7 @@ function Products() {
           img: product.productImgs[0].fileName,
           price: product.discountPrice ? product.discountPrice : product.price,
           size,
-          qty,
+          qty: parseInt(qty),
         })
       );
       setIsCartOpen(true);

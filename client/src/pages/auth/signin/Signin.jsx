@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import Header from "../../../components/header/Header";
 import useInput from "../../../hooks/useInput";
 import { clearError, signin } from "../../../slice/authSlice";
 import { addCartItems } from "../../../slice/cartSlice";
 import "./signin.scss";
-import Header from "../../../components/header/Header";
 
 function Signin() {
   const navigate = useNavigate();
@@ -79,14 +79,6 @@ function Signin() {
 
             <button type="submit">로그인</button>
           </form>
-
-          <button
-            onClick={() =>
-              (window.location.href = `${process.env.REACT_APP_KAKAO_AUTH_URL}`)
-            }
-          >
-            카카오로그인하기
-          </button>
         </div>
 
         <div className="navigate-wrapper">
@@ -99,6 +91,16 @@ function Signin() {
           >
             비밀번호 찾기
           </div>
+        </div>
+
+        <div className="kakaoLogin">
+          <img
+            onClick={() =>
+              (window.location.href = `${process.env.REACT_APP_KAKAO_AUTH_URL}`)
+            }
+            src="/assets/kakao.png"
+            alt=""
+          />
         </div>
       </div>
     </>

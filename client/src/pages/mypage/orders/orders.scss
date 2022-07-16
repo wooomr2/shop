@@ -1,56 +1,105 @@
 @import "../../../variable.scss";
 
-.orders-content {
-  width: 100%;
+.orders {
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
+  row-gap: 2rem;
 
-  .orders-item {
+  &-content {
     width: 100%;
-    background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
+    row-gap: 1rem;
 
-    &-number {
-      padding: 1rem;
+    .orders-item {
+      width: 100%;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
 
-      &:hover {
-        font-weight: 600;
-        cursor: pointer;
+      &-number {
+        padding: 1rem;
+
+        &:hover {
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        .icon {
+          transform: translateY(0.2rem);
+        }
       }
 
-      .icon {
-        transform: translateY(0.2rem);
+      &-detail {
+        padding: 0 1rem;
+        padding-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 1rem;
+
+        .left {
+          display: flex;
+          align-items: center;
+          column-gap: 1rem;
+
+          .img {
+            flex-shrink: 0;
+            width: 7rem;
+            height: 8rem;
+
+            > img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .paymentInfo {
+            text-transform: uppercase;
+            line-height: 2rem;
+
+            > p:nth-child(3) {
+              color: $sub-color;
+            }
+            > p:last-child {
+              color: $main-color;
+            }
+          }
+        }
+
+        .right {
+          > button {
+            cursor: pointer;
+            padding: 0.5rem 0.7rem;
+            font-size: 1.4rem;
+            border: 1px solid $sub-color;
+            background-color: #fff;
+            color: $sub-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .orders {
+    row-gap: 1rem;
+
+    &-title {
+      > h2 {
+        font-size: 1.7rem;
       }
     }
 
-    &-detail {
-      padding: 0 1rem;
-      padding-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      column-gap: 1rem;
-
-      .img {
-        width: 7rem;
-        height: 8rem;
-
-        > img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .paymentInfo {
-        text-transform: uppercase;
-        line-height: 2rem;
-
-        > p:nth-child(3) {
-          color: $sub-color;
-        }
-        > p:last-child {
-          color: $main-color;
+    &-content {
+      .orders-item {
+        &-detail {
+          .right {
+            > button {
+              font-size: $mdFont;
+            }
+          }
         }
       }
     }
@@ -67,17 +116,27 @@
           font-size: 1.3rem;
         }
       }
+
       &-detail {
         padding: 0 0.5rem;
         padding-bottom: 0.5rem;
 
-        .img {
-          width: 5rem;
-          height: 6rem;
+        .left {
+          .img {
+            width: 5rem;
+            height: 6rem;
+          }
+
+          .paymentInfo {
+            line-height: 1.6rem;
+          }
         }
 
-        .paymentInfo {
-          line-height: 1.6rem;
+        .right {
+          > button {
+            font-size: $smFont;
+            padding: 0.4rem 0.6rem;
+          }
         }
       }
     }

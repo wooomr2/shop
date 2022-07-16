@@ -1,17 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "./unauthorized.scss";
 
 function UnAuthorized() {
-  const navigate = useNavigate();
 
   return (
-    <section>
-      <h1>Unauthorized</h1>
-      <br />
-      <p>You do not have access to the requested page.</p>
-      <div className="flexGrow">
-        <button onClick={() => navigate(-1)}>Go Back</button>
-      </div>
-    </section>
+    <>
+      <main className="unauthorized">
+        <section className="unauthorized-wrapper">
+          <div className="unauthorized-content">
+            <div className="unauthorized-content-detail">
+              <span className="unauthorized-subtitle">Unauthorized</span>
+              <h1 className="unauthorized-title">
+                You do not have access to the requested page.
+              </h1>
+              <NavLink to="/" className="unauthorized-content-detail-btn">
+                Go Home
+              </NavLink>
+            </div>
+          </div>
+
+          <div className="unauthorized-img">
+            <img src="/assets/ghost-img.png" alt="" />
+            <div className="unauthorized-img-shadow"></div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
 

@@ -3,10 +3,11 @@ import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import React from "react";
 import useAlt from "../../hooks/useAlt";
+import Loading from "../loading/Loading";
 import ProductItem from "./productItem/ProductItem";
 import "./productList.scss";
 
-function ProductList({ haveFilter, products, onChangeSort, categoryToggleHandler }) {
+function ProductList({ haveFilter, products, onChangeSort, categoryToggleHandler, isLoading }) {
   const [selectedGrid, altSelectedGrid] = useAlt(false)
 
   return (
@@ -45,10 +46,18 @@ function ProductList({ haveFilter, products, onChangeSort, categoryToggleHandler
           />
         </div>
       </div>
-      <div className={`products-wrapper ${selectedGrid ? "selected" : ""}`}>
-        {products?.map((product) => (
-          <ProductItem key={product._id} product={product} />
-        ))}
+      <div
+        className={`products-wrapper ${selectedGrid ? "selected" : ""} ${
+          isLoading ? "loading" : ""
+        }`}
+      >
+        {isLoading ? (
+          <Loading />
+        ) : (
+          products?.map((product) => (
+            <ProductItem key={product._id} product={product} />
+          ))
+        )}
       </div>
     </section>
   );

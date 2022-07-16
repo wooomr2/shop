@@ -21,7 +21,7 @@ function Chat() {
 
   const socket = useRef();
   const scrollRef = useRef();
-  const { roles, ...user } = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     if (user) {

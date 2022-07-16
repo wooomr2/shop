@@ -60,7 +60,6 @@ function Category() {
     dispatch(categoryToggle());
   };
 
-  if(isLoading) return <div>로딩중...</div>
   return (
     <>
       <div className="category-container">
@@ -77,6 +76,7 @@ function Category() {
           products={products}
           onChangeSort={onChangeSort}
           categoryToggleHandler={categoryToggleHandler}
+          isLoading={isLoading}
         />
       </div>
       

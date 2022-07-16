@@ -1,0 +1,56 @@
+@import "../../../variable.scss";
+
+.success {
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  row-gap: 2rem;
+
+  &-comment {
+    > br {
+      display: none;
+    }
+  }
+
+  &-btn {
+    padding: 1rem 1.4rem;
+    background-color: $sub-color;
+    border-radius: 1rem;
+    color: #fff;
+    transition: background-color .2s ease;
+
+    &:hover {
+      background-color: $main-color;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .success {
+    font-size: $mdFont;
+
+    &-comment {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .success {
+    font-size: $smFont;
+    height: 60vh;
+
+    &-comment {
+      font-size: 1.9rem;
+      text-align: center;
+
+      > br {
+        display: block;
+      }
+    }
+  }
+}

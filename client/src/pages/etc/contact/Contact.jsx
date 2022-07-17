@@ -8,7 +8,7 @@ function Contact() {
         <li>
           <div className="text">
             <h2>CONTACT</h2>
-            <p>카카오톡 채팅상담</p>
+            <p>채팅 상담</p>
             <p>온라인숍 이용안내</p>
             <p>1:1문의</p>
           </div>
@@ -19,8 +19,7 @@ function Contact() {
         <li className="left">
           <div className="text">
             <h2>CS CENTER</h2>
-            <p>CS TEL. 02-111-1111</p>
-            <p>E-MAIL cs@haocompany.com</p>
+            <p>E-MAIL) haoshoppingmall@gmail.com</p>
             <p>MON-SUN 9:00-18:00</p>
             <p>BREAKTIME 12:30-13:30</p>
           </div>

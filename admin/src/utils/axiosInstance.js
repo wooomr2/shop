@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.NODE_ENV === 'production' ? "api" : process.env.BASE_URL,
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });

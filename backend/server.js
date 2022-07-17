@@ -12,31 +12,31 @@ const credentials = require('./middlewares/credentials');
 
 connectDB();
 app.use(logger);
-app.use(credentials);
-app.use(cors(corsOptions));
+app.use(credentials); 
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static("public"));
-app.use("/public", express.static(path.join(__dirname, "uploads")));
+app.use(express.static("/api/public"));
+app.use("/api/public", express.static(path.join(__dirname, "uploads")));
 
-app.use("/refresh", require("./routes/refresh"));
+app.use("/api/refresh", require("./routes/refresh"));
 
-app.use("/addresses", require("./routes/addresses"));
-app.use("/auth", require("./routes/auth"));
-app.use("/brands", require("./routes/brands"));
-app.use("/carts", require("./routes/carts"));
-app.use("/categories", require("./routes/categories"));
-app.use("/chatrooms", require("./routes/chatrooms"));
-app.use("/collections", require("./routes/collections"));
-app.use("/lookbooks", require("./routes/lookbooks"));
-app.use("/messages", require("./routes/messages"));
-app.use("/orders", require("./routes/orders"));
-app.use("/products", require("./routes/products"));
-app.use("/reviews", require("./routes/reviews"));
-app.use("/stripe", require("./routes/stripe"));
-app.use("/users", require("./routes/users"));
+app.use("/api/addresses", require("./routes/addresses"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/brands", require("./routes/brands"));
+app.use("/api/carts", require("./routes/carts"));
+app.use("/api/categories", require("./routes/categories"));
+app.use("/api/chatrooms", require("./routes/chatrooms"));
+app.use("/api/collections", require("./routes/collections"));
+app.use("/api/lookbooks", require("./routes/lookbooks"));
+app.use("/api/messages", require("./routes/messages"));
+app.use("/api/orders", require("./routes/orders"));
+app.use("/api/products", require("./routes/products"));
+app.use("/api/reviews", require("./routes/reviews"));
+app.use("/api/stripe", require("./routes/stripe"));
+app.use("/api/users", require("./routes/users"));
 
 
 app.use(errorHandler);

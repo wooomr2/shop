@@ -35,6 +35,22 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorRes(message, 403);
   }
 
+  //Multer Error
+  if (err.code === "LIMIT_FILE_SIZE") {
+    const message = `File is too large`;
+    error = new ErrorRes(message, 400);
+  }
+
+  if (err.code === "LIMIT_FILE_COUNT") {
+    const message = `File limit reached`;
+    error = new ErrorRes(message, 400);
+  }
+
+  if (err.code === "LIMIT_UNEXPECTED_FILE") {
+    const message = `Invalid File type`;
+    error = new ErrorRes(message, 400);
+  }
+
   res.status(error.statusCode || 500).json({
     error: error.message || "Server Error",
   });

@@ -18,8 +18,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static("/api/public"));
-app.use("/api/public", express.static(path.join(__dirname, "uploads")));
+// app.use(express.static("/api/public"));
+// app.use("/api/public", express.static(path.join(__dirname, "uploads")));
+app.use(express.static("/public"));
+app.use("/public", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/refresh", require("./routes/refresh"));
 

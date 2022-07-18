@@ -389,7 +389,7 @@ server {
         listen 80;
         listen [::]:80;
 
-         root /home/ubuntu/apps/shop/client/build;
+        root /home/ubuntu/apps/shop/client/build;
 
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
@@ -398,7 +398,7 @@ server {
 
         location / {
                 try_files $uri $uri/ /index.html;
-                error_page 405 = $uri
+                error_page 405 = $uri;
         }
 
          location /api {

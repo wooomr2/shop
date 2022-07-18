@@ -12,7 +12,6 @@ function Collection() {
   const [scrollY, setScrollY] = useState(0);
 
   const handleScroll = useCallback(() => {
-    console.log("window.scrollY", window.scrollY);
     setScrollY(window.scrollY);
   }, []);
 

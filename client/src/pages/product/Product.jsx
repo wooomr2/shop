@@ -118,7 +118,7 @@ function Products() {
         </div>
 
         <div className="product-right">
-          <Link to={`/brands/${product.brand}`}>
+          <Link to={`/brands/${product?.brand}`}>
             <div className="brand-button">브랜드 홈 바로가기</div>
           </Link>
 

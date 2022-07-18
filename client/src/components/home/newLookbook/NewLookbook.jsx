@@ -26,11 +26,7 @@ function NewLookbook() {
 
   const onMouseDown = (e) => {
     pressed = true;
-    console.log(pressed);
     startX = e.clientX - elInner.offsetLeft;
-    console.log(e.clientX); // 사용자 x 좌표
-    console.log(elInner.offsetLeft); // offsetLeft
-    console.log(startX);
   };
 
   const onMouseUp = () => {

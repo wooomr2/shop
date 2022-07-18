@@ -313,6 +313,18 @@ sudo certbot --nginx
 
 
 ---------------------------------------------------------------------------------------------------------------
+# AWS EC2(UBUNTU) 배포
+
+- 보안 그룹 설정
+HTTP(PORT 80 :NGNIX)
+CUSTOM TCP(PORT 8000 : NODE SERVER)
+CUSTOM TCP(PORT 27017 : MONGODB)
+CUSTOM TCP(PORT 8800 : SOCKET SERVER)
+
+- ssh -i [Keypair file] ubuntu@[PublicDNS]
+
+- pem file permisson 변경 : chmod 600 ./shop_keypair.pem
+
 1. sudo apt update && sudo apt upgrade -y
 
 mkdir apps
@@ -325,9 +337,153 @@ cd apps
 - curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 - sudo apt-get install -y nodejs
 
-4. npm 설치
-- sudo apt install npm
+-------------------------------
+4. backend 폴더가서 npm install
+5. npm start 로 확인
+--------------------------------
 
-5. backend 폴더가서 npm install
+6. pm2 설치
+- sudo npm install pm2 -g
 
-6. npm start 로 확인
+- pm2 start apps/shop/backend/server.js
+- pm2 start apps/shop/backend/server.js --name [name입력]
+- pm2 stop 0[id or name]
+- pm2 status
+- pm2 delete [id or name]
+
+//startup Setting
+- pm2 startup ---> startup Script command출력됨 -->
+
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+
+- pm2 save
+
+- sudo reboot
+
+---------------------------------------------
+7. client
+- client폴더 이동 cd apps/shop/client
+- npm install
+- npm run build
+- cd build
+- build 내의 index.html가 필요
+
+-------------------------------------------
+8. nginx 설치
+- sudo apt install nginx -y
+
+- sudo systemctl status nginx
+
+- sudo systemctl enable nginx
+
+- /etc/nginx 폴더에서 ls (sites-available)
+- cd sites-available (default파일 있음 default server block)
+- cat default
+------------------------------------------
+9. 파일 수정
+- file하나 만들자
+- default 복사 : sudo cp default shop 아니면 default 자체를 수정하자
+- sudo vi shop
+
+server {
+        listen 80;
+        listen [::]:80;
+
+         root /home/ubuntu/apps/shop/client/build;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _ 13.52.254.187;
+
+        location / {
+                try_files $uri $uri/ /index.html;
+                error_page 405 = $uri
+        }
+
+         location /api {
+            proxy_pass http://localhost:8000;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+
+}
+
+11. Enable the new site
+- sudo ln -s /etc/nginx/sites-available/shop /etc/nginx/sites-enabled/
+- sudo systemctl restart nginx
+-------------------------------------------------------------------------
+
+12. ENV 관리
+
+* 개별 env 설정
+- export TEST="hello" 세팅 끝
+- printenv
+- printenv | grep -i test
+- unset TEST
+
+* env 폴더 최상단에서 관리하자
+* env 파일 생성으로 한번에 적용
+- vi .env
+- env변수들 붙여넣기
+- set -o allexport; source /home/ubuntu/.env; set +o allexport
+- printenv로 확인
+- ls -la
+-.profile 에서 env변수 reboot시 바로 적용
+- vi .profile
+- set -o allexport; source /home/ubuntu/.env; set +o allexport 
+
+
+
+
+13. Enable Firewall
+sudo ufw status
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable
+sudo ufw status
+
+
+-에러 확인
+cat /var/log/nginx/error.log
+
+
+권한 해결
+vi /etc/nginx/nginx.conf 명령어를 통해 vi 편집기로 다음과 같이 user를 변경해주는 것으로 해결하였다.
+
+/etc/nginx/nginx.conf
+
+#user www-data;
+user root;
+
+
+
+[1]   Done                    MONGO_URI=mongodb+srv://mongo:db12345@cluster.icwey.mongodb.net/shop?retryWrites=true
+[2]-  Done                    REACT_APP_KAKAO_AUTH_URL=https://kauth.kakao.com/oauth/authorize?client_id=aa5cadd3788f85adabab37ee2afd113d
+[3]+  Done                    redirect_uri=http://localhost:3000/kakao/callback
+
+설정 왜 안됩니까
+
+
+
+
+
+- 405 not allowed error
+----> error_page 405 = $uri
+
+- 소켓에러 잡아야함!
+- env설정 안되는것들 수동설정하고 
+- pw초기화 등 localhost <-- 다 수정해야함 
+
+
+
+
+
+
+
+collection페이지
+main.7462a239.js:2 TypeError: Cannot read properties of undefined (reading 'map')

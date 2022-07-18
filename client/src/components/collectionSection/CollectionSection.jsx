@@ -44,7 +44,6 @@ function CollectionSection({ collection, scrollY, numberOfPage }) {
         ) / clientHeight;
       currentPage = percentY * numberOfPage * 2;
     }
-    console.log("currentPage", currentPage);
   }
 
   return (

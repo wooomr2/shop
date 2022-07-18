@@ -297,3 +297,37 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 Get and install certificates using interactive prompt
 
 sudo certbot --nginx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+1. sudo apt update && sudo apt upgrade -y
+
+mkdir apps
+cd apps
+
+
+2. git clone [깃주소]
+
+3. 노드 설치 
+- curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+- sudo apt-get install -y nodejs
+
+4. npm 설치
+- sudo apt install npm
+
+5. backend 폴더가서 npm install
+
+6. npm start 로 확인

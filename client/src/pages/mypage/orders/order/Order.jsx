@@ -102,7 +102,7 @@ function Order() {
             <p>₩ {toKRW(order.totalPrice)}</p>
           </div>
           <div className="order-wrapper-item">
-            <p>사용 마일리지</p>
+            <p>{order?.paymentStatus === "refund" ? "환급" : "사용"} 마일리지</p>
             <p>{order.usedPoint ? toKRW(order.usedPoint) : 0} POINT</p>
           </div>
           <div className="order-wrapper-item">

@@ -72,10 +72,34 @@ main {
 
       &-name {
         text-align: center;
-        
+
         .navi {
+          position: relative;
+
+          &::before,
+          &::after {
+            content: "";
+            border-bottom: solid 1px #000;
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            transition: all .2s ease;
+            -webkit-transition: all .2s ease;
+          }
+
+          &::before {
+            left: 0;
+          }
+
+          &::after {
+            right: 0;
+          }
+
           &:hover {
-            font-weight: 600;
+            &::before,
+            &::after {
+              width: 50%;
+            }
           }
         }
       }

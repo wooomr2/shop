@@ -6,6 +6,17 @@
   display: flex;
   background-color: #fff;
   flex-direction: column;
+  position: relative;
+  
+
+  .black {
+    display: none;
+  }
+
+  .sidebar-sticky {   
+    position: sticky;
+    top: 0;
+  }
 
   .categorylist-wrapper {
     display: flex;
@@ -125,6 +136,7 @@
       padding: 2rem;
 
       .black {
+        display: block;
         position: fixed;
         width: calc(100vw - 35rem);
         height: 100vh;
@@ -142,10 +154,10 @@
     &.filterOpen {
       min-width: 100vw;
       padding: 5rem;
-    }
 
-    .black {
-      display: none;
+      .black {
+        display: none;
+      }
     }
   }
 }

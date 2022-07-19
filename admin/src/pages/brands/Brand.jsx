@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import publicURL from "../../utils/publicURL";
-import PermMediaIcon from "@mui/icons-material/PermMedia";
 import { updateBrand } from "../../slice/brandSlice";
+import publicURL from "../../utils/publicURL";
 
 function Brand() {
   const navigate = useNavigate();
@@ -16,11 +15,16 @@ function Brand() {
   const [description, setDescription] = useState(brand.description);
   const [banners, setBanners] = useState(brand.banners);
 
+  const fileRef = useRef(null);
+  const onClickFileRef = () => {
+    fileRef.current.click();
+  };
+
   const resetState = () => {
     setName(brand.name);
     setDescription(brand.description);
     setBanners(brand.banners);
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,58 +54,84 @@ function Brand() {
   };
 
   return (
-    <div className="brand">
-    <button onClick={() => navigate(-1)}>목록으로</button>
+    <div className="content">
+      <div className="content-top">
+        <div className="content-top-id">
+          <p>BrandId: {_id}</p>
+        </div>
+        <button onClick={() => navigate(-1)}>목록으로</button>
+      </div>
 
-    <form onSubmit={handleSubmit}>
-      <p>brandId : {_id}</p>
-      <input
-        placeholder="Name"
-        required
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <textarea
-        placeholder="Description"
-        required
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
+      <form onSubmit={handleSubmit} className="content-form">
+        <div className="item">
+          <label htmlFor="name" className="item-left">
+            브랜드명
+          </label>
+          <input
+            id="name"
+            placeholder="Name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
 
-      {banners &&
-        banners.map((banner, i) => (
-          <div key={i}>
-            <img
-              src={
-                banner instanceof File
-                  ? URL.createObjectURL(banner)
-                  : publicURL(banner.img)
-              }
-              alt=""
-              height="50"
-            />
+        <div className="item">
+          <label htmlFor="description" className="item-left">
+            설명
+          </label>
+          <textarea
+            placeholder="Description"
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="item">
+          <label htmlFor="" className="item-left">
+            배너 이미지
+          </label>
+          <div className="item-img">
+            {banners &&
+              banners.map((banner, i) => (
+                <div key={i} className="item-img-wrapper">
+                  <img
+                    src={
+                      banner instanceof File
+                        ? URL.createObjectURL(banner)
+                        : publicURL(banner.img)
+                    }
+                    alt=""
+                  />
+                </div>
+              ))}
           </div>
-        ))}
+        </div>
 
-      <label htmlFor="file">
-        <PermMediaIcon />
-        <span>Product images</span>
-        <input
-          type="file"
-          id="file"
-          multiple
-          accept=".png, .jpeg, .jpg"
-          style={{ display: "none" }}
-          onChange={(e) => handleBanners(e.target.files)}
-        />
-      </label>
+        <div className="item">
+          <label className="item-left"></label>
+          <button type="button" className="item-btn" onClick={onClickFileRef}>
+            제품 사진 수정
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            id="file"
+            multiple
+            accept=".png, .jpeg, .jpg"
+            onChange={(e) => handleBanners(e.target.files)}
+          />
+        </div>
 
-      <button type="submit">submit</button>
-      <button type="reset" onClick={resetState}>
-        reset
-      </button>
-    </form>
-  </div>
+        <div className="btnWrapper">
+          <button type="submit">수정</button>
+          <button type="reset" onClick={resetState}>
+            취소
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 

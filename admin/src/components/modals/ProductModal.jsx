@@ -82,27 +82,22 @@ function ProductModal() {
             dispatch(closeModal()) && resetState();
           }}
         >
-         <Box className="modal-wrapper">
+              <Box className="modal-wrapper">
             <form onSubmit={handleSubmit} className="modal-wrapper-form">
               <p className="form-title">Add New product</p>
+
+              <input
+                className="form-input"
+                placeholder="Name"
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
               <div className="form-inputWrapper">
-                <input
-                  className="form-input"
-                  placeholder="Name"
-                  required
-                  onChange={(e) => setName(e.target.value)}
-                />
                 <input
                   className="form-input"
                   placeholder="Price"
                   required
                   onChange={(e) => setPrice(e.target.value)}
-                />
-                <textarea
-                  className="form-textarea"
-                  placeholder="Description"
-                  required
-                  onChange={(e) => setDescription(e.target.value)}
                 />
                 <input
                   className="form-input"
@@ -135,6 +130,12 @@ function ProductModal() {
                   onChange={(e) => setStock(e.target.value)}
                 />
               </div>
+              <textarea
+                className="form-textarea"
+                placeholder="Description"
+                required
+                onChange={(e) => setDescription(e.target.value)}
+              />
 
               <select
                 onChange={(e) => setCategory(e.target.value)}

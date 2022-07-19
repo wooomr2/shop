@@ -403,6 +403,7 @@ server {
 
          location /api {
             proxy_pass http://localhost:8000;
+            //-------->http://localhost:8000/api로바꿔보자
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection 'upgrade';
@@ -432,6 +433,7 @@ server {
 11. Enable the new site
 - sudo ln -s /etc/nginx/sites-available/shop /etc/nginx/sites-enabled/
 - sudo systemctl restart nginx
+- systemctl status nginx.service
 -------------------------------------------------------------------------
 
 12. ENV 관리
@@ -454,9 +456,17 @@ server {
 - set -o allexport; source /home/ubuntu/.env; set +o allexport 
 
 
+13. 권한 해결
+vi /etc/nginx/nginx.conf 명령어를 통해 vi 편집기로 다음과 같이 user를 변경해주는 것으로 해결하였다.
+
+/etc/nginx/nginx.conf
+
+#user www-data;
+user root;
+sudo systemctl restart nginx
 
 
-13. Enable Firewall
+14. Enable Firewall
 sudo ufw status
 sudo ufw allow ssh
 sudo ufw allow http
@@ -469,13 +479,7 @@ sudo ufw status
 cat /var/log/nginx/error.log
 
 
-권한 해결
-vi /etc/nginx/nginx.conf 명령어를 통해 vi 편집기로 다음과 같이 user를 변경해주는 것으로 해결하였다.
 
-/etc/nginx/nginx.conf
-
-#user www-data;
-user root;
 
 
 
@@ -509,7 +513,7 @@ location /socket.io/ {
 
 
 
-
+################# pro
 
 
 

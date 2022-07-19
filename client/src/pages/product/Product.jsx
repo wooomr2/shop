@@ -1,7 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ReviewList from "../../components/reviewList/ReviewList";
@@ -25,6 +25,7 @@ function Products() {
   const [src, altSrc, setSrc] = useAlt("");
   const [isDescOpen, toggleIsDescOpen] = useToggle(false);
   const [isCartOpen, altIsCartOpen, setIsCartOpen] = useAlt(false);
+  const selectRef = useRef(null)
 
   const otherColors = relatedProducts?.filter((v) => v._id !== product._id);
 
@@ -89,11 +90,13 @@ function Products() {
           price: product.discountPrice ? product.discountPrice : product.price,
           size,
           qty: parseInt(qty),
+          stock: product.stock,
         })
       );
       setIsCartOpen(true);
     }
 
+    selectRef.current.selectedIndex = 0;
     return setSize("");
   };
 
@@ -183,7 +186,7 @@ function Products() {
 
           <div className="product-right-size">
             <p>SIZE</p>
-            <select onChange={onChangeSize} className="selection">
+            <select ref={selectRef} onChange={onChangeSize} className="selection">
               <option defaultValue hidden>
                 - [필수] OPTIONS -
               </option>

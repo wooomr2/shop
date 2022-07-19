@@ -82,7 +82,7 @@ function Mypage() {
               </div>
               <div className="orders-item-detail">
                 <div className="left">
-                  <div className="img">
+                  <div className="orderImg">
                     <img
                       src={order?.items && publicURL(order?.items[0]?.img)}
                       alt=""

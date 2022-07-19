@@ -1,15 +1,18 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearState, forgotPassword } from "../../../slice/authSlice";
+import "./forgotPassword.scss";
+import useInput from "../../../hooks/useInput";
+import Header from "../../../components/header/Header";
+import Footer from "../../../components/footer/Footer";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
   const { msg, isLoading, error } = useSelector((store) => store.auth);
-  const [email, setEmail] = useState("");
+  const [email, onChangeEmail] = useInput("");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    
+
     dispatch(forgotPassword(email));
 
     setTimeout(() => {
@@ -18,28 +21,36 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="forgotpassword">
-      <form onSubmit={onSubmit}>
-        <h3 className="title">Forgot Password</h3>
-        {error && <span className="error-message">{error}</span>}
-        {msg && <span className="success-message">{msg}</span>}
-        <div>
-          <p>이메일 입력 후 전송하세요</p>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            required
-            id="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    <>
+      <Header />
+
+      <div className="forgotpassword">
+        <div className="forgotpassword-title">
+          <h3>Forgot Password</h3>
         </div>
-        <button type="submit">
-          Send Email
-        </button>
-      </form>
-    </div>
+
+        <form onSubmit={onSubmit} className="forgotpassword-form">
+          <div className="box">
+            <input
+              type="email"
+              required
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={onChangeEmail}
+            />
+            <label htmlFor="email">Email</label>
+          </div>
+
+          <button type="submit">Send Email</button>
+        </form>
+
+        {error && <span className="error-message">{error}</span>}
+        {msg && !error && <span className="success-message">{msg}</span>}
+      </div>
+
+      <Footer />
+    </>
   );
 }
 

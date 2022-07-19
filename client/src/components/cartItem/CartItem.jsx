@@ -8,7 +8,14 @@ import toKRW from "../../utils/toKRW";
 
 function CartItem({ cartItem, onlyInfo = false }) {
   const dispatch = useDispatch();
-  const { _id, name, img, price, qty, size } = cartItem;
+  const { _id, name, img, price, qty, size, stock } = cartItem;
+  const stockQty = stock?.filter((v) => v.size === size);
+
+  const increaseItem = () => {
+    if (stockQty[0].qty <= qty)
+      return alert(`${stockQty[0].qty}개 이상으로는 재고가 부족합니다.`);
+    return dispatch(increaseQty({ _id, size }));
+  }
 
   return (
     <div className="cartItem-wrapper">
@@ -35,7 +42,7 @@ function CartItem({ cartItem, onlyInfo = false }) {
               <div className="cartItem-detail-right-qty">
                 <KeyboardArrowUpIcon
                   className="click-btn"
-                  onClick={() => dispatch(increaseQty({ _id, size }))}
+                  onClick={increaseItem}
                 />
                 <p>{qty}&nbsp;</p>
                 <KeyboardArrowDownIcon

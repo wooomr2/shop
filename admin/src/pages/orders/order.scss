@@ -1,0 +1,98 @@
+@import "../../variable.scss";
+
+.order {
+  display: flex;
+  flex-direction: column;
+
+  &-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 3rem;
+
+    .orderTrack {
+      padding: 6rem 0;
+      width: 80%;
+      display: flex;
+
+      .orderStatus {
+        transform: translateX(0.8rem);
+        width: 33.33%;
+        height: 5px;
+        background: #777;
+        position: relative;
+        font-size: 12px;
+
+        &.active {
+          background: #26a541;
+        }
+
+        &:first-child {
+          width: 0;
+        }
+
+        .point {
+          width: 1.5rem;
+          height: 1.5rem;
+          position: absolute;
+          right: 0;
+          border-radius: 50%;
+          background-color: #777;
+          top: -5px;
+
+          &.active {
+            background: #26a541;
+          }
+        }
+
+        .orderInfo {
+          text-align: center;
+          width: max-content;
+          height: 60px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          position: absolute;
+          top: -26px;
+          right: -1.8rem;
+        }
+      }
+    }
+
+    &-bottom {
+      padding: 2rem 0;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 2rem;
+
+
+      > select {
+        width: 20rem;
+        border: 1px solid $line-color;
+        padding: 0.7rem;
+        outline: none;
+        background-color: #fff;
+      }
+
+      > button {
+        width: max-content;
+        padding: 0.9rem 2rem;
+        outline: none;
+        border: none;
+        font-size: 1.4rem;
+        border-radius: 0.7rem;
+        background-color: $sub-color;
+        transition: all 0.3s ease;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $main-color;
+        }
+      }
+    }
+  }
+}

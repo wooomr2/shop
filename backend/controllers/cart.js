@@ -74,7 +74,7 @@ exports.updateCartItems = asyncHandler(async (req, res, next) => {
 
 exports.getCartItems = asyncHandler(async (req, res, next) => {
   const cart = await Cart.findOne({ user: req.userId })
-    .populate("cartItems.product", "_id name brand color price discountPrice productImgs")
+    .populate("cartItems.product", "_id name brand color price discountPrice productImgs stock")
     .exec();
 
   const cartItems = cart.cartItems.map((item) => ({
@@ -86,6 +86,7 @@ exports.getCartItems = asyncHandler(async (req, res, next) => {
     price: item.product.discountPrice || item.product.price,
     qty: item.qty,
     size: item.size,
+    stock: item.product.stock,
   }));
 
   res.status(200).json({ cartItems });

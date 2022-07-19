@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { updateProduct } from "../../slice/productSlice";
 import publicURL from "../../utils/publicURL";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
+import { useRef } from "react";
 
 function Product() {
   const navigate = useNavigate();
@@ -32,6 +33,10 @@ function Product() {
     str += ",";
   }
   const [stock, setStock] = useState(str);
+  const fileRef = useRef(null);
+  const onClickFileRef = () => {
+    fileRef.current.click();
+  };
 
   const resetState = () => {
     setName(product.name);
@@ -84,72 +89,142 @@ function Product() {
   };
 
   return (
-    <div className="product">
-      <button onClick={() => navigate(-1)}>목록으로</button>
+    <div className="content">
+    <div className="content-top">
+      <div className="content-top-id">
+        <p>ProductId: {_id}</p>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <p>productId : {_id}</p>
+      <button onClick={() => navigate(-1)}>목록으로</button>
+    </div>
+
+    <form onSubmit={handleSubmit} className="content-form">
+      <div className="item">
+        <label className="item-left" htmlFor="name">
+          제품명
+        </label>
         <input
+          id="name"
           placeholder="Name"
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+      </div>
+
+      <div className="item">
+        <label className="item-left" htmlFor="price">
+          가격
+        </label>
         <input
+          id="price"
           placeholder="Price"
           required
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
+      </div>
+
+      <div className="item">
+        <label className="item-left" htmlFor="brand">
+          브랜드
+        </label>
         <input
-          placeholder="Description"
-          required
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
+          id="brand"
           placeholder="Brand"
           required
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
         />
+      </div>
 
+      <div className="item">
+        <label className="item-left" htmlFor="discountPrice">
+          할인가격
+        </label>
         <input
+          id="discountPrice"
           placeholder="DiscountPrice"
           required
           value={discountPrice}
           onChange={(e) => setDiscountPrice(e.target.value)}
         />
+      </div>
+
+      <div className="item">
+        <label className="item-left" htmlFor="code">
+          코드
+        </label>
         <input
+          id="code"
           placeholder="Code"
           required
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
+      </div>
+
+      <div className="item">
+        <label className="item-left" htmlFor="color">
+          컬러
+        </label>
         <input
+          id="color"
           placeholder="Color"
           required
           value={color}
           onChange={(e) => setColor(e.target.value)}
         />
+      </div>
+
+      <div className="item">
+        <label className="item-left" htmlFor="stock">
+          재고
+        </label>
         <input
+          id="stock"
           placeholder="Stock"
           required
           value={stock}
           onChange={(e) => setStock(e.target.value)}
         />
+      </div>
 
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <div className="item">
+        <label className="item-left" htmlFor="cate">
+          카테고리
+        </label>
+        <select
+          id="cate"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           {linearCategories.map((c, i) => (
             <option key={i} value={c._id}>
               {c.name}
             </option>
           ))}
         </select>
+      </div>
 
-        {productImgs &&
-          productImgs.map((productImg, i) => (
-            <div key={i}>
+      <div className="item">
+        <label className="item-left" htmlFor="description">
+          설명
+        </label>
+        <textarea
+          id="description"
+          placeholder="Description"
+          required
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+
+      <div className="item">
+        <label className="item-left">제품 사진</label>
+        <div className="item-img">
+          {productImgs?.map((productImg, i) => (
+            <div key={i} className="item-img-wrapper">
               <img
                 src={
                   productImg instanceof File
@@ -157,30 +232,35 @@ function Product() {
                     : publicURL(productImg.fileName)
                 }
                 alt=""
-                height="50"
               />
             </div>
           ))}
+        </div>
+      </div>
 
-        <label htmlFor="file">
-          <PermMediaIcon />
-          <span>Product images</span>
-          <input
-            type="file"
-            id="file"
-            multiple
-            accept=".png, .jpeg, .jpg"
-            style={{ display: "none" }}
-            onChange={(e) => handleProductImgs(e.target.files)}
-          />
-        </label>
-
-        <button type="submit">submit</button>
-        <button type="reset" onClick={resetState}>
-          reset
+      <div className="item">
+        <label className="item-left"></label>
+        <button type="button" className="item-btn" onClick={onClickFileRef}>
+          제품 사진 수정
         </button>
-      </form>
-    </div>
+        <input
+          ref={fileRef}
+          type="file"
+          id="file"
+          multiple
+          accept=".png, .jpeg, .jpg"
+          onChange={(e) => handleProductImgs(e.target.files)}
+        />
+      </div>
+
+      <div className="btnWrapper">
+        <button type="submit">수정</button>
+        <button type="reset" onClick={resetState}>
+          취소
+        </button>
+      </div>
+    </form>
+  </div>
   );
 }
 

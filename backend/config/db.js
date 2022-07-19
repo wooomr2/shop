@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const connString = process.env.MONGO_URI;
+const connString = `mongodb+srv://${process.env.MONGO_ID}:${process.env.MONGO_PW}@cluster.icwey.mongodb.net/shop?retryWrites=true&w=majority`
 
 const connectDB = () => {
   mongoose

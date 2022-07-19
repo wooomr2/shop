@@ -96,7 +96,8 @@ function Signin() {
         <div className="kakaoLogin">
           <img
             onClick={() =>
-              (window.location.href = `${process.env.REACT_APP_KAKAO_AUTH_URL}`)
+              // (window.location.href = `${process.env.REACT_APP_KAKAO_AUTH_URL}`)
+              (window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`)
             }
             src="/assets/kakao.png"
             alt=""

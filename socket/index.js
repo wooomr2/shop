@@ -5,6 +5,8 @@ const io = require("socket.io")(8800, {
       "http://localhost:4000",
       "http://localhost:5000",
       "http://localhost:3050",
+      "http://localhost:80",
+      "https://localhost:443",
     ],
   },
 });

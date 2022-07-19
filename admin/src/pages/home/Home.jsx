@@ -27,8 +27,6 @@ function Home() {
     <div className="home">
       <LineChart data={userStats} title="월 가입자 수" />
       <ComposedChart data={income} title="월 매출 & 판매량" />
-      {/* {JSON.stringify(users)}
-      {JSON.stringify(orders)} */}
     </div>
   );
 }

@@ -345,6 +345,7 @@ cd apps
 6. pm2 설치
 - sudo npm install pm2 -g
 
+- pm2 start apps/shop/socket/index.js
 - pm2 start apps/shop/backend/server.js
 - pm2 start apps/shop/backend/server.js --name [name입력]
 - pm2 stop 0[id or name]
@@ -375,6 +376,8 @@ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -
 - sudo systemctl status nginx
 
 - sudo systemctl enable nginx
+- sudo systemctl restart nginx
+- sudo systemctl stop nginx
 
 - /etc/nginx 폴더에서 ls (sites-available)
 - cd sites-available (default파일 있음 default server block)
@@ -397,13 +400,12 @@ server {
         server_name _ 13.52.254.187;
 
         location / {
-                try_files $uri $uri/ /index.html;
+                try_files $uri /index.html;
                 error_page 405 = $uri;
         }
 
          location /api {
             proxy_pass http://localhost:8000;
-            //-------->http://localhost:8000/api로바꿔보자
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection 'upgrade';
@@ -420,8 +422,8 @@ server {
             proxy_cache_bypass $http_upgrade;
         }
 
-        location /socket.io/ {
-          proxy_pass http://localhost:8800/socket.io/;
+        location /socket.io {
+          proxy_pass http://localhost:8800/socket.io;
           proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "Upgrade";
@@ -465,6 +467,9 @@ vi /etc/nginx/nginx.conf 명령어를 통해 vi 편집기로 다음과 같이 us
 user root;
 sudo systemctl restart nginx
 
+- 에러 확인
+cat /var/log/nginx/error.log
+
 
 14. Enable Firewall
 sudo ufw status
@@ -475,8 +480,18 @@ sudo ufw enable
 sudo ufw status
 
 
--에러 확인
-cat /var/log/nginx/error.log
+15. https lets encrypt with cerbot
+- sudo snap install core; sudo snap refresh core
+- sudo apt remove certbot
+- sudo snap install --classic certbot
+
+Prepare the Certbot command
+- sudo ln -s /snap/bin/certbot /usr/bin/certbot
+Get and install certificates using interactive prompt
+- sudo certbot --nginx
+
+
+
 
 
 

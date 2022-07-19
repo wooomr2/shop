@@ -25,7 +25,8 @@ function Chat() {
 
   useEffect(() => {
     if (user) {
-      socket.current = io("ws://localhost:8800");
+      const socketURI = process.env.NODE_ENV === "production" ? `/socket.io` : `ws://localhost:8800`;
+      socket.current = io(socketURI);
       socket.current.on("getMessage", (data) => {
         setArrivalMessage({
           chatroom: data.chatroomId,

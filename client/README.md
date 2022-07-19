@@ -84,239 +84,12 @@ undo - u
 저장 :w
 저장후종료 :wq
 
-
-
-노드
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-NGINX
-sudo apt install nginx -y
-<!-- sudo systemctl enable nginx -->
-sudo service nginx start
-sudo service nginx status
-
-/etc/nginx/nginx.conf
-/etc/nginx/conf.d/default.conf
-수정
-
-sudo vi nginx.conf
-------------------------------------------------------------------------
-/etc/nginx/nginx.conf 
-
-user ubuntu;
-worker_processes  1;
-
-error_log  /var/log/nginx/error.log warn;
-pid        /var/run/nginx.pid;
-
-events {
-    worker_connections  1024;
-}
-
-http {
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    client_body_buffer_size 100k;
-    client_header_buffer_size 1k;
-    client_max_body_size 100k;
-    large_client_header_buffers 2 1k;
-    client_body_timeout 10;
-    client_header_timeout 10;
-    keepalive_timeout 5 5;
-    send_timeout 10;
-    server_tokens off;
-    #gzip  on; on;
-
-    include /etc/nginx/conf.d/*.conf;
-}
 -------------------------------------------------------------------------
-/etc/nginx/conf.d
---> sudo touch default.conf
-sudo vi default.conf
-
-/etc/nginx/conf.d/default.conf
-
-server {
-    #listen       80;
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name  yourdomain.com;
-
-    access_log /home/ubuntu/client/server_logs/host.access.log main;
-
-    location / {
-        root   /home/ubuntu/client/deploy;
-        index  index.html index.htm;
-        try_files $uri /index.html;
-        add_header X-Frame-Options SAMEORIGIN;
-        add_header X-Content-Type-Options nosniff;
-        add_header X-XSS-Protection "1; mode=block";
-        add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
-    }
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-
-    server_tokens off;
-
-    location ~ /\.ht {
-        deny  all;
-    }
-
-}
---------------------------------------------------------------------------
-
-sudo sevice nginx restart
-sudo service nginx status
-
-
-------------------------------------------
-client로 가서
-npm i
-npm run build
-
-
-backend
-cd home/ubuntu/server/
-sudo apt i npm
-npm i
-npm start
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3. Copy github repo to sever
-cd ~
-mkdir apps
-cd apps
-git clone [깃주소]
-
-4. Install Node
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-5. Install and Configure PM2
-
-sudo npm install pm2 -g
-pm2 start /home/ubuntu/apps/yelp-app/server/server.js --name yelp-app
-
-
-6. Deploy React Frontend
-Navigate to the client directory in our App code and run npm run build
-
-
-7. Install and Configure NGINX
-sudo apt install nginx -y
-sudo systemctl enable nginx
-
-cd /etc/nginx/sites-available
-sudo cp default sanjeev.xyz
-
-
-server {
-        listen 80;
-        listen [::]:80;
-
-         root /home/ubuntu/apps/yelp-app/client/build;
-
-        # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name sanjeev.xyz www.sanjeev.xyz;
-
-        location / {
-                try_files $uri /index.html;
-        }
-
-         location /api {
-            proxy_pass http://localhost:3001;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host $host;
-            proxy_cache_bypass $http_upgrade;
-        }
-
-}
-
-sudo ln -s /etc/nginx/sites-available/sanjeev.xyz /etc/nginx/sites-enabled/
-systemctl restart nginx
-
-
-8. Configure Environment Variables
-Create a file called .env in /home/ubuntu/. The file does not need to be named .env and it does not need to be stored in /home/ubuntu, these were just the name/location of my choosing. The only thing I recommend avoid doing is placing the file in the same directory as the app code as we want to make sure we don't accidentally check our environment variables into git and end up exposing our credentials.
-
-Within the .env file paste all the required environment variables
-set -o allexport; source /home/ubuntu/.env; set +o allexport
-# printenv
-
-9. Enable Firewall
-sudo ufw status
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
-sudo ufw enable
-sudo ufw status
-
-
-
-10. Enable SSL with Let's Encrypt
-Nowadays almost all websites use HTTPS exclusively. Let's use Let's Encrypt to generate SSL certificates and also configure NGINX to use these certificates and redirect http traffic to HTTPS.
-
-The step by step procedure is listed at: https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx.html
-
-Install Certbot
-
-sudo snap install --classic certbot
-Prepare the Certbot command
-
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-Get and install certificates using interactive prompt
-
-sudo certbot --nginx
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----------------------------------------------------------------------------------------------------------------
 # AWS EC2(UBUNTU) 배포
 
 - 보안 그룹 설정
 HTTP(PORT 80 :NGNIX)
+HTTPS(PORT 443 :NGNIX)
 CUSTOM TCP(PORT 8000 : NODE SERVER)
 CUSTOM TCP(PORT 27017 : MONGODB)
 CUSTOM TCP(PORT 8800 : SOCKET SERVER)
@@ -339,6 +112,7 @@ cd apps
 
 -------------------------------
 4. backend 폴더가서 npm install
+   socket npm install
 5. npm start 로 확인
 --------------------------------
 
@@ -389,13 +163,22 @@ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -
 - sudo vi shop
 
 server {
+       listen 80;
+       return 301 https://$host$request_uri;
+}
+
+도메인 구입 & cerbot 적용 후 아래 server-> 
+ listen 443 ssl default_server;
+ listen [::]443 ssl default_server;
+
+
+server {
         listen 80;
         listen [::]:80;
 
         root /home/ubuntu/apps/shop/client/build;
 
-        # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
+        index index.html;
 
         server_name _ 13.52.254.187;
 
@@ -489,51 +272,3 @@ Prepare the Certbot command
 - sudo ln -s /snap/bin/certbot /usr/bin/certbot
 Get and install certificates using interactive prompt
 - sudo certbot --nginx
-
-
-
-
-
-
-
-
-
-[1]   Done                    MONGO_URI=mongodb+srv://mongo:db12345@cluster.icwey.mongodb.net/shop?retryWrites=true
-[2]-  Done                    REACT_APP_KAKAO_AUTH_URL=https://kauth.kakao.com/oauth/authorize?client_id=aa5cadd3788f85adabab37ee2afd113d
-[3]+  Done                    redirect_uri=http://localhost:3000/kakao/callback
-
-설정 왜 안됩니까
-
-
-
-
-
-- 405 not allowed error
-----> error_page 405 = $uri
-
-- 소켓에러 잡아야함!
-- env설정 안되는것들 수동설정하고 
-- pw초기화 등 localhost <-- 다 수정해야함 
-
-
-
-
-location /socket.io/ {
-    proxy_pass http://localhost:8800/socket.io/;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade";
-    proxy_set_header Host $host;
-}
-
-
-
-################# pro
-
-
-
-
-
-
-collection페이지
-main.7462a239.js:2 TypeError: Cannot read properties of undefined (reading 'map')

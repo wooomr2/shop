@@ -18,6 +18,8 @@ function Signin() {
   const [email, setEmail] = useInput("");
   const [password, setPassword] = useInput("");
   const emailRef = useRef();
+  const clientId = process.env.REACT_APP_KAKAO_CLIENT_ID;
+  const redirectURI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   const login = (e) => {
     e.preventDefault();
@@ -96,8 +98,12 @@ function Signin() {
         <div className="kakaoLogin">
           <img
             onClick={() =>
-              // (window.location.href = `${process.env.REACT_APP_KAKAO_AUTH_URL}`)
-              (window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`)
+              (window.location.href =
+                "https://kauth.kakao.com/oauth/authorize?client_id=" +
+                clientId +
+                "&redirect_uri=" +
+                redirectURI +
+                "&response_type=code")
             }
             src="/assets/kakao.png"
             alt=""

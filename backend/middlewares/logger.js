@@ -20,11 +20,8 @@ const logEvents = asyncHandler(async (message, logName) => {
 });
 
 const logger = (req, res, next) => {
-  const public =
-    process.env.NODE_ENV === "production"
-      ? req.url.split("/")[1]
-      : req.url.split("/")[2];
-      
+  const public = req.url.split("/")[1];
+
   if (public !== "public") {
     logEvents(`${req.method}\t${req.headers.origin}\t${req.url}`, "reqLog.txt");
     console.log(`${req.method} ${req.path}`);

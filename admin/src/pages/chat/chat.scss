@@ -1,0 +1,70 @@
+@import "../../variable.scss";
+
+.chat {
+  display: grid;
+  grid-template-columns: .9fr 2fr .9fr;
+  padding: 2rem;
+  font-size: 1.4rem;
+  height: calc(100vh - 8rem);
+
+  .chatrooms {
+     > p {
+      font-size: 1.7rem;
+      font-weight: 600;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid $line-color;
+     }
+
+     &-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      &-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid $line-color;
+        cursor: pointer;
+
+        > p {
+          position: absolute;
+          right: 0;
+        }
+      }
+     }
+  }
+
+  .chatBox {
+    height: 100%;
+    overflow: hidden;
+    padding-left: 2rem;
+    
+    .chatBoxTop {
+      height: 80%;
+      overflow-y: scroll;
+      margin-bottom: 1rem;
+    }
+
+    .chatBoxBottom {
+      > textarea {
+        width: 100%;
+        height: 10rem;
+        border: 1px solid $line-color;
+        padding: 0.7rem;
+        resize: none;
+        outline: none;
+      }
+
+      > button {
+        width: 100%;
+        padding: 1rem 0;
+        border: none;
+        border-radius: 1rem;
+        background-color: $black-light;
+        color: #fff;
+
+      }
+    }
+  }
+}

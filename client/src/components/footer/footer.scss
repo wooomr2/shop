@@ -1,7 +1,7 @@
 @import "../../variable.scss";
 
 footer {
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   display: flex;
   justify-content: center;
   padding: 5rem;

@@ -21,11 +21,17 @@ function Chat() {
 
   const socket = useRef();
   const scrollRef = useRef();
+
   const user = JSON.parse(localStorage.getItem("user"));
+
+  console.log(user);
 
   useEffect(() => {
     if (user) {
-      const socketURI = process.env.NODE_ENV === "production" ? `/socket.io` : `ws://localhost:8800`;
+      const socketURI =
+        process.env.NODE_ENV === "production"
+          ? `/socket.io`
+          : `ws://localhost:8800`;
       socket.current = io(socketURI);
       socket.current.on("getMessage", (data) => {
         setArrivalMessage({
@@ -140,6 +146,12 @@ function Chat() {
     }
   };
 
+  const handleTextarea = (e) => {
+    if (e.keyCode !== 13) return;
+
+    return handleSubmit(e);
+  };
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [messages]);
@@ -193,7 +205,8 @@ function Chat() {
                   placeholder="write something..."
                   onChange={(e) => setNewMessage(e.target.value)}
                   value={newMessage}
-                ></textarea>
+                  onKeyDown={handleTextarea}
+                />
                 <button className="chatSubmitButton" onClick={handleSubmit}>
                   Send
                 </button>

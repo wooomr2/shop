@@ -30,7 +30,8 @@
 
 ## 문제점4 소켓 전역 관리 필요 
 
-## 쇼핑몰처럼 정적 page가 많은경우 ssr로 만드는 게 좋을듯
+## SSR로 만드는 게 좋을듯
+- 스프링 프로젝트와 다르게 csr로 만들어 봤지만 쇼핑몰처럼 정적 page가 많은경우 SSR이 효율적일 듯
 
 ## 보다 효율적인 Token 인증 시스템 없을까
 - accessToken 만료 시 server에서 403 error --> axios interceptor에서 캐치 -> accessToken 재발급 요청 -> new AccessToken + 기존 요청 재전송하는 방식

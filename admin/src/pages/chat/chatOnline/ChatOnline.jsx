@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import { clearAlarm } from "../../slice/chatSlice";
-import axios from "../../utils/axiosInstance";
-import publicURL from "../../utils/publicURL";
-import "./chatOnline.css";
+import { clearAlarm } from "../../../slice/chatSlice";
+import axios from "../../../utils/axiosInstance";
+import publicURL from "../../../utils/publicURL";
+import "./chatOnline.scss";
 
 function ChatOnline({
   socket,
@@ -44,29 +44,30 @@ function ChatOnline({
 
   return (
     <div className="chatOnline">
-      접속중
-      {onlineUsers?.map((o, i) => (
-        <div
-          className="chatOnlineFriend"
-          key={i}
-          onClick={() => addChatroom(o.user._id)}
-        >
-          <div className="chatOnlineImgContainer">
-            <img
-              className="chatOnlineImg"
-              src={
-                o.user.profileImg
-                  ? publicURL(o.user.profileImg)
-                  : "/assets/Avatar.png"
-              }
-              alt=""
-            />
-            <div className="chatOnlineBadge"></div>
-          </div>
-          <span className="chatOnlineName">{o?.user.username}</span>
+    <p>접속중</p>
+
+    {onlineUsers?.map((o, i) => (
+      <div
+        className="chatOnlineFriend"
+        key={i}
+        onClick={() => addChatroom(o.user._id)}
+      >
+        <div className="chatOnlineImgContainer">
+          <img
+            className="chatOnlineImg"
+            src={
+              o.user.profileImg
+                ? publicURL(o.user.profileImg)
+                : "/assets/Avatar.png"
+            }
+            alt=""
+          />
+          <div className="chatOnlineBadge"></div>
         </div>
-      ))}
-    </div>
+        <span className="chatOnlineName">{o?.user.username}</span>
+      </div>
+    ))}
+  </div>
   );
 }
 

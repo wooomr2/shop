@@ -2,7 +2,7 @@
 
 .header-container {
   height: $headerHeight;
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   position: relative;
   
   .logo-wrapper {

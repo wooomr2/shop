@@ -152,7 +152,7 @@
 @media screen and (max-width: $sm) {
   .sidebar-container {
     &.filterOpen {
-      min-width: 100vw;
+      min-width: calc(100vw - (100vw - 100%));
       padding: 5rem;
 
       .black {

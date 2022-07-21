@@ -49,7 +49,7 @@ const sendToken = asyncHandler(async (req, res, user) => {
       _id,
       roles,
       provider,
-      // username,
+      username,
       // profileImg,
     },
   });

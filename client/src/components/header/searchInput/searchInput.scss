@@ -2,7 +2,7 @@
 
 .search {
   position: relative;
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   display: flex;
   flex-direction: column;
   align-items: center;

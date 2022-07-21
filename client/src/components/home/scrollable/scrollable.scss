@@ -4,10 +4,10 @@
   padding: 20rem 0;
   background-color: #fff;
   position: relative;
-  width:100vw;
+  width: calc(100vw - (100vw - 100%));
 
   .stickyText {
-    width: 100vw;
+    width: calc(100vw - (100vw - 100%));
     height: 300vh;
     position: absolute;
     top: 20rem;
@@ -28,8 +28,9 @@
 
   section {
     position: relative;
-    width: 100%;
+    width: calc(100vw - (100vw - 100%));
     height: 100vh;
+    overflow: hidden;
 
     .scrollable-imgWrapper {
       position: relative;
@@ -96,7 +97,7 @@
       &-brands {
         font-size: 3rem;
         position: absolute;
-        width: 100vw;
+        width: calc(100vw - (100vw - 100%));
 
         justify-content: center;
         align-items: start;
@@ -108,7 +109,7 @@
 
       .scrollable-imgWrapper {
         flex-direction: column;
-        width: 100%;
+        width: calc(100vw - (100vw - 100%));
         height: 100%;
         padding: 5rem 0;
         row-gap: 10rem;

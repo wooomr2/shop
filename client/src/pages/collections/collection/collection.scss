@@ -1,7 +1,7 @@
 @import "../../../variable.scss";
 
 .collection {
-   width: 100vw;
+   width: calc(100vw - (100vw - 100%));
    margin: 7rem 0;
    font-size: 1.4rem;
    line-height: 2.2rem;

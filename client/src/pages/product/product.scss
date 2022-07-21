@@ -10,7 +10,7 @@ input[type="number"]::-webkit-inner-spin-button {
   padding: 10rem 0;
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   font-size: 1.4rem;
 
   &-left {

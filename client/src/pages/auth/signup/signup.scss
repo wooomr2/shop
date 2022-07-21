@@ -1,7 +1,7 @@
 @import "../../../variable.scss";
 
 .signup {
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   font-size: 1.4rem;
   padding: 12rem 0;
   display: flex;

@@ -1,7 +1,7 @@
 @import "../../variable.scss";
 
 .cart-container {
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   padding: 7rem 0;
   font-size: 1.4rem;
 

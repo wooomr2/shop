@@ -5,7 +5,7 @@
   padding: 2rem 6rem;
   column-gap: 2rem;
   display: flex;
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   position: relative;
   text-transform: uppercase;
 }

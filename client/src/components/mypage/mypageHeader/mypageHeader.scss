@@ -13,11 +13,11 @@
     flex-direction: column;
     justify-content: center;
 
-    > p {
-      color: $sub-color;
-      cursor: pointer;
+    &-link {
       display: flex;
       align-items: center;
+      cursor: pointer;
+      color: $sub-color;
     }
   }
 

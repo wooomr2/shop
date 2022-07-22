@@ -5,10 +5,7 @@ import Pagination from "../../components/pagination/Pagination";
 import ProductList from "../../components/productList/ProductList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import useInput from "../../hooks/useInput";
-import {
-  categoryToggle,
-  createLinearCategory,
-} from "../../slice/categorySlice";
+import { categoryToggle, createLinearCategory } from "../../slice/categorySlice";
 import { getProductsByCategories } from "../../slice/productSlice";
 import "./shopping.scss";
 
@@ -17,35 +14,36 @@ function Category() {
   const params = useParams();
   const categories = useSelector((store) => store.category.categories);
   const categoryOpen = useSelector((store) => store.category.categoryOpen);
-  const { total, products, brandData,isLoading } = useSelector((store) => store.product);
+  const { total, products, brandData, isLoading } = useSelector(
+    (store) => store.product
+  );
 
   const perPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, onChangeSort] = useInput("latest");
   const [brands, setBrands] = useState([]);
 
-  const currentCategory = [];
-  let cids = [];
-
-
-  if (params.cid === "all") {
-    cids = [];
-  } else {
-    function findCategory(categories) {
-      if (currentCategory.length > 0) return;
-      for (let c of categories) {
-        if (c._id === params.cid) {
-          currentCategory.push(c);
-          return;
-        }
-        if (c.children.length > 0) findCategory(c.children);
-      }
-    }
-    findCategory(categories);
-    cids = createLinearCategory(currentCategory).map((cat) => cat._id);
-  }
-
   useEffect(() => {
+    const currentCategory = [];
+    let cids = [];
+  
+    if (params.cid === "all") {
+      cids = [];
+    } else {
+      function findCategory(categories) {
+        if (currentCategory.length > 0) return;
+        for (let c of categories) {
+          if (c._id === params.cid) {
+            currentCategory.push(c);
+            return;
+          }
+          if (c.children.length > 0) findCategory(c.children);
+        }
+      }
+      findCategory(categories);
+      cids = createLinearCategory(currentCategory).map((cat) => cat._id);
+    }
+
     const payload = {
       cids,
       brands,
@@ -75,11 +73,12 @@ function Category() {
           haveFilter={true}
           products={products}
           onChangeSort={onChangeSort}
+          categoryOpen={categoryOpen}
           categoryToggleHandler={categoryToggleHandler}
           isLoading={isLoading}
         />
       </div>
-      
+
       <Pagination
         total={total}
         perPage={perPage}

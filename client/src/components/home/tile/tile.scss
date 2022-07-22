@@ -21,10 +21,10 @@
       justify-content: center;
       overflow: hidden;
       text-transform: uppercase;
+      
 
       .brandInfo {
         font-weight: 600;
-
         > span {
           font-family: "Roboto Slab";
         }
@@ -32,6 +32,7 @@
         > p {
           font-size: 2.4rem;
           font-family: "Roboto Slab";
+          white-space: nowrap;
         }
       }
     }
@@ -50,7 +51,7 @@
         > img {
           width: 100%;
           height: 100%;
-          object-fit: fill;
+          object-fit: cover;
         }
       }
     }
@@ -63,15 +64,20 @@
       grid-template-columns: repeat(1, 1fr);
 
       &-left {
-        height: 30vh;
+        height: 25vh;
+        font-size: 2.6rem;
 
         .brandInfo {
           text-align: center;
+
+          > p {
+            font-size: 2.2rem;
+          }
         }
       }
 
       &-right {
-        height: 70vh;
+        height: 75vh;
       }
     }
   }
@@ -81,7 +87,7 @@
   .tile {
     &-item {
       &-left {
-        height: 20vh;
+        height: 23vh;
         font-size: 2.6rem;
 
         .brandInfo {
@@ -92,7 +98,7 @@
       }
 
       &-right {
-        height: 80vh;
+        height: 77vh;
       }
     }
   }
@@ -102,11 +108,15 @@
   .tile {
     &-item {
       &-left {
-        font-size: 2rem;
+        font-size: 2.2rem;
 
         .brandInfo {
           > p {
             font-size: 1.6rem;
+
+            &:last-child {
+              display: none;
+            }
           }
         }
       }

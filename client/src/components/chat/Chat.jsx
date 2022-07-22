@@ -24,8 +24,6 @@ function Chat() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log(user);
-
   useEffect(() => {
     if (user) {
       const socketURI =

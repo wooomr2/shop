@@ -7,7 +7,6 @@ import "./signin.scss";
 function Signin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = localStorage.getItem("user");
   const { isLoading, isAuthenticated, error } = useSelector(
     (store) => store.auth
   );

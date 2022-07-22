@@ -10,17 +10,15 @@ function MypageHeader() {
 
   return (
     <div className="mypage-top">
-      <div className="mypage-top-left">
-        <h1>{user?.username}님</h1>
-        <Link to={`/mypage/profile`}>
-        <p>
-          정보 수정 <ChevronRightIcon />
-        </p>
-        </Link>
-      </div>
-      <div className="mypage-top-right">
-        <ul className="userInfo">
-          <li>
+    <div className="mypage-top-left">
+      <h1>{user?.username}님</h1>
+      <Link to={`/mypage/profile`} className="mypage-top-left-link">
+        <p>정보 수정</p> <ChevronRightIcon />
+      </Link>
+    </div>
+    <div className="mypage-top-right">
+      <ul className="userInfo">
+        <li>
           <Link className="userInfo-item" to={`/mypage/orders`}>
             <span>구매 횟수</span>
             <span>{orderStats?.count}</span>
@@ -28,9 +26,9 @@ function MypageHeader() {
             <span>
               <ChevronRightIcon className="icon" />
             </span>
-            </Link>
-          </li>
-          <li className="userInfo-item">
+          </Link>
+        </li>
+        <li className="userInfo-item">
           <Link className="userInfo-item" to={`/mypage/orders`}>
             <span>구매 금액</span>
             <span>{toKRW(orderStats?.priceAmount)}</span>
@@ -38,9 +36,9 @@ function MypageHeader() {
             <span>
               <ChevronRightIcon className="icon" />
             </span>
-            </Link>
-          </li>
-          <li className="userInfo-item">
+          </Link>
+        </li>
+        <li className="userInfo-item">
           <Link className="userInfo-item" to={`/mypage/orders`}>
             <span>마일리지</span>
             <span>{toKRW(user?.point)}</span>
@@ -48,9 +46,9 @@ function MypageHeader() {
             <span>
               <ChevronRightIcon className="icon" />
             </span>
-            </Link>
-          </li>
-          <li className="userInfo-item">
+          </Link>
+        </li>
+        <li className="userInfo-item">
           <Link className="userInfo-item" to={`/mypage/orders?s=refund`}>
             <span>취소/교환/반품</span>
             <span>{orderStats?.refundCount}</span>
@@ -58,11 +56,11 @@ function MypageHeader() {
             <span>
               <ChevronRightIcon className="icon" />
             </span>
-            </Link>
-          </li>
-        </ul>
-      </div>
+          </Link>
+        </li>
+      </ul>
     </div>
+  </div>
   );
 }
 

@@ -8,7 +8,6 @@ const initialState = {
   error: null,
 };
 
-
 export const getBrands = createAsyncThunk(
   "brand/getBrands",
   async (dummy, thunkAPI) => {
@@ -33,7 +32,6 @@ export const getNewBrands = createAsyncThunk(
   }
 );
 
-
 export const getBrand = createAsyncThunk(
   "brand/getBrand",
   async (name, thunkAPI) => {
@@ -45,7 +43,6 @@ export const getBrand = createAsyncThunk(
     }
   }
 );
-
 
 const brandSlice = createSlice({
   name: "brand",
@@ -90,5 +87,32 @@ const brandSlice = createSlice({
 });
 
 // export const {} = brandSlice.actions;
+
+//Selector
+export const selectRandomBrandImgs = (state) => {
+  const brands = state.brand.brands;
+  const idxArray = Array(brands?.length)
+    .fill()
+    .map((v, i) => i);
+
+  let shuffles = [];
+  for (let i = 0; i < 6; i++) {
+    shuffles.push(idxArray.splice(Math.floor(Math.random() * idxArray?.length), 1)[0]);
+  }
+  
+  // while (true) {
+  //   shuffles.push(Math.floor(Math.random() * brands?.length), 1);
+
+  //   const set = new Set(shuffles);
+  //   if (set.size === 6) {
+  //     shuffles = [...set];
+  //     break;
+  //   }
+  // }
+  
+  const brandImgs = shuffles.map((i) => brands[i]?.banners[0].img);
+
+  return brandImgs;
+};
 
 export default brandSlice.reducer;

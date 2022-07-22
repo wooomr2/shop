@@ -130,6 +130,8 @@
 
 @media screen and (max-width: $sm) {
   .masthead-container {
+    height: calc(100svh - $headerHeight);
+    
     .masthead-slide {
       .masthead-mainText {
         > strong {

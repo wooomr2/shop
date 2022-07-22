@@ -1,16 +1,12 @@
-@import "./variable.scss";
-
 html {
   font-size: 62.5%;
 }
 
 * {
-  font-family: 'Maven Pro', sans-serif;
+  font-family: "Maven Pro", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  list-style-type: none;
-  text-decoration: none;
 }
 
 a {
@@ -22,203 +18,26 @@ ul {
   list-style: none;
 }
 
-////////////////////////////////////
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #fff
+    url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Arrow-down.svg/32px-Arrow-down.svg.png")
+    no-repeat 99% center;
+  background-size: 1.2rem;
+  color: #000;
+}
 
-.content {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
-  padding: 2rem 4rem;
-  font-size: 1.4rem;
+input[type="number"],
+input[type="text"],
+textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  color: #000;
+}
 
-  &.orderDetail {
-    padding: 2rem 8rem;
-  }
-
-  &-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    > button {
-      width: max-content;
-      padding: 0.7rem 2rem;
-      outline: none;
-      border: none;
-      font-size: 1.4rem;
-      border-radius: 0.7rem;
-      background-color: $sub-color;
-      transition: all 0.3s ease;
-      color: #fff;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $main-color;
-      }
-    }
-
-    &-id {
-      > p {
-        font-size: 1.5rem;
-      }
-    }
-  }
-
-  &-form {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1.5rem;
-
-    .item {
-      display: flex;
-      align-items: center;
-      column-gap: 1rem;
-
-      &-left {
-        padding: 0.7rem 0;
-        width: 15rem;
-        font-weight: 600;
-        flex-shrink: 0;
-      }
-
-      > input[type="file"] {
-        display: none;
-      }
-
-      > input {
-        padding: 0.7rem;
-        background-color: #fff;
-        border: 1px solid $line-color;
-        outline: none;
-        color: $black-light;
-        font-size: 1.4rem;
-        width: 27rem;
-
-        &::placeholder {
-          color: $sub-color;
-        }
-
-        &.relatedProducts {
-          width: 100%;
-        }
-      }
-
-      > textarea {
-        resize: none;
-        padding: 0.7rem;
-        background-color: #fff;
-        border: 1px solid $line-color;
-        outline: none;
-        color: $black-light;
-        font-size: 1.4rem;
-        width: 100%;
-        height: 15rem;
-      }
-
-      > select {
-        width: 27rem;
-        border: 1px solid $line-color;
-        padding: 0.7rem;
-        outline: none;
-        background-color: #fff;
-      }
-
-      &-img {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: .5rem;
-
-        &-wrapper {
-          width: 100%;
-          height: 100%;
-
-          > img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-
-      &-btn {
-        width: max-content;
-        padding: 1rem;
-        outline: none;
-        border: none;
-        font-size: 1.4rem;
-        border-radius: 0.7rem;
-        background-color: $sub-color;
-        transition: all 0.3s ease;
-        color: #fff;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $main-color;
-        }
-      }
-    }
-
-    .btnWrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      column-gap: 2rem;
-      padding: 6rem 0;
-
-      > button {
-        padding: 1.5rem 4.5rem;
-        font-size: 1.4rem;
-        border: none;
-        border-radius: 0.7rem;
-        background-color: $black-light;
-        color: #fff;
-        transition: background-color 0.2s ease;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $main-color;
-        }
-      }
-    }
-
-    .order-product {
-      display: flex;
-      flex-direction: column;
-      row-gap: 1rem;
-  
-      &-item {
-        padding: 0.5rem;
-        display: flex;
-        column-gap: 1rem;
-        border-top: 1px solid $line-color;
-        border-bottom: 1px solid $line-color;
-  
-        .product-img {
-          width: 7rem;
-          height: 7rem;
-  
-          > img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-  
-        .product-info {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          text-transform: uppercase;
-  
-          &-left {
-            p:first-child {
-              font-weight: 600;
-            }
-          }
-          &-right {
-            text-align: right;
-          }
-        }
-      }
-    }
-  }
+button {
+  color: #000;
 }

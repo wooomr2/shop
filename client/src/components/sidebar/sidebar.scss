@@ -7,15 +7,31 @@
   background-color: #fff;
   flex-direction: column;
   position: relative;
-  
 
   .black {
     display: none;
   }
 
-  .sidebar-sticky {   
+  .sidebar-sticky {
+    height: 100vh;
     position: sticky;
     top: 0;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #fcfcfc;
+      height: 40%;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: $line-color;
+      }
+    }
   }
 
   .categorylist-wrapper {
@@ -112,6 +128,11 @@
     display: none;
     font-size: 1.5rem;
 
+    .sidebar-sticky {   
+      position: relative;
+      overflow: unset;
+    }
+
     .categorylist-wrapper {
       .categoryToggleBtn-wrapper {
         display: block;
@@ -134,11 +155,27 @@
       right: 0;
       z-index: 1000;
       padding: 2rem;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 2px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: #fcfcfc;
+        height: 40%;
+      }
+  
+      &:hover {
+        &::-webkit-scrollbar-thumb {
+          background-color: $line-color;
+        }
+      }
 
       .black {
         display: block;
         position: fixed;
-        width: calc(100vw - 35rem);
+        width: calc(calc(100vw - (100vw - 100%)) - 35rem);
         height: 100vh;
         z-index: 1000;
         top: 0;
@@ -149,11 +186,19 @@
   }
 }
 
+
 @media screen and (max-width: $sm) {
   .sidebar-container {
+    font-size: $smFont;
+
+    .sidebar-sticky {   
+      height: 100svh;
+    }
+
     &.filterOpen {
+      height: 100svh;
       min-width: calc(100vw - (100vw - 100%));
-      padding: 5rem;
+      padding: 2rem 5rem;
 
       .black {
         display: none;

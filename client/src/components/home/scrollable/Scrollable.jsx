@@ -1,26 +1,11 @@
 import React, { useEffect } from "react";
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { selectRandomBrandImgs } from "../../../slice/brandSlice";
 import publicURL from "../../../utils/publicURL";
 import "./scrollable.scss";
 
-function getShuffle(candidate) {
-  const shuffle = [];
-  for (let i = 0; i < 6; i++) {
-    // candidate 중 하나 랜덤으로 뽑아서 shuffle에 push
-    shuffle.push(
-      candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0]
-    );
-  }
-  return shuffle;
-}
-
 function Scrollable() {
-  const brands = useSelector((store) => store.brand.brands);
-  const candidate = Array(brands.length)
-    .fill()
-    .map((v, i) => i);
-  const numbers = useMemo(() => getShuffle(candidate), []);
+  const brandImgs = useSelector(selectRandomBrandImgs);
 
   let images = [...document.querySelectorAll(".scrollable-img")];
 
@@ -38,18 +23,18 @@ function Scrollable() {
         <div className="stickyText-brands">Brands</div>
       </div>
 
-      {numbers.slice(0, 3).map((number, i) => (
-        <section key={number}>
+      {Array(3).fill().map((_, i) => (
+        <section key={i}>
           <div className="scrollable-imgWrapper">
             <img
               className="scrollable-img"
-              src={publicURL(brands[numbers[i * 2]]?.banners[0]?.img)}
+              src={publicURL(brandImgs[i*2])}
               alt=""
             />
 
             <img
               className="scrollable-img"
-              src={publicURL(brands[numbers[i * 2 + 1]]?.banners[0]?.img)}
+              src={publicURL(brandImgs[i*2+1])}
               alt=""
             />
           </div>

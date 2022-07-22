@@ -3,6 +3,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import AppleIcon from '@mui/icons-material/Apple';
 import { NavLink } from "react-router-dom";
 import "./sidebar.scss";
 
@@ -46,7 +47,7 @@ function Sidebar() {
             </li>
             <li>
               <NavLink to="/brands" className="sidebar-menu-item">
-                <InventoryIcon className="icon" />
+                <AppleIcon className="icon" />
                 <span>Brands</span>
               </NavLink>
             </li>

@@ -23,7 +23,7 @@ function Kakao() {
     }
   }, [isAuthenticated]);
 
-  return <div>Kakao</div>;
+  return <div>Kakao Loading...</div>;
 }
 
 export default Kakao;

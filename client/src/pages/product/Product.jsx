@@ -135,7 +135,7 @@ function Products() {
             <p className={`${product?.discountPrice ? "hasDiscount" : ""}`}>
               ₩ {toKRW(product?.price)}
             </p>
-            <p>
+            {product?.discountPrice > 0 && (<p>
               ₩ {toKRW(product?.discountPrice)}{" "}
               <span>
                 {(
@@ -144,7 +144,7 @@ function Products() {
                 ).toFixed()}
                 %
               </span>
-            </p>
+            </p>)}
           </div>
 
           <div className="product-right-desc">
@@ -234,7 +234,7 @@ function Products() {
                     </button>
                   </div>
                   <div className="price">
-                    ₩ {toKRW(product?.discountPrice * qty)}
+                    ₩ {product?.discountPrice > 0 ? toKRW(product?.discountPrice * qty) : toKRW(product?.price * qty)}
                   </div>
                 </div>
               </div>

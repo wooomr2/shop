@@ -108,7 +108,6 @@ function ProductModal() {
                 <input
                   className="form-input"
                   placeholder="DiscountPrice"
-                  required
                   onChange={(e) => setDiscountPrice(e.target.value)}
                 />
                 <input

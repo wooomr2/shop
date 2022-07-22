@@ -7,16 +7,17 @@ exports.addCollection = asyncHandler(async (req, res, next) => {
   const { name, description, brand, launched, director, country, shop } =
     req.body;
   let { banners, cards } = req.files;
+  const folderName = req.baseUrl.split("/")[2];
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${req.baseUrl}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`
     }));
   }
 
   if (!!cards) {
     cards = cards.map((card) => ({
-      img: `${req.baseUrl}/${card.filename}`
+      img: `${folderName}/${card.filename}`
     }));
   }
 
@@ -67,15 +68,16 @@ exports.updateCollection = asyncHandler(async (req, res, next) => {
   const { _id, name, description, brand, launched, director, country, shop } =
     req.body;
   let { banners, cards } = req.files;
+  const folderName = req.baseUrl.split("/")[2];
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${req.baseUrl}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`
     }));
   }
   if (!!cards) {
     cards = cards.map((card) => ({
-      img: `${req.baseUrl}/${card.filename}`
+      img: `${folderName}/${card.filename}`
     }));
   }
 

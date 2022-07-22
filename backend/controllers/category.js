@@ -27,6 +27,7 @@ function createCategoryHierarchy(categories, parentId = null) {
 
 exports.addCategory = asyncHandler(async (req, res, next) => {
   const { name, parentId, viewType } = req.body;
+  const folderName = req.baseUrl.split("/")[2]
 
   const categoryObj = {
     name,
@@ -35,7 +36,7 @@ exports.addCategory = asyncHandler(async (req, res, next) => {
   };
   if (parentId) categoryObj.parentId = parentId;
   if (viewType) categoryObj.viewType = viewType;
-  if (req.file) categoryObj.categoryImg = `${req.baseUrl}/${req.file.filename}`;
+  if (req.file) categoryObj.categoryImg = `${folderName}/${req.file.filename}`;
 
   const category = await Category.create(categoryObj);
 
@@ -53,10 +54,11 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
 exports.updateCategories = asyncHandler(async (req, res, next) => {
   const { _id, name, parentId, viewType } = req.body;
   const updatedCategories = [];
+  const folderName = req.baseUrl.split("/")[2]
 
   let categoryImg = [];
   if (req.files.length > 0) {
-    categoryImg = req.files.map((file) => `${req.baseUrl}/${file.filename}`);
+    categoryImg = req.files.map((file) => `${folderName}/${file.filename}`);
   }
 
   //객체 타입이 맞으면 true 아니면 false

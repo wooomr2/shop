@@ -53,9 +53,9 @@ function Checkout() {
       paymentStatus: "pending",
     };
 
-    dispatch(addOrder(order));
-    navigate("/success", { replace: true });
-    // navigate("/stripe", {state: order});
+    // dispatch(addOrder(order));
+    // navigate("/success", { replace: true });
+    navigate("/stripe", {state: order});
   };
 
   return (

@@ -11,6 +11,7 @@ export default function CheckoutForm({ order }) {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
+  const returnURL = process.env.REACT_APP_STRIPE_RETURN_URI;
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +60,7 @@ export default function CheckoutForm({ order }) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: process.env.REACT_APP_STRIPE_RETURN_URI
+        return_url: returnURL,
       },
     });
 

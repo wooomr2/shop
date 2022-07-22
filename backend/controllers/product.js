@@ -16,10 +16,13 @@ exports.addProduct = asyncHandler(async (req, res, next) => {
   }));
 
   let productImgs = [];
+  const folderName = req.baseUrl.split("/")[2]
 
   if (req.files.length > 0) {
     productImgs = req.files.map((file) => {
-      return { fileName: `${req.baseUrl}/${file.filename}` };
+      // return { fileName: `${req.baseUrl}/${file.filename}` };
+      return { fileName: `${folderName}/${file.filename}` };
+
     });
   }
 
@@ -142,10 +145,11 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   }));
 
   let productImgs = [];
+  const folderName = req.baseUrl.split("/")[2]
 
   if (req.files.length > 0) {
     productImgs = req.files.map((file) => {
-      return { fileName: `${req.baseUrl}/${file.filename}` };
+      return { fileName: `${folderName}/${file.filename}` };
     });
   }
 

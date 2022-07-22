@@ -20,10 +20,11 @@ exports.upsertReview = asyncHandler(async (req, res, next) => {
     ...others
   } = req.body;
   let { reviewImgs } = req.files;
+  const folderName = req.baseUrl.split("/")[2]
   let review;
 
   if (!!reviewImgs) {
-    reviewImgs = reviewImgs.map((file) => `${req.baseUrl}/${file.filename}`);
+    reviewImgs = reviewImgs.map((file) => `${folderName}/${file.filename}`);
   }
 
   const reviewObj = {

@@ -11,9 +11,11 @@ exports.addLookbook = asyncHandler(async (req, res, next) => {
 
   const pids = products.split(",").map((product) => new ObjectId(product));
 
+  const folderName = req.baseUrl.split("/")[2]
+
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${req.baseUrl}/${banner.filename}`,
+      img: `${folderName}/${banner.filename}`,
     }));
   }
 
@@ -73,10 +75,11 @@ exports.updateLookbook = asyncHandler(async (req, res, next) => {
   let { banners } = req.files;
 
   const pids = products.split(",").map((product) => new ObjectId(product));
+  const folderName = req.baseUrl.split("/")[2]
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${req.baseUrl}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`
     }));
   }
 

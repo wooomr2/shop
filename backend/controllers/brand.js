@@ -5,10 +5,11 @@ const Brand = require("../models/Brand");
 exports.addBrand = asyncHandler(async (req, res, next) => {
   const { name, description } = req.body;
   let { banners } = req.files;
+  const folderName = req.baseUrl.split("/")[2]
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${req.baseUrl}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`
     }));
   }
 
@@ -40,10 +41,11 @@ exports.getBrand = asyncHandler(async (req, res, next) => {
 exports.updateBrand = asyncHandler(async (req, res, next) => {
   const { _id, name, description } = req.body;
   let { banners } = req.files;
+  const folderName = req.baseUrl.split("/")[2]
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${req.baseUrl}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`
     }));
   }
 

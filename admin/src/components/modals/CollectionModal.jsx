@@ -91,7 +91,7 @@ function CollectionModal() {
           <Box className="modal-wrapper">
             <form onSubmit={handleSubmit} className="modal-wrapper-form">
               <p className="form-title">Add New Collection</p>
-              <input
+              <textarea
                 className="form-input"
                 placeholder="Title"
                 required

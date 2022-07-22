@@ -90,7 +90,7 @@ input[type="number"]::-webkit-inner-spin-button {
       cursor: pointer;
 
       .descMenu {
-        padding: 1rem 0;
+        padding: 1.5rem 0;
         display: flex;
         justify-content: space-between;
       }
@@ -99,6 +99,7 @@ input[type="number"]::-webkit-inner-spin-button {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
+        line-height: 2.4rem;
 
         &.descOpen {
           max-height: 20rem;
@@ -380,6 +381,12 @@ input[type="number"]::-webkit-inner-spin-button {
   
       &-price {
         font-size: 1.3rem;
+      }
+
+      &-desc {
+        .desc {
+          line-height: 2rem;
+        }
       }
 
       &-size {

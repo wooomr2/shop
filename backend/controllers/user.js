@@ -49,8 +49,9 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const { _id, roles, email, mobile, point, username } = req.body;
+  const folderName = req.baseUrl.split("/")[2];
   let profileImg = "";
-  if (req.file) profileImg = `${req.baseUrl}/${req.file.filename}`;
+  if (req.file) profileImg = `${folderName}/${req.file.filename}`;
 
   const user = {
     _id,

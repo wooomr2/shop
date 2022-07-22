@@ -145,7 +145,6 @@ function Product() {
         <input
           id="discountPrice"
           placeholder="DiscountPrice"
-          required
           value={discountPrice}
           onChange={(e) => setDiscountPrice(e.target.value)}
         />

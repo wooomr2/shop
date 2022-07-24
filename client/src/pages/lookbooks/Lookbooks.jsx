@@ -9,7 +9,7 @@ import "./lookbooks.scss";
 function Lookbooks() {
   const dispatch = useDispatch();
   const { total, lookbooks } = useSelector((store) => store.lookbook);
-  const perPage = 20;
+  const perPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

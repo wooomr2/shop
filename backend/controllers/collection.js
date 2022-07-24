@@ -11,13 +11,13 @@ exports.addCollection = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${folderName}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`,
     }));
   }
 
   if (!!cards) {
     cards = cards.map((card) => ({
-      img: `${folderName}/${card.filename}`
+      img: `${folderName}/${card.filename}`,
     }));
   }
 
@@ -44,7 +44,12 @@ exports.getAllCollections = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCollections = asyncHandler(async (req, res, next) => {
-  const total = await Collection.find({}).countDocuments();
+  console.log(req.body.keyword);
+  const total = req.body.keyword
+    ? await Collection.find({ brand: req.body.keyword }).countDocuments()
+    : await Collection.find({}).countDocuments();
+
+    
   const collections = await new Feature(Collection, req.body)
     .filter()
     .search()
@@ -72,12 +77,12 @@ exports.updateCollection = asyncHandler(async (req, res, next) => {
 
   if (!!banners) {
     banners = banners.map((banner) => ({
-      img: `${folderName}/${banner.filename}`
+      img: `${folderName}/${banner.filename}`,
     }));
   }
   if (!!cards) {
     cards = cards.map((card) => ({
-      img: `${folderName}/${card.filename}`
+      img: `${folderName}/${card.filename}`,
     }));
   }
 

@@ -11,7 +11,7 @@ function Collections() {
   const location = useLocation();
   const keyword = location.state;
   const { total, collections } = useSelector((store) => store.collection);
-  const perPage = 20;
+  const perPage = 14;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

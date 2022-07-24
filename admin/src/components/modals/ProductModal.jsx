@@ -82,7 +82,7 @@ function ProductModal() {
             dispatch(closeModal()) && resetState();
           }}
         >
-              <Box className="modal-wrapper">
+          <Box className="modal-wrapper">
             <form onSubmit={handleSubmit} className="modal-wrapper-form">
               <p className="form-title">Add New product</p>
 
@@ -101,14 +101,14 @@ function ProductModal() {
                 />
                 <input
                   className="form-input"
-                  placeholder="Brand"
-                  required
-                  onChange={(e) => setBrand(e.target.value)}
+                  placeholder="DiscountPrice"
+                  onChange={(e) => setDiscountPrice(e.target.value)}
                 />
                 <input
                   className="form-input"
-                  placeholder="DiscountPrice"
-                  onChange={(e) => setDiscountPrice(e.target.value)}
+                  placeholder="Brand"
+                  required
+                  onChange={(e) => setBrand(e.target.value)}
                 />
                 <input
                   className="form-input"

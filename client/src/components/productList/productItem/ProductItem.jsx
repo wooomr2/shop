@@ -16,10 +16,10 @@ function Product({ product }) {
         <p><b>{brand}</b></p>
         <p>{name} {color && `(${color})`}</p>
         <p>
-          <span className={`${discountPrice}` > 0 ? "hasDiscount" : ""}>
+          <span className={`${discountPrice !== price ? `hasDiscount` : ""}`}>
             ₩{toKRW(price)}
           </span>
-          {discountPrice && (
+          {discountPrice !== price && (
             <>
             <span className="discount">₩{toKRW(discountPrice)}</span>{" "}
             <span style={{color: "#FF0000" }}>{((1 - discountPrice / price) * 100).toFixed()}%</span>

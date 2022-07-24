@@ -10,7 +10,7 @@ function Menu({ menuOpen, setMenuOpen }) {
   const dispatch = useDispatch();
   const user = localStorage.getItem("user");
   const { pathname } = useLocation();
-  const [brandsMenu, toggleBrandsMenu, setBrandsMenu] = useToggle(false);
+  const [brandsMenu, toggleBrandsMenu] = useToggle(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const logout = () => {

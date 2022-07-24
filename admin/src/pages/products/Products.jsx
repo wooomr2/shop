@@ -28,6 +28,7 @@ function Products() {
             <th>Img</th>
             <th>Price</th>
             <th>Category</th>
+            <th>Code</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -56,6 +57,7 @@ function Products() {
                 </td>
                 <td>{product.price}</td>
                 <td>{product.category.name}</td>
+                <td>{product.code}</td>
                 <td>
                   <button onClick={() => dispatch(deleteProduct(product._id))}>
                     del

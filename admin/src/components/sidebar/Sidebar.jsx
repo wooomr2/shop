@@ -4,6 +4,8 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AppleIcon from '@mui/icons-material/Apple';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import AccessibilityNewOutlinedIcon from '@mui/icons-material/AccessibilityNewOutlined';
 import { NavLink } from "react-router-dom";
 import "./sidebar.scss";
 
@@ -53,13 +55,13 @@ function Sidebar() {
             </li>
             <li>
               <NavLink to="/lookbooks" className="sidebar-menu-item">
-                <InventoryIcon className="icon" />
+                <AccessibilityNewOutlinedIcon className="icon" />
                 <span>Lookbooks</span>
               </NavLink>
             </li>
             <li>
               <NavLink to="/collections" className="sidebar-menu-item">
-                <InventoryIcon className="icon" />
+                <CollectionsBookmarkIcon className="icon" />
                 <span>Collections</span>
               </NavLink>
             </li>

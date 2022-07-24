@@ -19,8 +19,6 @@ function Reviews() {
     dispatch(getReviewsByUserId(payload));
   }, [perPage, currentPage]);
 
-  console.log(reviews);
-
   return (
     <div className="reviews">
       <div className="reviews-title">

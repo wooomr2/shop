@@ -16,16 +16,14 @@ function Product() {
 
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
+  const [discountPrice, setDiscountPrice] = useState(product.discountPrice);
   const [description, setDescription] = useState(product.description);
   const [brand, setBrand] = useState(product.brand);
   const [category, setCategory] = useState(product.category._id);
   const [productImgs, setProductImgs] = useState(product.productImgs);
-
-  const [discountPrice, setDiscountPrice] = useState(
-    product.discountPrice
-  );
   const [code, setCode] = useState(product.code);
   const [color, setColor] = useState(product.color);
+
   let str = "";
   for (let i = 0; i < product.stock.length; i++) {
     str += product.stock[i].size + ":" + product.stock[i].qty;
@@ -42,11 +40,11 @@ function Product() {
     setName(product.name);
     setPrice(product.price);
     setDescription(product.description);
+    setDiscountPrice(product.discountPrice);
     setBrand(product.brand);
     setCategory(product.category._id);
     setProductImgs(product.productImgs);
 
-    setDiscountPrice(product.discountPrice);
     setCode(product.code);
     setColor(product.color);
     setStock(str);
@@ -126,6 +124,18 @@ function Product() {
       </div>
 
       <div className="item">
+        <label className="item-left" htmlFor="discountPrice">
+          할인가격
+        </label>
+        <input
+          id="discountPrice"
+          placeholder="DiscountPrice"
+          value={discountPrice}
+          onChange={(e) => setDiscountPrice(e.target.value)}
+        />
+      </div>
+
+      <div className="item">
         <label className="item-left" htmlFor="brand">
           브랜드
         </label>
@@ -138,17 +148,6 @@ function Product() {
         />
       </div>
 
-      <div className="item">
-        <label className="item-left" htmlFor="discountPrice">
-          할인가격
-        </label>
-        <input
-          id="discountPrice"
-          placeholder="DiscountPrice"
-          value={discountPrice}
-          onChange={(e) => setDiscountPrice(e.target.value)}
-        />
-      </div>
 
       <div className="item">
         <label className="item-left" htmlFor="code">

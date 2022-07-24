@@ -25,7 +25,7 @@ function Products() {
   const [src, altSrc, setSrc] = useAlt("");
   const [isDescOpen, toggleIsDescOpen] = useToggle(false);
   const [isCartOpen, altIsCartOpen, setIsCartOpen] = useAlt(false);
-  const selectRef = useRef(null)
+  const selectRef = useRef(null);
 
   const otherColors = relatedProducts?.filter((v) => v._id !== product._id);
 
@@ -132,19 +132,25 @@ function Products() {
           </div>
 
           <div className={"product-right-price"}>
-            <p className={`${product?.discountPrice ? "hasDiscount" : ""}`}>
+            <p
+              className={`${
+                product?.discountPrice !== product?.price ? `hasDiscount` : ""
+              }`}
+            >
               ₩ {toKRW(product?.price)}
             </p>
-            {product?.discountPrice > 0 && (<p>
-              ₩ {toKRW(product?.discountPrice)}{" "}
-              <span>
-                {(
-                  (1 - product?.discountPrice / product?.price) *
-                  100
-                ).toFixed()}
-                %
-              </span>
-            </p>)}
+            {product?.discountPrice !== product?.price && (
+              <p>
+                ₩ {toKRW(product?.discountPrice)}{" "}
+                <span>
+                  {(
+                    (1 - product?.discountPrice / product?.price) *
+                    100
+                  ).toFixed()}
+                  %
+                </span>
+              </p>
+            )}
           </div>
 
           <div className="product-right-desc">
@@ -186,7 +192,11 @@ function Products() {
 
           <div className="product-right-size">
             <p>SIZE</p>
-            <select ref={selectRef} onChange={onChangeSize} className="selection">
+            <select
+              ref={selectRef}
+              onChange={onChangeSize}
+              className="selection"
+            >
               <option defaultValue hidden>
                 - [필수] OPTIONS -
               </option>
@@ -234,7 +244,10 @@ function Products() {
                     </button>
                   </div>
                   <div className="price">
-                    ₩ {product?.discountPrice > 0 ? toKRW(product?.discountPrice * qty) : toKRW(product?.price * qty)}
+                    ₩{" "}
+                    {product?.discountPrice
+                      ? toKRW(product?.discountPrice * qty)
+                      : toKRW(product?.price * qty)}
                   </div>
                 </div>
               </div>

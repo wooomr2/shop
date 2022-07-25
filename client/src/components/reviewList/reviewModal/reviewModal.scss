@@ -61,6 +61,8 @@
 
 @media screen and (max-width: $sm) {
   .reviewModal {
+    height: 100svh;
+    
     &-wrapper {
       width: 80%;
       height: 80vh;

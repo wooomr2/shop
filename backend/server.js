@@ -19,21 +19,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use(function(req, res, next) {
-
-//   if (req.path.split("/")[1]==="public") {
-//     const decoded = decodeURIComponent(req.path)
-//   }
-//   next();
-// });
-app.use(
-  express.static("/public", {
-    setHeaders: function (res, path, stat) {
-      console.log(res)
-      console.log(path)
-    },
-  })
-);
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/refresh", require("./routes/refresh"));

@@ -9,7 +9,6 @@ const cookieParser = require("cookie-parser");
 const errorHandler = require("./middlewares/errorHandler");
 const { logger } = require("./middlewares/logger");
 const credentials = require("./middlewares/credentials");
-const { decode } = require("punycode");
 
 connectDB();
 app.use(logger);

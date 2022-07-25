@@ -3,6 +3,10 @@ https://haoshop.xyz
 <br>
 https://www.haoshop.xyz
 
+- 테스트카드 : 4242-4242-4242-4242 
+- 월/CVC는 실제 카드 양식에만 맞게 기입하세요
+- id: test@gmail.com / pw: 123456(*중복 로그인시 토큰 초기화 되니 회원가입하시고 둘러보세요)
+
 # 사용 기술
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
@@ -14,6 +18,10 @@ https://www.haoshop.xyz
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+# 프로젝트 개요
+- 개발인원 : 2명 / 개발기간 : 2달
+- 온전히 기능하는 쇼핑몰 만들어보기
+- 재귀함수 활용 계층형 상품 카테고리 구현
 
 # 프로젝트 후기
 ### 1. Controller Service/DAO 분리 필요
@@ -47,17 +55,20 @@ https://www.haoshop.xyz
 - prefetching, retry 등의 다양한 옵션 & Hook 활용
 
 ### 6. ServerSide로 프로젝트 바꿔볼 것
-- 이전 스프링 프로젝트와 다르게 ClientSide로 만들어 봤지만 쇼핑몰처럼 정적 page가 많은경우 SSR이 효율적일 듯 ==> nextjs로 옮겨보자
+- 이전 스프링 프로젝트와 다르게 ClientSide로 만들어 봤지만 쇼핑몰의 경우 SSR이 효율적일 듯 ==> nextjs로 옮겨보자
 
 ### 7. Typescript
-- JAVA에 익숙한 상태에서 js를 써보니 타입이 없어 너무 불편
-- 2개의 사이드 프로젝트(reddit / netflix)로 Typescript 연습 완료!!
-### 8. 테스트기반의 개발 필요
-- BACK과 FRONT-API 를 혼자 개발 하다보니 POSTMAN으로 동작 확인 후 바로 api 연동하여 개발 -> 테스트에 소홀 -> TDD연습 필요!!
+- JAVA에 익숙한 상태에서 js를 써보니 타입이 없어 불편
+- 2개의 사이드 프로젝트(https://github.com/wooomr2/reddit / https://github.com/wooomr2/netflix)로 Typescript 연습
+### 8. TDD
+- BACK과 FRONT-API 를 혼자 개발 하다보니 POSTMAN으로 동작 확인 후 바로 api 연동하여 개발 -> 테스트 기반의 개발 필요!
 
-### 9. noSql 익숙해지기
-- 최근 MongoDB, Firebase를 사용했지만 아직도 관계형으로 먼저 생각후 Nosql로 변환 중... 얼른 적응합시다!! 
-
+### 9. CORS
+- Get 요청시 paging요소를 QueryString형식으로 보내면 url이 길어져 사용자 입장에서 보기 안좋을 것이라 판단 -> post방식으로 Object 전송
+- 개발 과정에서는 문제 없다가 배포과정에서 CORS 위반
+- nginx에 static파일을 post로 요청하면 405 에러 발생
+- error_page 405 = $uri;  405에러 발생시에도 uri를 돌리는 방식으로 해결
+- 다시 queryString형식으로 받아 Get방식으로 paging하도록 수정할 것
 
 # AWS EC2(UBUNTU) 배포
 

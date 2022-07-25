@@ -288,14 +288,14 @@ sudo certbot --nginx
 ```
 - 이후 절차따라 실행하면 https 설정 완료
 
-- https 설정 완료된 sites-availalbe 설정은 다음과 같은 형태
+- https 설정 완료된 sites-available 설정은 다음과 같은 형태
 ```
 server {
         root /home/ubuntu/apps/shop/client/build;
 
         index index.html;
 
-        server_name _ 13.52.254.187;
+        server_name haoshop.xyz www.haoshop.xyz;
 
         location / {
                 try_files $uri /index.html;
@@ -350,7 +350,7 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-        server_name haoshop.xyz www.haoshop.xzy 3.101.41.248;
+        server_name haoshop.xyz www.haoshop.xyz;
     return 404; # managed by Certbot
 }
 

@@ -173,7 +173,7 @@ server {
 
         index index.html;
 
-        server_name _ 13.52.254.187;
+        server_name haoshop.xyz www.haoshop.xyz 3.101.41.248;
 
         location / {
                 try_files $uri /index.html;
@@ -248,7 +248,7 @@ printenv
 
 ### 14. nginx 권한 해결
 ```
-vi /etc/nginx/nginx.conf 
+sudo vi /etc/nginx/nginx.conf 
 ```
 
  - /etc/nginx/nginx.conf 에서 유저 권한 변경
@@ -291,9 +291,6 @@ sudo certbot --nginx
 - https 설정 완료된 sites-availalbe 설정은 다음과 같은 형태
 ```
 server {
-        listen 80;
-        listen [::]:80;
-
         root /home/ubuntu/apps/shop/client/build;
 
         index index.html;
@@ -330,7 +327,33 @@ server {
           proxy_set_header Connection "Upgrade";
           proxy_set_header Host $host;
         }
+
+        listen [::]:443 ssl ipv6only=on; # managed by Certbot
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/haoshop.xyz/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/haoshop.xyz/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
+
+server {
+    if ($host = haoshop.xyz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    if ($host = www.haoshop.xyz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name haoshop.xyz www.haoshop.xzy 3.101.41.248;
+    return 404; # managed by Certbot
+}
+
 ```
 
 

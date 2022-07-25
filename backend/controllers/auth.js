@@ -243,7 +243,10 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
   user.save();
 
-  const resetUrl = `http://localhost:3000/reset_password/${resetToken}`;
+  const resetUrl =
+    process.env.NODE_ENV === "producton"
+      ? `http://haoshop.xyz/reset_password/${resetToken}`
+      : `http://localhost:3000/reset_password/${resetToken}`;
   const message = `<h1>비밀번호 초기화 요청</h1>
     <p>아래 링크로 접속 후 비밀번호 초기화 하세요:</p>
     <a href=${resetUrl} clicktracking=off>${resetUrl}</a>`;
@@ -286,7 +289,7 @@ exports.resetPassword = (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      msg: "비밀번호 변경 선공"
+      msg: "비밀번호 변경 선공",
     });
   });
 };

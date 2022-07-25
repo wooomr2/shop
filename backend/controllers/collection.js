@@ -44,7 +44,6 @@ exports.getAllCollections = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCollections = asyncHandler(async (req, res, next) => {
-  console.log(req.body.keyword);
   const total = req.body.keyword
     ? await Collection.find({ brand: req.body.keyword }).countDocuments()
     : await Collection.find({}).countDocuments();

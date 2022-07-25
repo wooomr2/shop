@@ -1,7 +1,7 @@
 @import "../../variable.scss";
 
 .brands-container {
-  margin: 7rem 0;
+  padding: 7rem 0;
   width: calc(100vw - (100vw - 100%));
   font-size: 1.4rem;
 
@@ -40,10 +40,10 @@
 
 @media screen and (max-width: $lg) {
   .brands-container {
-    margin: 5rem 0;
+    padding: 5rem 2rem;
     
     .brands-wrapper {
-      width: 80%;
+      width: 100%;
     }
   }
 }
@@ -52,7 +52,6 @@
   .brands-container {
     font-size: 1.3rem;
     .brands-wrapper {
-      width: 80%;
 
       .brands-info {
         line-height: 2rem;
@@ -63,7 +62,7 @@
 
 @media screen and (max-width: $sm) {
   .brands-container {
-    margin: 2rem 0;
+    padding: 2rem;
     font-size: $smFont;
     margin-top: 0;
 

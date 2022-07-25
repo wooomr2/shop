@@ -131,9 +131,11 @@
 @media screen and (max-width: $sm) {
   .cart-container {
     font-size: $smFont;
-    padding: 2rem 0;
+    padding: 2rem;
 
     .cart-wrapper {
+      width: 100%;
+      
       .cart-title {
         > h2 {
           font-size: 1.5rem;

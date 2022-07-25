@@ -49,8 +49,6 @@ function ReviewForm() {
     setReviewImgs(review.reviewImgs || []);
   }, []);
 
-  console.log(review.product);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (reviewImgs.length === 0) return alert("파일없음");
@@ -58,7 +56,7 @@ function ReviewForm() {
     const form = new FormData();
     form.append("_id", review._id);
     form.append("order", review.order);
-    form.append("product", review.product._id);
+    form.append("product", review.product);
     form.append("purchasedSize", review.purchasedSize);
     form.append("user", user._id);
     form.append("username", user.username);

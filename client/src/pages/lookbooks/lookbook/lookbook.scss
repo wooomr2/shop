@@ -1,7 +1,7 @@
 @import "../../../variable.scss";
 
 .lookbook {
-  margin: 7rem 0;
+  padding: 7rem 0;
   display: flex;
   justify-content: center;
   width: calc(100vw - (100vw - 100%));
@@ -64,6 +64,8 @@
 
           &-left {
             width: 20%;
+            flex-shrink: 0;
+            
             .link {
               width: 100%;
               
@@ -87,7 +89,7 @@
 
 @media screen and (max-width: $lg) {
   .lookbook {
-    margin: 5rem 0;
+    padding: 5rem 0;
     flex-direction: column;
 
     &-left {
@@ -153,11 +155,12 @@
 
 @media screen and (max-width: $sm) {
   .lookbook {
-    margin: 2rem 0;
+    padding: 2rem 2rem;
     font-size: $smFont;
     line-height: 1.6rem;
 
     &-left {
+      width: 100%;
       padding-bottom: $smFont;
 
       .desc {
@@ -166,6 +169,7 @@
     }
 
     &-right {
+      width: 100%;
       margin-top: $smFont;
 
       &-item {

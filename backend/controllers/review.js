@@ -19,6 +19,8 @@ exports.upsertReview = asyncHandler(async (req, res, next) => {
     product,
     ...others
   } = req.body;
+
+  console.log(req.body);
   let { reviewImgs } = req.files;
   const folderName = req.baseUrl.split("/")[2]
   let review;

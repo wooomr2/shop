@@ -88,15 +88,17 @@
 @media screen and (max-width: $sm) {
   .collections {
     font-size: $smFont;
-    padding: 2rem 0;
+    padding: 2rem 2rem;
     line-height: 1.6rem;
 
     &-main {
+      width: 100%;
       row-gap: 1rem;
       padding-bottom: 1rem;
     }
 
     &-sub {
+      width: 100%;
       row-gap: 1rem;
     }
   }

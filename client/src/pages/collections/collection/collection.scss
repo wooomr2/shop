@@ -2,7 +2,7 @@
 
 .collection {
    width: calc(100vw - (100vw - 100%));
-   margin: 7rem 0;
+   padding: 7rem 0;
    font-size: 1.4rem;
    line-height: 2.2rem;
    color: $black-light;
@@ -51,7 +51,7 @@
 
 @media screen and (max-width: $lg) {
   .collection {
-    margin: 5rem 0;
+    padding: 5rem 0;
 
    &-wrapper {
      &-top {
@@ -98,11 +98,13 @@
 
 @media screen and (max-width: $sm) {
   .collection {
-    margin: 2rem 0;
+    padding: 2rem 2rem;
     font-size: 1rem;
     line-height: 1.6rem;
 
     &-wrapper {
+      width: 100%;
+      
       &-top {
         .top-left {
           &-name {

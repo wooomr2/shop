@@ -54,7 +54,8 @@
 
 @media screen and (max-width: $sm) {
   .mypage {
-    padding: 2rem 0;
+    padding: 2rem;
+    width: 100%;
     font-size: $smFont;
     
     &-bottom {

@@ -166,7 +166,7 @@ function Products() {
             </div>
             <div className={`desc ${isDescOpen ? "descOpen" : ""}`}>
               {product?.description?.split("\n").map((line, i) => (
-                <p key={line}>{line}</p>
+                <p key={i}>{line}</p>
               ))}
             </div>
           </div>

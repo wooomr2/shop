@@ -15,6 +15,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
   &-left {
     width: 55%;
+    height: 100%;
     display: flex;
 
     &-img {
@@ -99,10 +100,11 @@ input[type="number"]::-webkit-inner-spin-button {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
-        line-height: 2.4rem;
+        line-height: 2rem;
+        font-size: 1.2rem;
 
         &.descOpen {
-          max-height: 20rem;
+          max-height: 100rem;
         }
       }
     }
@@ -277,6 +279,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
       &-mainImg {
         width: 100%;
+        height: auto;
         margin: 0 auto;
       }
     }
@@ -344,11 +347,12 @@ input[type="number"]::-webkit-inner-spin-button {
 
 @media screen and (max-width: $sm) {
   .product {
-    padding: 1rem 0;
+    padding: 1rem 2rem;
     flex-direction: column;
     font-size: $smFont;
 
     &-left {
+      width: 100%;
       flex-direction: column-reverse;
       row-gap: 0.5rem;
 
@@ -363,6 +367,7 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     &-right {
+      width: 100%;
       row-gap: 1rem;
 
       .brand-button {
@@ -383,12 +388,6 @@ input[type="number"]::-webkit-inner-spin-button {
         font-size: 1.3rem;
       }
 
-      &-desc {
-        .desc {
-          line-height: 2rem;
-        }
-      }
-
       &-size {
         .selection {
           padding: 0.5rem 0.3rem;
@@ -397,7 +396,6 @@ input[type="number"]::-webkit-inner-spin-button {
       }
 
       &-button {
-
         .cart-alert {
           top: -9rem;
 

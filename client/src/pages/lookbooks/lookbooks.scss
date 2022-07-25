@@ -52,10 +52,10 @@
 
 @media screen and (max-width: $sm) {
   .lookbooks-container {
-    padding: 2rem 0;
-    font-size: $smFont;
+    padding: 2rem 2rem;
 
     .lookbooks-wrapper {
+      width: 100%;
       grid-template-columns: 1fr; 
       gap: 2rem 0;
     }

@@ -59,7 +59,7 @@ https://www.haoshop.xyz
 
 ### 7. Typescript
 - JAVA에 익숙한 상태에서 js를 써보니 타입이 없어 불편
-- 2개의 사이드 프로젝트(https://github.com/wooomr2/reddit / https://github.com/wooomr2/netflix)로 Typescript 연습
+- 2개의 사이드 프로젝트(https://github.com/wooomr2/reddit / https://github.com/wooomr2/netflix )로 Typescript 연습
 ### 8. TDD
 - BACK과 FRONT-API 를 혼자 개발 하다보니 POSTMAN으로 동작 확인 후 바로 api 연동하여 개발 -> 테스트 기반의 개발 필요!
 

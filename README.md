@@ -21,7 +21,6 @@ https://www.haoshop.xyz
 # 프로젝트 개요
 - 개발인원 : 2명 / 개발기간 : 2달
 - 온전히 기능하는 쇼핑몰 만들어보기
-- 재귀함수 활용 계층형 상품 카테고리 구현
 
 # 프로젝트 후기
 ### 1. Controller Service/DAO 분리 필요
@@ -72,8 +71,7 @@ https://www.haoshop.xyz
 
 ### 10. 배포
 - CI/CD git과 aws 연동하기
-- 여유 있으면 admin/back/client 별도 서버로 구축
-
+- admin/back/client 별도 서버로 구축해보기
 
 # AWS EC2(UBUNTU) 배포
 

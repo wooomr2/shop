@@ -70,6 +70,11 @@ https://www.haoshop.xyz
 - error_page 405 = $uri;  405에러 발생시에도 uri를 돌리는 방식으로 해결
 - 다시 queryString형식으로 받아 Get방식으로 paging하도록 수정할 것
 
+### 10. 배포
+- CI/CD git과 aws 연동하기
+- 여유 있으면 admin/back/client 별도 서버로 구축
+
+
 # AWS EC2(UBUNTU) 배포
 
 ### 1. 보안 그룹 설정
